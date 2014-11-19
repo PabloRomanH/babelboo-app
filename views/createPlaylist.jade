@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 Create new playlist
+
+  .error= message
+
+  p.
+    Write all the YouTube video ids in separate lines:
+
+  form(action="/createPlaylist", method="post")
+    p
+      label Playlist name:
+      input(type="text", name="title")
+    p
+      label Video ids:
+      textarea(rows="4", cols="50", name="idlist")
+    p
+      input(type="submit", value="Create")

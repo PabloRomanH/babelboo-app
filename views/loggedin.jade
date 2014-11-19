@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  p You logged in as #{username}
+  p
+    a(href="/allPlaylists") View all the existing playlists
+  p
+    a(href="/createPlaylist") Create new playlist
+  p
+    a(href="/logout") Log out
+
