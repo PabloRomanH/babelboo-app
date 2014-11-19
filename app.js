@@ -15,7 +15,7 @@ function findByUserName(username, callback)
 {
     var collection = db.get('usercollection');
     collection.find({username: username},{},function (err, result) {
-        if (result.length == 0)
+        if (result.length === 0)
             return callback(null, null);
         else
             return callback(null, result[0]);
@@ -122,7 +122,7 @@ if (app.get('env') === 'development') {
   app.locals.pretty = true;
 }
 
-var server = app.listen(3000);
+var server = app.listen(process.env.PORT);
 console.log('Express server started on port %s', server.address().port);
 
 module.exports = app;
