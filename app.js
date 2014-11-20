@@ -87,12 +87,14 @@ app.use(function(req,res,next){
 
 var routes = require('./routes/index');
 var login = require('./routes/login');
-// var createPlaylist = require('./routes/createPlaylist');
+var logout = require('./routes/logout');
+var createPlaylist = require('./routes/createPlaylist');
 var allPlaylists = require('./routes/allPlaylists');
 
 app.use('/', routes);
 app.use('/login', login);
-//// app.use('/createPlaylist', createPlaylist);
+app.use('/logout', logout);
+app.use('/createPlaylist', createPlaylist);
 app.use('/allPlaylists', allPlaylists);
 
 

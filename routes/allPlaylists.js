@@ -3,7 +3,7 @@ var passport = require('passport');
 
 var router = express.Router();
 
-router.get('/allPlaylists', function(req, res){
+router.get('/', function(req, res){
     if (!req.user) res.redirect('/login');
     
     var collection = req.db.get('playlists');

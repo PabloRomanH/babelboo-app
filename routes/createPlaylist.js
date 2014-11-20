@@ -7,13 +7,13 @@ var youtube = require('googleapis').youtube('v3');
 var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
 
 
-router.get('/createPlaylist', function(req, res){
+router.get('/', function(req, res){
     if (!req.user) res.redirect('/login');
 
     res.render('createPlaylist', { message: req.flash('error') });
 });
 
-router.post('/createPlaylist', function(req, res){
+router.post('/', function(req, res){
     if (!req.user) return;
 
     var collection = req.db.get('playlists');

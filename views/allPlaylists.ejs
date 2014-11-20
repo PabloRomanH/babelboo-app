@@ -1,19 +1,16 @@
 <h1>All playlists</h1>
-<p>
-  <div class="error"><%= error %></div>
-</p>
 
 <div class="row">
 <% 
-  for (var i = 0; i < playlists.length; i??) { 
-  playlist = playlists[i];
+  for (var i = 0; i < playlists.length; i++) { 
+  var playlist = playlists[i];
 %>
-  <h2>playlist.title</h2>
+  <h2><%= playlist.title %></h2>
   <div class="row">
 
 <% 
-    for (var j = 0; j < playlist.entries; j++) {
-      video = playlists.entries[j];
+    for (var j = 0; j < playlist.entries.length; j++) {
+      video = playlist.entries[j];
 %>
     <div class="col-xs-6 col-sm-2"><img src="<%= video.thumbnail%>" class="img-responsive">
       <p class="videoTitle"><%= video.title%></p>
