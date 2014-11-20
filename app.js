@@ -8,8 +8,9 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
-var mongo = require('mongodb');
+//var mongo = require('mongodb');
 var db = require('monk')('localhost:27017/nodetest1');
+var partials = require('express-partials');
 
 function findByUserName(username, callback)
 {
@@ -52,21 +53,20 @@ passport.use(new LocalStrategy(
             if (!user) {
                 return done(null, false, { message: 'Incorrect username. Try again.' });
             }
-            if (user.password != password) {
-                return done(null, false, { message: 'Incorrect password. Try again.' });
-            }
+//            if (user.password != password) {
+//                return done(null, false, { message: 'Incorrect password. Try again.' });
+//            }
             return done(null, user);
         });
     }
     ));
 
-var routes = require('./routes/index');
-
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
+app.use(partials());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -85,7 +85,16 @@ app.use(function(req,res,next){
     next();
 });
 
+var routes = require('./routes/index');
+var login = require('./routes/login');
+// var createPlaylist = require('./routes/createPlaylist');
+var allPlaylists = require('./routes/allPlaylists');
+
 app.use('/', routes);
+app.use('/login', login);
+//// app.use('/createPlaylist', createPlaylist);
+app.use('/allPlaylists', allPlaylists);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
