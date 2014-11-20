@@ -30,13 +30,18 @@ p.videoTitle {
 }
 
 .correctAnswer {
-  color: #00FF00;
+  background-color: #00FF00;
 }
 
 .incorrectAnswer {
-  color: #FF0000;
+  background-color: #FF0000;
 }
 
-#question, #answers {
+#qa {
   text-align: left;
+  display: none;
+}
+
+#summary {
+  display: none;
 }

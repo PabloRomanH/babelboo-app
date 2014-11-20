@@ -4,18 +4,25 @@ var current_video_idx = 0;
 
 var playlist;
 
+var questionsAtTheEnd = false;
+var correctAnswers = 0;
+var incorrectAnswers = 0;
+
 $(function() {
+    if (!questionsAtTheEnd) {
+        $('#qa').show();
+    }
+        
     $.get( 'api/playlist/' + playlistId, function( data ) {
         playlist = data;
         
         loadVideo();
         
-        $('#btn_next').click(function() {
+        $('#btn-next').click(function() {
         //     _gaq.push(['_trackEvent', 'video', 'skip - boring', videoIds[current_video_idx]]);
             playNext();
-            populateQA();
         });
-        
+
         populateQA();
     }, "json" );
 
@@ -23,8 +30,9 @@ $(function() {
 });
 
 function populateQA() {
-    $('#question').empty();
-    $('#answers').empty();
+    if (!playlist.entries[current_video_idx].question) {
+            return;
+    }
     
     $('#question').append(playlist.entries[current_video_idx].question);
     var answers = playlist.entries[current_video_idx].answers;
@@ -36,12 +44,26 @@ function populateQA() {
             $('#answers').children().last().click(
                 function() {
                     $(this).addClass('correctAnswer');
+                    if (questionsAtTheEnd) {
+                        setTimeout(playNext, 2000);
+                    }
+                    
+                    correctAnswers = correctAnswers + 1;
+                    
+                    $('#answers').children().unbind('click');
                 }
             );
         } else {
              $('#answers').children().last().click(
                 function() {
                     $(this).addClass('incorrectAnswer');
+                    if (questionsAtTheEnd) {
+                        setTimeout(playNext, 2000);
+                    }
+                    
+                    incorrectAnswers = incorrectAnswers + 1;
+                    
+                    $('#answers').children().unbind('click');
                 }
             );  
         }
@@ -66,15 +88,41 @@ function loadVideo() {
 }
 
 function playNext() {
-    current_video_idx = (current_video_idx + 1)%playlist.entries.length;
-    video_id = playlist.entries[current_video_idx].id;
-    player.loadVideoById({videoId:video_id});
+    $('#question').empty();
+    $('#answers').empty();
+    
+    current_video_idx = current_video_idx + 1;
+    
+    if (current_video_idx == playlist.entries.length) {
+        showSummary();        
+    } else {
+        video_id = playlist.entries[current_video_idx].id;
+        player.loadVideoById({videoId:video_id});
+        
+        if (questionsAtTheEnd)
+            $('#qa').hide();
+        populateQA();
+    }
+}
+
+function showSummary() {
+    player.stopVideo();
+    $('#video').hide();
+    $('#summary').show();
+    
+    $('#number-of-videos').append(playlist.entries.length);
+    $('#number-correct').append(correctAnswers);
+    $('#number-incorrect').append(incorrectAnswers);
 }
 
 function onPlayerStateChange (event) {
     if (event.data == YT.PlayerState.ENDED) {
         _gaq.push(['_trackEvent', 'video', 'finished', playlist.entries[current_video_idx].id]);
-        playNext();
+        if (questionsAtTheEnd) {
+            $('#qa').show();
+        } else {
+            playNext();
+        }
     }
 }
 
