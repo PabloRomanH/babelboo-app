@@ -93,8 +93,17 @@ var createPlaylist = require('./routes/createPlaylist');
 var allPlaylists = require('./routes/allPlaylists');
 var api = require('./routes/api');
 
-app.use('/', routes);
 app.use('/login', login);
+app.use(function(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+});
+
+app.use('/', routes);
+
 app.use('/logout', logout);
 app.use('/play', play);
 app.use('/createPlaylist', createPlaylist);
