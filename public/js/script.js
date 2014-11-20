@@ -2,29 +2,51 @@ var player;
 var _gaq = _gaq || [];
 var current_video_idx = 0; 
 
-var videoIds = [];
+var playlist;
 
 $(function() {
     $.get( 'api/playlist/' + playlistId, function( data ) {
-        for (var i = 0; i < data.entries.length; i++) {
-            videoIds.push(data.entries[i].id);
-        }
+        playlist = data;
         
         loadVideo();
         
-        $('#btn_hard').click(function() {
-            _gaq.push(['_trackEvent', 'video', 'skip - hard', videoIds[current_video_idx]]);
+        $('#btn_next').click(function() {
+        //     _gaq.push(['_trackEvent', 'video', 'skip - boring', videoIds[current_video_idx]]);
             playNext();
+            populateQA();
         });
-    
-        $('#btn_boring').click(function() {
-            _gaq.push(['_trackEvent', 'video', 'skip - boring', videoIds[current_video_idx]]);
-            playNext();
-        });
+        
+        populateQA();
     }, "json" );
 
     loadAnalytics();
 });
+
+function populateQA() {
+    $('#question').empty();
+    $('#answers').empty();
+    
+    $('#question').append(playlist.entries[current_video_idx].question);
+    var answers = playlist.entries[current_video_idx].answers;
+    
+    for (var i = 0; i < answers.length; i++) {
+        $('#answers').append('<li>' + answers[i] + '</li>');
+        
+        if (i == playlist.entries[current_video_idx].correctAnswer) {
+            $('#answers').children().last().click(
+                function() {
+                    $(this).addClass('correctAnswer');
+                }
+            );
+        } else {
+             $('#answers').children().last().click(
+                function() {
+                    $(this).addClass('incorrectAnswer');
+                }
+            );  
+        }
+    }
+}
 
 function loadAnalytics() {
     _gaq.push(['_setAccount', 'UA-56348024-1'],
@@ -44,14 +66,14 @@ function loadVideo() {
 }
 
 function playNext() {
-    current_video_idx = (current_video_idx + 1)%videoIds.length;
-    video_id = videoIds[current_video_idx];
+    current_video_idx = (current_video_idx + 1)%playlist.entries.length;
+    video_id = playlist.entries[current_video_idx].id;
     player.loadVideoById({videoId:video_id});
 }
 
 function onPlayerStateChange (event) {
     if (event.data == YT.PlayerState.ENDED) {
-        _gaq.push(['_trackEvent', 'video', 'finished', videoIds[current_video_idx]]);
+        _gaq.push(['_trackEvent', 'video', 'finished', playlist.entries[current_video_idx].id]);
         playNext();
     }
 }
@@ -60,7 +82,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
         height: '480',
         width: '640',
-        videoId: videoIds[current_video_idx],
+        videoId: playlist.entries[current_video_idx].id,
         playerVars: {
             'autoplay': 1,
             'controls': 1,

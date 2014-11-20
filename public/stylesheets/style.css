@@ -28,3 +28,15 @@ p.videoTitle {
 .jumbotron {
 	text-align: center;
 }
+
+.correctAnswer {
+  color: #00FF00;
+}
+
+.incorrectAnswer {
+  color: #FF0000;
+}
+
+#question, #answers {
+  text-align: left;
+}
