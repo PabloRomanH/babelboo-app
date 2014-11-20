@@ -1,0 +1,19 @@
+<h1>Create new playlist</h1>
+<div class="error"><%= message %></div>
+<p>
+  Write all the YouTube video ids in separate lines:
+  
+</p>
+<form action="/createPlaylist" method="post">
+  <p>
+    <label>Playlist name:</label>
+    <input type="text" name="title">
+  </p>
+  <p>
+    <label>Video ids:</label>
+    <textarea rows="4" cols="50" name="idlist"></textarea>
+  </p>
+  <p>
+    <input type="submit" value="Create">
+  </p>
+</form>

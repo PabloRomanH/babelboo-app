@@ -1,0 +1,33 @@
+<script>
+  var playlistId = "<%= playlistId %>";
+</script>
+
+<div class="container">
+  <div class="jumbotron">
+    <h2>Videos en inglés</h2>
+    <div class="video" id="video">
+      <div id="ytplayer" class="player"></div>
+      <div class="row">
+        <div class="col-lg-6"><a id="btn-next" class="btn btn-lg btn-primary">Siguiente</a></div>
+      </div>
+    </div>
+
+    <div id="summary">
+      <h3>Summary</h3>
+      <p>
+        <span>Number of videos:</span> <span id="number-of-videos"></span>
+      </p>
+      <p>
+        <span>Correct answers:</span> <span id="number-correct"></span>
+      </p>
+      <p>
+        <span>Incorrect answers:</span> <span id="number-incorrect"></span> 
+      </p>
+    </div>
+    
+    <div class="row qa" id="qa">
+      <h2 id="question"></h2>
+      <ul id="answers"></ul>
+    </div>
+  </div>
+</div>

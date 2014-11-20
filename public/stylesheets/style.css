@@ -15,3 +15,33 @@ p.videoTitle {
   white-space: nowrap;
   overflow: hidden;
 }
+
+#ytplayer {
+    width: 640px;
+    height: 480px;
+}
+
+.container {
+	width: 800px;
+}
+
+.jumbotron {
+	text-align: center;
+}
+
+.correctAnswer {
+  background-color: #00FF00;
+}
+
+.incorrectAnswer {
+  background-color: #FF0000;
+}
+
+#qa {
+  text-align: left;
+  display: none;
+}
+
+#summary {
+  display: none;
+}

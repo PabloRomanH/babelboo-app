@@ -1,0 +1,12 @@
+<h1>Login</h1>
+<div class="error"><%= message %></div>
+<form action="/login" method="post">
+  <div>
+    <label>Username:</label>
+    <input type="text" name="username">
+    <input type="hidden" name="password" value="pass">
+  </div>
+  <div>
+    <input type="submit" value="Log In">
+  </div>
+</form>

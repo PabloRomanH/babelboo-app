@@ -1,0 +1,52 @@
+to do next:
+
+- [bug] disable next click after answering (enable it afterwards)
+- [bug] check for non-existing QA
+
+- summary of correct and wrong answers at the end of video session
+- 9gag - hide part of the playlists initially
+- 9gag - gradually show more playlists (marked as new)
+- A/B functionality depending on user
+
+
+
+Requirements
+    Nice website
+    User registration
+
+Playlists
+    Playlist storage (DB)
+    Playlist reproduction
+    Playlist tags
+    Search by tag + difficulty
+    Create playlists themselves
+    Playlist completion (visual cue that marks a playlist as watched)
+    Playlist validation (playlists marked as good)
+
+Q&A
+    Questions while playing video
+    Questions after watching video
+    Questions completed (visual cue that marks a playlist as answered)
+
+9Gag (always something new + finished checking everything new)
+    Per-user hiding of some playlists at first use
+    "Unlocking" of new playlists that appear as new to the user every day of use
+    Old unvisited playlists appear at the bottom and are harder to reach
+    "You got new stuff" reminder email
+
+Wiki (user-generated playlists, questions, difficulty adjustment, etc.)
+    Interface to create playlists (bonus: easily)
+    Interface to edit playlists
+    Interface to modify playlist tags 
+    Interface to edit questions
+    Upvote/downvote difficulty
+    Comment on questions
+
+Stack Overflow (milestones unlock privileges + rank visible to other users)
+    Learning goals? Can be implemented as badges
+    Reputation/badges per user
+    When do other users see them?
+    Unlocked privileges 
+    Number of points to increase rank
+    Create playlists, modify other's playlists, modify other's questions, comment on questions
+    What gives points
