@@ -88,14 +88,18 @@ app.use(function(req,res,next){
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
+var play = require('./routes/play');
 var createPlaylist = require('./routes/createPlaylist');
 var allPlaylists = require('./routes/allPlaylists');
+var api = require('./routes/api');
 
 app.use('/', routes);
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/play', play);
 app.use('/createPlaylist', createPlaylist);
 app.use('/allPlaylists', allPlaylists);
+app.use('/api', api);
 
 
 // catch 404 and forward to error handler

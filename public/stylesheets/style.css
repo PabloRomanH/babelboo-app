@@ -15,3 +15,16 @@ p.videoTitle {
   white-space: nowrap;
   overflow: hidden;
 }
+
+#ytplayer {
+    width: 640px;
+    height: 480px;
+}
+
+.container {
+	width: 800px;
+}
+
+.jumbotron {
+	text-align: center;
+}
