@@ -1,5 +1,23 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/createPlaylist.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+<div id="searchresult-template" class="row searchresult" data-search-idx="">
+  <div class="col-xs-6 col-sm-2">
+    <img id="resultimg" src="" class="img-responsive">
+  </div>
+  <div id="resultname" class="col-xs-6 col-sm-10">
+  </div>
+</div>
+
+<div id="playlist-item-template" class="row playlist-item" data-video-id="">
+  <div class="col-xs-6 col-sm-2">
+    <img id="itemimg" src="" class="img-responsive">
+  </div>
+  <div id="itemtitle" class="col-xs-6 col-sm-10">
+    <a id="itembutton" class="btn btn-danger btn-remove" data-video-id="">Remove</a>
+  </div>
+</div>
 
 <h1>Create new playlist</h1>
 <div class="error"><%= message %></div>
@@ -20,5 +38,5 @@
 
 <div class="row" id="playlist-videos"></div>
 
-<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
 

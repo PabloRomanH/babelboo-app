@@ -52,15 +52,14 @@ function search() {
         $('#result').empty();
         for (var i = 0; i < items.length; i++) {
             var snippet = items[i].snippet;
-            $('#result').append(
-                '<div class="row searchresult" data-search-idx="' + i + '">' +
-                    '<div class="col-xs-6 col-sm-2">' +
-                        '<img src=' + snippet.thumbnails.default.url + ' class="img-responsive">' +
-                    '</div>' +
-                    '<div class="col-xs-6 col-sm-10">' +
-                        snippet.title +
-                    '</div>' +
-                '</div>');
+            var clonedDiv = $('#searchresult-template').clone();
+            clonedDiv.attr('data-search-idx', i);
+            clonedDiv.find('#resultimg').attr('src', snippet.thumbnails.default.url);
+            clonedDiv.find('#resultname').append(snippet.title);
+            console.log(clonedDiv.children('#resultimg'));
+            clonedDiv.show();
+            
+            $('#result').append(clonedDiv);
         }
         $('.searchresult').click(onResultClick);
     });
@@ -73,15 +72,14 @@ function onResultClick(event) {
         return;
     }
     
-    $('#playlist-videos').append(
-        '<div class="row playlist-item" data-video-id="' + videoId + '">' +
-            '<div class="col-xs-6 col-sm-2">' +
-                '<img src=' + video.snippet.thumbnails.default.url + ' class="img-responsive">' +
-            '</div>' +
-            '<div class="col-xs-6 col-sm-10">' +
-                video.snippet.title + '<a class="btn btn-danger btn-remove" data-video-id="' + videoId + '">Remove</a></div>' +
-            '</div>' +
-        '</div>');
+    var clonedDiv = $('#playlist-item-template').clone();
+    clonedDiv.attr('data-video-id', videoId);
+    clonedDiv.find('#itemimg').attr('src', video.snippet.thumbnails.default.url);
+    clonedDiv.find('#itemtitle').prepend(video.snippet.title);
+    clonedDiv.find('#itembutton').attr('data-video-id', videoId);
+    console.log(clonedDiv.children('#resultimg'));
+    clonedDiv.show();
+    $('#playlist-videos').append(clonedDiv);
     
     $('.btn-remove').click(onRemoveClick);
 }

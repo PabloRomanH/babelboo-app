@@ -49,3 +49,11 @@ p.videoTitle {
 .alert {
   display: none;
 }
+
+.searchresult {
+  display: none;
+}
+
+.playlist-item {
+  display: none;
+}
