@@ -12,9 +12,11 @@ router.get('/', function(req, res){
 
 router.post('/', function(req, res){
     var collection = req.db.get('playlists');
+    console.log(req.body.title);
+    console.log(req.body.idlist);
 
     var playlistTitle = req.body.title;
-    var videoIds = req.body.idlist.replace(/\n/g,',');
+    var videoIds = req.body.idlist;
     youtube.videos.list({part:'snippet,id,contentDetails', id:videoIds, key:API_KEY},
         function createPlaylist(err, resp) {
             var videos = [];

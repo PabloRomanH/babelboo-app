@@ -45,3 +45,7 @@ p.videoTitle {
 #summary {
   display: none;
 }
+
+.alert {
+  display: none;
+}
