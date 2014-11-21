@@ -4,7 +4,7 @@ var current_video_idx = 0;
 
 var playlist;
 
-var questionsAtTheEnd = false;
+var questionsAtTheEnd = true;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 
@@ -37,8 +37,14 @@ function answerClicked(event) {
         $(this).addClass('incorrectAnswer');
         correctAnswers = correctAnswers + 1;
     }
+    
     if (questionsAtTheEnd) {
-        setTimeout(playNext, 2000);
+        $('#btn-next').attr('disabled','disabled');
+        
+        setTimeout(function() {
+            $('#btn-next').removeAttr('disabled');
+            playNext();
+        }, 2000);
     }
     
     $('#answers').children().unbind('click');

@@ -90,12 +90,14 @@ var login = require('./routes/login');
 var logout = require('./routes/logout');
 var play = require('./routes/play');
 var createPlaylist = require('./routes/createPlaylist');
+var ninegagPlaylists = require('./routes/ninegagPlaylists');
 var allPlaylists = require('./routes/allPlaylists');
 var api = require('./routes/api');
 
 app.use('/login', login);
 app.use(function(req, res, next) {
     if (req.user) {
+        updateLastLogin(req.user);
         next();
     } else {
         res.redirect('/login');
@@ -107,6 +109,7 @@ app.use('/', routes);
 app.use('/logout', logout);
 app.use('/play', play);
 app.use('/createPlaylist', createPlaylist);
+app.use('/newPlaylists', ninegagPlaylists);
 app.use('/allPlaylists', allPlaylists);
 app.use('/api', api);
 
@@ -149,5 +152,22 @@ if (app.get('env') === 'development') {
 var server = app.listen(process.env.PORT);
 console.log('Express server started on port %s', server.address().port);
 
-module.exports = app;
 
+function updateLastLogin(user) {
+    var collection = db.get('usercollection');
+
+    if (user.lastvisit.toLocaleDateString() != new Date().toLocaleDateString()) {
+        user.daysvisited = user.daysvisited + 1;
+        user.lastvisit = new Date();
+        
+        var find = {"_id" : user._id};
+        var update = {$set: {"daysvisited": user.daysvisited,
+                             "lastvisit": user.lastvisit}
+        };
+        
+        collection.update(find, update);
+    }
+}
+
+
+module.exports = app;
