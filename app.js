@@ -89,14 +89,14 @@ app.use(function(req,res,next){
     next();
 });
 
-var routes = require('./routes/index');
-var login = require('./routes/login');
-var logout = require('./routes/logout');
-var play = require('./routes/play');
-var createPlaylist = require('./routes/createPlaylist');
-var ninegagPlaylists = require('./routes/ninegagPlaylists');
-var allPlaylists = require('./routes/allPlaylists');
-var api = require('./routes/api');
+var routes = require('./routes/rindex');
+var login = require('./routes/rlogin');
+var logout = require('./routes/rlogout');
+var play = require('./routes/rplay');
+var playlist = require('./routes/rplaylist');
+var ninegagPlaylists = require('./routes/rnewplaylists');
+var playlists = require('./routes/rplaylists');
+var api = require('./routes/rapi');
 
 app.use('/login', login);
 app.use(function(req, res, next) {
@@ -112,9 +112,9 @@ app.use('/', routes);
 
 app.use('/logout', logout);
 app.use('/play', play);
-app.use('/createPlaylist', createPlaylist);
+app.use('/playlist', playlist);
 app.use('/newPlaylists', ninegagPlaylists);
-app.use('/allPlaylists', allPlaylists);
+app.use('/playlists', playlists);
 app.use('/api', api);
 
 
@@ -163,12 +163,12 @@ function updateLastLogin(user) {
     if (user.lastvisit.toLocaleDateString() != new Date().toLocaleDateString()) {
         user.daysvisited = user.daysvisited + 1;
         user.lastvisit = new Date();
-        
+
         var find = {"_id" : user._id};
         var update = {$set: {"daysvisited": user.daysvisited,
                              "lastvisit": user.lastvisit}
         };
-        
+
         collection.update(find, update);
     }
 }

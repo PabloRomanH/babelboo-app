@@ -1,0 +1,49 @@
+<script src="js/jquery.min.js"></script>
+<script src="js/allPlaylists.js"></script>
+
+<h1>All playlists</h1>
+<a href="/playlist">Create new playlist</a>
+
+<div class="row">
+<%
+  for (var i = playlists.length-1; i >= 0; i--) {
+  var playlist = playlists[i];
+%>
+<div class="playlist" data-playlist-id="<%= playlist._id %>">
+  <div class="row">
+    <h2><%= playlist.title %></h2>
+    <a class="btn btn-lg btn-success" href="play?id=<%= playlist._id %>">Play</a>
+    <a class="btn btn-lg btn-primary" href="playlist?id=<%= playlist._id %>">Edit</a>
+    <a class="btn btn-lg btn-danger btn-delete" data-playlist-id="<%= playlist._id %>">Delete</a>
+    <span>
+      <%
+          if (playlist.tags) {
+              for (var j = 0; j < playlist.tags.length; j++) {
+      %>
+                  <%= playlist.tags[j] %>
+      <%
+              }
+          }
+      %>
+    </span>
+  </div>
+  <div class="row">
+
+<%
+    for (var j = 0; j < playlist.entries.length; j++) {
+      video = playlist.entries[j];
+%>
+    <div class="col-xs-6 col-sm-2"><img src="<%= video.thumbnail%>" class="img-responsive">
+      <p class="videoTitle"><%= video.title %></p>
+    </div>
+<%
+    }
+%>
+  </div>
+</div>
+<%
+
+    }
+%>
+</div>
+

@@ -1,6 +1,12 @@
 to do next:
 
-- clean up javascript
+
+
+
+
+- self contained playlist creation tool
+
+- fix browser js script names
 - 9gag new playlists are marked as new
 - Playlist view show only first 5 videos (\dots)
 - A/B functionality depending on user
