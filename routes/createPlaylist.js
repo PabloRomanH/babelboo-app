@@ -7,13 +7,22 @@ var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
 
 
 router.get('/', function(req, res){
-    res.render('createPlaylist', { message: req.flash('error') });
+    var playlistId = req.param('id');
+    res.render('createPlaylist', { playlistId: playlistId });
 });
 
 router.post('/', function(req, res){
-    var collection = req.db.get('playlists');
     console.log(req.body.title);
     console.log(req.body.idlist);
+
+    upsertPlaylist(req);
+
+    req.flash('playlistCreated', 'New playlist created. Wait while it\'s added.');
+    res.redirect('/allPlaylists');
+});
+
+function upsertPlaylist(req) {
+    var collection = req.db.get('playlists');
 
     var playlistTitle = req.body.title;
     var videoIds = req.body.idlist;
@@ -30,13 +39,19 @@ router.post('/', function(req, res){
                 videos.push({ source: "youtube", id: id, duration: duration, title: title, thumbnail: thumbnail });
             }
 
-            collection.insert({title: playlistTitle, entries:videos, tags:tags}, function (err, doc) {
-                if (err) throw err;
-            });
-        });
-
-    req.flash('playlistCreated', 'New playlist created. Wait while it\'s added.');
-    res.redirect('/allPlaylists');
-});
+            if(req.body.playlistId) {
+                collection.update({"_id": req.body.playlistId},{title: playlistTitle, entries:videos, tags:tags},
+                    function (err, doc) {
+                        if (err) throw err;
+                    });
+            } else {
+                collection.insert({title: playlistTitle, entries:videos, tags:tags},
+                    function (err, doc) {
+                        if (err) throw err;
+                    });
+            }
+        }
+    );
+}
 
 module.exports = router;

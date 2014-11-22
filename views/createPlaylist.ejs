@@ -1,3 +1,7 @@
+<script>
+  var playlistId = "<%= (playlistId?playlistId:"") %>";
+</script>
+
 <script src="js/jquery.min.js"></script>
 <script src="js/createPlaylist.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
@@ -22,7 +26,6 @@
 <!-- /Templates -->
 
 <h1>Create new playlist</h1>
-<div class="error"><%= message %></div>
 <div>Search:<input id="input-search" type="text" name="query" />
   <a id="btn-search" class="btn btn-primary">Search</a>
 </div>
@@ -33,6 +36,7 @@
     <label>Playlist name:</label>
     <input type="text" name="title" />
     <input id="hidden-videoids" type="hidden" name="idlist" />
+    <input id="hidden-playlistid" type="hidden" name="playlistId" />
     <label>Tags:</label>
     <input type="text" name="tags" />
     <input id="btn-submit" type="submit" value="Create" />
