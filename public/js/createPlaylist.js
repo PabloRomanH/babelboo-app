@@ -40,6 +40,9 @@ function submit(event) {
         videoIds = videoIds + $(this).attr('data-video-id') + ',';
     });
 
+    var tags = $('input[name=tags]').val().replace(/\s+/g,',');
+    $('input[name=tags]').val(tags);
+
     $('#hidden-videoids').val(videoIds);
 }
 

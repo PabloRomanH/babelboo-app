@@ -14,12 +14,13 @@ Requirements
     Nice website
     Good user registration
 
+We have to create the playlists for the MVP
+
 Playlists
-    Playlist tags
-    Search by tag + difficulty
-    Create playlists themselves
     Playlist completion (visual cue that marks a playlist as watched)
-    Playlist validation (playlists marked as good)
+    Playlist quality mark (playlists marked as good)
+    Search by tag
+*    Playlist tags
 *    Playlist storage (DB)
 *    Playlist reproduction
 
@@ -29,18 +30,18 @@ Q&A
 *    Questions after watching video
 
 9Gag (always something new + finished checking everything new)
-    Per-user hiding of some playlists at first use
-    "Unlocking" of new playlists that appear as new to the user every day of use
-    Old unvisited playlists appear at the bottom and are harder to reach
     "You got new stuff" reminder email
+*    Per-user hiding of some playlists at first use
+*    "Unlocking" of new playlists that appear as new to the user every day of use
+*    Old unvisited playlists appear at the bottom and are harder to reach
 
 Wiki (user-generated playlists, questions, difficulty adjustment, etc.)
-    Interface to create playlists (bonus: easily)
     Interface to edit playlists
-    Interface to modify playlist tags
     Interface to edit questions
     Upvote/downvote difficulty
     Comment on questions
+*    Interface to add tags to playlist
+*    Interface to create playlists (bonus: easily)
 
 Stack Overflow (milestones unlock privileges + rank visible to other users)
     Learning goals? Can be implemented as badges

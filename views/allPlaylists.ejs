@@ -1,17 +1,28 @@
 <h1>All playlists</h1>
 
 <div class="row">
-<% 
-  for (var i = playlists.length-1; i >= 0; i--) { 
+<%
+  for (var i = playlists.length-1; i >= 0; i--) {
   var playlist = playlists[i];
 %>
   <div class="row">
     <h2><%= playlist.title %></h2>
     <a class="btn btn-lg btn-success" href="play?id=<%= playlist._id %>">Play</a>
+    <span>
+      <%
+          if (playlist.tags) {
+              for (var j = 0; j < playlist.tags.length; j++) {
+      %>
+                  <%= playlist.tags[j] %>
+      <%
+              }
+          }
+      %>
+    </span>
   </div>
   <div class="row">
 
-<% 
+<%
     for (var j = 0; j < playlist.entries.length; j++) {
       video = playlist.entries[j];
 %>

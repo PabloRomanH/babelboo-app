@@ -17,6 +17,8 @@ router.post('/', function(req, res){
 
     var playlistTitle = req.body.title;
     var videoIds = req.body.idlist;
+    var tags = req.body.tags;
+    tags = tags.split(',');
     youtube.videos.list({part:'snippet,id,contentDetails', id:videoIds, key:API_KEY},
         function createPlaylist(err, resp) {
             var videos = [];
@@ -28,7 +30,7 @@ router.post('/', function(req, res){
                 videos.push({ source: "youtube", id: id, duration: duration, title: title, thumbnail: thumbnail });
             }
 
-            collection.insert({title: playlistTitle, entries:videos}, function (err, doc) {
+            collection.insert({title: playlistTitle, entries:videos, tags:tags}, function (err, doc) {
                 if (err) throw err;
             });
         });
