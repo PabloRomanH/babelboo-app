@@ -2,6 +2,7 @@
 <script src="js/createPlaylist.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
+<!-- Templates -->
 <div id="searchresult-template" class="row searchresult" data-search-idx="">
   <div class="col-xs-6 col-sm-2">
     <img id="resultimg" src="" class="img-responsive">
@@ -18,10 +19,11 @@
     <a id="itembutton" class="btn btn-danger btn-remove" data-video-id="">Remove</a>
   </div>
 </div>
+<!-- /Templates -->
 
 <h1>Create new playlist</h1>
 <div class="error"><%= message %></div>
-<div>Search:<input type="text" name="query" />
+<div>Search:<input id="input-search" type="text" name="query" />
   <a id="btn-search" class="btn btn-primary">Search</a>
 </div>
 <div id="result" class="row"></div>

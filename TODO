@@ -1,8 +1,5 @@
 to do next:
 
-- Enter on playlist creation input does the same as the button.
-- require playlist name
-- require non-empty playlist 
 
 - clean up javascript
 - 9gag - new playlists are marked as new
@@ -40,7 +37,7 @@ Q&A
 Wiki (user-generated playlists, questions, difficulty adjustment, etc.)
     Interface to create playlists (bonus: easily)
     Interface to edit playlists
-    Interface to modify playlist tags 
+    Interface to modify playlist tags
     Interface to edit questions
     Upvote/downvote difficulty
     Comment on questions
@@ -49,7 +46,7 @@ Stack Overflow (milestones unlock privileges + rank visible to other users)
     Learning goals? Can be implemented as badges
     Reputation/badges per user
     When do other users see them?
-    Unlocked privileges 
+    Unlocked privileges
     Number of points to increase rank
     Create playlists, modify other's playlists, modify other's questions, comment on questions
     What gives points

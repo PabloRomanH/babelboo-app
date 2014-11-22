@@ -1,10 +1,15 @@
 var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
-  
+
 var items = [];
-  
+
 $(function() {
     $('#btn-search').click(search);
     $('#btn-submit').click(submit);
+    $('#input-search').keypress(function( event ) {
+        if ( event.which == 13 ) {
+            search();
+        }
+    });
 });
 
 function handleClientLoad() {
@@ -20,26 +25,27 @@ function submit(event) {
         $('.alert').show();
         return;
     }
-    
-    var videoIds = "";
-    $('.playlist-item').each(function (element) {
-        videoIds = videoIds + $(this).attr('data-video-id') + ',';
-    });
-    
-    if (videoIds === "") {
+
+    var playlistItems = $('#playlist-videos').children();
+    if (playlistItems.length == 0) {
         event.preventDefault();
         $('.alert').empty();
         $('.alert').append('Cannot create a playlist without videos.');
         $('.alert').show();
         return;
     }
-    
+
+    var videoIds = "";
+    playlistItems.each(function (element) {
+        videoIds = videoIds + $(this).attr('data-video-id') + ',';
+    });
+
     $('#hidden-videoids').val(videoIds);
 }
 
 function search() {
-    var query = $( "input[name='query']" ).val();
-    
+    var query = $('#input-search').val();
+
     var request = gapi.client.youtube.search.list({
         q: query,
         part: 'id,snippet',
@@ -48,7 +54,7 @@ function search() {
 
     request.execute(function(response) {
         items = response.result.items;
-        
+
         $('#result').empty();
         for (var i = 0; i < items.length; i++) {
             var snippet = items[i].snippet;
@@ -58,7 +64,7 @@ function search() {
             clonedDiv.find('#resultname').append(snippet.title);
             console.log(clonedDiv.children('#resultimg'));
             clonedDiv.show();
-            
+
             $('#result').append(clonedDiv);
         }
         $('.searchresult').click(onResultClick);
@@ -71,7 +77,7 @@ function onResultClick(event) {
     if($('.playlist-item[data-video-id='+videoId+']').length > 0) {
         return;
     }
-    
+
     var clonedDiv = $('#playlist-item-template').clone();
     clonedDiv.attr('data-video-id', videoId);
     clonedDiv.find('#itemimg').attr('src', video.snippet.thumbnails.default.url);
@@ -80,7 +86,7 @@ function onResultClick(event) {
     console.log(clonedDiv.children('#resultimg'));
     clonedDiv.show();
     $('#playlist-videos').append(clonedDiv);
-    
+
     $('.btn-remove').click(onRemoveClick);
 }
 
