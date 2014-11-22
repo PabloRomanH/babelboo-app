@@ -45,3 +45,15 @@ p.videoTitle {
 #summary {
   display: none;
 }
+
+.alert {
+  display: none;
+}
+
+.searchresult {
+  display: none;
+}
+
+.playlist-item {
+  display: none;
+}

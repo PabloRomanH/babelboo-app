@@ -4,7 +4,7 @@ var current_video_idx = 0;
 
 var playlist;
 
-var questionsAtTheEnd = false;
+var questionsAtTheEnd = true;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 
@@ -29,6 +29,27 @@ $(function() {
     loadAnalytics();
 });
 
+function answerClicked(event) {
+    if (event.data == "correct") {
+        $(this).addClass('correctAnswer');
+        correctAnswers = correctAnswers + 1;
+    } else {
+        $(this).addClass('incorrectAnswer');
+        correctAnswers = correctAnswers + 1;
+    }
+    
+    if (questionsAtTheEnd) {
+        $('#btn-next').attr('disabled','disabled');
+        
+        setTimeout(function() {
+            $('#btn-next').removeAttr('disabled');
+            playNext();
+        }, 2000);
+    }
+    
+    $('#answers').children().unbind('click');
+}
+
 function populateQA() {
     if (!playlist.entries[current_video_idx].question) {
             return;
@@ -41,31 +62,9 @@ function populateQA() {
         $('#answers').append('<li>' + answers[i] + '</li>');
         
         if (i == playlist.entries[current_video_idx].correctAnswer) {
-            $('#answers').children().last().click(
-                function() {
-                    $(this).addClass('correctAnswer');
-                    if (questionsAtTheEnd) {
-                        setTimeout(playNext, 2000);
-                    }
-                    
-                    correctAnswers = correctAnswers + 1;
-                    
-                    $('#answers').children().unbind('click');
-                }
-            );
+            $('#answers').children().last().click('correct', answerClicked);
         } else {
-             $('#answers').children().last().click(
-                function() {
-                    $(this).addClass('incorrectAnswer');
-                    if (questionsAtTheEnd) {
-                        setTimeout(playNext, 2000);
-                    }
-                    
-                    incorrectAnswers = incorrectAnswers + 1;
-                    
-                    $('#answers').children().unbind('click');
-                }
-            );  
+            $('#answers').children().last().click('incorrect', answerClicked);
         }
     }
 }

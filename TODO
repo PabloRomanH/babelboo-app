@@ -1,32 +1,35 @@
 to do next:
 
-- [bug] disable next click after answering (enable it afterwards)
-- [bug] check for non-existing QA
+- Enter on playlist creation input does the same as the button.
+- require playlist name
+- require non-empty playlist 
 
-- summary of correct and wrong answers at the end of video session
-- 9gag - hide part of the playlists initially
-- 9gag - gradually show more playlists (marked as new)
+- clean up javascript
+- 9gag - new playlists are marked as new
+- Playlist view show only first 5 videos (\dots)
 - A/B functionality depending on user
+- google analytics everywhere
+- See why this video is weird (fFYxrz6FaUw) don't show the likes in search.
 
 
 
 Requirements
     Nice website
-    User registration
+    Good user registration
 
 Playlists
-    Playlist storage (DB)
-    Playlist reproduction
     Playlist tags
     Search by tag + difficulty
     Create playlists themselves
     Playlist completion (visual cue that marks a playlist as watched)
     Playlist validation (playlists marked as good)
+*    Playlist storage (DB)
+*    Playlist reproduction
 
 Q&A
-    Questions while playing video
-    Questions after watching video
     Questions completed (visual cue that marks a playlist as answered)
+*    Questions while playing video
+*    Questions after watching video
 
 9Gag (always something new + finished checking everything new)
     Per-user hiding of some playlists at first use

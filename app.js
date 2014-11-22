@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 //var mongo = require('mongodb');
 var db = require('monk')('localhost:27017/nodetest1');
+var MongoStore = require('connect-mongo')(session);
 var partials = require('express-partials');
 
 function findByUserName(username, callback)
@@ -75,7 +76,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser()); // cookies need to be added before sessions
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({secret: '1234567890QWERTY', resave:true, saveUninitialized:true})); // TODO: learn about the session security requirements and change key
+app.use(session({store: new MongoStore({
+    url: 'mongodb://localhost:27017/nodetest1'
+  }),
+  secret: '1234567890QWERTY', resave:true, saveUninitialized:true})); // TODO: learn about the session security requirements and change key
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -90,12 +94,14 @@ var login = require('./routes/login');
 var logout = require('./routes/logout');
 var play = require('./routes/play');
 var createPlaylist = require('./routes/createPlaylist');
+var ninegagPlaylists = require('./routes/ninegagPlaylists');
 var allPlaylists = require('./routes/allPlaylists');
 var api = require('./routes/api');
 
 app.use('/login', login);
 app.use(function(req, res, next) {
     if (req.user) {
+        updateLastLogin(req.user);
         next();
     } else {
         res.redirect('/login');
@@ -107,6 +113,7 @@ app.use('/', routes);
 app.use('/logout', logout);
 app.use('/play', play);
 app.use('/createPlaylist', createPlaylist);
+app.use('/newPlaylists', ninegagPlaylists);
 app.use('/allPlaylists', allPlaylists);
 app.use('/api', api);
 
@@ -149,5 +156,22 @@ if (app.get('env') === 'development') {
 var server = app.listen(process.env.PORT);
 console.log('Express server started on port %s', server.address().port);
 
-module.exports = app;
 
+function updateLastLogin(user) {
+    var collection = db.get('usercollection');
+
+    if (user.lastvisit.toLocaleDateString() != new Date().toLocaleDateString()) {
+        user.daysvisited = user.daysvisited + 1;
+        user.lastvisit = new Date();
+        
+        var find = {"_id" : user._id};
+        var update = {$set: {"daysvisited": user.daysvisited,
+                             "lastvisit": user.lastvisit}
+        };
+        
+        collection.update(find, update);
+    }
+}
+
+
+module.exports = app;

@@ -2,7 +2,7 @@
 
 <div class="row">
 <% 
-  for (var i = 0; i < playlists.length; i++) { 
+  for (var i = playlists.length-1; i >= 0; i--) { 
   var playlist = playlists[i];
 %>
   <div class="row">
@@ -16,7 +16,7 @@
       video = playlist.entries[j];
 %>
     <div class="col-xs-6 col-sm-2"><img src="<%= video.thumbnail%>" class="img-responsive">
-      <p class="videoTitle"><%= video.title%></p>
+      <p class="videoTitle"><%= video.title %></p>
     </div>
 <%
     }

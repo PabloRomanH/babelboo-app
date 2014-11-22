@@ -1,19 +1,42 @@
+<script src="js/jquery.min.js"></script>
+<script src="js/createPlaylist.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+<div id="searchresult-template" class="row searchresult" data-search-idx="">
+  <div class="col-xs-6 col-sm-2">
+    <img id="resultimg" src="" class="img-responsive">
+  </div>
+  <div id="resultname" class="col-xs-6 col-sm-10">
+  </div>
+</div>
+
+<div id="playlist-item-template" class="row playlist-item" data-video-id="">
+  <div class="col-xs-6 col-sm-2">
+    <img id="itemimg" src="" class="img-responsive">
+  </div>
+  <div id="itemtitle" class="col-xs-6 col-sm-10">
+    <a id="itembutton" class="btn btn-danger btn-remove" data-video-id="">Remove</a>
+  </div>
+</div>
+
 <h1>Create new playlist</h1>
 <div class="error"><%= message %></div>
-<p>
-  Write all the YouTube video ids in separate lines:
-  
-</p>
-<form action="/createPlaylist" method="post">
-  <p>
+<div>Search:<input type="text" name="query" />
+  <a id="btn-search" class="btn btn-primary">Search</a>
+</div>
+<div id="result" class="row"></div>
+
+<div>
+  <form method="post" >
     <label>Playlist name:</label>
-    <input type="text" name="title">
-  </p>
-  <p>
-    <label>Video ids:</label>
-    <textarea rows="4" cols="50" name="idlist"></textarea>
-  </p>
-  <p>
-    <input type="submit" value="Create">
-  </p>
-</form>
+    <input type="text" name="title" />
+    <input id="hidden-videoids" type="hidden" name="idlist" />
+    <input id="btn-submit" type="submit" value="Create" />
+  </form>
+</div>
+<div class="alert alert-warning"></div>
+
+<div class="row" id="playlist-videos"></div>
+
+
+
