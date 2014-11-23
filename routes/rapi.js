@@ -40,6 +40,29 @@ router.post('/playlists', function(req, res) {
     res.redirect('/playlists');
 });
 
+/*{
+    "title": "arare",
+    "tags": [""],
+    "videos": [
+        {
+            "source":"youtube",
+            "id":"lW34GVACVSE",
+            "question":"asd",
+            "answers": [
+                {
+                    "text":"bc",
+                    "iscorrect":false
+                },
+                {
+                    "text":"nta",
+                    "iscorrect":true
+                }
+            ]
+        }
+    ]
+}*/
+
+
 function upsertPlaylist(body, playlistId, db) {
     var collection = db.get('playlists');
 
@@ -57,7 +80,16 @@ function upsertPlaylist(body, playlistId, db) {
                 var duration = resp.items[i].contentDetails.duration;
                 var title = resp.items[i].snippet.title;
                 var thumbnail = resp.items[i].snippet.thumbnails.medium.url; // default/medium/high
-                videos.push({ source: "youtube", id: id, duration: duration, title: title, thumbnail: thumbnail });
+                if (body.videos[i].question) {
+                    var question = body.videos[i].question;
+                    var answers = body.videos[i].answers;
+                    videos.push({ source: "youtube", id: id, duration: duration, title: title, thumbnail: thumbnail, question: question, answers: answers });
+                } else {
+                    if (body.videos[i].question)
+                    var question = body.videos[i].question;
+                    var answers = body.videos[i].answers;
+                    videos.push({ source: "youtube", id: id, duration: duration, title: title, thumbnail: thumbnail});
+                }
             }
 
             if (playlistId) {

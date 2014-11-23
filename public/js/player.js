@@ -35,7 +35,7 @@ function answerClicked(event) {
         correctAnswers = correctAnswers + 1;
     } else {
         $(this).addClass('incorrectAnswer');
-        correctAnswers = correctAnswers + 1;
+        incorrectAnswers = incorrectAnswers + 1;
     }
     
     if (questionsAtTheEnd) {
@@ -59,9 +59,9 @@ function populateQA() {
     var answers = playlist.entries[current_video_idx].answers;
     
     for (var i = 0; i < answers.length; i++) {
-        $('#answers').append('<li>' + answers[i] + '</li>');
+        $('#answers').append('<li>' + answers[i].text + '</li>');
         
-        if (i == playlist.entries[current_video_idx].correctAnswer) {
+        if (answers[i].iscorrect) {
             $('#answers').children().last().click('correct', answerClicked);
         } else {
             $('#answers').children().last().click('incorrect', answerClicked);
