@@ -26,18 +26,19 @@
 
 
 <div id="video-template" class="row template video" data-video-idx="">
-  <div class="col-xs-6 col-sm-3">
+  <div class="col-sm-3">
     <img id="videoimg" src="" class="img-responsive">
   </div>
-  <div id="title" class="col-xs-6 col-sm-9 title"></div>
+  <div id="title" class="col-sm-9 title"></div>
   <div id="description" class="col-xs-6 col-sm-9 description"></div>
+  <div id="additional" class="col-xs-6 col-sm-9 description"></div>
 </div>
 
-<div id="qa-template" class="row template">
+<div id="qa-template" class="template">
   <div><a id="itembutton" class="fa fa-trash fa-2x text-danger" data-video-id=""></a></div>
   <form>
     <div class="question"><label>Question</label><input type="text" id="questiontext" /></div>
-    <div class="answers">
+    <div class="answers ">
       <label>Answers</label><a class="addanswer">+</a>
       <div class="answer">
         <span>
@@ -64,27 +65,29 @@
 <!-- <div>Search:<input id="input-search" type="text" name="query" />
   <a id="btn-search" class="btn btn-primary">Search</a>
 </div> -->
-<div id="result" class="row"></div>
-
-<div>
-  <form>
-    <div class="input-group">
-      <span class="input-group-addon">Name</span>
-      <input type="text" class="form-control" name="title" placeholder="Playlist name">
-    </div>
-
-    <div class="input-group">
-      <span class="input-group-addon">Tags</span>
-      <input type="text" class="form-control" name="tags" placeholder="Playlist tags">
-    </div>
-
-
-    <a id="btn-submit" class="btn btn-primary">Save</a>
-  </form>
-</div>
 <div class="alert alert-warning"></div>
+<div class="row">
+  <div id="result" class="col-sm-7">
+  </div>
 
-<div class="row" id="playlist-videos"></div>
+  <div class="col-sm-5">
+    <div>
+      <form>
+        <div class="input-group">
+          <span class="input-group-addon">Name</span>
+          <input type="text" class="form-control" name="title" placeholder="Playlist name">
+        </div>
 
+        <div class="input-group">
+          <span class="input-group-addon">Tags</span>
+          <input type="text" class="form-control" name="tags" placeholder="Playlist tags">
+        </div>
+
+        <a id="btn-submit" class="btn btn-primary">Save</a>
+      </form>
+    </div>
+    <div id="playlist-videos"></div>
+  </div>
+</div>
 
 

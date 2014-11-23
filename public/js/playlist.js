@@ -207,28 +207,55 @@ function onRemoveAnswer() {
 function addPlaylistItem(videoId, title, description, thumbnailUrl) {
     var videoContainer = $('<div/>', {'data-video-id': videoId, 'class': 'playlist-item'});
 
-    var clonedDiv = $('#video-template').clone();
-    clonedDiv.attr('data-video-id', videoId);
-    clonedDiv.find('#videoimg').attr('src', thumbnailUrl);
-    clonedDiv.find('#title').append(title);
-    clonedDiv.find('#description').append(description);
-    clonedDiv.show();
-    videoContainer.append(clonedDiv);
-
-    clonedDiv = $('#qa-template').clone();
-    clonedDiv.find('#itembutton').attr('data-video-id', videoId).click(onRemoveClick);
-    clonedDiv.find('.addanswer').click(
+    var clonedQa = $('#qa-template').clone();
+    clonedQa.find('#itembutton').attr('data-video-id', videoId).click(onRemoveClick);
+    clonedQa.find('.addanswer').click(
         function() {
             var answer = $('#qa-template').find('.answer').clone();
             answer.find('.removeanswer').click(onRemoveAnswer);
             $(this).parents('.answers').append(answer);
     });
-    clonedDiv.find('.removeanswer').click(onRemoveAnswer);
+    clonedQa.find('.removeanswer').click(onRemoveAnswer);
+    clonedQa.show();
+
+    var clonedDiv = $('#video-template').clone();
+    clonedDiv.attr('data-video-id', videoId);
+    clonedDiv.find('#videoimg').attr('src', thumbnailUrl);
+    clonedDiv.find('#title').append(title);
+    clonedDiv.find('#description').append(description);
+    clonedDiv.find('#additional').append(clonedQa);
     clonedDiv.show();
     videoContainer.append(clonedDiv);
 
 
+
+
+
     $('#playlist-videos').append(videoContainer);
+    // var videoContainer = $('<div/>', {'data-video-id': videoId, 'class': 'playlist-item'});
+
+    // var clonedDiv = $('#video-template').clone();
+    // clonedDiv.attr('data-video-id', videoId);
+    // clonedDiv.find('#videoimg').attr('src', thumbnailUrl);
+    // clonedDiv.find('#title').append(title);
+    // clonedDiv.find('#description').append(description);
+    // clonedDiv.show();
+    // videoContainer.append(clonedDiv);
+
+    // clonedDiv = $('#qa-template').clone();
+    // clonedDiv.find('#itembutton').attr('data-video-id', videoId).click(onRemoveClick);
+    // clonedDiv.find('.addanswer').click(
+    //     function() {
+    //         var answer = $('#qa-template').find('.answer').clone();
+    //         answer.find('.removeanswer').click(onRemoveAnswer);
+    //         $(this).parents('.answers').append(answer);
+    // });
+    // clonedDiv.find('.removeanswer').click(onRemoveAnswer);
+    // clonedDiv.show();
+    // videoContainer.append(clonedDiv);
+
+
+    // $('#playlist-videos').append(videoContainer);
 }
 
 function onRemoveClick(event) {
