@@ -31,7 +31,10 @@ function handleClientLoad() {
 }
 
 function submit(event) {
-    if ($('input[name=title]').val() === "") {
+    var fail = false;
+    var title = $('input[name=title]').val();
+
+    if (title === "") {
         event.preventDefault();
         $('.alert').empty();
         $('.alert').append('Cannot create a playlist without a name.');
@@ -48,20 +51,91 @@ function submit(event) {
         return;
     }
 
-    var videoIds = "";
-    playlistItems.each(function (element) {
-        videoIds = videoIds + $(this).attr('data-video-id') + ',';
+    //var videoIds = "";
+    var videos = [];
+    playlistItems.each(function () {
+        //videoIds = videoIds + $(this).attr('data-video-id') + ',';
+
+        var questiontext = $(this).find('#questiontext').val();
+
+        var correctSelected = false;
+        var answers = [];
+        $(this).find('.answer').each(function () {
+            answertext = $(this).find('#answertext').val();
+            if(!answertext) {
+                return;
+            }
+
+            answercorrect = $(this).find("input[type='radio']").is(':checked');
+            if (answercorrect) {
+                correctSelected = true;
+            }
+
+            answers.push({
+                text: $(this).find('#answertext').val(),
+                iscorrect: $(this).find("input[type='radio']").is(':checked')
+            });
+
+            if (!correctSelected) {
+                $('.alert').empty();
+                $('.alert').append('Correct answer not chosen in question: ' + questiontext);
+                $('.alert').show();
+                fail = true;
+                return;
+            }
+        });
+
+        videos.push({
+            source: "youtube",
+            id: $(this).attr('data-video-id'),
+            question: questiontext,
+            answers: answers
+        });
     });
 
-    var tags = $('input[name=tags]').val().replace(/\s+/g,',');
-    $('input[name=tags]').val(tags);
-
-
-    if (playlistId) {
-        $('#hidden-playlistid').val(playlistId);
+    if (fail) {
+        return;
     }
 
-    $('#hidden-videoids').val(videoIds);
+    var tags = $('input[name=tags]').val().split(',').map(
+        function(element) {
+            return element.trim();
+        });
+    //$('input[name=tags]').val(tags);
+
+
+    //if (playlistId) {
+    //    $('#hidden-playlistid').val(playlistId);
+    //}
+
+    //$('#hidden-videoids').val(videoIds);
+
+    var putobject = {
+        title: title,
+        tags: tags,
+        videos: videos
+    }
+    var jsonstring = JSON.stringify(putobject);
+
+    if (playlistId) {
+        $.ajax({
+            type: "PUT",
+            contentType: "application/json",
+            url: "/api/playlists/" + playlistId,
+            data: jsonstring,
+            complete: function () { window.location.href = "/playlists"; }
+        });
+    } else {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/api/playlists",
+            data: jsonstring,
+            complete: function () { window.location.href = "/playlists"; }
+    });
+    }
+
+    console.log(jsonstring);
 }
 
 function search() {

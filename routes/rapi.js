@@ -19,4 +19,13 @@ router.delete('/playlist/:playlist_id', function(req, res) {
     collection.remove({_id: req.params.playlist_id});
 });
 
+router.put('/playlists/:playlist_id', function(req, res) {
+    console.log ("PUT: ", req.body.videos[0].answers);
+
+});
+
+router.post('/playlists', function(req, res) {
+    console.log ("POST: ", req.body);
+});
+
 module.exports = router;

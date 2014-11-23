@@ -22,18 +22,17 @@
   <div id="itemtitle" class="col-xs-6 col-sm-10">
     <a id="itembutton" class="btn btn-danger btn-remove" data-video-id="">Remove</a>
     <form>
-      <div class="question"><label>Question</label><input type="text"/></div>
+      <div class="question"><label>Question</label><input type="text" id="questiontext" /></div>
       <div class="answers">
         <label>Answers</label><a class="addanswer">+</a>
         <div class="answer">
           <span>
-            <input type="radio" name="a">
+            <input type="radio" name="correctanswer">
           </span>
-          <input type="text"><a class="removeanswer">-</a>
+          <input type="text" id="answertext"><a class="removeanswer">-</a>
         </div>
       </div>
     </form>
-
   </div>
 </div>
 <!-- /Templates -->
@@ -45,14 +44,15 @@
 <div id="result" class="row"></div>
 
 <div>
-  <form method="post" >
+  <form>
     <label>Playlist name:</label>
     <input type="text" name="title" />
-    <input id="hidden-videoids" type="hidden" name="idlist" />
-    <input id="hidden-playlistid" type="hidden" name="playlistId" />
+    <!--<input id="hidden-videoids" type="hidden" name="idlist" />-->
+    <!--<input id="hidden-playlistid" type="hidden" name="playlistId" />-->
     <label>Tags:</label>
     <input type="text" name="tags" />
-    <input id="btn-submit" type="submit" value="Create" />
+
+    <a id="btn-submit" class="btn btn-primary">Save</a>
   </form>
 </div>
 <div class="alert alert-warning"></div>
