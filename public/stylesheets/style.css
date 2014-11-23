@@ -59,6 +59,20 @@ p.videoTitle {
   margin-right: auto;
 }
 
+.searchresult .title, .playlist-item .title {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  line-height: 1.1;
+  /*font-weight: bold;*/
+}
+
+.searchresult .description, .playlist-item .description {
+  color: #858585;
+  font-size: 13px;
+}
+
 /*.playlist-item {
   display: none;
 }

@@ -11,7 +11,7 @@ $(function() {
             $('input[name=tags]').val(data.tags);
 
             for (var i = 0; i < entries.length; i++) {
-                addPlaylistItem(entries[i].id, entries[i].title, entries[i].thumbnail);
+                addPlaylistItem(entries[i].id, entries[i].title, entries[i].description, entries[i].thumbnail);
             }
         }, "json");
     }
@@ -155,8 +155,6 @@ function submit(event) {
             complete: function () { window.location.href = "/playlists"; }
         });
     }
-
-    console.log(jsonstring);
 }
 
 function search() {
@@ -176,9 +174,9 @@ function search() {
             var snippet = items[i].snippet;
             var clonedDiv = $('#searchresult-template').clone();
             clonedDiv.attr('data-search-idx', i);
-            clonedDiv.find('#resultimg').attr('src', snippet.thumbnails.default.url);
+            clonedDiv.find('#resultimg').attr('src', snippet.thumbnails.medium.url);
             clonedDiv.find('#resultname').append(snippet.title);
-            console.log(clonedDiv.children('#resultimg'));
+            clonedDiv.find('#resultdescription').append(snippet.description);
             clonedDiv.show();
 
             $('#result').append(clonedDiv);
@@ -194,18 +192,19 @@ function onResultClick(event) {
         return;
     }
 
-    addPlaylistItem(videoId, video.snippet.title, video.snippet.thumbnails.default.url);
+    addPlaylistItem(videoId, video.snippet.title, video.snippet.description, video.snippet.thumbnails.medium.url);
 }
 
 function onRemoveAnswer() {
     $(this).parents('.answer').remove();
 }
 
-function addPlaylistItem(videoId, title, thumbnailUrl) {
+function addPlaylistItem(videoId, title, description, thumbnailUrl) {
     var clonedDiv = $('#playlist-item-template').clone();
     clonedDiv.attr('data-video-id', videoId);
     clonedDiv.find('#itemimg').attr('src', thumbnailUrl);
     clonedDiv.find('#itemtitle').prepend(title);
+    clonedDiv.find('#itemdescription').prepend(description);
     clonedDiv.find('#itembutton').attr('data-video-id', videoId).click(onRemoveClick);
     clonedDiv.find('.addanswer').click(
         function() {
@@ -215,7 +214,6 @@ function addPlaylistItem(videoId, title, thumbnailUrl) {
     });
     clonedDiv.find('.removeanswer').click(onRemoveAnswer);
 
-    console.log(clonedDiv.children('#resultimg'));
     clonedDiv.show();
     $('#playlist-videos').append(clonedDiv);
 }
