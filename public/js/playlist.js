@@ -58,23 +58,34 @@ function submit(event) {
 
         var questiontext = $(this).find('#questiontext').val();
 
-        var correctSelected = false;
-        var answers = [];
-        $(this).find('.answer').each(function () {
-            answertext = $(this).find('#answertext').val();
-            if(!answertext) {
+        if (questiontext) {
+            var correctSelected = false;
+            var answers = [];
+            $(this).find('.answer').each(function () {
+                answertext = $(this).find('#answertext').val();
+                if(!answertext) {
+                    return;
+                }
+
+                answercorrect = $(this).find("input[type='radio']").is(':checked');
+                if (answercorrect) {
+                    correctSelected = true;
+                }
+
+                answers.push({
+                    text: $(this).find('#answertext').val(),
+                    iscorrect: $(this).find("input[type='radio']").is(':checked')
+                });
+
+            });
+
+            if (answers.length < 2) {
+                $('.alert').empty();
+                $('.alert').append('Question needs at least 2 answers: ' + questiontext);
+                $('.alert').show();
+                fail = true;
                 return;
             }
-
-            answercorrect = $(this).find("input[type='radio']").is(':checked');
-            if (answercorrect) {
-                correctSelected = true;
-            }
-
-            answers.push({
-                text: $(this).find('#answertext').val(),
-                iscorrect: $(this).find("input[type='radio']").is(':checked')
-            });
 
             if (!correctSelected) {
                 $('.alert').empty();
@@ -83,14 +94,21 @@ function submit(event) {
                 fail = true;
                 return;
             }
-        });
 
-        videos.push({
-            source: "youtube",
-            id: $(this).attr('data-video-id'),
-            question: questiontext,
-            answers: answers
-        });
+            videos.push({
+                source: "youtube",
+                id: $(this).attr('data-video-id'),
+                question: questiontext,
+                answers: answers
+            });
+        } else {
+            videos.push({
+                source: "youtube",
+                id: $(this).attr('data-video-id')
+            });
+        }
+
+
     });
 
     if (fail) {
@@ -100,6 +118,9 @@ function submit(event) {
     var tags = $('input[name=tags]').val().split(',').map(
         function(element) {
             return element.trim();
+        }).filter(
+        function(element) {
+            return element != "";
         });
     //$('input[name=tags]').val(tags);
 
@@ -132,7 +153,7 @@ function submit(event) {
             url: "/api/playlists",
             data: jsonstring,
             complete: function () { window.location.href = "/playlists"; }
-    });
+        });
     }
 
     console.log(jsonstring);
