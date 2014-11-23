@@ -1,6 +1,6 @@
 var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
 
-var items = [];
+var results = {};
 
 $(function() {
     if (playlistId) {
@@ -167,26 +167,31 @@ function search() {
     });
 
     request.execute(function(response) {
-        items = response.result.items;
+        var items = response.result.items;
+        results = {};
+
+        for (var i = 0; i < items.length; i++) {
+            results[items[i].id.videoId] = items[i];
+        }
 
         $('#result').empty();
-        for (var i = 0; i < items.length; i++) {
-            var snippet = items[i].snippet;
-            var clonedDiv = $('#searchresult-template').clone();
-            clonedDiv.attr('data-search-idx', i);
-            clonedDiv.find('#resultimg').attr('src', snippet.thumbnails.medium.url);
-            clonedDiv.find('#resultname').append(snippet.title);
-            clonedDiv.find('#resultdescription').append(snippet.description);
+        for (var key in results) {
+            var snippet = results[key].snippet;
+            var clonedDiv = $('#video-template').clone();
+            clonedDiv.attr('data-video-id', key);
+            clonedDiv.find('#videoimg').attr('src', snippet.thumbnails.medium.url);
+            clonedDiv.find('#title').append(snippet.title);
+            clonedDiv.find('#description').append(snippet.description);
             clonedDiv.show();
 
             $('#result').append(clonedDiv);
+            clonedDiv.click(onResultClick);
         }
-        $('.searchresult').click(onResultClick);
     });
 }
 
 function onResultClick(event) {
-    var video = items[$(event.currentTarget).attr('data-search-idx')];
+    var video = results[$(event.currentTarget).attr('data-video-id')];
     var videoId = video.id.videoId;
     if($('.playlist-item[data-video-id='+videoId+']').length > 0) {
         return;
@@ -200,22 +205,30 @@ function onRemoveAnswer() {
 }
 
 function addPlaylistItem(videoId, title, description, thumbnailUrl) {
-    var clonedDiv = $('#playlist-item-template').clone();
+    var videoContainer = $('<div/>', {'data-video-id': videoId, 'class': 'playlist-item'});
+
+    var clonedDiv = $('#video-template').clone();
     clonedDiv.attr('data-video-id', videoId);
-    clonedDiv.find('#itemimg').attr('src', thumbnailUrl);
-    clonedDiv.find('#itemtitle').prepend(title);
-    clonedDiv.find('#itemdescription').prepend(description);
+    clonedDiv.find('#videoimg').attr('src', thumbnailUrl);
+    clonedDiv.find('#title').append(title);
+    clonedDiv.find('#description').append(description);
+    clonedDiv.show();
+    videoContainer.append(clonedDiv);
+
+    clonedDiv = $('#qa-template').clone();
     clonedDiv.find('#itembutton').attr('data-video-id', videoId).click(onRemoveClick);
     clonedDiv.find('.addanswer').click(
         function() {
-            var answer = $('#playlist-item-template').find('.answer').clone();
+            var answer = $('#qa-template').find('.answer').clone();
             answer.find('.removeanswer').click(onRemoveAnswer);
             $(this).parents('.answers').append(answer);
     });
     clonedDiv.find('.removeanswer').click(onRemoveAnswer);
-
     clonedDiv.show();
-    $('#playlist-videos').append(clonedDiv);
+    videoContainer.append(clonedDiv);
+
+
+    $('#playlist-videos').append(videoContainer);
 }
 
 function onRemoveClick(event) {

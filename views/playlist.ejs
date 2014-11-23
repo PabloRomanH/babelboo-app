@@ -7,21 +7,34 @@
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
 <!-- Templates -->
+<!--
 <div id="searchresult-template" class="row template searchresult" data-search-idx="">
   <div class="col-xs-6 col-sm-3">
     <img id="resultimg" src="" class="img-responsive">
   </div>
   <div id="resultname" class="col-xs-6 col-sm-9 title"></div>
   <div id="resultdescription" class="col-xs-6 col-sm-9 description"></div>
-</div>
+</div> -->
 
-<div id="playlist-item-template" class="row template playlist-item" data-video-id="">
+<!-- <div id="playlist-item-template" class="row template playlist-item" data-video-id="">
   <div class="col-xs-6 col-sm-3">
     <img id="itemimg" src="" class="img-responsive">
   </div>
   <div id="itemtitle" class="col-xs-6 col-sm-9 title"></div>
   <div id="itemdescription" class="col-xs-6 col-sm-9 description"></div>
-  <a id="itembutton" class="fa fa-trash fa-2x text-danger" data-video-id=""></a>
+</div> -->
+
+
+<div id="video-template" class="row template video" data-video-idx="">
+  <div class="col-xs-6 col-sm-3">
+    <img id="videoimg" src="" class="img-responsive">
+  </div>
+  <div id="title" class="col-xs-6 col-sm-9 title"></div>
+  <div id="description" class="col-xs-6 col-sm-9 description"></div>
+</div>
+
+<div id="qa-template" class="row template">
+  <div><a id="itembutton" class="fa fa-trash fa-2x text-danger" data-video-id=""></a></div>
   <form>
     <div class="question"><label>Question</label><input type="text" id="questiontext" /></div>
     <div class="answers">

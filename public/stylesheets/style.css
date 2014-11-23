@@ -59,7 +59,7 @@ p.videoTitle {
   margin-right: auto;
 }
 
-.searchresult .title, .playlist-item .title {
+.video .title {
   font-size: 18px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -68,7 +68,7 @@ p.videoTitle {
   /*font-weight: bold;*/
 }
 
-.searchresult .description, .playlist-item .description {
+.video .description {
   color: #858585;
   font-size: 13px;
 }
