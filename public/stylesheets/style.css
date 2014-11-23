@@ -50,10 +50,31 @@ p.videoTitle {
   display: none;
 }
 
-.searchresult {
+.template {
   display: none;
 }
 
-.playlist-item {
+/*.playlist-item {
   display: none;
 }
+*/
+/*.playlist h2 .fa-youtube-play {
+  color: #0f0;
+}
+
+.playlist h2 .fa-pencil {
+  color: #0f0;
+}
+
+.playlist h2 .fa-trash {
+  color: #0f0;
+}*/
+
+
+
+
+
+
+
+
+
