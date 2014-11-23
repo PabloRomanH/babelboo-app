@@ -54,6 +54,11 @@ p.videoTitle {
   display: none;
 }
 
+.searchbox {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /*.playlist-item {
   display: none;
 }

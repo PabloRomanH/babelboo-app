@@ -7,7 +7,7 @@
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
 <!-- Templates -->
-<div id="searchresult-template" class="row template" data-search-idx="">
+<div id="searchresult-template" class="row template searchresult" data-search-idx="">
   <div class="col-xs-6 col-sm-3">
     <img id="resultimg" src="" class="img-responsive">
   </div>
@@ -39,11 +39,13 @@
 
 <h1>Create new playlist</h1>
 
-<div class="input-group">
-  <span class="input-group-btn">
-    <button id="btn-search" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
-  </span>
-  <input id="input-search" name="query" type="text" class="form-control" placeholder="Search...">
+<div class="row">
+  <div class="input-group col-sm-8 searchbox" >
+    <span class="input-group-btn">
+      <button id="btn-search" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+    </span>
+    <input id="input-search" name="query" type="text" class="form-control" placeholder="Search...">
+  </div>
 </div>
 
 <!-- <div>Search:<input id="input-search" type="text" name="query" />
@@ -60,7 +62,7 @@
 
     <div class="input-group">
       <span class="input-group-addon">Tags</span>
-      <input type="text" class="form-control" name="title" name="tags" placeholder="Playlist tags">
+      <input type="text" class="form-control" name="tags" placeholder="Playlist tags">
     </div>
 
 
