@@ -26,48 +26,58 @@
 
 
 <div id="video-template" class="row template video" data-video-idx="">
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <img id="videoimg" src="" class="img-responsive">
   </div>
-  <div id="title" class="col-sm-9 title"></div>
-  <div id="description" class="col-xs-6 col-sm-9 description"></div>
-  <div id="additional" class="col-xs-6 col-sm-9 description"></div>
+  <div class="col-sm-8">
+    <div id="title" class="row title"></div>
+    <div id="description" class="row description"></div>
+  </div>
+  <div class="col-sm-12">
+    <div id="additional" class="row description"></div>
+  </div>
 </div>
 
-<div id="qa-template" class="template">
+<div id="qa-template" class="col-sm-12 template">
   <div><a id="itembutton" class="fa fa-trash fa-2x text-danger" data-video-id=""></a></div>
   <form>
-    <div class="question"><label>Question</label><input type="text" id="questiontext" /></div>
-    <div class="answers ">
-      <label>Answers</label><a class="addanswer">+</a>
+    <div class="question"><input type="text" id="questiontext" placeholder="Question" /></div>
+    <div class="answers">
       <div class="answer">
         <span>
           <input type="radio" name="correctanswer">
         </span>
-        <input type="text" id="answertext"><a class="removeanswer">-</a>
+        <input type="text" id="answertext" placeholder="Answer" ><a class="removeanswer">-</a>
       </div>
     </div>
+    <a class="addanswer">+</a>
   </form>
 </div>
 <!-- /Templates -->
 
-<h1>Create new playlist</h1>
-
 <div class="row">
-  <div class="input-group col-sm-8 searchbox" >
-    <span class="input-group-btn">
-      <button id="btn-search" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
-    </span>
-    <input id="input-search" name="query" type="text" class="form-control" placeholder="Search...">
+  <div class="col-sm-12">
+    <h1>Create new playlist</h1>
   </div>
 </div>
 
 <!-- <div>Search:<input id="input-search" type="text" name="query" />
   <a id="btn-search" class="btn btn-primary">Search</a>
 </div> -->
-<div class="alert alert-warning"></div>
+  <div class="alert alert-warning"></div>
+
 <div class="row">
-  <div id="result" class="col-sm-7">
+  <div class="col-sm-7">
+    <div class="row">
+      <div class="input-group searchbox col-sm-12" >
+        <span class="input-group-btn">
+          <button id="btn-search" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+        </span>
+        <input id="input-search" name="query" type="text" class="form-control" placeholder="Search...">
+      </div>
+    </div>
+    <div id="result" class="row">
+    </div>
   </div>
 
   <div class="col-sm-5">

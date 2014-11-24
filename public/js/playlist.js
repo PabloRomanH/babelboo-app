@@ -213,7 +213,7 @@ function addPlaylistItem(videoId, title, description, thumbnailUrl) {
         function() {
             var answer = $('#qa-template').find('.answer').clone();
             answer.find('.removeanswer').click(onRemoveAnswer);
-            $(this).parents('.answers').append(answer);
+            $(this).parents('#qa-template').find('.answers').append(answer);
     });
     clonedQa.find('.removeanswer').click(onRemoveAnswer);
     clonedQa.show();
