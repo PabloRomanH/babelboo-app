@@ -1,69 +1,36 @@
-<script src="js/jquery.min.js"></script>
-<script src="js/allPlaylists.js"></script>
-
 <div class="row">
   <div class="col-sm-12">
     <h1>
       All playlists
-      <!-- <a class="btn btn-success fa fa-plus" href="/playlist">Create new playlist</a> -->
       <a class="fa fa-plus text-success" href="/playlist"></a>
     </h1>
   </div>
 </div>
 
-
-<div class="row">
-<%
-  for (var i = playlists.length-1; i >= 0; i--) {
-    var playlist = playlists[i];
-%>
-  <div class="playlist" data-playlist-id="<%= playlist._id %>">
-    <div class="row">
-      <div class="col-sm-12">
+<div class="row" ng-controller="PlaylistsController as playlistsCtrl">
+  <div class="playlist" ng-repeat="playlist in playlistsCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}">
+    <div class="col-sm-12">
         <h2>
-          <%= playlist.title %>
-          <a class="fa fa-youtube-play text-success" href="play?id=<%= playlist._id %>"></a>
-          <a class="fa fa-pencil text-primary" href="playlist?id=<%= playlist._id %>"></a>
-          <a class="fa fa-trash btn-delete text-danger" data-playlist-id="<%= playlist._id %>"></a>
+          {{ playlist.title }}
+          <a class="fa fa-youtube-play text-success" href="play?id={{ playlist._id }}"></a>
+          <a class="fa fa-pencil text-primary" href="playlist?id={{ playlist._id }}"></a>
+          <a class="fa fa-trash btn-delete text-danger" ng-click="playlistsCtrl.delete(playlist._id)"></a>
         </h2>
-
-        <span>
-          <%
-              if (playlist.tags) {
-                  for (var j = 0; j < playlist.tags.length; j++) {
-          %>
-                      <%= playlist.tags[j] %>
-          <%
-                  }
-              }
-          %>
-        </span>
-      </div>
-    </div>
-      <div class="row">
-    <%
-        for (var j = 0; j < playlist.entries.length; j++) {
-          video = playlist.entries[j];
-    %>
-        <div class="col-sm-2"><img src="<%= video.thumbnail%>" class="img-responsive">
-          <p class="videoTitle"><%= video.title %></p>
+  
+        <div>
+          <span ng-repeat="tag in playlist.tags">
+            {{ tag }}
+          </span>
         </div>
-    <%
-          if (j == 4) {
-    %>
-          <div class="col-sm-2">
-            <i class="fa fa-ellipsis-h fa-4x"></i>
-          </div>
-    <%
-            break;
-          }
-        }
-    %>
-    </div>
+        
+        <div class="col-sm-2" ng-repeat="video in playlist.entries | limitTo: 4"><img src="{{ video.thumbnail }}" class="img-responsive">
+          <p class="videoTitle">{{ video.title }}</p>
+        </div>
+  
+          <!--<div class="col-sm-2">-->
+          <!--  <i class="fa fa-ellipsis-h fa-4x"></i>-->
+          <!--</div>-->
+  
+      </div>
   </div>
-<%
-
-    }
-%>
 </div>
-

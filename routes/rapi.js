@@ -7,6 +7,18 @@ var express = require('express');
 
 var router = express.Router();
 
+router.get('/playlist/', function(req, res) {
+    var collection = req.db.get('playlists');
+
+    try {
+        collection.find({},{},function (err, result) {
+            res.json( result );
+        });
+    } catch (err2) {
+        res.json();
+    }
+});
+
 router.get('/playlist/:playlist_id', function(req, res) {
     var collection = req.db.get('playlists');
 
@@ -22,6 +34,8 @@ router.get('/playlist/:playlist_id', function(req, res) {
 router.delete('/playlist/:playlist_id', function(req, res) {
     var collection = req.db.get('playlists');
     collection.remove({_id: req.params.playlist_id});
+    res.status = 204;
+    res.json();
 });
 
 router.put('/playlists/:playlist_id', function(req, res) {
@@ -39,28 +53,6 @@ router.post('/playlists', function(req, res) {
 
     res.redirect('/playlists');
 });
-
-/*{
-    "title": "arare",
-    "tags": [""],
-    "videos": [
-        {
-            "source":"youtube",
-            "id":"lW34GVACVSE",
-            "question":"asd",
-            "answers": [
-                {
-                    "text":"bc",
-                    "iscorrect":false
-                },
-                {
-                    "text":"nta",
-                    "iscorrect":true
-                }
-            ]
-        }
-    ]
-}*/
 
 
 function upsertPlaylist(body, playlistId, db) {
