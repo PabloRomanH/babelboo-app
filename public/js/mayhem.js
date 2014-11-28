@@ -12,7 +12,7 @@
         }
         
         this.delete = function(playlistId) {
-            $http.delete('api/playlist/' + playlistId).success(function() {
+            $http.delete('/api/playlist/' + playlistId).success(function() {
                 getList();
             });
         }
@@ -20,5 +20,12 @@
         getList();
         
     }]);
+    
+    app.directive('playlistCard', function(){
+        return {
+            restrict: 'E',
+            templateUrl: 'directives/playlist-card.html'
+        }
+    });
     
 })();
