@@ -39,21 +39,47 @@ p.videoTitle {
 
 #qa {
   text-align: left;
-  display: none;
 }
 
-#summary {
-  display: none;
+.searchbox {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.alert {
-  display: none;
+.video {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.searchresult {
-  display: none;
+.video .title {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  line-height: 1.1;
+  /*font-weight: bold;*/
 }
 
-.playlist-item {
-  display: none;
+.video .description {
+  color: #858585;
+  font-size: 13px;
 }
+
+.question {
+  padding-left: 20px;
+}
+
+.answers {
+  padding-left: 20px;
+}
+
+
+
+
+
+
+
+
+

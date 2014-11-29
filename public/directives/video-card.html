@@ -1,0 +1,9 @@
+<div id="video-template" class="row video">
+  <div class="col-sm-4">
+    <img id="videoimg" class="img-responsive" ng-src="{{ video.thumbnail }}" ng-click="searchCtrl.add(video)">
+  </div>
+  <div class="col-sm-8">
+    <div id="title" class="row title">{{ video.title }}</div>
+    <div id="description" class="row description">{{ video.description }}</div>
+  </div>
+</div>

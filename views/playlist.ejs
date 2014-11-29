@@ -1,0 +1,51 @@
+<script>
+  var playlistId = "<%= (playlistId?playlistId:"") %>";
+</script>
+
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Create new playlist</h1>
+  </div>
+</div>
+
+<div class="row" ng-controller="SearchController as searchCtrl">
+  <div class="col-sm-12">  
+    <div class="alert alert-warning" ng-show="searchCtrl.showWarning">{{ searchCtrl.warningMessage }}</div>
+  </div>
+  <div class="col-sm-12">
+    <form ng-submit="searchCtrl.search(searchCtrl.query)" novalidate>
+      <div class="input-group searchbox" >
+        <span class="input-group-btn">
+          <button id="btn-search" class="btn btn-primary" type="submit"><i class="fa fa-search" ></i></button>
+        </span>
+        <input type="text" class="form-control" placeholder="Search..." ng-model="searchCtrl.query">
+      </div>
+    </form>
+  </div>
+  <div id="result" class="col-sm-12">
+    <video-card ng-repeat="video in searchCtrl.videos"></video-card>
+  </div>
+
+  <div class="col-sm-12">
+    <div>
+      <form ng-submit="searchCtrl.submit()" novalidate>
+        <div class="input-group">
+          <span class="input-group-addon">Name</span>
+          <input type="text" class="form-control" name="title" placeholder="Playlist name" ng-model="searchCtrl.playlist.title">
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-addon">Tags</span>
+          <input type="text" class="form-control" name="tags" placeholder="Playlist tags" ng-list=", " ng-model="searchCtrl.playlist.tags">
+        </div>
+
+        <a id="btn-submit" class="btn btn-primary" ng-click="searchCtrl.submit()">Save</a>
+      </form>
+    </div>
+    <videoqa-card ng-repeat="video in searchCtrl.playlist.entries"></videoqa-card>
+  </div>
+</div>
+
+
