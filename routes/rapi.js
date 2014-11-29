@@ -1,13 +1,10 @@
 
-var youtube = require('googleapis').youtube('v3');
-
-var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
 
 var express = require('express');
 
 var router = express.Router();
 
-router.get('/playlist/', function(req, res) {
+router.get('/playlist', function(req, res) {
     var collection = req.db.get('playlists');
 
     try {
@@ -38,7 +35,7 @@ router.delete('/playlist/:playlist_id', function(req, res) {
     res.json();
 });
 
-router.put('/playlists/:playlist_id', function(req, res) {
+router.put('/playlist/:playlist_id', function(req, res) {
     console.log ("PUT: ", req.body);
 
     upsertPlaylist(req.body, req.params.playlist_id, req.db);
@@ -47,7 +44,7 @@ router.put('/playlists/:playlist_id', function(req, res) {
     res.json();
 });
 
-router.post('/playlists', function(req, res) {
+router.post('/playlist', function(req, res) {
     console.log ("POST: ", req.body);
 
     upsertPlaylist(req.body, null, req.db);

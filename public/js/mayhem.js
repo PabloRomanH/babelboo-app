@@ -146,11 +146,11 @@
             }
         
             if (playlistId) {
-                $http.put('/api/playlists/' + playlistId, controller.playlist).success(function() {
+                $http.put('/api/playlist/' + playlistId, controller.playlist).success(function() {
                     window.location.href = "/playlists";
                 });
             } else {
-                $http.post('/api/playlists', controller.playlist).success(function() {
+                $http.post('/api/playlist', controller.playlist).success(function() {
                     window.location.href = "/playlists";
                 });
             }
