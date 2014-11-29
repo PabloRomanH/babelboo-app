@@ -2,58 +2,7 @@
   var playlistId = "<%= (playlistId?playlistId:"") %>";
 </script>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/playlist.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-
-<!-- Templates -->
-<!--
-<div id="searchresult-template" class="row template searchresult" data-search-idx="">
-  <div class="col-xs-6 col-sm-3">
-    <img id="resultimg" src="" class="img-responsive">
-  </div>
-  <div id="resultname" class="col-xs-6 col-sm-9 title"></div>
-  <div id="resultdescription" class="col-xs-6 col-sm-9 description"></div>
-</div> -->
-
-<!-- <div id="playlist-item-template" class="row template playlist-item" data-video-id="">
-  <div class="col-xs-6 col-sm-3">
-    <img id="itemimg" src="" class="img-responsive">
-  </div>
-  <div id="itemtitle" class="col-xs-6 col-sm-9 title"></div>
-  <div id="itemdescription" class="col-xs-6 col-sm-9 description"></div>
-</div> -->
-
-
-<div id="video-template" class="row template video" data-video-idx="">
-  <div class="col-sm-4">
-    <img id="videoimg" src="" class="img-responsive">
-  </div>
-  <div class="col-sm-8">
-    <div id="title" class="row title"></div>
-    <div id="description" class="row description"></div>
-  </div>
-  <div class="col-sm-12">
-    <div id="additional" class="row description"></div>
-  </div>
-</div>
-
-<div id="qa-template" class="col-sm-12 template">
-  <div><a id="itembutton" class="fa fa-trash fa-2x text-danger" data-video-id=""></a></div>
-  <form>
-    <div class="question"><input type="text" id="questiontext" placeholder="Question" /></div>
-    <div class="answers">
-      <div class="answer">
-        <span>
-          <input type="radio" name="correctanswer">
-        </span>
-        <input type="text" id="answertext" placeholder="Answer" ><a class="removeanswer">-</a>
-      </div>
-    </div>
-    <a class="addanswer">+</a>
-  </form>
-</div>
-<!-- /Templates -->
 
 <div class="row">
   <div class="col-sm-12">
@@ -61,42 +10,41 @@
   </div>
 </div>
 
-<!-- <div>Search:<input id="input-search" type="text" name="query" />
-  <a id="btn-search" class="btn btn-primary">Search</a>
-</div> -->
-  <div class="alert alert-warning"></div>
-
-<div class="row">
-  <div class="col-sm-7">
-    <div class="row">
-      <div class="input-group searchbox col-sm-12" >
+<div class="row" ng-controller="SearchController as searchCtrl">
+  <div class="col-sm-12">  
+    <div class="alert alert-warning" ng-show="searchCtrl.showWarning">{{ searchCtrl.warningMessage }}</div>
+  </div>
+  <div class="col-sm-12">
+    <form ng-submit="searchCtrl.search(searchCtrl.query)" novalidate>
+      <div class="input-group searchbox" >
         <span class="input-group-btn">
-          <button id="btn-search" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+          <button id="btn-search" class="btn btn-primary" type="submit"><i class="fa fa-search" ></i></button>
         </span>
-        <input id="input-search" name="query" type="text" class="form-control" placeholder="Search...">
+        <input type="text" class="form-control" placeholder="Search..." ng-model="searchCtrl.query">
       </div>
-    </div>
-    <div id="result" class="row">
-    </div>
+    </form>
+  </div>
+  <div id="result" class="col-sm-12">
+    <video-card ng-repeat="video in searchCtrl.videos"></video-card>
   </div>
 
-  <div class="col-sm-5">
+  <div class="col-sm-12">
     <div>
-      <form>
+      <form ng-submit="searchCtrl.submit()" novalidate>
         <div class="input-group">
           <span class="input-group-addon">Name</span>
-          <input type="text" class="form-control" name="title" placeholder="Playlist name">
+          <input type="text" class="form-control" name="title" placeholder="Playlist name" ng-model="searchCtrl.playlist.title">
         </div>
 
         <div class="input-group">
           <span class="input-group-addon">Tags</span>
-          <input type="text" class="form-control" name="tags" placeholder="Playlist tags">
+          <input type="text" class="form-control" name="tags" placeholder="Playlist tags" ng-list=", " ng-model="searchCtrl.playlist.tags">
         </div>
 
-        <a id="btn-submit" class="btn btn-primary">Save</a>
+        <a id="btn-submit" class="btn btn-primary" ng-click="searchCtrl.submit()">Save</a>
       </form>
     </div>
-    <div id="playlist-videos"></div>
+    <videoqa-card ng-repeat="video in searchCtrl.playlist.entries"></videoqa-card>
   </div>
 </div>
 

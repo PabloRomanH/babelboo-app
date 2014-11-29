@@ -39,19 +39,6 @@ p.videoTitle {
 
 #qa {
   text-align: left;
-  display: none;
-}
-
-#summary {
-  display: none;
-}
-
-.alert {
-  display: none;
-}
-
-.template {
-  display: none;
 }
 
 .searchbox {
@@ -80,21 +67,13 @@ p.videoTitle {
   font-size: 13px;
 }
 
-/*.playlist-item {
-  display: none;
-}
-*/
-/*.playlist h2 .fa-youtube-play {
-  color: #0f0;
+.question {
+  padding-left: 20px;
 }
 
-.playlist h2 .fa-pencil {
-  color: #0f0;
+.answers {
+  padding-left: 20px;
 }
-
-.playlist h2 .fa-trash {
-  color: #0f0;
-}*/
 
 
 
