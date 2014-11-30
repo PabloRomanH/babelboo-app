@@ -7,8 +7,7 @@ var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
 
 
 router.get('/', function(req, res){
-    var playlistId = req.param('id');
-    res.render('playlist', { playlistId: playlistId });
+    res.render('playlist');
 });
 
 router.post('/', function(req, res){

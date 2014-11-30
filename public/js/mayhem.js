@@ -1,8 +1,11 @@
 (function() {
     var app = angular.module('mayhem', []);
     
+    app.config(function ($locationProvider) {
+        $locationProvider.html5Mode(true);
+    })
     // ------------------ Playlists
-    app.controller('PlaylistsController', ['$http', function($http){
+    app.controller('PlaylistsController', function($http){
         var controller = this;
         controller.playlists = []; 
         
@@ -20,7 +23,7 @@
 
         getList();
         
-    }]);
+    });
     
     app.directive('playlistCard', function() {
         return {
@@ -32,7 +35,11 @@
     // ------------------ /Playlists
     
     // ------------------ Playlist
-    app.controller('SearchController', ['$scope', '$http', function ($scope, $http) {
+    app.config(function ($locationProvider) {
+        $locationProvider.html5Mode(true);
+    })
+    
+    app.controller('SearchController', function ($scope, $http, $location) {
         var controller = this;
         controller.videos = [];
         controller.query = '';
@@ -42,6 +49,7 @@
         controller.playlist.tags = [];
         controller.showWarning = false;
         
+        var playlistId = $location.search().id;
         var addedVideos = controller.playlist.entries;
         
         if (playlistId) {
@@ -156,7 +164,7 @@
             }
         };
 
-    }]);
+    });
     
     app.directive('videoCard', function() {
         return {

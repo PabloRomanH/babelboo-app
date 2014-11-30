@@ -6,11 +6,16 @@ var onPlayerStateChange;
 (function() {
     var app = angular.module('player', []);
     
-    app.controller('PlayController', ['$scope', '$http', function($scope, $http) {
+    app.config(function ($locationProvider) {
+        $locationProvider.html5Mode(true);
+    })
+    
+    app.controller('PlayController', function($scope, $http, $location) {
         var player;
         var controller = this;
         var idx = 0;
         
+        playlistId = $location.search().id;
         controller.correctAnswers = 0;
         controller.incorrectAnswers = 0;
         
@@ -99,7 +104,7 @@ var onPlayerStateChange;
             }
         }
         
-    }]);
+    });
 })();
 
 function loadVideo() {
