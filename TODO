@@ -1,9 +1,17 @@
 to do next:
 
+- unEJSify
+
+- angularifying
+    - playlists
+        - separate searchCtrl and playlistBuilderCtrl
+        - videoqa-card.html to use video-card.html
+    - separate each view's code into a different js
+
 - self contained playlist creation tool
     - show video length
     - preview videos (clicking on the thumbnail, both in search and selected videos)
-    - 
+    -
 
 - 9gag new playlists are marked as new
 - A/B functionality depending on user
