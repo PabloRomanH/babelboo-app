@@ -4,7 +4,7 @@ var passport = require('passport');
 var router = express.Router();
 
 router.get('/', function(req, res){
-    res.render('login', { user: req.user, message: req.flash('error') });
+    res.render('login', { user: req.user, message: req.flash('error'), layout:'layoutlanding'});
 });
 
 router.post('/',
@@ -12,5 +12,5 @@ router.post('/',
         failureRedirect: '/login',
         failureFlash: true })
     );
-    
+
 module.exports = router;
