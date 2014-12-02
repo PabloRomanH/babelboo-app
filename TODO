@@ -18,7 +18,7 @@ to do next:
 - 9gag new playlists are marked as new
 - A/B functionality depending on user
 - google analytics everywhere
-- See why this video is weird (fFYxrz6FaUw) don't show the likes in search. (the video is 0 seconds lon)
+- See why this video is weird (fFYxrz6FaUw) don't show the likes in search. (the video is 0 seconds long)
 - remove ejs dependencies
 
 Requirements
@@ -26,6 +26,12 @@ Requirements
     Good user registration
 
 We have to create the playlists for the MVP
+
+Remove references to mayhem
+
+Landing page
+    contact
+    email
 
 Playlists
     Playlist completion (visual cue that marks a playlist as watched)

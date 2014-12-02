@@ -182,8 +182,8 @@
             }
         };
 
-<<<<<<< HE
     });
+
 
     app.directive('videoCard', function() {
         return {

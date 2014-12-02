@@ -11,7 +11,6 @@ var flash = require('connect-flash');
 //var mongo = require('mongodb');
 var db = require('monk')('localhost:27017/nodetest1');
 var MongoStore = require('connect-mongo')(session);
-var partials = require('express-partials');
 
 function findByUserName(username, callback)
 {
@@ -67,7 +66,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(partials());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

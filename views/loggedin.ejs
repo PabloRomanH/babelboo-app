@@ -1,7 +1,23 @@
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
-<p>You logged in as <%= username %></p>
-<p><a href="/playlists">View all the existing playlists</a></p>
-<p><a href="/newPlaylists">View only the new playlists</a></p>
-<p><a href="/playlist">Create new playlist</a></p>
-<p><a href="/logout">Log out</a></p>
+<!DOCTYPE html>
+<html ng-app="mayhem">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <script src="js/angular.js"></script>
+    <script src="js/mayhem.js"></script>
+
+  </head>
+  <body>
+    <div class="container">
+        <h1>Welcome to Babelboo</h1>
+        <p>You logged in as <%= username %></p>
+        <p><a href="/playlists">View all the existing playlists</a></p>
+        <p><a href="/newPlaylists">View only the new playlists</a></p>
+        <p><a href="/playlist">Create new playlist</a></p>
+        <p><a href="/logout">Log out</a></p>
+    </div>
+  </body>
+</html>

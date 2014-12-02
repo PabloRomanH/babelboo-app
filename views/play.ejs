@@ -1,29 +1,44 @@
-<div class="jumbotron" ng-controller="PlayController as playCtrl">
-  <h2>Videos en inglés</h2>
-  <div class="video" id="video" ng-hide="playCtrl.showSummary">
-    <div id="ytplayer" class="player"></div>
-    <div class="row">
-      <div class="col-lg-6"><a id="btn-next" class="btn btn-lg btn-primary" ng-click="playCtrl.playNext()" ng-disabled="playCtrl.answered && playCtrl.questionsAtTheEnd">Siguiente</a></div>
+<!DOCTYPE html>
+<html ng-app="player">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="js/angular.js"></script>
+    <script src="js/player.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron" ng-controller="PlayController as playCtrl">
+        <h2>Videos en inglés</h2>
+        <div class="video" id="video" ng-hide="playCtrl.showSummary">
+          <div id="ytplayer" class="player"></div>
+          <div class="row">
+            <div class="col-lg-6"><a id="btn-next" class="btn btn-lg btn-primary" ng-click="playCtrl.playNext()" ng-disabled="playCtrl.answered && playCtrl.questionsAtTheEnd">Siguiente</a></div>
+          </div>
+          <div class="row qa" id="qa" ng-show="playCtrl.showQuestions">
+            <h2 id="question">{{ playCtrl.currentVideo.question }}</h2>
+            <ul id="answers">
+              <li ng-repeat="answer in playCtrl.currentVideo.answers" ng-click="playCtrl.answered || playCtrl.answer($index)" ng-class="{correctAnswer: $index==playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer, incorrectAnswer: $index==playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">{{ answer.text }}</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div id="summary" ng-show="playCtrl.showSummary">
+          <h3>Summary</h3>
+          <p>
+            <span>Number of videos:</span> <span id="number-of-videos">{{ playCtrl.videos.length }}</span>
+          </p>
+          <p>
+            <span>Correct answers:</span> <span id="number-correct">{{ playCtrl.correctAnswers }}</span>
+          </p>
+          <p>
+            <span>Incorrect answers:</span> <span id="number-incorrect">{{ playCtrl.incorrectAnswers }}</span> 
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="row qa" id="qa" ng-show="playCtrl.showQuestions">
-      <h2 id="question">{{ playCtrl.currentVideo.question }}</h2>
-      <ul id="answers">
-        <li ng-repeat="answer in playCtrl.currentVideo.answers" ng-click="playCtrl.answered || playCtrl.answer($index)" ng-class="{correctAnswer: $index==playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer, incorrectAnswer: $index==playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">{{ answer.text }}</li>
-      </ul>
-    </div>
-  </div>
-  
-  <div id="summary" ng-show="playCtrl.showSummary">
-    <h3>Summary</h3>
-    <p>
-      <span>Number of videos:</span> <span id="number-of-videos">{{ playCtrl.videos.length }}</span>
-    </p>
-    <p>
-      <span>Correct answers:</span> <span id="number-correct">{{ playCtrl.correctAnswers }}</span>
-    </p>
-    <p>
-      <span>Incorrect answers:</span> <span id="number-incorrect">{{ playCtrl.incorrectAnswers }}</span> 
-    </p>
-  </div>
-  
-</div>
+  </body>
+</html>

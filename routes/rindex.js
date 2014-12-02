@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
         req.user = {};
         req.user.username = "anonymous";
     }
-    res.render('loggedin', { title: 'English Videos', username: req.user.username});
+    res.render('loggedin', { username: req.user.username});
 });
 
 
