@@ -3,3 +3,4 @@ data/journal/prealloc.1
 data/journal/prealloc.2
 data/journal/
 data/mongod.lock
+.DS_Store

@@ -1,0 +1,91 @@
+body {
+    margin: 0px;
+}
+
+.container {
+    margin: 0px;
+    width: 100%;
+    padding: 0px;
+}
+
+.row {
+    margin: 0px;
+}
+
+.header {
+    background-color: #00618C;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.header img {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#login-button {
+    display: inline;
+}
+
+#login-bubble {
+    padding: 10px;
+    margin-right: 15px;
+    margin-top: -5px;
+}
+
+#login-bubble button {
+    width: 100%;
+}
+
+#login-bubble {
+    display: block;
+}
+
+#login-bubble div {
+    margin: 10px;
+}
+
+.call {
+    background-color: #ffffff;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+.value {
+    background-color: #00618C;
+    color: #ffffff;
+    padding: 10px;
+    padding-bottom: 40px;
+}
+
+.team {
+    background-color: #ffffff;
+    padding: 10px;
+    padding-bottom: 40px;
+}
+
+.footer {
+    background-color: #00618C;
+    color: #ffffff;
+    height: 80px;
+    padding: 5px;
+}
+
+.footer .row {
+    padding: 5px;
+}
+
+.footer a, .footer a:visited, .footer a:hover {
+    color: #ffffff;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}

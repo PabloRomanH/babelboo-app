@@ -8,6 +8,8 @@ to do next:
         - videoqa-card.html to use video-card.html
     - separate each view's code into a different js
 
+- refactor landing pages
+
 - self contained playlist creation tool
     - show video length
     - preview videos (clicking on the thumbnail, both in search and selected videos)
