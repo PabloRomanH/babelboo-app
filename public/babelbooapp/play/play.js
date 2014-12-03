@@ -1,6 +1,3 @@
-
-var _gaq = _gaq || [];
-var onYouTubeIframeAPIReady;
 var onPlayerStateChange;
 
 (function() {
@@ -10,12 +7,13 @@ var onPlayerStateChange;
         $locationProvider.html5Mode(true);
     })
     
-    app.controller('PlayController', function($scope, $http, $location) {
+    app.controller('PlayController', function($scope, $http, $location, $routeParams) {
         var player;
         var controller = this;
         var idx = 0;
+        var loaded = false;
         
-        playlistId = $location.search().id;
+        var playlistId = $routeParams.playlistId;
         controller.correctAnswers = 0;
         controller.incorrectAnswers = 0;
         
@@ -24,13 +22,13 @@ var onPlayerStateChange;
         controller.answeredindex = -1;
         controller.answered = false;
         controller.showSummary = false;
+        controller.videos = [];
         
-        $http.get('api/playlist/' + playlistId).success(function( data ) {
+        $http.get('/api/playlist/' + playlistId).success(function( data ) {
             controller.playlist = data;
             controller.videos = data.entries;
             controller.currentVideo = controller.videos[idx];
-    
-            loadVideo();
+            loadPlayer();
         });
         
         loadAnalytics();
@@ -48,7 +46,6 @@ var onPlayerStateChange;
                 var video_id = controller.videos[idx].id;
                 player.loadVideoById({videoId:video_id});
             }
-            $scope.$apply();
         };
         
         controller.answer = function(index) {
@@ -72,8 +69,7 @@ var onPlayerStateChange;
             }
         }
 
-        
-        onYouTubeIframeAPIReady = function() {
+        var loadPlayer = function() {
             player = new YT.Player('ytplayer', {
                 height: '480',
                 width: '640',
@@ -91,37 +87,19 @@ var onPlayerStateChange;
                 }
             });
         }
-        
+
         onPlayerStateChange = function(event) {
             if (event.data == YT.PlayerState.ENDED) {
                 _gaq.push(['_trackEvent', 'video', 'finished', controller.videos[idx].id]);
                 if (controller.questionsAtTheEnd) {
                     controller.showQuestions = true;
-                    $scope.$apply();
                 } else {
                     controller.playNext();
                 }
+                
+                $scope.$apply();
             }
         }
         
     });
 })();
-
-function loadVideo() {
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}
-
-function loadAnalytics() {
-    _gaq.push(['_setAccount', 'UA-56348024-1'],
-            ['_trackPageview']);
-    (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-}
-
-

@@ -1,62 +1,11 @@
 (function() {
-    var app = angular.module('mayhem', []);
+    var app = angular.module('playlist', []);
     
     app.config(function ($locationProvider) {
         $locationProvider.html5Mode(true);
     })
-
-    // ------------------ Login
-    app.controller('LoginController', function(){
-        var controller = this;
-        controller.formVisible = false;
-
-        function getList () {
-            $http.get('/api/playlist').success(function(data){
-                controller.playlists = data;
-            });
-        }
-
-        this.toggleForm = function() {
-            controller.formVisible = !controller.formVisible;
-        }
-
-    });
-    // ------------------ /Login
-
-    // ------------------ Playlists
-    app.controller('PlaylistsController', function($http){
-        var controller = this;
-        controller.playlists = [];
-
-        function getList () {
-            $http.get('/api/playlist').success(function(data){
-                controller.playlists = data;
-            });
-        }
-
-        this.delete = function(playlistId) {
-            $http.delete('/api/playlist/' + playlistId).success(function() {
-                getList();
-            });
-        }
-
-        getList();
-    });
     
-    app.directive('playlistCard', function() {
-        return {
-            restrict: 'E',
-            templateUrl: 'directives/playlist-card.html'
-        };
-    });
-    // ------------------ /Playlists
-
-    // ------------------ Playlist
-    app.config(function ($locationProvider) {
-        $locationProvider.html5Mode(true);
-    })
-    
-    app.controller('SearchController', function ($scope, $http, $location) {
+    app.controller('SearchController', function ($scope, $http, $location, $routeParams) {
         var controller = this;
         controller.videos = [];
         controller.query = '';
@@ -66,7 +15,7 @@
         controller.playlist.tags = [];
         controller.showWarning = false;
         
-        var playlistId = $location.search().id;
+        var playlistId = $routeParams.playlistId;
 
         var addedVideos = controller.playlist.entries;
 
@@ -188,47 +137,29 @@
     app.directive('videoCard', function() {
         return {
             restrict: 'E',
-            templateUrl: 'directives/video-card.html'
+            templateUrl: '/babelbooapp/playlist/video-card.html'
         }
     });
 
     app.directive('videoqaCard', function() {
         return {
             restrict: 'E',
-            templateUrl: 'directives/videoqa-card.html'
+            templateUrl: '/babelbooapp/playlist/videoqa-card.html'
         }
     });
 
     app.directive('answerCard', function() {
         return {
             restrict: 'E',
-            templateUrl: 'directives/answer-card.html'
+            templateUrl: '/babelbooapp/playlist/answer-card.html'
         }
     });
-    // ------------------ /Playlist
-
 })();
 
-// ------------------ Playlist
 var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
 
 function handleClientLoad() {
     gapi.client.setApiKey(API_KEY);
     gapi.client.load('youtube', 'v3');
 }
-// ------------------ /Playlist
 
-if (!Array.prototype.indexOf) { // compatibility definition for IE8
-    Array.prototype.indexOf = function (obj, fromIndex) {
-        if (fromIndex == null) {
-            fromIndex = 0;
-        } else if (fromIndex < 0) {
-            fromIndex = Math.max(0, this.length + fromIndex);
-        }
-        for (var i = fromIndex, j = this.length; i < j; i++) {
-            if (this[i] === obj)
-                return i;
-        }
-        return -1;
-    };
-}

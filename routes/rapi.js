@@ -30,7 +30,7 @@ router.get('/playlist/:playlist_id', function(req, res) {
 
 router.delete('/playlist/:playlist_id', function(req, res) {
     var collection = req.db.get('playlists');
-    collection.remove({_id: req.params.playlist_id});
+    collection.remove({_id: req.params.playlist_id}); // FIXME return appropriate JSON in callback depending on success or failure
     res.status = 204;
     res.json();
 });
@@ -38,7 +38,7 @@ router.delete('/playlist/:playlist_id', function(req, res) {
 router.put('/playlist/:playlist_id', function(req, res) {
     console.log ("PUT: ", req.body);
 
-    upsertPlaylist(req.body, req.params.playlist_id, req.db);
+    upsertPlaylist(req.body, req.params.playlist_id, req.db); // FIXME return appropriate JSON in callback depending on success or failure
 
     res.status = 200; // OK
     res.json();
@@ -47,7 +47,7 @@ router.put('/playlist/:playlist_id', function(req, res) {
 router.post('/playlist', function(req, res) {
     console.log ("POST: ", req.body);
 
-    upsertPlaylist(req.body, null, req.db);
+    upsertPlaylist(req.body, null, req.db); // FIXME return appropriate JSON in callback depending on success or failure
 
     res.status = 201; // CREATED
     res.json();
@@ -57,6 +57,7 @@ router.post('/playlist', function(req, res) {
 function upsertPlaylist(body, playlistId, db) {
     var collection = db.get('playlists');
 
+    // TODO verify format and permissions of request
     if (playlistId) {
         collection.update({"_id": playlistId}, body,
             function (err, doc) {

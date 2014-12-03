@@ -2,8 +2,8 @@
 <div class="col-sm-12">
     <h2>
       {{ playlist.title }}
-      <a class="fa fa-youtube-play text-success" href="play?id={{ playlist._id }}"></a>
-      <a class="fa fa-pencil text-primary" href="playlist?id={{ playlist._id }}"></a>
+      <a class="fa fa-youtube-play text-success" href="play/{{ playlist._id }}"></a>
+      <a class="fa fa-pencil text-primary" href="playlist/{{ playlist._id }}"></a>
       <a class="fa fa-trash btn-delete text-danger" ng-click="playlistsCtrl.delete(playlist._id)"></a>
     </h2>
 
