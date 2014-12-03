@@ -11,7 +11,6 @@ var flash = require('connect-flash');
 //var mongo = require('mongodb');
 var db = require('monk')('localhost:27017/nodetest1');
 var MongoStore = require('connect-mongo')(session);
-var partials = require('express-partials');
 
 function findByUserName(username, callback)
 {
@@ -67,7 +66,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(partials());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -89,13 +87,9 @@ app.use(function(req,res,next){
     next();
 });
 
-var routes = require('./routes/rindex');
+var bbooapp = require('./routes/rbbooapp');
 var login = require('./routes/rlogin');
 var logout = require('./routes/rlogout');
-var play = require('./routes/rplay');
-var playlist = require('./routes/rplaylist');
-var ninegagPlaylists = require('./routes/rnewplaylists');
-var playlists = require('./routes/rplaylists');
 var api = require('./routes/rapi');
 
 app.use('/login', login);
@@ -108,15 +102,13 @@ app.use(function(req, res, next) {
     }
 });
 
-app.use('/', routes);
-
-app.use('/logout', logout);
-app.use('/play', play);
-app.use('/playlist', playlist);
-app.use('/newPlaylists', ninegagPlaylists);
-app.use('/playlists', playlists);
 app.use('/api', api);
-
+app.use('/logout', logout);
+app.use('/', bbooapp);
+app.use('/play', bbooapp);
+app.use('/playlist', bbooapp);
+app.use('/newPlaylists', bbooapp);
+app.use('/playlists', bbooapp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -124,6 +116,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 
 // error handlers
 
