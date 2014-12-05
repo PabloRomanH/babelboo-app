@@ -34,14 +34,13 @@ var _gaq = _gaq || [];
         }
     });
     
-    app.controller('EmailController', function($http){
+    app.controller('EmailController', function($http, $location){
         var controller = this;
         controller.formVisible = false;
         
         this.submitEmail = function (email) {
-            $http.post('/api/betaregistration', { "email": email }).success(function() {
-                window.location.href = "/thanks";
-            });
+            $http.post('/api/betaregistration', { "email": email });
+            $location.path('/thanks');
         }
     });
 })();

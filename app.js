@@ -92,6 +92,8 @@ var login = require('./routes/rlogin');
 var logout = require('./routes/rlogout');
 var api = require('./routes/rapi');
 
+app.use('/api', api);
+
 app.use('/login', login);
 app.use(function(req, res, next) {
     if (req.user) {
@@ -102,7 +104,6 @@ app.use(function(req, res, next) {
     }
 });
 
-app.use('/api', api);
 app.use('/logout', logout);
 app.use('/', bbooapp);
 app.use('/play', bbooapp);
@@ -144,6 +145,7 @@ app.use(function(err, req, res, next) {
 
 if (app.get('env') === 'development') {
   app.locals.pretty = true;
+  app.set('json spaces', 4);
 }
 
 var server = app.listen(process.env.PORT);
