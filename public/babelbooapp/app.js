@@ -2,6 +2,10 @@ var _gaq = _gaq || [];
 
 (function() {
     var app = angular.module('babelbooapp', ['ngRoute', 'player', 'playlist', 'playlists']);
+        
+    app.config(function ($locationProvider) {
+        $locationProvider.html5Mode(true);
+    })
     
     app.config(['$routeProvider',
       function($routeProvider) {
@@ -21,11 +25,6 @@ var _gaq = _gaq || [];
             when('/play/:playlistId', {
                 templateUrl: '/babelbooapp/play/play-fragment.html'
             }).
-/*            when('/error', {
-                controller: function(){
-                    window.location.replace('/');
-                }
-            }).*/
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html'
             });

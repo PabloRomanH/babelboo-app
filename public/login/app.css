@@ -8,6 +8,10 @@ body {
 
 }
 
+h1 {
+    margin-bottom: 40px;
+}
+
 h2 {
     font-size:56px;
     color: #00618C;
@@ -68,14 +72,12 @@ h2 {
 .value {
     background-color: #00618C;
     color: #ffffff;
-    padding: 10px;
-    padding-bottom: 40px;
+    padding: 40px;
 }
 
 .team {
     background-color: #ffffff;
-    padding: 10px;
-    padding-bottom: 40px;
+    padding: 40px;
 }
 
 .footer {
