@@ -79,16 +79,22 @@ router.post('/betaregistration', function(req, res) {
     var collection = req.db.get('betaregistration');
 
     collection.insert(req.body,
-            function (err, doc) {
-                if (err) throw err;
-            });
+        function (err, doc) {
+            if (err) throw err;
+        });
     
     res.status = 201; // CREATED
     res.json();
 });
 
-router.get('/betaregistration?PASSWORD=XHxaXmc8Ev2FzG8M6lel', function(req, res) {
-    console.log ("GET: ", req.body);
+router.get('/betaregistration', function(req, res) {
+    console.log ("API GET: ", req.body);
+    if (req.query.PASSWORD != "XHxaXmc8Ev2FzG8M6lel") {
+        res.status = 404;
+        res.json();
+        return;
+    }
+        
     var collection = req.db.get('betaregistration');
 
     try {
