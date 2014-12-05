@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html ng-app="login">
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="content-language" content="es"/>
+  <meta name="title" content=""/>
+  <meta name="" content=""/>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="/login/app.css">
   <script src="/lib/angular.js"></script>
+  <script src="/lib/angular-route.js"></script>
   <script src="/login/app.js"></script>
 </head>
 <body>
@@ -28,75 +33,74 @@
         </div>
       </div>
     </div>
-    
+
     <div class="call row">
       <div class="vcenter col-md-4 col-md-offset-1">
         <img class="img-responsive" src="/img/big-boo.png"/>
       </div>
-      <div class="vcenter text-center col-md-5 col-md-offset-1">
-        <h2>Powerfull, motivating sentence</h2>
-        <button class="btn-lg btn-success">Start learning</button>
-      </div>
+
+      <div class="vcenter text-center col-md-5 col-md-offset-1" ng-view></div>
+
     </div>
-  
+
     <div class="value row">
       <div class="row text-center">
-        <h1>Babelboo is good bc</h1>
+        <h1>Aprende Ingés viendo el contenido que más te gusta</h1>
       </div>
       <div class="row">
         <div class="col-md-5 col-md-offset-2">
-          <h3>Some value prop here</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
+          <h3>Aprende con lo que te gusta</h3>
+          <p>Disfruta viendo vídeos de tus hobbies, intereses y inquietudes, mientras aprendes inglés de forma natural.</p>
         </div>
         <div class="col-md-3 col-md-offset-1">
-          <img class="img-responsive" src="/img/boo-white-placeholder.png"/>
+          <img class="img-responsive" src="/img/aprende-ingles.png"/>
         </div>
       </div>
       <div class="row">
           <div class="col-md-5 col-md-offset-2">
-            <h3>Some value prop here</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
+            <h3>Tú decides el ritmo</h3>
+            <p>Tú decides cuando veer vídeos y por cuanto tiempo, mientras tanto deja que boo vaya ampliando tus conocimientos a medida que vayas consolidando otros.</p>
           </div>
           <div class="col-md-3 col-md-offset-1">
-            <img class="img-responsive" src="/img/boo-white-placeholder.png"/>
+            <img class="img-responsive" src="/img/aprende-ingles-ritmo.png"/>
           </div>
       </div>
       <div class="row">
           <div class="col-md-5 col-md-offset-2">
-            <h3>Some value prop here</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
+            <h3>Ten por seguro que aprenderás</h3>
+            <p>Ver contenido adaptado a tu nivel, de tu interés 100% en inglés y que te gusta es un combinado que hace imposible no aprender.</p>
           </div>
           <div class="col-md-3 col-md-offset-1">
-            <img class="img-responsive" src="/img/boo-white-placeholder.png"/>
+            <img class="img-responsive" src="/img/aprende-ingles-seguro.png"/>
           </div>
       </div>
     </div>
-  
+
     <div class="team row text-center">
       <div class="row">
-        <h1>Meet the team</h1>
+        <h1>Conoce al equipo</h1>
       </div>
       <div class="col-md-10 col-md-offset-1">
         <div class="row">
           <div class="col-md-4">
-            <img class="img-responsive center-block" src="/img/boo-blue.png"/>
+            <img class="img-responsive center-block" src="/img/pablo-roman.png"/>
             <h3>Pablo Roman</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+            <p>Ingeniero informático, snowboarder y soñador. Habla japonés entre otro idiomas.</p>
           </div>
           <div class="col-md-4">
-            <img class="img-responsive center-block" src="/img/boo-blue.png"/>
+            <img class="img-responsive center-block" src="/img/toni-penya.png"/>
             <h3>Toni Penya-Alba</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+            <p>PhD in Artificial intelligence, percusionista, viajero apasionado y un tipo feliz.</p>
           </div>
           <div class="col-md-4">
-            <img class="img-responsive center-block" src="/img/boo-blue.png"/>
+            <img class="img-responsive center-block" src="/img/fran-castillo.png"/>
             <h3>Fran Castillo</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+            <p>Diseñador gráfico, ilustrador, rugbier y gentleman.</p>
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="footer row text-center">
       <div class="col-md-12">
         <div class="row">

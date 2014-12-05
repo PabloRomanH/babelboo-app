@@ -2,10 +2,7 @@ var onPlayerStateChange;
 
 (function() {
     var app = angular.module('player', []);
-    
-    app.config(function ($locationProvider) {
-        $locationProvider.html5Mode(true);
-    })
+
     
     app.controller('PlayController', function($scope, $http, $location, $routeParams) {
         var player;

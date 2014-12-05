@@ -82,6 +82,7 @@ router.post('/betaregistration', function(req, res) {
         function (err, doc) {
             if (err) throw err;
         });
+
     
     res.status = 201; // CREATED
     res.json();
