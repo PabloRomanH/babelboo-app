@@ -1,10 +1,6 @@
 (function() {
     var app = angular.module('playlist', []);
     
-    app.config(function ($locationProvider) {
-        $locationProvider.html5Mode(true);
-    })
-    
     app.controller('SearchController', function ($scope, $http, $location, $routeParams) {
         var controller = this;
         controller.videos = [];
