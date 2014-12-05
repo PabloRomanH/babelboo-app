@@ -2,7 +2,6 @@ to do next:
 
 - unEJSify
 - move ejs files to /babelbooap
-- remove unnecessary ng-container
 
 - angularifying
     - playlists
