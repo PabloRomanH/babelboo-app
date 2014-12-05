@@ -15,6 +15,28 @@
                 getList();
             });
         }
+        
+        function pad (number) {
+            var str = String(number);
+            
+            return str.substr(str.length - 2);
+        }
+        
+        this.renderTime = function (seconds) {
+            if (!seconds) return;
+            
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            seconds = (seconds % 3600) % 60;
+            
+            seconds = pad(seconds);
+            
+            if (hours !== 0) {
+                minutes = pad(minutes);
+                return hours + ':' + minutes + ':' + seconds;
+            }
+            return minutes + ':' + seconds;
+        }
 
         getList();
     });
