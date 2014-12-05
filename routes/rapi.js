@@ -30,6 +30,19 @@ router.get('/playlist/:playlist_id', function(req, res) {
     }
 });
 
+router.get('/playlist/tag/:tag_name', function(req, res) {
+    console.log ("GET: ", req.body);
+    var collection = req.db.get('playlists');
+
+    try {
+        collection.find({tags: req.params.tag_name},{},function (err, result) {
+            res.json( result );
+        });
+    } catch (err2) {
+        res.json();
+    }
+});
+
 router.delete('/playlist/:playlist_id', function(req, res) {
     console.log ("DELETE: ", req.body);
     var collection = req.db.get('playlists');
