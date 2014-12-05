@@ -107,5 +107,18 @@ router.get('/betaregistration', function(req, res) {
     }
 });
 
+router.get('/tag', function(req, res) {
+    console.log ("GET: ", req.body);
+    var collection = req.db.get('tags');
+
+    try {
+        collection.find({},{},function (err, result) {
+            res.json( result );
+        });
+    } catch (err2) {
+        res.json();
+    }
+});
+
 
 module.exports = router;
