@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
-//var mongo = require('mongodb');
 var db = require('monk')('localhost:27017/nodetest1');
 var MongoStore = require('connect-mongo')(session);
 

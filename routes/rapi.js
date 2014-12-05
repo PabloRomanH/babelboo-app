@@ -41,7 +41,7 @@ router.delete('/playlist/:playlist_id', function(req, res) {
 router.put('/playlist/:playlist_id', function(req, res) {
     console.log ("PUT: ", req.body);
 
-    upsertPlaylist(req.body, req.params.playlist_id, req.db); // FIXME return appropriate JSON in callback depending on success or failure
+    upsertPlaylist(req.body, req.params.playlist_id, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
 
     res.status = 200; // OK
     res.json();
@@ -50,7 +50,7 @@ router.put('/playlist/:playlist_id', function(req, res) {
 router.post('/playlist', function(req, res) {
     console.log ("POST: ", req.body);
 
-    upsertPlaylist(req.body, null, req.db); // FIXME return appropriate JSON in callback depending on success or failure
+    upsertPlaylist(req.body, null, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
 
     res.status = 201; // CREATED
     res.json();
