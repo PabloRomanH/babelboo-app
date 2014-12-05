@@ -1,5 +1,17 @@
 body {
     margin: 0px;
+     background: url(/img/popcorn.jpg) no-repeat center center fixed;
+  -moz-background-size: cover;  /* version Mozilla */
+  -webkit-background-size: cover; /* version Chrome y Safari */
+  -o-background-size: cover; /* version Opera */
+  background-size: cover; /* version w3org */
+
+}
+
+h2 {
+    font-size:56px;
+    color: #00618C;
+    margin-bottom: 25px;
 }
 
 .container {
@@ -47,7 +59,6 @@ body {
 }
 
 .call {
-    background-color: #ffffff;
     margin-top: 70px;
     margin-left: auto;
     margin-right: auto;
@@ -88,4 +99,16 @@ body {
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+.cuadrado {
+    background-color:#00618C;
+    border-radius: 10px;
+    padding:20px;
+    color:#fff;
+    font-size:20px;
+}
+
+.form-control {
+    margin-bottom:20px;
 }

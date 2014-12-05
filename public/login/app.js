@@ -1,7 +1,25 @@
 var _gaq = _gaq || [];
 
 (function() {
-    var app = angular.module('login', []);
+    var app = angular.module('login', ['ngRoute']);
+
+    app.config(['$routeProvider',
+      function($routeProvider) {
+        $routeProvider.
+            when('/', {
+                templateUrl: '/login/call/call-fragment.html'
+            }).
+            when('/email', {
+                templateUrl: '/login/email/email.html'
+            }).
+            when('/thanks', {
+                templateUrl: '/login/thanks/thanks.html'
+            })
+            // .
+            // otherwise({
+            //     templateUrl: '/login/call/call-fragment.html'
+            // });
+      }]);
 
     app.controller('LoginController', function(){
         var controller = this;
