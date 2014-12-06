@@ -24,6 +24,9 @@ var _gaq = _gaq || [];
             when('/play/:playlistId', {
                 templateUrl: '/babelbooapp/play/play-fragment.html'
             }).
+            when('/logout', {
+                
+            }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html'
             });
