@@ -2,17 +2,30 @@
     var app = angular.module('playlists', []);
     app.controller('PlaylistsController', function($http){
         var controller = this;
-        controller.playlists = [];
+        this.playlists = [];
+        this.tags = []
 
-        function getList () {
+        this.getList = function () {
             $http.get('/api/playlist').success(function(data){
                 controller.playlists = data;
+            });
+        }
+        
+        this.getListWithTag = function (tag) {
+            $http.get('/api/playlist/tag/' + tag).success(function(data){
+                controller.playlists = data;
+            });
+        }
+        
+        function getTags () {
+            $http.get('/api/tag').success(function(data){
+                controller.tags = data;
             });
         }
 
         this.delete = function(playlistId) {
             $http.delete('/api/playlist/' + playlistId).success(function() {
-                getList();
+                this.getList();
             });
         }
         
@@ -38,7 +51,8 @@
             return minutes + ':' + seconds;
         }
 
-        getList();
+        getTags();
+        this.getList();
     });
     
     app.directive('playlistCard', function() {
