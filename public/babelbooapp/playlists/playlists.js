@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($http){
+    app.controller('PlaylistsController', function($http, $window){
         var controller = this;
         this.playlists = [];
         this.tags = []
@@ -24,13 +24,15 @@
         }
 
         this.delete = function(playlistId) {
-            $http.delete('/api/playlist/' + playlistId).success(function() {
-                this.getList();
-            });
+            if ( $window.confirm('Are you sure you want to delete playlist ' + playlistId + '?') ) {
+                $http.delete('/api/playlist/' + playlistId).success(function() {
+                    this.getList();
+                });
+            }
         }
         
         function pad (number) {
-            var str = String(number);
+            var str = '00' + String(number);
             
             return str.substr(str.length - 2);
         }
