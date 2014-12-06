@@ -9,6 +9,12 @@
   </div>
   
   <div class="row" ng-controller="PlaylistsController as playlistsCtrl">
+  <div class="col-sm-12">
+    <ul>
+      <li><span class="bg-success"><a ng-click="playlistsCtrl.getList()">All</a></span></li>
+      <li ng-repeat="tag in playlistsCtrl.tags"><span class="bg-success"><a ng-click="playlistsCtrl.getListWithTag(tag._id)">{{ tag._id }}</a></span></li>
+    </ul>
+  </div>
   <playlist-card></playlist-card>
   </div>
 </div>

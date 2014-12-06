@@ -1,22 +1,60 @@
 (function() {
     var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($http){
+    app.controller('PlaylistsController', function($http, $window){
         var controller = this;
-        controller.playlists = [];
+        this.playlists = [];
+        this.tags = []
 
-        function getList () {
+        this.getList = function () {
             $http.get('/api/playlist').success(function(data){
                 controller.playlists = data;
             });
         }
-
-        this.delete = function(playlistId) {
-            $http.delete('/api/playlist/' + playlistId).success(function() {
-                getList();
+        
+        this.getListWithTag = function (tag) {
+            $http.get('/api/playlist/tag/' + tag).success(function(data){
+                controller.playlists = data;
+            });
+        }
+        
+        function getTags () {
+            $http.get('/api/tag').success(function(data){
+                controller.tags = data;
             });
         }
 
-        getList();
+        this.delete = function(playlistId) {
+            if ( $window.confirm('Are you sure you want to delete playlist ' + playlistId + '?') ) {
+                $http.delete('/api/playlist/' + playlistId).success(function() {
+                    this.getList();
+                });
+            }
+        }
+        
+        function pad (number) {
+            var str = '00' + String(number);
+            
+            return str.substr(str.length - 2);
+        }
+        
+        this.renderTime = function (seconds) {
+            if (!seconds) return;
+            
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            seconds = (seconds % 3600) % 60;
+            
+            seconds = pad(seconds);
+            
+            if (hours !== 0) {
+                minutes = pad(minutes);
+                return hours + ':' + minutes + ':' + seconds;
+            }
+            return minutes + ':' + seconds;
+        }
+
+        getTags();
+        this.getList();
     });
     
     app.directive('playlistCard', function() {

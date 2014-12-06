@@ -7,8 +7,7 @@ var _gaq = _gaq || [];
         $locationProvider.html5Mode(true);
     })
     
-    app.config(['$routeProvider',
-      function($routeProvider) {
+    app.config(function($routeProvider) {
         $routeProvider.
             when('/', {
                 templateUrl: '/babelbooapp/home-fragment.html'
@@ -25,10 +24,44 @@ var _gaq = _gaq || [];
             when('/play/:playlistId', {
                 templateUrl: '/babelbooapp/play/play-fragment.html'
             }).
+            when('/logout', {
+                
+            }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html'
             });
-      }]);
+    });
+      
+    app.factory('user', function($http) {
+        var service = {};
+        service.user = 0;
+        
+        service.fillUser = function(callback) {
+            if (!service.user) {
+                $http.get('/api/user').success(function(data) {
+                    service.user = data;
+                    callback(service.user);
+                });
+            } else {
+                callback(service.user);
+            }
+        }
+        
+        service.answerPlaylist = function (playlistId, points) {
+            service.user.points += points * 100;
+            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points * 100});
+        }
+        return service;
+    });
+    
+    app.controller('NavbarController', function($http, $scope, user) {        
+        this.user = {};
+        var controller = this;
+        
+        user.fillUser(function (user) {
+            controller.user = user;
+        });
+    });
     
 })();
 

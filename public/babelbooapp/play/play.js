@@ -4,7 +4,7 @@ var onPlayerStateChange;
     var app = angular.module('player', []);
 
     
-    app.controller('PlayController', function($scope, $http, $location, $routeParams) {
+    app.controller('PlayController', function($scope, $http, $location, $routeParams, user) {
         var player;
         var controller = this;
         var idx = 0;
@@ -39,6 +39,8 @@ var onPlayerStateChange;
             if (idx == controller.videos.length) {
                 player.stopVideo();
                 controller.showSummary = true;
+                
+                user.answerPlaylist(playlistId, controller.correctAnswers);
             } else {
                 var video_id = controller.videos[idx].id;
                 player.loadVideoById({videoId:video_id});
@@ -98,5 +100,19 @@ var onPlayerStateChange;
             }
         }
         
+    });
+    
+    app.directive('playerCard', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/babelbooapp/play/player-card.html'
+        }
+    });
+    
+    app.directive('summaryCard', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/babelbooapp/play/summary-card.html'
+        }
     });
 })();
