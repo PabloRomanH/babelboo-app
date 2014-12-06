@@ -32,12 +32,34 @@ var _gaq = _gaq || [];
             });
     });
       
-    app.controller('NavbarController', function($http) {        
+    app.factory('user', function($http) {
+        var service = {};
+        service.user = 0;
+        
+        service.fillUser = function(callback) {
+            if (!service.user) {
+                $http.get('/api/user').success(function(data) {
+                    service.user = data;
+                    callback(service.user);
+                });
+            } else {
+                callback(service.user);
+            }
+        }
+        
+        service.answerPlaylist = function (playlistId, points) {
+            service.user.points += points * 100;
+            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points * 100});
+        }
+        return service;
+    });
+    
+    app.controller('NavbarController', function($http, $scope, user) {        
         this.user = {};
         var controller = this;
-
-        $http.get('/api/user').success(function(data) {
-            controller.user = data;
+        
+        user.fillUser(function (user) {
+            controller.user = user;
         });
     });
     
