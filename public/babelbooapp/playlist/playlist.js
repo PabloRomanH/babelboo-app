@@ -77,7 +77,7 @@
         }
         
         function pad (number) {
-            var str = String(number);
+            var str = '00' + String(number);
             
             return str.substr(str.length - 2);
         }
@@ -122,13 +122,13 @@
             var title = controller.title;
 
             if (title === '') {
-                controller.warningMessage = 'Cannot create a playlist without a name.'
+                controller.warningMessage = 'Cannot create a playlist without a name.';
                 controller.showWarning = true;
                 return;
             }
 
             if (addedVideos.length == 0) {
-                controller.warningMessage = 'Cannot create a playlist without videos.'
+                controller.warningMessage = 'Cannot create a playlist without videos.';
                 controller.showWarning = true;
                 return;
             }

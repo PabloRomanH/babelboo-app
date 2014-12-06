@@ -17,7 +17,7 @@
         }
         
         function pad (number) {
-            var str = String(number);
+            var str = '00' + String(number);
             
             return str.substr(str.length - 2);
         }
