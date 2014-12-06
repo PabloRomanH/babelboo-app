@@ -7,8 +7,7 @@ var _gaq = _gaq || [];
         $locationProvider.html5Mode(true);
     })
     
-    app.config(['$routeProvider',
-      function($routeProvider) {
+    app.config(function($routeProvider) {
         $routeProvider.
             when('/', {
                 templateUrl: '/babelbooapp/home-fragment.html'
@@ -28,7 +27,16 @@ var _gaq = _gaq || [];
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html'
             });
-      }]);
+    });
+      
+    app.controller('NavbarController', function($http) {        
+        this.user = {};
+        var controller = this;
+
+        $http.get('/api/user').success(function(data) {
+            controller.user = data;
+        });
+    });
     
 })();
 

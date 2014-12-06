@@ -133,5 +133,13 @@ router.get('/tag', function(req, res) {
     }
 });
 
+router.get('/user', function(req, res) {
+    console.log ("GET: ", req.body);
+    var collection = req.db.get('usercollection');
+
+    console.log(req.user.username);
+    res.json(req.user);
+});
+
 
 module.exports = router;
