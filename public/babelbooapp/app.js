@@ -57,6 +57,23 @@
         return service;
     });
     
+    app.factory('playlists', function($http) {
+        var service = {};
+        service.user = 0;
+        
+        service.getRelated = function(playlistId, callback) {
+            $http.get('/api/playlist?related=' + playlistId).success(function(data) {
+                callback(data);
+            });
+        }
+        
+        service.answerPlaylist = function (playlistId, points) {
+            service.user.points += points;
+            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
+        }
+        return service;
+    });
+    
     app.controller('NavbarController', function($http, $scope, user) {        
         this.user = {};
         var controller = this;

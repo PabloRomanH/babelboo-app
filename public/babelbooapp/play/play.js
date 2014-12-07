@@ -1,14 +1,13 @@
 (function() {
     var app = angular.module('player', []);
 
-    app.controller('PlayController', function($scope, $http, $routeParams, $analytics, user) {
+    app.controller('PlayController', function($scope, $http, $routeParams, $analytics, user, playlists) {
         var player;
         var controller = this;
         var idx = 0;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
 
-        
         controller.POINT_PER_VIDEO = 10;
         controller.POINT_PER_CORRECT = 100;
         
@@ -22,6 +21,7 @@
         controller.answered = false;
         controller.showSummary = false;
         controller.videos = [];
+        controller.relatedplaylists = [];
         
         $http.get('/api/playlist/' + playlistId).success(function( data ) {
             controller.playlist = data;
@@ -63,6 +63,11 @@
                 player.stopVideo();
                 controller.points = controller.videos.length * controller.POINT_PER_VIDEO;
                 controller.points += controller.correctAnswers * controller.POINT_PER_CORRECT;
+                
+                playlists.getRelated(playlistId, function (related) {
+                    controller.relatedplaylists = related;
+                });
+                
                 controller.showSummary = true;
                 
                 user.answerPlaylist(playlistId, controller.points);
@@ -145,6 +150,13 @@
             restrict: 'E',
             templateUrl: '/babelbooapp/play/summary-card.html'
         }
+    });
+    
+    app.directive('relatedplaylistCard', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/babelbooapp/play/relatedplaylist-card.html'
+        };
     });
 })();
 
