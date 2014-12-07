@@ -10,3 +10,7 @@
     <span>Total score: {{ playCtrl.points }} </span>
   </p>
 </div>
+<div>
+  <h4>Related playlists:</h4>
+  <relatedplaylist-card ng-repeat="playlist in playCtrl.relatedplaylists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></relatedplaylist-card>
+</div>
