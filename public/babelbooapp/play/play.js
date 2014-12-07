@@ -1,18 +1,17 @@
-var onPlayerStateChange;
-
 (function() {
     var app = angular.module('player', []);
 
-    
-    app.controller('PlayController', function($scope, $http, $location, $routeParams, user) {
+    app.controller('PlayController', function($scope, $http, $routeParams, $analytics, user) {
         var player;
         var controller = this;
         var idx = 0;
+        var playlistId = $routeParams.playlistId;
+        var playlistRetrieved = false;
+
         
         controller.POINT_PER_VIDEO = 10;
         controller.POINT_PER_CORRECT = 100;
         
-        var playlistId = $routeParams.playlistId;
         controller.correctAnswers = 0;
         controller.incorrectAnswers = 0;
         controller.points = 0;
@@ -28,12 +27,33 @@ var onPlayerStateChange;
             controller.playlist = data;
             controller.videos = data.entries;
             controller.currentVideo = controller.videos[idx];
+            playlistRetrieved = true;
             loadPlayer();
         });
         
-        loadAnalytics();
-        
         controller.playNext = function () {
+            if (controller.answered) {
+                if (player.getPlayerState() == YT.PlayerState.ENDED) { // ended playing
+                    $analytics.eventTrack('watched_answered', {
+                        category: 'video', label: controller.videos[idx].id
+                    });
+                } else {
+                    $analytics.eventTrack('skipped_answered', {
+                        category: 'video', label: controller.videos[idx].id, value: player.getCurrentTime() / player.getDuration()
+                    });
+                }
+            } else {
+                if (player.getPlayerState() == YT.PlayerState.ENDED) { // ended playing
+                    $analytics.eventTrack('watched_didntanswer', {
+                        category: 'video', label: controller.videos[idx].id
+                    });
+                } else {
+                    $analytics.eventTrack('skipped_didntanswer', {
+                        category: 'video', label: controller.videos[idx].id, value: player.getCurrentTime() / player.getDuration()
+                    });
+                }
+            }
+
             idx = idx + 1;
             controller.currentVideo = controller.videos[idx];
             controller.answeredindex = -1;
@@ -66,14 +86,17 @@ var onPlayerStateChange;
                 controller.incorrectAnswers += 1;
             }
             
-            if (controller.questionsAtTheEnd) {
+            /*if (controller.questionsAtTheEnd) {
                 setTimeout(function() {
                     controller.playNext();
                 }, 2000);
-            }
+            }*/
         }
 
         var loadPlayer = function() {
+            if(!playlistRetrieved || !youtubeApiIsReady) {
+                return;
+            }
             player = new YT.Player('ytplayer', {
                 height: '480',
                 width: '640',
@@ -92,9 +115,13 @@ var onPlayerStateChange;
             });
         }
 
-        onPlayerStateChange = function(event) {
+        onYouTubePlayerAPIReady = function() {
+            youtubeApiIsReady = true;
+            loadPlayer();
+        }
+
+        /*onPlayerStateChange = function(event) {
             if (event.data == YT.PlayerState.ENDED) {
-                _gaq.push(['_trackEvent', 'video', 'finished', controller.videos[idx].id]);
                 if (controller.questionsAtTheEnd) {
                     controller.showQuestions = true;
                 } else {
@@ -103,8 +130,7 @@ var onPlayerStateChange;
                 
                 $scope.$apply();
             }
-        }
-        
+        }*/
     });
     
     app.directive('playerCard', function() {
@@ -121,3 +147,9 @@ var onPlayerStateChange;
         }
     });
 })();
+
+var onPlayerStateChange;
+var youtubeApiIsReady = false;
+var onYouTubePlayerAPIReady = function () {
+    youtubeApiIsReady = true;
+}
