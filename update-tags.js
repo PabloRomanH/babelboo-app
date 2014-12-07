@@ -2,7 +2,7 @@
 ':' //; exec "$(command -v mongo)" "$0" "$@"
 
 var connection = new Mongo();
-var db = connection.getDB("nodetest1");
+var db = connection.getDB("babelboo");
 
 var map = function() {
     if (!this.tags) {
