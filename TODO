@@ -1,5 +1,24 @@
 to do next:
 
+fill database
+
+---- from toni
+Poder ejecutar la APP en babelboo 
+
+Angulartics 
+
+---- from meeting
+related playlists
+
+w8 for user answer to advance
+
+
+
+
+
+
+
+- Calculo de los puntos totales del playlist
 - unEJSify
 - move ejs files to /babelbooap
 
@@ -27,11 +46,6 @@ Requirements
 
 We have to create the playlists for the MVP
 
-Remove references to mayhem
-
-Landing page
-    contact
-    email
 
 Playlists
     Playlist completion (visual cue that marks a playlist as watched)

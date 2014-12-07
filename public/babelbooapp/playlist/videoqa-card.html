@@ -6,11 +6,12 @@
     <div class="col-sm-7">
       <div id="title" class="row title">{{ video.title }}</div>
       <div id="description" class="row description">{{ video.description }}</div>
+      <div id="duration" class="row duration">{{ searchCtrl.renderTime(video.duration) }}</div>
     </div>
     <div class="col-sm-1"><a id="itembutton" class="fa fa-trash fa-2x text-danger" data-video-id="" ng-click="searchCtrl.rmvideo($index)"></a></div>
   </div>
   <form>
-    <div class="question"><input type="text" id="questiontext" placeholder="Question" ng-model="video.question" /></div>
+    <div class="question"><input type="text" id="questiontext" class="form-control" placeholder="Question" ng-model="video.question" /></div>
     <div class="answers">
       <answer-card ng-repeat="answer in video.answers"></answer-card>
     </div>

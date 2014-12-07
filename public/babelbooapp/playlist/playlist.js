@@ -9,6 +9,7 @@
         controller.playlist.entries = [];
         controller.playlist.title = '';
         controller.playlist.tags = [];
+        controller.playlist.level = '';
         controller.showWarning = false;
         
         var playlistId = $routeParams.playlistId;
@@ -25,6 +26,17 @@
                 }
             });
         }
+        
+        function parseYoutubeTime (duration) {
+            var regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/; // convert ISO_8601 format of video length.
+            
+            var match = regex.exec(duration);
+            var hours = Number(match[1] || 0); // get rid of undefined for elements that don't exist
+            var minutes = Number(match[2] || 0);
+            var seconds = Number(match[3] || 0);
+            
+            return hours * 3600 + minutes * 60 + seconds;
+        }
 
         this.search = function(query) {
             var request = gapi.client.youtube.search.list({
@@ -34,6 +46,8 @@
             });
 
             request.execute(function(response) {
+                var ids = [];
+                
                 var items = response.result.items.map(function (element, index) {
                     var result = {};
                     result.thumbnail = element.snippet.thumbnails.medium.url;
@@ -41,12 +55,48 @@
                     result.description = element.snippet.description;
                     result.answers = [{text: ''},{text: ''},{text: ''}];
                     result.id = element.id.videoId;
+                    ids.push(result.id)
                     result.source = "youtube";
                     return result;
                 });
                 controller.videos = items;
                 $scope.$apply();
+                
+                // query to get the times
+                var request2 = gapi.client.youtube.videos.list({
+                    id: ids.join(','),
+                    part: 'contentDetails'
+                });
+                
+                request2.execute(function(response) {
+                    var items = response.result.items.map(function (element, index) {
+                        controller.videos[index].duration = parseYoutubeTime(element.contentDetails.duration);
+                    });
+                    $scope.$apply();
+                });
             });
+        }
+        
+        function pad (number) {
+            var str = '00' + String(number);
+            
+            return str.substr(str.length - 2);
+        }
+        
+        this.renderTime = function (seconds) {
+            if (!seconds) return;
+            
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            seconds = (seconds % 3600) % 60;
+            
+            seconds = pad(seconds);
+            
+            if (hours !== 0) {
+                minutes = pad(minutes);
+                return hours + ':' + minutes + ':' + seconds;
+            }
+            return minutes + ':' + seconds;
         }
 
         this.add = function(video) {
@@ -70,24 +120,32 @@
         }
 
         this.submit = function() {
-            var title = controller.title;
-
-            if (title === '') {
+            if (controller.playlist.title === '') {
                 controller.warningMessage = 'Cannot create a playlist without a name.'
+                controller.showWarning = true;
+                return;
+            }
+            
+            if (controller.playlist.level === '') {
+                controller.warningMessage = 'Please choose a level for the playlist.'
                 controller.showWarning = true;
                 return;
             }
 
             if (addedVideos.length == 0) {
-                controller.warningMessage = 'Cannot create a playlist without videos.'
+                controller.warningMessage = 'Cannot create a playlist without videos.';
                 controller.showWarning = true;
                 return;
             }
+            
+            var totalTime = 0;
 
             for (var i = 0; i < addedVideos.length; i++) {
                 var video = addedVideos[i];
                 var questiontext = video.question;
                 var answers = video.answers;
+                
+                totalTime += video.duration;
 
                 if (questiontext) {
                     var validanswers = [];
@@ -115,6 +173,8 @@
                     delete video.correctanswer;
                 }
             }
+            
+            controller.playlist.duration = totalTime;
 
             if (playlistId) {
                 $http.put('/api/playlist/' + playlistId, controller.playlist).success(function() {

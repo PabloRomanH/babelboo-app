@@ -1,7 +1,8 @@
-<div class="playlist" ng-repeat="playlist in playlistsCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}">
-<div class="col-sm-12">
+<div class="playlist">
+  <div class="col-sm-12">
     <h2>
-      {{ playlist.title }}
+      <span>{{ playlist.title }}</span>
+      <span>{{ playlistsCtrl.renderTime(playlist.duration) }}</span>
       <a class="fa fa-youtube-play text-success" href="play/{{ playlist._id }}"></a>
       <a class="fa fa-pencil text-primary" href="playlist/{{ playlist._id }}"></a>
       <a class="fa fa-trash btn-delete text-danger" ng-click="playlistsCtrl.delete(playlist._id)"></a>
