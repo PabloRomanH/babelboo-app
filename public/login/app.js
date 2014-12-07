@@ -2,7 +2,7 @@ var _gaq = _gaq || [];
 
 (function() {
     var app = angular.module('login', ['ngRoute']);
-    
+
     app.config(function ($locationProvider) {
         $locationProvider.html5Mode(true);
     })
@@ -14,10 +14,10 @@ var _gaq = _gaq || [];
                 templateUrl: '/login/call/call-fragment.html'
             }).
             when('/email', {
-                templateUrl: '/login/email/email.html'
+                templateUrl: '/login/email/email-fragment.html'
             }).
             when('/thanks', {
-                templateUrl: '/login/thanks/thanks.html'
+                templateUrl: '/login/thanks/thanks-fragment.html'
             });
             // .
             // otherwise({
@@ -33,11 +33,11 @@ var _gaq = _gaq || [];
             controller.formVisible = !controller.formVisible;
         }
     });
-    
+
     app.controller('EmailController', function($http, $location){
         var controller = this;
         controller.formVisible = false;
-        
+
         this.submitEmail = function (email) {
             $http.post('/api/betaregistration', { "email": email });
             $location.path('/thanks');

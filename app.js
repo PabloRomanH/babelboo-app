@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
-var db = require('monk')('localhost:27017/nodetest1');
+var db = require('monk')('localhost:27017/babelboo');
 var MongoStore = require('connect-mongo')(session);
 
 function findByUserName(username, callback)
