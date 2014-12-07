@@ -9,6 +9,9 @@
         
         this.setLevel = function(level) {
             this.selectedLevel = level;
+            $analytics.eventTrack('setlevel', {
+                category: 'search', label: level
+            });
             getList();
         }
 
@@ -17,6 +20,9 @@
                 delete this.selectedTags[tag];
             } else {
                 this.selectedTags[tag] = true;
+                $analytics.eventTrack('addtag', {
+                    category: 'search', label: tag
+                });
             }
             
             getList();
