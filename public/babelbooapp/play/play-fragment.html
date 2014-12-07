@@ -2,7 +2,7 @@
   <div class="jumbotron">
     <h2>Videos en inglés</h2>
     
-    <player-card></player-card>
-    <summary-card></summary-card>
+    <player-card ng-hide="playCtrl.showSummary"></player-card>
+    <summary-card ng-show="playCtrl.showSummary"></summary-card>
   </div>
 </div>

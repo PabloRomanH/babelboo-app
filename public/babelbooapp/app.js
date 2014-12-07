@@ -48,8 +48,8 @@ var _gaq = _gaq || [];
         }
         
         service.answerPlaylist = function (playlistId, points) {
-            service.user.points += points * 100;
-            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points * 100});
+            service.user.points += points;
+            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
         }
         return service;
     });

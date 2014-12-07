@@ -8,11 +8,14 @@ var onPlayerStateChange;
         var player;
         var controller = this;
         var idx = 0;
-        var loaded = false;
+        
+        controller.POINT_PER_VIDEO = 10;
+        controller.POINT_PER_CORRECT = 100;
         
         var playlistId = $routeParams.playlistId;
         controller.correctAnswers = 0;
         controller.incorrectAnswers = 0;
+        controller.points = 0;
         
         controller.questionsAtTheEnd = false;
         controller.showQuestions = !controller.questionsAtTheEnd;
@@ -38,9 +41,11 @@ var onPlayerStateChange;
         
             if (idx == controller.videos.length) {
                 player.stopVideo();
+                controller.points = controller.videos.length * controller.POINT_PER_VIDEO;
+                controller.points += controller.correctAnswers * controller.POINT_PER_CORRECT;
                 controller.showSummary = true;
                 
-                user.answerPlaylist(playlistId, controller.correctAnswers);
+                user.answerPlaylist(playlistId, controller.points);
             } else {
                 var video_id = controller.videos[idx].id;
                 player.loadVideoById({videoId:video_id});

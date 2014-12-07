@@ -28,12 +28,21 @@
         <form ng-submit="searchCtrl.submit()" novalidate>
           <div class="input-group">
             <span class="input-group-addon">Name</span>
-            <input type="text" class="form-control" name="title" placeholder="Playlist name" ng-model="searchCtrl.playlist.title">
+            <input type="text" class="form-control" name="title" placeholder="Playlist name" required ng-model="searchCtrl.playlist.title">
           </div>
   
           <div class="input-group">
             <span class="input-group-addon">Tags</span>
             <input type="text" class="form-control" name="tags" placeholder="Playlist tags" ng-list=", " ng-model="searchCtrl.playlist.tags">
+          </div>
+          
+          <div class="input-group">
+            <span class="input-group-addon">Level</span>
+            <select class="form-control" required ng-model="searchCtrl.playlist.level">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="mercedes">Advance</option>
+            </select>
           </div>
   
           <a id="btn-submit" class="btn btn-primary" ng-click="searchCtrl.submit()">Save</a>
