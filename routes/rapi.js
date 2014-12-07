@@ -26,7 +26,6 @@ router.get('/playlist', function(req, res) {
                 res.json(result);
             });
         });
-        // TODO: serve related playlists
     } else {
         if (req.query.tags) {
             query.tags = { $all : req.query.tags.split(',') };
