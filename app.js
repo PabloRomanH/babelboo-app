@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
-var db = require('monk')('localhost:27017/nodetest1');
+var db = require('monk')('localhost:27017/babelboo');
 var MongoStore = require('connect-mongo')(session);
 
 function findByUserName(username, callback)
@@ -30,20 +30,20 @@ function findById(id, callback)
             callback(null, user);
         } else {
             callback(new Error('User ' + id + ' does not exist'));
-     }
+        }
 
     });
 }
 
 passport.serializeUser(function(user, done) {
         done(null, user._id);
-        });
+    });
 
 passport.deserializeUser(function(id, done) {
         findById(id, function (err, user) {
             done(err, user);
-            });
         });
+    });
 
 passport.use(new LocalStrategy(
     function(username, password, done) {

@@ -16,6 +16,7 @@
     <script src="https://www.youtube.com/iframe_api"></script>
   </head>
   <body>
+    <div ng-controller="NavbarController as navbarCtrl">User: {{ navbarCtrl.user.username }} Points: {{ navbarCtrl.user.points }} <a href="/playlists">Playlists</a></div>
     <div ng-view></div>
   </body>
 </html>

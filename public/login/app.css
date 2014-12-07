@@ -111,6 +111,10 @@ h2 {
     font-size:20px;
 }
 
+.cuadrado h2 {
+    color:#fff;
+}
+
 .form-control {
     margin-bottom:20px;
 }

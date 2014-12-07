@@ -9,6 +9,7 @@
         controller.playlist.entries = [];
         controller.playlist.title = '';
         controller.playlist.tags = [];
+        controller.playlist.level = '';
         controller.showWarning = false;
         
         var playlistId = $routeParams.playlistId;
@@ -119,10 +120,14 @@
         }
 
         this.submit = function() {
-            var title = controller.title;
-
-            if (title === '') {
-                controller.warningMessage = 'Cannot create a playlist without a name.';
+            if (controller.playlist.title === '') {
+                controller.warningMessage = 'Cannot create a playlist without a name.'
+                controller.showWarning = true;
+                return;
+            }
+            
+            if (controller.playlist.level === '') {
+                controller.warningMessage = 'Please choose a level for the playlist.'
                 controller.showWarning = true;
                 return;
             }
