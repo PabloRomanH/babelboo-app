@@ -5,7 +5,6 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/playlist', function(req, res) {
-    console.log ("GET: ", req.body);
     var collection = req.db.get('playlists');
 
     var query = {};
@@ -46,7 +45,6 @@ router.get('/playlist', function(req, res) {
 });
 
 router.get('/playlist/:playlist_id', function(req, res) {
-    console.log ("GET: ", req.body);
     var collection = req.db.get('playlists');
 
     try {
@@ -59,7 +57,6 @@ router.get('/playlist/:playlist_id', function(req, res) {
 });
 
 /*router.get('/playlist/tag/:tag_name', function(req, res) {
-    console.log ("GET: ", req.body);
     var collection = req.db.get('playlists');
 
     try {
@@ -72,7 +69,6 @@ router.get('/playlist/:playlist_id', function(req, res) {
 });*/
 
 router.delete('/playlist/:playlist_id', function(req, res) {
-    console.log ("DELETE: ", req.body);
     var collection = req.db.get('playlists');
     collection.remove({_id: req.params.playlist_id}); // FIXME return appropriate JSON in callback depending on success or failure
     res.status = 204;
@@ -80,7 +76,6 @@ router.delete('/playlist/:playlist_id', function(req, res) {
 });
 
 router.put('/playlist/:playlist_id', function(req, res) {
-    console.log ("PUT: ", req.body);
 
     upsertPlaylist(req.body, req.params.playlist_id, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
 
@@ -89,7 +84,6 @@ router.put('/playlist/:playlist_id', function(req, res) {
 });
 
 router.post('/playlist', function(req, res) {
-    console.log ("POST: ", req.body);
 
     upsertPlaylist(req.body, null, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
 
@@ -116,7 +110,6 @@ function upsertPlaylist(body, playlistId, db) {
 }
 
 router.post('/betaregistration', function(req, res) {
-    console.log ("POST: ", req.body);
     var collection = req.db.get('betaregistration');
 
     collection.insert(req.body,
@@ -130,7 +123,6 @@ router.post('/betaregistration', function(req, res) {
 });
 
 router.get('/betaregistration', function(req, res) {
-    console.log ("GET: ", req.body);
     if (req.query.PASSWORD != "XHxaXmc8Ev2FzG8M6lel") {
         res.status = 404;
         res.json();
@@ -149,7 +141,6 @@ router.get('/betaregistration', function(req, res) {
 });
 
 router.get('/tag', function(req, res) {
-    console.log ("GET: ", req.body);
     var collection = req.db.get('tags');
 
     try {
@@ -162,15 +153,12 @@ router.get('/tag', function(req, res) {
 });
 
 router.get('/user', function(req, res) {
-    console.log ("GET: ", req.body);
     var collection = req.db.get('usercollection');
 
-    console.log(req.user.username);
     res.json(req.user);
 });
 
 router.post('/user/:username/answer/:playlist_id', function(req, res) {
-    console.log ("POST: ", req.body);
     
     var playlist_id = req.params.playlist_id;
     var points = req.body.points;
