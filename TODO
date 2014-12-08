@@ -1,20 +1,12 @@
 to do next:
 
 
----- from toni
-Poder ejecutar la APP en babelboo 
-
-
-- Calculo de los puntos totales del playlist
-- unEJSify
 - move ejs files to /babelbooap
 
 - angularifying
     - playlists
         - separate searchCtrl and playlistBuilderCtrl
         - videoqa-card.html to use video-card.html
-
-- refactor landing pages
 
 - self contained playlist creation tool
     - show video length
