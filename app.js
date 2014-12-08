@@ -80,7 +80,7 @@ app.use(cookieParser()); // cookies need to be added before sessions
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({store: new MongoStore({
-    url: 'mongodb://localhost:27017/nodetest1'
+    url: 'mongodb://localhost:27017/babelboo'
   }),
   secret: '1234567890QWERTY', resave:true, saveUninitialized:true})); // TODO: learn about the session security requirements and change key
 app.use(flash());
