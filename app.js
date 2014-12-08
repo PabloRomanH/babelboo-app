@@ -68,7 +68,13 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+if (app.get('env') === 'development') {
+    app.use(logger('dev'));
+} else {
+    app.use(logger('combined', { 
+        skip: function (req, res) { return res.statusCode < 400 }
+    }));
+}
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser()); // cookies need to be added before sessions
 app.use(bodyParser.json());
