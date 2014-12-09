@@ -13,7 +13,8 @@
     app.config(function($routeProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: '/babelbooapp/home-fragment.html'
+                redirectTo: '/playlists'
+    
             }).
             when('/playlist', {
                 templateUrl: '/babelbooapp/playlist/playlist-fragment.html'
@@ -26,9 +27,6 @@
             }).
             when('/play/:playlistId', {
                 templateUrl: '/babelbooapp/play/play-fragment.html'
-            }).
-            when('/logout', {
-                
             }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html'
