@@ -1,6 +1,6 @@
 <div ng-if="$index % 3 == 0" class="clearfix visible-lg-block"></div>
 <div ng-if="$index % 2 == 0" class="clearfix visible-md-block"></div>
-<div class="col-md-4 col-centered boo-video2">
+<div class="col-md-4 col-centered boo-video2" ng-click="playlistsCtrl.playPlaylist(playlist._id)">
   <div class="light-btn2">
     <div class="th"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : 'img/nothumbnail.png' }}"></div>
     <div class="th"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : 'img/nothumbnail.png' }}"></div>

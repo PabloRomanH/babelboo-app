@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($http, $window, $analytics, $scope){
+    app.controller('PlaylistsController', function($http, $window, $analytics, $scope, $location){
         var controller = this;
         this.playlists = [];
         this.tags = []
@@ -50,6 +50,10 @@
                 return hours + ':' + minutes + ':' + seconds;
             }
             return minutes + ':' + seconds;
+        }
+        
+        this.playPlaylist = function(id) {
+            $location.path('/play/' + id);
         }
 
         function getList() {
