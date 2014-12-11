@@ -5,7 +5,7 @@
       <span>{{ playlistsCtrl.renderTime(playlist.duration) }}</span>
       <a class="fa fa-youtube-play text-success" href="play/{{ playlist._id }}"></a>
       <a class="fa fa-pencil text-primary" href="playlist/{{ playlist._id }}"></a>
-      <a class="fa fa-trash btn-delete text-danger" ng-click="playlistsCtrl.delete(playlist._id)"></a>
+      <a class="fa fa-trash btn-delete text-danger" ng-click="manageCtrl.delete(playlist._id)"></a>
     </h2>
 
     <div>

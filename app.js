@@ -115,6 +115,7 @@ app.use('/play', bbooapp);
 app.use('/playlist', bbooapp);
 app.use('/newPlaylists', bbooapp);
 app.use('/playlists', bbooapp);
+app.use('/manage', bbooapp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

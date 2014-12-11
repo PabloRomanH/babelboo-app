@@ -1,6 +1,6 @@
 (function() {
-    var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($http, $window, $analytics){
+    var app = angular.module('managePlaylists', []);
+    app.controller('ManagePlaylistsController', function($http, $window, $analytics){
         var controller = this;
         this.playlists = [];
         this.tags = []
@@ -55,7 +55,7 @@
         function getList() {
             var tags = [];
             
-            for (tag in controller.selectedTags) {
+            for (var tag in controller.selectedTags) {
                 tags.push(tag);
             }
             
@@ -82,10 +82,10 @@
 
     });
     
-    app.directive('playlistCard', function() {
+    app.directive('managePlaylistCard', function() {
         return {
             restrict: 'E',
-            templateUrl: '/babelbooapp/playlists/playlist-card.html'
+            templateUrl: '/babelbooapp/editPlaylists/playlist-card.html'
         };
     });
 })();
