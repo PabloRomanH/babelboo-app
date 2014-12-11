@@ -1,11 +1,11 @@
 (function() {
-    var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($http, $window, $analytics, $scope, $location){
+    var app = angular.module('managePlaylists', []);
+    app.controller('ManagePlaylistsController', function($http, $window, $analytics){
         var controller = this;
         this.playlists = [];
         this.tags = []
         this.selectedLevel = '';
-        this.selectedTag = '';
+        this.selectedTags = {};
         
         this.setLevel = function(level) {
             this.selectedLevel = level;
@@ -16,10 +16,10 @@
         }
 
         this.toggleTag = function(tag) {
-            if (tag == this.selectedTag) {
-                this.selectedTag = '';
+            if (tag in this.selectedTags) {
+                delete this.selectedTags[tag];
             } else {
-                this.selectedTag = tag;
+                this.selectedTags[tag] = true;
                 $analytics.eventTrack('addtag', {
                     category: 'search', label: tag
                 });
@@ -51,13 +51,15 @@
             }
             return minutes + ':' + seconds;
         }
-        
-        this.playPlaylist = function(id) {
-            $location.path('/play/' + id);
-        }
 
         function getList() {
-            var query = '/api/playlist/?tags=' + controller.selectedTag + '&level=' + controller.selectedLevel;
+            var tags = [];
+            
+            for (var tag in controller.selectedTags) {
+                tags.push(tag);
+            }
+            
+            var query = '/api/playlist/?tags=' + tags.join(',') + '&level=' + controller.selectedLevel;
             $http.get(query).success(function(data){
                 controller.playlists = data;
             });
@@ -80,10 +82,10 @@
 
     });
     
-    app.directive('playlistCard', function() {
+    app.directive('managePlaylistCard', function() {
         return {
             restrict: 'E',
-            templateUrl: '/babelbooapp/playlists/playlist-card.html'
+            templateUrl: '/babelbooapp/editPlaylists/playlist-card.html'
         };
     });
 })();

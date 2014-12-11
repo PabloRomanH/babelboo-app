@@ -1,25 +1,28 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>
-        All playlists
-        <a class="fa fa-plus text-success" href="/playlist"></a>
-      </h1>
+<div ng-controller="PlaylistsController as playlistsCtrl">
+  <div class="searcher row">
+    <div class="container">
+      <div class="row row-centered">
+        <ul class="list-unstyled list-inline search-tag">
+          <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('')">everything</li>
+          <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('beginner')">beginner</li>
+          <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('intermediate')">intermediate</li>
+          <li class="tag" ng-repeat="tag in playlistsCtrl.tags" ng-click="playlistsCtrl.toggleTag(tag._id)">{{ tag._id }}</li>
+        </ul>
+      </div>
     </div>
   </div>
-  
-  <div class="row" ng-controller="PlaylistsController as playlistsCtrl">
-    <div class="col-sm-12">
-      <ul>
-        <li><span><a ng-click="playlistsCtrl.setLevel('')">everything</a></span></li>
-        <li><span><a ng-click="playlistsCtrl.setLevel('beginner')">beginner</a></span></li>
-        <li><span><a ng-click="playlistsCtrl.setLevel('intermediate')">intermediate</a></span></li>
-      </ul>
-      <ul>
-        <li ng-repeat="tag in playlistsCtrl.tags"><span><a ng-click="playlistsCtrl.toggleTag(tag._id)">{{ tag._id }}</a></span></li>
-      </ul>
-      <div>{{playlistsCtrl.selectedLevel}} {{playlistsCtrl.selectedTags}}</div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div>{{playlistsCtrl.selectedLevel}} {{playlistsCtrl.selectedTags}}</div>
+      </div>
     </div>
-  <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    <div class="row row-centered">
+      <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    </div>
+    
   </div>
 </div>
+
+<!--<div>Icons made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>-->

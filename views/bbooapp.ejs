@@ -7,7 +7,7 @@
     <meta name="viewport" content="initial-scale=1">
     <title>babelboo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/babelbooapp/app.css" rel="stylesheet">
     <script src="/lib/angular.min.js"></script>
@@ -15,6 +15,7 @@
     <script src="/lib/angulartics.min.js"></script>
     <script src="/lib/angulartics-ga.min.js"></script>
     <script src="/babelbooapp/playlist/playlist.js"></script>
+    <script src="/babelbooapp/editPlaylists/playlists.js"></script>
     <script src="/babelbooapp/playlists/playlists.js"></script>
     <script src="/babelbooapp/play/play.js"></script>
     <script src="/babelbooapp/app.js"></script>
@@ -31,7 +32,24 @@
     </script>
   </head>
   <body>
-    <div ng-controller="NavbarController as navbarCtrl">User: {{ navbarCtrl.user.username }} Points: {{ navbarCtrl.user.points }} <a href="/playlists">Playlists</a></div>
+          <div class="header row navbar navbar-fixed-top">
+            <img class="pull-left" src="/img/boo-white.png"/>
+            <img class="pull-left" src="/img/name-header.png"/>
+            <button class="btn-default btn pull-right">Log out</button>
+        </div>
+    <div class="header row navbar navbar-fixed-top" ng-controller="NavbarController as navbarCtrl">
+      <img class="pull-left" src="/img/boo-white.png"/>
+      <img class="pull-left" src="/img/name-header.png"/>
+      <ul class="list-unstyled list-inline pull-left migas">
+          <li class="header-button"><a href="/playlists">Playlists</a></li>
+      </ul>
+      <ul class="list-unstyled list-inline pull-right migas">
+        <li class="header-button">User: {{ navbarCtrl.user.username }}</li>
+        <li class="header-button">Points: {{ navbarCtrl.user.points }}</li>
+        <li><a class="btn-default btn" href="/logout" target="_self">Log out</a></li>
+      </ul>
+      
+    </div>
     <div ng-view></div>
   </body>
 </html>

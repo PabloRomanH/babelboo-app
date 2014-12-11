@@ -9,9 +9,16 @@ router.get('/playlist', function(req, res) {
 
     var query = {};
     
+    if (req.query.level) {
+        query.level = req.query.level;
+    }
+    
+    if (req.query.tags) {
+        query.tags = { $all : req.query.tags.split(',') };
+    }
+    
     if (req.query.related) {
-        query._id = req.query.related;
-        collection.find(query,{},function (err, result) {
+        collection.find({ _id: req.query.related },{},function (err, result) {
             var tags = result[0].tags;
             var i = tags.indexOf('american english');
             if (i != -1) {
@@ -21,26 +28,22 @@ router.get('/playlist', function(req, res) {
             if (i != -1) {
                 tags.splice(i, 1);
             }
-            collection.find({tags: { $in: tags }},{},function (err, result) {
-                res.json(result);
-            });
+            query._id = { $ne: collection.id(req.query.related) };
+            query.tags = { $in: tags };
+            runQuery();
         });
     } else {
-        if (req.query.tags) {
-            query.tags = { $all : req.query.tags.split(',') };
-        }
-        
-        if (req.query.level) {
-            query.level = req.query.level;
-        }
+        runQuery();
+    }
     
+    function runQuery () {
         try {
-            collection.find(query,{},function (err, result) {
+            collection.find(query, function (err, result) {
                 res.json( result );
             });
         } catch (err2) {
             res.json();
-        }
+        }  
     }
 });
 

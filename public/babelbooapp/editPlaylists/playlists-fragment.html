@@ -1,0 +1,26 @@
+<div class="searcher row"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>
+        All playlists
+        <a class="fa fa-plus text-success" href="/playlist"></a>
+      </h1>
+    </div>
+  </div>
+  
+  <div class="row" ng-controller="ManagePlaylistsController as manageCtrl">
+    <div class="col-sm-12">
+      <ul>
+        <li><span><a ng-click="manageCtrl.setLevel('')">everything</a></span></li>
+        <li><span><a ng-click="manageCtrl.setLevel('beginner')">beginner</a></span></li>
+        <li><span><a ng-click="manageCtrl.setLevel('intermediate')">intermediate</a></span></li>
+      </ul>
+      <ul>
+        <li ng-repeat="tag in manageCtrl.tags"><span><a ng-click="manageCtrl.toggleTag(tag._id)">{{ tag._id }}</a></span></li>
+      </ul>
+      <div>{{playlistsCtrl.selectedLevel}} {{playlistsCtrl.selectedTags}}</div>
+    </div>
+  <manage-playlist-card ng-repeat="playlist in manageCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></manage-playlist-card>
+  </div>
+</div>

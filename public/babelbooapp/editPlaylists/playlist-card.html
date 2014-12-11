@@ -1,0 +1,21 @@
+<div class="playlist">
+  <div class="col-sm-12">
+    <h2>
+      <span>{{ playlist.title }}</span>
+      <span>{{ playlistsCtrl.renderTime(playlist.duration) }}</span>
+      <a class="fa fa-youtube-play text-success" href="play/{{ playlist._id }}"></a>
+      <a class="fa fa-pencil text-primary" href="playlist/{{ playlist._id }}"></a>
+      <a class="fa fa-trash btn-delete text-danger" ng-click="manageCtrl.delete(playlist._id)"></a>
+    </h2>
+
+    <div>
+      <span ng-repeat="tag in playlist.tags">
+        {{ tag }}
+      </span>
+    </div>
+    
+    <div class="col-sm-2" ng-repeat="video in playlist.entries | limitTo: 4"><img ng-src="{{ video.thumbnail }}" class="img-responsive">
+      <p class="videoTitle">{{ video.title }}</p>
+    </div>
+  </div>
+</div>
