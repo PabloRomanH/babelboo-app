@@ -79,7 +79,7 @@
 
 body {
     margin: 0px;
-        background-color: #edf9ff;
+    background-color: #DFDFDF;
 }
 h2{
     font-size:56px;
@@ -143,8 +143,9 @@ h3{
     margin-top: 50px;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
     margin-left: auto;
     margin-right: auto;
-    padding: 0px;
-    background-color: #e7e5e5;
+    padding: 2px;
+    background-color: #37A3D2;
+    box-shadow: 2px 6px 5px -5px #555;
 }
 
 .search-boo{
@@ -183,31 +184,59 @@ h3{
     display:inline-block;
     float:none;
     text-align:left;
-    margin-right:-4px;
+    /*margin-right:-4px;*/
 }
 
 .boo-video2{
     background-color:#fff;
-    max-width:306px;
+    max-width:210px;
     padding:0;
     margin:15px;
-    border: 3px solid #00618C;
     border-radius: 5px;
     box-shadow: 1px 1px 3px #848484;
     
 }
 
 .th{
-    /*float:left;*/
+    float:left;
+    padding: 0;
+    margin:0px;
     padding: 0px;
     margin: 0px;
-    width: 150px;
-    height: 150px;
+    width: 105px;
+    height: 105px;
     overflow: hidden;
     text-align: center;
 }
+
+.th-top-left {
+    border-top-left-radius: 3px;
+}
+
+.th-top-right {
+    border-top-right-radius: 3px;
+}
+
+.th-left {
+    margin-right:0px;
+}
+
+.th-right {
+    margin-left:0px;
+}
+
+
+.th-top {
+    margin-bottom:0px;
+}
+
+.th-bottom {
+    margin-top: 0px;
+    
+}
+
 .th img {
-    height: 150px;
+    height: 105px;
     position: relative;
     left: 100%; /* move the whole width of the image to the right */
     margin-left: -200%; /* magic! */
@@ -223,12 +252,13 @@ h3{
 }
 .timer{
     padding:10px;
+    font-size:12px;
     float:right;
     color:#666666;
 }
 .tag-box{
- color: #00618C;
- padding:5px;
+ color: #777;
+ font-size:12px;
 }
 .light-btn{
     opacity: 0.5;
@@ -306,16 +336,13 @@ cursor:hand;
     box-shadow: 1px 1px 3px #848484;
 }
 
-.th{
-    float:left;
-    padding: 0;
-    margin:0;
-}
+
 h4{
     float:left;
-    width: 300px;
-    background-color: #00618C;
-    color:#fff;
+    width: 200px;
+    background-color: #fff;
+    color:#00618C;
+    font-size:15px;
     padding:5px 0 5px 10px;
     margin:0px;
 }

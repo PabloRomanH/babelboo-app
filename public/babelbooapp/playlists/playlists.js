@@ -5,7 +5,7 @@
         this.playlists = [];
         this.tags = []
         this.selectedLevel = '';
-        this.selectedTags = {};
+        this.selectedTag = '';
         
         this.setLevel = function(level) {
             this.selectedLevel = level;
@@ -16,10 +16,10 @@
         }
 
         this.toggleTag = function(tag) {
-            if (tag in this.selectedTags) {
-                delete this.selectedTags[tag];
+            if (tag == this.selectedTag) {
+                this.selectedTag = '';
             } else {
-                this.selectedTags[tag] = true;
+                this.selectedTag = tag;
                 $analytics.eventTrack('addtag', {
                     category: 'search', label: tag
                 });
@@ -57,13 +57,7 @@
         }
 
         function getList() {
-            var tags = [];
-            
-            for (tag in controller.selectedTags) {
-                tags.push(tag);
-            }
-            
-            var query = '/api/playlist/?tags=' + tags.join(',') + '&level=' + controller.selectedLevel;
+            var query = '/api/playlist/?tags=' + controller.selectedTag + '&level=' + controller.selectedLevel;
             $http.get(query).success(function(data){
                 controller.playlists = data;
             });

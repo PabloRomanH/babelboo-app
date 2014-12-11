@@ -2,18 +2,17 @@
 <div ng-if="$index % 2 == 0" class="clearfix visible-md-block"></div>
 <div class="col-md-4 col-centered boo-video2" ng-click="playlistsCtrl.playPlaylist(playlist._id)">
   <div class="light-btn2">
-    <div class="th"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : 'img/nothumbnail.png' }}"></div>
-    <div class="th"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : 'img/nothumbnail.png' }}"></div>
-    <div class="th"><img ng-src="{{ playlist.entries[2] ? playlist.entries[2].thumbnail : 'img/nothumbnail.png' }}"></div>
-    <div class="th"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : 'img/nothumbnail.png' }}"></div>
+    <div class="th th-top-left th-top th-left"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th th-top-right th-top th-right"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th th-bottom th-left"><img ng-src="{{ playlist.entries[2] ? playlist.entries[2].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th th-bottom th-right"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
   </div>
     
   <h4>{{ playlist.title }}</h4>
   <i class="fa fa-clock-o timer"> {{ playlistsCtrl.renderTime(playlist.duration) }}</i>
   <ul class="list-unstyled list-inline">
-    <li class="tag-box">Tags:</li>
     <li class="tag-box" ng-repeat="tag in playlist.tags">
-      <a href="#">{{ tag }}</a>
+      {{ tag }}
     </li>
   </ul>
 </div>

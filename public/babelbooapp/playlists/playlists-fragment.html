@@ -1,11 +1,15 @@
 <div ng-controller="PlaylistsController as playlistsCtrl">
   <div class="searcher row">
-    <ul class="list-unstyled list-inline search-tag">
-      <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('')">everything</li>
-      <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('beginner')">beginner</li>
-      <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('intermediate')">intermediate</li>
-      <li class="tag" ng-repeat="tag in playlistsCtrl.tags" ng-click="playlistsCtrl.toggleTag(tag._id)">{{ tag._id }}</li>
-    </ul>
+    <div class="container">
+      <div class="row row-centered">
+        <ul class="list-unstyled list-inline search-tag">
+          <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('')">everything</li>
+          <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('beginner')">beginner</li>
+          <li class="tag tag-category" ng-click="playlistsCtrl.setLevel('intermediate')">intermediate</li>
+          <li class="tag" ng-repeat="tag in playlistsCtrl.tags" ng-click="playlistsCtrl.toggleTag(tag._id)">{{ tag._id }}</li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <div class="container">

@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', []);
 
-    app.controller('PlayController', function($scope, $http, $routeParams, $analytics, user, playlists) {
+    app.controller('PlayController', function($scope, $http, $routeParams, $location, $analytics, user, playlists) {
         var player;
         var controller = this;
         var idx = 0;
@@ -96,6 +96,13 @@
                     controller.playNext();
                 }, 2000);
             }*/
+        }
+        
+        controller.playPlaylist = function(id) {
+            $analytics.eventTrack('relatedClicked', {
+                category: 'navigation', label: id
+            });
+            $location.path('/play/' + id);
         }
 
         var loadPlayer = function() {
