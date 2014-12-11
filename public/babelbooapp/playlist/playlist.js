@@ -178,11 +178,11 @@
 
             if (playlistId) {
                 $http.put('/api/playlist/' + playlistId, controller.playlist).success(function() {
-                    window.location.href = "/playlists";
+                    window.location.href = "/manage";
                 });
             } else {
                 $http.post('/api/playlist', controller.playlist).success(function() {
-                    window.location.href = "/playlists";
+                    window.location.href = "/manage";
                 });
             }
         };
