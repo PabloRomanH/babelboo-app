@@ -1,9 +1,10 @@
 to do next:
 
-
 - move ejs files to /babelbooap
 
 - 9gag new playlists are marked as new
+- Per-user hiding of some playlists at first use
+
 - A/B functionality depending on user
 - remove ejs dependencies
 
@@ -19,7 +20,7 @@ Requirements
 Playlists
     Playlist completion (visual cue that marks a playlist as watched)
     Playlist quality mark (playlists marked as good)
-    Search by tag
+*    Search by tag
 *    Playlist tags
 *    Playlist storage (DB)
 *    Playlist reproduction
@@ -31,8 +32,8 @@ Q&A
 
 9Gag (always something new + finished checking everything new)
     "You got new stuff" reminder email
-*    Per-user hiding of some playlists at first use
-*    "Unlocking" of new playlists that appear as new to the user every day of use
+    Per-user hiding of some playlists at first use
+    "Unlocking" of new playlists that appear as new to the user every day of use
 *    Old unvisited playlists appear at the bottom and are harder to reach
 
 Wiki (user-generated playlists, questions, difficulty adjustment, etc.)
