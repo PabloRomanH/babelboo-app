@@ -5,9 +5,6 @@ to do next:
 
 - 9gag new playlists are marked as new
 - A/B functionality depending on user
-- google analytics everywhere
-    - remove loading it from player
-- See why this video is weird (fFYxrz6FaUw) don't show the likes in search. (the video is 0 seconds long)
 - remove ejs dependencies
 
 - self contained playlist creation tool
