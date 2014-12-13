@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="row row-centered">
-      <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></playlist-card>
+      <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-_id'" data-playlist-id="{{ playlist._id }}"></playlist-card>
     </div>
     
   </div>
