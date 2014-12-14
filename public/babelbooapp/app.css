@@ -170,24 +170,6 @@ h3{
     border-top-right-radius: 3px;
 }
 
-.th-left {
-    margin-right:0px;
-}
-
-.th-right {
-    margin-left:0px;
-}
-
-
-.th-top {
-    margin-bottom:0px;
-}
-
-.th-bottom {
-    margin-top: 0px;
-
-}
-
 .th img {
     height: 105px;
     position: relative;
