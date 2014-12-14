@@ -71,7 +71,7 @@ h3{
     margin-right: auto;
     padding: 2px;
     background-color: #54ACD2;
-    box-shadow: 2px 6px 5px -5px #555;
+    box-shadow: 0px -4px 5px 5px #555;
 }
 .search-tag{
     margin:10px 0 0 25px;
@@ -83,7 +83,7 @@ h3{
 }
 .lvl{
     float:left;
-    width:85px;
+    width:95px;
 }
 .lvl li{
     background-color:#FBA026;
@@ -113,7 +113,20 @@ h3{
     /*margin-right:-4px;*/
 }
 
+.tag-container {
+    max-width: 972px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.myContainer {
+    max-width: 972px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .boo-video2{
+    display: inline-block;
     background-color:#fff;
     max-width:210px;
     padding:0;
@@ -163,11 +176,11 @@ h3{
 }
 
 .th-top-left {
-    border-top-left-radius: 3px;
+    border-top-left-radius: 5px;
 }
 
 .th-top-right {
-    border-top-right-radius: 3px;
+    border-top-right-radius: 5px;
 }
 
 .th img {
