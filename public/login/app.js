@@ -28,7 +28,7 @@
             // });
       }]);
 
-    app.controller('LoginController', function(){
+    app.controller('LoginController', function($analytics){
         var controller = this;
         controller.formVisible = false;
 
