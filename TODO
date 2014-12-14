@@ -3,7 +3,7 @@ to do next:
 - move ejs files to /babelbooap
 
 - 9gag new playlists are marked as new (mostly done, CSS not finished)
-- Per-user hiding of some playlists at first use (how to do this?)
+- Playlist completion (visual cue that marks a playlist as watched) (mostly done, CSS not finished)
 
 - remove ejs dependencies
 
@@ -17,7 +17,6 @@ Requirements
 
 
 Playlists
-    Playlist completion (visual cue that marks a playlist as watched)
     Playlist quality mark (playlists marked as good)
 *    Search by tag
 *    Playlist tags

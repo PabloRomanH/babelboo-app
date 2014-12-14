@@ -172,5 +172,4 @@ var onPlayerStateChange;
 var youtubeApiIsReady = false;
 var onYouTubePlayerAPIReady = function () {
     youtubeApiIsReady = true;
-    console.log('Api is loaded.');
 }
