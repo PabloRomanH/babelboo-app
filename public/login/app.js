@@ -34,6 +34,9 @@
 
         this.toggleForm = function() {
             controller.formVisible = !controller.formVisible;
+            $analytics.eventTrack('callToAction', {
+                category: 'conversion'
+            });
         }
     });
 
