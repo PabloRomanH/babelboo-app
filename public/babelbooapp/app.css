@@ -114,7 +114,7 @@ h3{
 .migas{
     padding:0 5px 0 5px;
     margin:-20px 15px;
-    
+
 }
 .header-button{
     color:#fff;
@@ -194,7 +194,7 @@ h3{
     margin:15px;
     border-radius: 5px;
     box-shadow: 1px 1px 3px #848484;
-    
+    height: 300px;
 }
 
 .th{
@@ -232,7 +232,7 @@ h3{
 
 .th-bottom {
     margin-top: 0px;
-    
+
 }
 
 .th img {
@@ -241,6 +241,7 @@ h3{
     left: 100%; /* move the whole width of the image to the right */
     margin-left: -200%; /* magic! */
 }
+
 .description2{
     margin: 0 0 5px 10px;
     font-size:12px;
@@ -260,6 +261,9 @@ h3{
  color: #777;
  font-size:12px;
 }
+.tag-list{
+    height: 3em;
+}
 .light-btn{
     opacity: 0.5;
     cursor:hand;
@@ -272,7 +276,7 @@ opacity: 1;
 cursor:hand;
 }
 .light-btn2:hover{
-    
+
     opacity: 0.5;
 }
 
@@ -345,6 +349,7 @@ h4{
     font-size:15px;
     padding:5px 0 5px 10px;
     margin:0px;
+    height: 3em;
 }
 .description{
     margin: 0 0 5px 10px;

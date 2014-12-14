@@ -7,10 +7,11 @@
     <div class="th th-bottom th-left"><img ng-src="{{ playlist.entries[2] ? playlist.entries[2].thumbnail : '/img/nothumbnail.png' }}"></div>
     <div class="th th-bottom th-right"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
   </div>
-    
+
   <h4>{{ playlist.title }}</h4>
-  <i class="fa fa-clock-o timer"> {{ playlistsCtrl.renderTime(playlist.duration) }}</i>
-  <ul class="list-unstyled list-inline">
+
+  <i class="fa fa-clock-o timer">{{ playlistsCtrl.renderTime(playlist.duration) }}</i>
+  <ul class="list-unstyled list-inline tag-list">
     <li class="tag-box" ng-repeat="tag in playlist.tags">
       {{ tag }}
     </li>
