@@ -2,10 +2,9 @@ to do next:
 
 - move ejs files to /babelbooap
 
-- 9gag new playlists are marked as new
-- Per-user hiding of some playlists at first use
+- 9gag new playlists are marked as new (mostly done, CSS not finished)
+- Per-user hiding of some playlists at first use (how to do this?)
 
-- A/B functionality depending on user
 - remove ejs dependencies
 
 - self contained playlist creation tool
