@@ -4,13 +4,14 @@
         var controller = this;
         this.playlists = [];
         this.tags = []
-        this.selectedLevel = '';
+        this.selectedLevel = -1;
         this.selectedTag = '';
-        
+        controller.levelNames = ['beginner', 'intermediate', 'advanced', 'fluent', 'native'];
+
         this.setLevel = function(level) {
             this.selectedLevel = level;
             $analytics.eventTrack('setlevel', {
-                category: 'search', label: level
+                category: 'search', label: controller.levelNames[level]
             });
             getList();
         }
@@ -24,7 +25,7 @@
                     category: 'search', label: tag
                 });
             }
-            
+
             getList();
         }
 
@@ -35,23 +36,23 @@
                 });
             }
         }
-        
+
         this.renderTime = function (seconds) {
             if (!seconds) return;
-            
+
             var hours = Math.floor(seconds / 3600);
             var minutes = Math.floor((seconds % 3600) / 60);
             seconds = (seconds % 3600) % 60;
-            
+
             seconds = pad(seconds);
-            
+
             if (hours !== 0) {
                 minutes = pad(minutes);
                 return hours + ':' + minutes + ':' + seconds;
             }
             return minutes + ':' + seconds;
         }
-        
+
         this.playPlaylist = function(id) {
             $location.path('/play/' + id);
         }
@@ -62,24 +63,24 @@
                 controller.playlists = data;
             });
         }
-        
+
         function getTags () {
             $http.get('/api/tag').success(function(data){
                 controller.tags = data;
             });
         }
-        
+
         function pad (number) {
             var str = '00' + String(number);
-            
+
             return str.substr(str.length - 2);
         }
-        
+
         getTags();
         getList();
 
     });
-    
+
     app.directive('playlistCard', function() {
         return {
             restrict: 'E',

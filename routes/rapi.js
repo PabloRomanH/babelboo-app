@@ -8,15 +8,15 @@ router.get('/playlist', function(req, res) {
     var collection = req.db.get('playlists');
 
     var query = {};
-    
-    if (req.query.level) {
-        query.level = req.query.level;
+
+    if (req.query.level && req.query.level != -1) {
+        query.level = parseInt(req.query.level);
     }
-    
+
     if (req.query.tags) {
         query.tags = { $all : req.query.tags.split(',') };
     }
-    
+
     if (req.query.related) {
         collection.find({ _id: req.query.related },{},function (err, result) {
             var tags = result[0].tags;
@@ -30,20 +30,20 @@ router.get('/playlist', function(req, res) {
             }
             query._id = { $ne: collection.id(req.query.related) };
             query.tags = { $in: tags };
-            runQuery();
+            runQuery(query);
         });
     } else {
-        runQuery();
+        runQuery(query);
     }
-    
-    function runQuery () {
+
+    function runQuery (query) {
         try {
             collection.find(query, function (err, result) {
                 res.json( result );
             });
         } catch (err2) {
             res.json();
-        }  
+        }
     }
 });
 
@@ -120,7 +120,7 @@ router.post('/betaregistration', function(req, res) {
             if (err) throw err;
         });
 
-    
+
     res.status = 201; // CREATED
     res.json();
 });
@@ -131,7 +131,7 @@ router.get('/betaregistration', function(req, res) {
         res.json();
         return;
     }
-        
+
     var collection = req.db.get('betaregistration');
 
     try {
@@ -162,38 +162,38 @@ router.get('/user', function(req, res) {
 });
 
 router.post('/user/:username/answer/:playlist_id', function(req, res) {
-    
+
     var playlist_id = req.params.playlist_id;
     var points = req.body.points;
     var found = false;
-    
+
     var user = req.user;
-    
+
     for (var i in user.playlist_points) {
         if (user.playlist_points[i].id == playlist_id) {
             user.playlist_points[i].points = Math.max(user.playlist_points[i].points, points);
             found = true;
         }
     }
-    
+
     if (!found) {
         if(!user.playlist_points) {
             user.playlist_points = [];
         }
-            
+
         user.playlist_points.push({'id': playlist_id, 'points': points});
     }
-    
+
     var collection = req.db.get('usercollection');
-    
-    collection.update({ username: req.params.username }, 
-        {$set: { 
+
+    collection.update({ username: req.params.username },
+        {$set: {
             points: req.user.points + req.body.points,
             playlist_points: user.playlist_points
             }
         });
-        
-    
+
+
     res.json();
 });
 

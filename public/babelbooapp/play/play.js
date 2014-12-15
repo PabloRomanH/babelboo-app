@@ -21,6 +21,7 @@
         controller.showSummary = false;
         controller.videos = [];
         controller.relatedplaylists = [];
+        controller.levelNames = ['beginner', 'intermediate', 'advanced', 'fluent', 'native'];
 
         $window.onYouTubePlayerAPIReady = function() {
             youtubeApiIsReady = true;
