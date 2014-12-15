@@ -28,22 +28,28 @@
             // });
       }]);
 
-    app.controller('LoginController', function(){
+    app.controller('LoginController', function($analytics){
         var controller = this;
         controller.formVisible = false;
 
         this.toggleForm = function() {
             controller.formVisible = !controller.formVisible;
+            $analytics.eventTrack('callToAction', {
+                category: 'conversion'
+            });
         }
     });
 
-    app.controller('EmailController', function($http, $location){
+    app.controller('EmailController', function($http, $location, $analytics){
         var controller = this;
         controller.formVisible = false;
 
         this.submitEmail = function (email) {
             $http.post('/api/betaregistration', { "email": email });
             $location.path('/thanks');
+            $analytics.eventTrack('emailSubmited', {
+                category: 'conversion'
+            });
         }
     });
 })();

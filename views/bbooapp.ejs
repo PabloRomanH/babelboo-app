@@ -10,6 +10,7 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/babelbooapp/app.css" rel="stylesheet">
+    <link href="/babelbooapp/bootstrap_ms.css" rel="stylesheet">
     <script src="/lib/angular.min.js"></script>
     <script src="/lib/angular-route.min.js"></script>
     <script src="/lib/angulartics.min.js"></script>
@@ -32,11 +33,11 @@
     </script>
   </head>
   <body>
-          <div class="header row navbar navbar-fixed-top">
-            <img class="pull-left" src="/img/boo-white.png"/>
-            <img class="pull-left" src="/img/name-header.png"/>
-            <button class="btn-default btn pull-right">Log out</button>
-        </div>
+    <div class="header row navbar navbar-fixed-top">
+      <img class="pull-left" src="/img/boo-white.png"/>
+      <img class="pull-left" src="/img/name-header.png"/>
+      <button class="btn-default btn pull-right">Log out</button>
+    </div>
     <div class="header row navbar navbar-fixed-top" ng-controller="NavbarController as navbarCtrl">
       <img class="pull-left" src="/img/boo-white.png"/>
       <img class="pull-left" src="/img/name-header.png"/>
@@ -48,7 +49,7 @@
         <li class="header-button">Points: {{ navbarCtrl.user.points }}</li>
         <li><a class="btn-default btn" href="/logout" target="_self">Log out</a></li>
       </ul>
-      
+
     </div>
     <div ng-view></div>
   </body>

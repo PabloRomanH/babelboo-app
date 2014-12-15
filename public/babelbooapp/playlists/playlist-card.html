@@ -1,16 +1,21 @@
-<div ng-if="$index % 3 == 0" class="clearfix visible-lg-block"></div>
-<div ng-if="$index % 2 == 0" class="clearfix visible-md-block"></div>
-<div class="col-md-4 col-centered boo-video2" ng-click="playlistsCtrl.playPlaylist(playlist._id)">
-  <div class="light-btn2">
-    <div class="th th-top-left th-top th-left"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : '/img/nothumbnail.png' }}"></div>
-    <div class="th th-top-right th-top th-right"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : '/img/nothumbnail.png' }}"></div>
-    <div class="th th-bottom th-left"><img ng-src="{{ playlist.entries[2] ? playlist.entries[2].thumbnail : '/img/nothumbnail.png' }}"></div>
-    <div class="th th-bottom th-right"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
+<div class="boo-video2" ng-click="playlistsCtrl.playPlaylist(playlist._id)">
+  <div>
+    <div class="th th-top-left"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th th-top-right"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th"><img ng-src="{{ playlist.entries[2] ? playlist.entries[2].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
   </div>
-    
-  <h4>{{ playlist.title }}</h4>
-  <i class="fa fa-clock-o timer"> {{ playlistsCtrl.renderTime(playlist.duration) }}</i>
-  <ul class="list-unstyled list-inline">
+
+  <span class="fa-stack fa-lg play-btn">
+    <i class="fa fa-circle fa-stack-2x "></i>
+    <i class="fa fa-play-circle fa-stack-2x blue"></i>
+  </span>
+  <p class="playlist-title">{{ playlist.title }}</p>
+  <div class="playlist-icons">
+    <i class="fa fa-clock-o pull-right"> {{ playlistsCtrl.renderTime(playlist.duration) }}</i>
+    <i class="fa fa-graduation-cap"> {{ playlist.level }}</i>
+  </div>
+  <ul class="list-unstyled list-inline tag-list">
     <li class="tag-box" ng-repeat="tag in playlist.tags">
       {{ tag }}
     </li>

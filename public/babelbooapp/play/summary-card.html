@@ -1,15 +1,21 @@
-<div>
-  <h3>Summary</h3>
-  <p>
-    <span>Number of videos:</span> <span>{{ playCtrl.videos.length }} × {{ playCtrl.POINT_PER_VIDEO }} = {{ playCtrl.videos.length * playCtrl.POINT_PER_VIDEO}}</span>
-  </p>
-  <p>
-    <span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} × {{ playCtrl.POINT_PER_CORRECT }} = {{ playCtrl.correctAnswers * playCtrl.POINT_PER_CORRECT }}</span>
-  </p>
-  <p>
-    <span>Total score: {{ playCtrl.points }} </span>
-  </p>
+<div class="cine clearfix">
+  <div class="score col-">
+    <div>
+      <div class="text-center">
+        <i class="fa fa-thumbs-o-up fa-5x"></i>
+      </div>
+      <h3 class="score-title">You have completed the playlist "{{ playCtrl.playlist.title }}"</h3>
+    </div>
+    <div>
+      <div class="text-center"><p class="summary">Summary</p></div>
+      <p class="skills"><span>Number of videos:</span> <span>{{ playCtrl.videos.length }} × {{ playCtrl.POINT_PER_VIDEO }} = {{ playCtrl.videos.length * playCtrl.POINT_PER_VIDEO }}</span></p>
+      <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} × {{ playCtrl.POINT_PER_CORRECT }} = {{ playCtrl.correctAnswers * playCtrl.POINT_PER_CORRECT }}</span></p>
+      <p class="total-score">Total score: <span class="score-points">{{ playCtrl.points }}</span></p>
+    </div>
+  </div>
+  <a class="button-player button-summary" href="/">Watch More</button>
 </div>
+
 <div>
   <h4>Related playlists:</h4>
   <relatedplaylist-card ng-repeat="playlist in playCtrl.relatedplaylists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></relatedplaylist-card>

@@ -1,8 +1,17 @@
 <div class="container" ng-controller="PlayController as playCtrl">
-  <div class="jumbotron">
-    <h2>Videos en inglés</h2>
-    
-    <player-card ng-hide="playCtrl.showSummary"></player-card>
-    <summary-card ng-show="playCtrl.showSummary"></summary-card>
+  <player-card ng-hide="playCtrl.showSummary"></player-card>
+  <summary-card ng-show="playCtrl.showSummary"></summary-card>
+</div>
+
+<div class="footer row text-center">
+  <div class="col-md-12">
+    <div class="row">
+      Follow us
+    </div>
+    <div class="row">
+      <a href="http://blog.babelboo.com" target="_blank"><img src="/img/blog.png" title="blog" alt="blog"/></a>
+      <a href="http://twitter.com/babelboo" target="_blank"><img src="/img/twitter.png" title="twitter" alt="twitter"/></a>
+      <a href="http://facebook.com/babelboo" target="_blank"><img src="/img/fb.png" title="facebook" alt="facebook"/></a>
+    </div>
   </div>
 </div>

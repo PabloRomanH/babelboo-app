@@ -1,12 +1,23 @@
-<div class="video">
+<div class="cine clearfix">
+  <p class="title-cine">{{ playCtrl.playlist.title }}</p>
   <div id="ytplayer" class="player"></div>
-  <div class="row">
-    <div class="col-lg-6"><a class="btn btn-lg btn-primary" ng-click="playCtrl.playNext()" ng-disabled="playCtrl.answered && playCtrl.questionsAtTheEnd">Siguiente</a></div>
-  </div>
-  <div class="row qa" id="qa" ng-show="playCtrl.showQuestions">
-    <h2>{{ playCtrl.currentVideo.question }}</h2>
-    <ul>
-      <li ng-repeat="answer in playCtrl.currentVideo.answers" ng-click="playCtrl.answered || playCtrl.answer($index)" ng-class="{correctAnswer: $index==playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer, incorrectAnswer: $index==playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">{{ answer.text }}</li>
+  <div ng-show="playCtrl.showQuestions">
+    <p class="question-txt">{{ playCtrl.currentVideo.question }}</p>
+    <ul class="list-unstyled answer-list">
+      <li ng-repeat="answer in playCtrl.currentVideo.answers" ng-class="{correctAnswer: $index==playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer, incorrectAnswer: $index==playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">
+        <div class="radio">
+          <label>
+            <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index" ng-change="playCtrl.answer()">
+            {{ answer.text }}
+          </label>
+        </div>
+      </li>
     </ul>
   </div>
+  <a class="button-skip button-player" ng-click="!playCtrl.answered && playCtrl.playNext()" ng-class="{'button-player-disabled': playCtrl.answered}" href="#">
+    Skip
+  </button>
+  <a class="button-next button-player" ng-click="playCtrl.answered && playCtrl.playNext()" ng-class="{'button-player-disabled': !playCtrl.answered}" href="#">
+    Next
+  </button>
 </div>

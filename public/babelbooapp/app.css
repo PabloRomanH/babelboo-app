@@ -1,81 +1,3 @@
-#ytplayer {
-    width: 640px;
-    height: 480px;
-}
-
-/*body {*/
-/*  padding: 50px;*/
-/*  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
-/*}*/
-
-/*a {*/
-/*  color: #00B7FF;*/
-/*}*/
-
-/*.error {*/
-/*  color: #FF0000;*/
-/*}*/
-
-/*p.videoTitle {*/
-/*  white-space: nowrap;*/
-/*  overflow: hidden;*/
-/*}*/
-
-/*.container {*/
-/*	width: 800px;*/
-/*}*/
-
-/*.jumbotron {*/
-/*	text-align: center;*/
-/*}*/
-
-/*.correctAnswer {*/
-/*  background-color: #00FF00;*/
-/*}*/
-
-/*.incorrectAnswer {*/
-/*  background-color: #FF0000;*/
-/*}*/
-
-/*#qa {*/
-/*  text-align: left;*/
-/*}*/
-
-/*.searchbox {*/
-/*  margin-left: auto;*/
-/*  margin-right: auto;*/
-/*  margin-top: 15px;*/
-/*  margin-bottom: 15px;*/
-/*}*/
-
-/*.video {*/
-/*  margin-top: 15px;*/
-/*  margin-bottom: 15px;*/
-/*}*/
-
-/*.video .title {*/
-/*  font-size: 18px;*/
-/*  margin-top: 5px;*/
-/*  margin-bottom: 5px;*/
-/*  font-weight: 500;*/
-/*  line-height: 1.1;*/
-  /*font-weight: bold;*/
-/*}*/
-
-/*.video .description {*/
-/*  color: #858585;*/
-/*  font-size: 13px;*/
-/*}*/
-
-/*.question {*/
-/*  padding-left: 20px;*/
-/*}*/
-
-/*.answers {*/
-/*  padding-left: 20px;*/
-/*}*/
-
-/* Fran's CSS */
 
 body {
     margin: 0px;
@@ -114,7 +36,7 @@ h3{
 .migas{
     padding:0 5px 0 5px;
     margin:-20px 15px;
-    
+
 }
 .header-button{
     color:#fff;
@@ -141,39 +63,42 @@ h3{
     width:100%;
     /*max-height: 50px;*/
     margin-top: 50px;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
-    margin-left: auto;
-    margin-right: auto;
     padding: 2px;
-    background-color: #37A3D2;
-    box-shadow: 2px 6px 5px -5px #555;
+    background-color: #54ACD2;
+    box-shadow: 0px -4px 5px 5px #555;
 }
-
-.search-boo{
-    margin:10px 0 0 25px;
-    max-width: 450px;
-    float:left;
-}
-.search-boo .form-control{
-    max-height: 27px;/*Chapuza para cuadrar el tama�o del input con el bot�n*/
-}
-
 .search-tag{
-    margin:10px 0 0 25px;
-    float:left;
+    margin:0 auto 0 auto;
 }
+/*@media screen and (max-width: 973px) {*/
+/*    .search-tag {*/
+/*        padding:0px;*/
+/*        width:100%;*/
+/*    }*/
+/*}*/
 .order-tag{
     margin:5px 5px 0px 25px;
     float:left;
+
+}
+.lvl {
+    margin: 10px 0 0 0;
+}
+.lvl li{
+    background-color:#E25041;
+}
+.lvl li:hover{
+    background-color:#B8312F;
 }
 .tag{
     padding:5px;
     margin:0 0 10px 5px;
-    background-color: #78cdfc;
+    background-color: #63d0ff;
     color:#fff;
     border-radius: 3px;
 }
-.tag-category{
-    background-color: #5cb85c;
+.tag:hover{
+    background-color:#2969B0;
 }
 
 /*---------    PLAYLIST CONTENT --------*/
@@ -187,20 +112,61 @@ h3{
     /*margin-right:-4px;*/
 }
 
+.tag-container {
+    max-width: 972px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.myContainer {
+    max-width: 972px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .boo-video2{
+    display: inline-block;
     background-color:#fff;
     max-width:210px;
     padding:0;
     margin:15px;
     border-radius: 5px;
     box-shadow: 1px 1px 3px #848484;
-    
+    vertical-align: top;
+    height: 320px;
+    text-align: left;
+}
+.play-btn{
+    float:right;
+    margin:-24px 5px 0 0;
+    color:#fff;
+    font-size:24px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.19);
+}
+.blue{
+    color:#63d0ff;
+
+}
+.play-btn:hover{
+        cursor:pointer;
+        cursor: hand
+}
+.play-btn:hover .blue{
+        color:#2969B0;
+}
+.playlist-title{
+    font-weight: bold;
+    float:left;
+    width: 156px;
+    color:#00618C;
+    font-size:14px;
+    padding:3px 0 0px 10px;
+    margin:0px;
 }
 
 .th{
     float:left;
-    padding: 0;
-    margin:0px;
     padding: 0px;
     margin: 0px;
     width: 105px;
@@ -210,29 +176,11 @@ h3{
 }
 
 .th-top-left {
-    border-top-left-radius: 3px;
+    border-top-left-radius: 5px;
 }
 
 .th-top-right {
-    border-top-right-radius: 3px;
-}
-
-.th-left {
-    margin-right:0px;
-}
-
-.th-right {
-    margin-left:0px;
-}
-
-
-.th-top {
-    margin-bottom:0px;
-}
-
-.th-bottom {
-    margin-top: 0px;
-    
+    border-top-right-radius: 5px;
 }
 
 .th img {
@@ -241,46 +189,174 @@ h3{
     left: 100%; /* move the whole width of the image to the right */
     margin-left: -200%; /* magic! */
 }
-.description2{
-    margin: 0 0 5px 10px;
-    font-size:12px;
-}
 
 .boo-video2 ul{
     padding:0 0 0 5px;
-    margin: 0 0 0 0;
+    margin: 0 0 10px 0;
 }
-.timer{
-    padding:10px;
+.playlist-icons{
     font-size:12px;
-    float:right;
     color:#666666;
+    margin:255px 10px 5px 10px;
+    clear:left;
 }
+.tag-awesome{
+    font-size:12px;
+    color:#666666;
+    margin-right:-10px;
+    padding-right:0px;
+}
+
 .tag-box{
  color: #777;
  font-size:12px;
 }
-.light-btn{
-    opacity: 0.5;
-    cursor:hand;
-}
-.light-btn:hover{
-    opacity: 1;
-}
-.light-btn2{
-opacity: 1;
-cursor:hand;
-}
-.light-btn2:hover{
-    
-    opacity: 0.5;
-}
 
 /*---------    PLAYLIST --------*/
-.answer-txt{
-    font-size:24px;
+#ytplayer {
+    width: 640px;
+    height: 360px;
+    margin:0px 0px 20px 0px;
+}
+.cine{
+    background-color:#fff;
+    max-width: 680px;
+    padding:20px;
+    margin:80px auto 30px auto;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #848484;
+    vertical-align: top;
+    text-align: left;
+}
+.cine ul{
+    margin-bottom:30px;
+}
+.title-cine{
+    color:#63d0ff;
+    font-size:22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.question-txt{
+    font-size:22px;
     font-weight: bold;
     color: #00618C;
+    margin-bottom: 20px;
+}
+.answer-list li{
+    margin: 0 0 1em 0;
+}
+
+.nav-list{
+    margin:15px 15px 75px 10px;
+    padding:0px;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+.nav-list a{
+    text-decoration: none;
+}
+
+.correctAnswer {
+    background-color: #cfc;
+}
+
+.incorrectAnswer {
+    background-color: #fcc;
+}
+
+.button-skip {
+    float: left;
+    border-bottom-left-radius: 5px;
+    color: #646464;
+}
+
+.button-next {
+    float: right;
+    border-bottom-right-radius: 5px;
+    color: #4285f4;
+}
+
+.button-next, .button-skip {
+    width: 340px;
+}
+
+.button-player {
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+    margin: -20px;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    border-top: 1px solid #ddd;
+}
+
+.button-player:hover {
+    background-color: #ddd;
+    text-decoration: none;
+}
+
+.button-player-disabled {
+    color: #999;
+}
+
+.button-player-disabled:hover {
+    color: #999;
+    background-color: transparent;
+    cursor: default;
+}
+
+.button-player-disabled:focus {
+    text-decoration: none;
+}
+
+.button-summary {
+    width: 680px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    float: left;
+}
+
+/*---------    RESULTS --------*/
+.score{
+    margin:15px;
+}
+
+.score-title {
+    color:#00618C;
+    margin-bottom: 20px;
+}
+
+.summary {
+    font-size:24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #00618C;
+    color:#fff;
+    margin-left: -35px;
+    margin-right: -35px;
+}
+.skills{
+    font-size: 25px;
+}
+.total-score{
+    color:#00618C;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 50px
+}
+.score-points{
+    color:#FBA026;
+}
+.finish-video-btn{
+    color:#fff;
+    background-color:#00618C
 }
 
 /*---------    OTHERS --------*/
@@ -306,6 +382,7 @@ cursor:hand;
 .footer {
     background-color: #00618C;
     color: #ffffff;
+    width:100%;
     height: 80px;
     padding: 5px;
 }
@@ -325,64 +402,3 @@ cursor:hand;
     vertical-align: middle;
     float: none;
 }
-/*version1*/
-.boo-video{
-    background-color:#fff;
-    width:305px;
-    padding:0;
-    margin:15px 0 0 1px;
-    border: 3px solid #00618C;
-    border-radius: 5px;
-    box-shadow: 1px 1px 3px #848484;
-}
-
-
-h4{
-    float:left;
-    width: 200px;
-    background-color: #fff;
-    color:#00618C;
-    font-size:15px;
-    padding:5px 0 5px 10px;
-    margin:0px;
-}
-.description{
-    margin: 0 0 5px 10px;
-}
-
-.boo-video ul{
-    padding:0 0 0 5px;
-    margin: 0 0 0 0;
-}
-.boo-video ul li{
-
-    padding:5px;
-    margin:0 0 10px 5px;
-    background-color: #78cdfc;
-    color:#fff;
-    border-radius: 3px;
-}
-.icon-white{
-    color:#fff;
-}
-.play-on{
-    padding:-30px;
-    float:right;
-    margin:-85px 5px 0 0 ;
-    font-size:25px;
-    color:#78cdfc;
-    border-radius:15px;
-    background-color: rgba(0,151,158,0.5);
-
-}
-/*version2*/
-
-
-
-
-
-
-
-
-
-
