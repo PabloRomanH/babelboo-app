@@ -1,7 +1,3 @@
-#ytplayer {
-    width: 640px;
-    height: 480px;
-}
 
 body {
     margin: 0px;
@@ -74,8 +70,17 @@ h3{
     box-shadow: 0px -4px 5px 5px #555;
 }
 .search-tag{
-    margin:10px 0 0 25px;
+    margin:10px auto 0 auto;
+    width:400px;
+    /*padding: 0 200px 0 200px;*/
+    display:inline-block;
 }
+/*@media screen and (max-width: 973px) {*/
+/*    .search-tag {*/
+/*        padding:0px;*/
+/*        width:100%;*/
+/*    }*/
+/*}*/
 .order-tag{
     margin:5px 5px 0px 25px;
     float:left;
@@ -84,9 +89,11 @@ h3{
 .lvl{
     float:left;
     width:95px;
+    margin:10px 0 0 25px;
+    display:inline-block;
 }
 .lvl li{
-    background-color:#FBA026;
+    background-color:#E25041;
 }
 .lvl li:hover{
     background-color:#B8312F;
@@ -141,6 +148,7 @@ h3{
     margin:-24px 5px 0 0;
     color:#fff;
     font-size:24px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.19);
 }
 .blue{
     color:#63d0ff;
@@ -211,30 +219,40 @@ h3{
 }
 
 /*---------    PLAYLIST --------*/
+#ytplayer {
+    width: 640px;
+    height: 360px;
+    margin:0px 0px 20px 0px;
+}
 .cine{
     background-color:#fff;
-    max-width:100%;
-    padding:0;
-    margin:80px 15px 15px 15px;
+    max-width: 680px;
+    padding:20px;
+    margin:80px auto 30px auto;
     border-radius: 5px;
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
-    
+    text-align: left;
 }
 .cine ul{
     margin-bottom:30px;
 }
 .title-cine{
     color:#63d0ff;
-    font-size:34px;
+    font-size:22px;
     font-weight: bold;
-    margin:25px 0 20px 0;
+    margin-bottom: 20px;
 }
-.answer-txt{
-    font-size:24px;
+.question-txt{
+    font-size:22px;
     font-weight: bold;
     color: #00618C;
+    margin-bottom: 20px;
 }
+.answer-list li{
+    margin: 0 0 1em 0;
+}
+
 .nav-list{
     margin:15px 15px 75px 10px;
     padding:0px;
@@ -245,9 +263,106 @@ h3{
 .nav-list a{
     text-decoration: none;
 }
-.nav-list li a:hover{
-    color:#B8312F;
 
+.correctAnswer {
+    background-color: #cfc;
+}
+
+.incorrectAnswer {
+    background-color: #fcc;
+}
+
+.button-skip {
+    float: left;
+    border-bottom-left-radius: 5px;
+    color: #646464;
+}
+
+.button-next {
+    float: right;
+    border-bottom-right-radius: 5px;
+    color: #4285f4;
+}
+
+.button-next, .button-skip {
+    width: 340px;
+}
+
+.button-player {
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+    margin: -20px;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    border-top: 1px solid #ddd;
+}
+
+.button-player:hover {
+    background-color: #ddd;
+    text-decoration: none;
+}
+
+.button-player-disabled {
+    color: #999;
+}
+
+.button-player-disabled:hover {
+    color: #999;
+    background-color: transparent;
+    cursor: default;
+}
+
+.button-player-disabled:focus {
+    text-decoration: none;
+}
+
+.button-summary {
+    width: 680px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    float: left;
+}
+
+/*---------    RESULTS --------*/
+.score{
+    margin:15px;
+}
+
+.score-title {
+    color:#00618C;
+    margin-bottom: 20px;
+}
+
+.summary {
+    font-size:24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #00618C;
+    color:#fff;
+    margin-left: -35px;
+    margin-right: -35px;
+}
+.skills{
+    font-size: 25px;
+}
+.total-score{
+    color:#00618C;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 50px
+}
+.score-points{
+    color:#FBA026;
+}
+.finish-video-btn{
+    color:#fff;
+    background-color:#00618C
 }
 
 /*---------    OTHERS --------*/
@@ -276,9 +391,6 @@ h3{
     width:100%;
     height: 80px;
     padding: 5px;
-    position:absolute;
-    bottom:0;
-    left:0;
 }
 
 .footer .row {

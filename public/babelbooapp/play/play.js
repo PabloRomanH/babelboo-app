@@ -24,7 +24,6 @@
 
         $window.onYouTubePlayerAPIReady = function() {
             youtubeApiIsReady = true;
-            console.log('Api loaded after controller was created.');
             $timeout(loadPlayer);
         }
 
@@ -33,7 +32,6 @@
             controller.videos = data.entries;
             controller.currentVideo = controller.videos[idx];
             playlistRetrieved = true;
-            console.log('Got playlist.');
             $timeout(loadPlayer);
         });
 
@@ -82,14 +80,10 @@
             }
         };
 
-        controller.answer = function(index) {
-            if (controller.answered)
-                return;
-
+        controller.answer = function() {
             controller.answered = true;
-            controller.answeredindex = index;
 
-            if (index == controller.currentVideo.correctanswer)
+            if (controller.answeredindex == controller.currentVideo.correctanswer)
             {
                 controller.correctAnswers += 1;
             } else {
@@ -115,8 +109,6 @@
                 return;
             }
             controller.player = new YT.Player('ytplayer', {
-                height: '480',
-                width: '640',
                 videoId: controller.videos[idx].id,
                 playerVars: {
                     'autoplay': 1,
