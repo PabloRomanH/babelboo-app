@@ -145,6 +145,7 @@ li.tag-selected {
     vertical-align: top;
     height: 320px;
     text-align: left;
+    cursor:pointer;
 }
 .play-btn{
     float:right;
@@ -157,12 +158,8 @@ li.tag-selected {
     color:#63d0ff;
 
 }
-.play-btn:hover{
-        cursor:pointer;
-        cursor: hand
-}
-.play-btn:hover .blue{
-        color:#2969B0;
+.boo-video2:hover .play-btn .blue{
+    color:#2969B0;
 }
 .playlist-title{
     font-weight: bold;
