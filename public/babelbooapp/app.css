@@ -210,25 +210,44 @@ h3{
  font-size:12px;
 }
 
-.tag-list{
-    height: 3em;
-}
-
 /*---------    PLAYLIST --------*/
 .cine{
     background-color:#fff;
-    max-width:210px;
+    max-width:100%;
     padding:0;
-    margin:15px;
+    margin:80px 15px 15px 15px;
     border-radius: 5px;
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
-
+    
+}
+.cine ul{
+    margin-bottom:30px;
+}
+.title-cine{
+    color:#63d0ff;
+    font-size:34px;
+    font-weight: bold;
+    margin:25px 0 20px 0;
 }
 .answer-txt{
     font-size:24px;
     font-weight: bold;
     color: #00618C;
+}
+.nav-list{
+    margin:15px 15px 75px 10px;
+    padding:0px;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+.nav-list a{
+    text-decoration: none;
+}
+.nav-list li a:hover{
+    color:#B8312F;
+
 }
 
 /*---------    OTHERS --------*/
@@ -277,68 +296,3 @@ h3{
     vertical-align: middle;
     float: none;
 }
-<<<<<<< HEAD
-=======
-/*version1*/
-.boo-video{
-    background-color:#fff;
-    width:305px;
-    padding:0;
-    margin:15px 0 0 1px;
-    border: 3px solid #00618C;
-    border-radius: 5px;
-    box-shadow: 1px 1px 3px #848484;
-}
-
-
-h4{
-    float:left;
-    width: 200px;
-    background-color: #fff;
-    color:#00618C;
-    font-size:15px;
-    padding:5px 0 5px 10px;
-    margin:0px;
-    height: 3em;
-}
-.description{
-    margin: 0 0 5px 10px;
-}
-
-.boo-video ul{
-    padding:0 0 0 5px;
-    margin: 0 0 0 0;
-}
-.boo-video ul li{
-
-    padding:5px;
-    margin:0 0 10px 5px;
-    background-color: #78cdfc;
-    color:#fff;
-    border-radius: 3px;
-}
-.icon-white{
-    color:#fff;
-}
-.play-on{
-    padding:-30px;
-    float:right;
-    margin:-85px 5px 0 0 ;
-    font-size:25px;
-    color:#78cdfc;
-    border-radius:15px;
-    background-color: rgba(0,151,158,0.5);
-
-}
-/*version2*/
-
-
-
-
-
-
-
-
-
-
->>>>>>> style-sepha
