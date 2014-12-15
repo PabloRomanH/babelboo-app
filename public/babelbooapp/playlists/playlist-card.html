@@ -13,7 +13,7 @@
   <p class="playlist-title">{{ playlist.title }}</p>
   <div class="playlist-icons">
     <i class="fa fa-clock-o pull-right"> {{ playlistsCtrl.renderTime(playlist.duration) }}</i>
-    <i class="fa fa-graduation-cap"> {{ playlist.level }}</i>
+    <i class="fa fa-graduation-cap"> {{ playlistsCtrl.levelNames[playlist.level] }}</i>
   </div>
   <ul class="list-unstyled list-inline tag-list">
     <li class="tag-box" ng-repeat="tag in playlist.tags">

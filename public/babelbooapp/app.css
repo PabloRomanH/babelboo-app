@@ -79,7 +79,6 @@ h3{
 .order-tag{
     margin:5px 5px 0px 25px;
     float:left;
-
 }
 .lvl {
     margin: 10px 0 0 0;
@@ -90,14 +89,24 @@ h3{
 .lvl li:hover{
     background-color:#B8312F;
 }
-.tag{
+li.lvl-selected{
+    background-color:#B8312F;
+}
+.lvl li, .search-tag li{
     padding:5px;
     margin:0 0 10px 5px;
-    background-color: #63d0ff;
     color:#fff;
     border-radius: 3px;
+    cursor: pointer;
 }
-.tag:hover{
+.search-tag li {
+    background-color: #63d0ff;
+}
+
+.search-tag li:hover{
+    background-color:#2969B0;
+}
+li.tag-selected {
     background-color:#2969B0;
 }
 

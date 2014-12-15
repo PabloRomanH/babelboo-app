@@ -8,14 +8,9 @@
       </h1>
     </div>
   </div>
-  
+
   <div class="row" ng-controller="ManagePlaylistsController as manageCtrl">
     <div class="col-sm-12">
-      <ul>
-        <li><span><a ng-click="manageCtrl.setLevel('')">everything</a></span></li>
-        <li><span><a ng-click="manageCtrl.setLevel('beginner')">beginner</a></span></li>
-        <li><span><a ng-click="manageCtrl.setLevel('intermediate')">intermediate</a></span></li>
-      </ul>
       <ul>
         <li ng-repeat="tag in manageCtrl.tags"><span><a ng-click="manageCtrl.toggleTag(tag._id)">{{ tag._id }}</a></span></li>
       </ul>

@@ -3,23 +3,20 @@
     <div class="tag-container">
       <div class="row row-centered">
         <ul class="list-unstyled list-inline lvl">
-          <li class="tag" ng-click="playlistsCtrl.setLevel('')">everything</li>
-          <li class="tag" ng-click="playlistsCtrl.setLevel('beginner')">beginner</li>
-          <li class="tag" ng-click="playlistsCtrl.setLevel('intermediate')">intermediate</li>
+          <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == -1}" ng-click="playlistsCtrl.setLevel(-1)">everything</li>
+          <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 1}" ng-click="playlistsCtrl.setLevel(1)">{{ playlistsCtrl.levelNames[1] }}</li>
+          <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 2}" ng-click="playlistsCtrl.setLevel(2)">{{ playlistsCtrl.levelNames[2] }}</li>
+          <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 3}" ng-click="playlistsCtrl.setLevel(3)">{{ playlistsCtrl.levelNames[3] }}</li>
         </ul>
         <ul class="list-unstyled list-inline search-tag">
-          <li class="tag" ng-repeat="tag in playlistsCtrl.tags" ng-click="playlistsCtrl.toggleTag(tag._id)">{{ tag._id }}</li>
+          <li ng-class="{'tag-selected': playlistsCtrl.selectedTag == tag._id}" ng-repeat="tag in playlistsCtrl.tags" ng-click="playlistsCtrl.toggleTag(tag._id)">{{ tag._id }}</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!--<div class="container">-->
   <div class="myContainer">
-    <!--<div class="row row-centered">-->
-      <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-_id'" data-playlist-id="{{ playlist._id }}"></playlist-card>
-    <!--</div>-->
-
+    <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-_id'" data-playlist-id="{{ playlist._id }}"></playlist-card>
   </div>
 </div>
 
