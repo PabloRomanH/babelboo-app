@@ -229,7 +229,7 @@ h3{
     text-align: left;
 }
 .cine ul{
-    margin-bottom:30px;
+    margin-bottom:50px;
 }
 .title-cine{
     color:#63d0ff;
@@ -243,6 +243,7 @@ h3{
     color: #00618C;
     margin-bottom: 20px;
 }
+
 .answer-list li{
     margin: 0 0 1em 0;
 }
