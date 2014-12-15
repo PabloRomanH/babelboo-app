@@ -63,17 +63,12 @@ h3{
     width:100%;
     /*max-height: 50px;*/
     margin-top: 50px;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
-    margin-left: auto;
-    margin-right: auto;
     padding: 2px;
     background-color: #54ACD2;
     box-shadow: 0px -4px 5px 5px #555;
 }
 .search-tag{
-    margin:10px auto 0 auto;
-    width:400px;
-    /*padding: 0 200px 0 200px;*/
-    display:inline-block;
+    margin:0 auto 0 auto;
 }
 /*@media screen and (max-width: 973px) {*/
 /*    .search-tag {*/
@@ -86,11 +81,8 @@ h3{
     float:left;
 
 }
-.lvl{
-    float:left;
-    width:95px;
-    margin:10px 0 0 25px;
-    display:inline-block;
+.lvl {
+    margin: 10px 0 0 0;
 }
 .lvl li{
     background-color:#E25041;
@@ -130,6 +122,7 @@ h3{
     max-width: 972px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .boo-video2{
@@ -142,6 +135,7 @@ h3{
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
     height: 320px;
+    text-align: left;
 }
 .play-btn{
     float:right;
