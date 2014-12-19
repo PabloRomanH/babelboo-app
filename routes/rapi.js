@@ -197,5 +197,41 @@ router.post('/user/:username/answer/:playlist_id', function(req, res) {
     res.json();
 });
 
+router.get('/adduser/:username', function(req, res, next) {
+    var collection = req.db.get('usercollection');
+    var query = {};
+    var err;
+
+    if(req.params.username.length === 0) {
+        err = new Error('Username cannot be empty.');
+        err.status = 400; // bad request
+        next(err);
+        return;
+    }
+
+    query.username = req.params.username;
+    query.lastvisit = new Date();
+    query.daysvisited = 0;
+    query.password = "";
+    query.points = 0;
+    query.playlist_points = [];
+    query.abtesting = { questionsatend: false, ninegag: true };
+
+    collection.find({ username: req.params.username },{},function (err, result) {
+        if (result.length !== 0) {
+            err = new Error('User already exists.');
+            err.status = 400; // bad request
+            next(err);
+            return;
+        }
+
+        collection.insert(query, function (err, doc) {
+            if (err) throw err;
+
+            res.status = 201; // CREATED
+            res.send('<html><body>User correctly created.</body></html>');
+        });
+    });
+});
 
 module.exports = router;

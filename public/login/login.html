@@ -36,12 +36,11 @@
         </button>
         <div class="dropdown-menu pull-right" id="login-bubble" role="menu" aria-labelledby="dropdownMenu1" ng-show="loginCtrl.formVisible">
           <form action="/login" method="post">
-            <div><label>Username: </label></div>
+            <div><label>Email: </label></div>
             <div><input type="text" name="username"/></div>
             <div><input type="hidden" name="password" value="pass"></div>
             <div><button class="btn-success" type="submit">Login</button></div>
           </form>
-          <div class="error"><%= message %></div>
         </div>
       </div>
     </div>

@@ -1,20 +1,20 @@
 (function() {
     var app = angular.module('babelbooapp', ['ngRoute', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
-    
+
     app.config(function ($analyticsProvider) {
         $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
         $analyticsProvider.withAutoBase(true);  /* Records full path */
     });
-    
+
     app.config(function ($locationProvider) {
         $locationProvider.html5Mode(true);
     })
-    
+
     app.config(function($routeProvider) {
         $routeProvider.
             when('/', {
                 redirectTo: '/playlists'
-    
+
             }).
             when('/playlist', {
                 templateUrl: '/babelbooapp/playlist/playlist-fragment.html'
@@ -35,11 +35,11 @@
                 templateUrl: '/babelbooapp/error-fragment.html'
             });
     });
-      
+
     app.factory('user', function($http) {
         var service = {};
         service.user = 0;
-        
+
         service.fillUser = function(callback) {
             if (!service.user) {
                 $http.get('/api/user').success(function(data) {
@@ -50,44 +50,51 @@
                 callback(service.user);
             }
         }
-        
+
         service.answerPlaylist = function (playlistId, points) {
             service.user.points += points;
             return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
         }
         return service;
     });
-    
+
     app.factory('playlists', function($http) {
         var service = {};
         service.user = 0;
-        
+
         service.getRelated = function(playlistId, callback) {
             $http.get('/api/playlist?related=' + playlistId).success(function(data) {
                 callback(data);
             });
         }
-        
+
         service.answerPlaylist = function (playlistId, points) {
             service.user.points += points;
             return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
         }
         return service;
     });
-    
-    app.controller('NavbarController', function($http, $scope, user) {        
+
+    app.controller('NavbarController', function($http, $scope, $analytics, $window, user) {
         this.user = {};
         var controller = this;
-        
+
         user.fillUser(function (user) {
             controller.user = user;
         });
+
+        controller.pointsClicked = function() {
+            $analytics.eventTrack('pointsClicked', {
+                    category: 'navigation', label: controller.user._id
+                });
+            $window.alert('Click again in the future to use your points!');
+        };
     });
-    
+
 })();
 
 // compatibility definition of indexOf for IE8
-if (!Array.prototype.indexOf) { 
+if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (obj, fromIndex) {
         if (fromIndex == null) {
             fromIndex = 0;
