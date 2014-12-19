@@ -1,7 +1,5 @@
 to do next:
 
-- move ejs files to /babelbooap
-
 - 9gag new playlists are marked as new (mostly done, CSS not finished)
 - Playlist completion (visual cue that marks a playlist as watched) (mostly done, CSS not finished)
 
@@ -30,8 +28,8 @@ Q&A
 
 9Gag (always something new + finished checking everything new)
     "You got new stuff" reminder email
-    Per-user hiding of some playlists at first use
-    "Unlocking" of new playlists that appear as new to the user every day of use
+*      "Unlocking" of new playlists that appear as new to the user every day of use
+*    Per-user hiding of some playlists at first use
 *    Old unvisited playlists appear at the bottom and are harder to reach
 
 Wiki (user-generated playlists, questions, difficulty adjustment, etc.)

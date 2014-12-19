@@ -14,4 +14,10 @@ router.post('/',
         failureFlash: true })
     );
 
+router.get('/alpha',
+    passport.authenticate('local', { successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true })
+);
+
 module.exports = router;
