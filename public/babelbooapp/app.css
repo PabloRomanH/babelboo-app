@@ -35,7 +35,7 @@ h3{
 }
 .migas{
     padding:0 5px 0 5px;
-    margin:-20px 15px;
+    margin:-20px 0px;
 
 }
 .header-button{
@@ -53,6 +53,16 @@ h3{
     text-decoration: none;
     background-color:#004e70;
     padding:15px 5px 15px 3px;
+}
+.user-icon {
+    font-size: 36px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.user-icon li {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 10px;
 }
 
 
