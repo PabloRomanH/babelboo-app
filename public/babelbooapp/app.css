@@ -46,13 +46,12 @@ h3{
 .header-button a{
     color:#78cdfc;
     text-decoration: none;
-    padding:15px 5px 15px 3px;
+    padding: 15px 15px 15px 15px;
 }
 .header-button a:hover{
     color:#fff;
     text-decoration: none;
     background-color:#004e70;
-    padding:15px 5px 15px 3px;
 }
 .user-icon {
     font-size: 36px;
