@@ -31,6 +31,9 @@
             when('/manage', {
                 templateUrl: '/babelbooapp/editPlaylists/playlists-fragment.html'
             }).
+            when('/points', {
+                templateUrl: '/babelbooapp/points/under-construction.html'
+            }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html'
             });
@@ -87,7 +90,7 @@
             $analytics.eventTrack('pointsClicked', {
                     category: 'navigation', label: controller.user._id
                 });
-            $window.alert('Click again in the future to use your points!');
+
         };
     });
 
