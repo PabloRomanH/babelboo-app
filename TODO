@@ -1,16 +1,14 @@
 to do next:
 
 - 9gag new playlists are marked as new (mostly done, CSS not finished)
-- Playlist completion (visual cue that marks a playlist as watched) (mostly done, CSS not finished)
+- Playlist completion (visual cue that marks a playlist as watched or completed) (mostly done, CSS not finished)
 
-- remove ejs dependencies
 
 - self contained playlist creation tool
     - show video length
     - preview videos (clicking on the thumbnail, both in search and selected videos)
 
 Requirements
-    Nice website
     Good user registration
 
 
@@ -22,13 +20,13 @@ Playlists
 *    Playlist reproduction
 
 Q&A
-    Questions completed (visual cue that marks a playlist as answered)
+*    Questions completed (visual cue that marks a playlist as answered)
 *    Questions while playing video
-*    Questions after watching video
+*    Questions after watching video (depends on user.abtesting.questionsatend == true)
 
 9Gag (always something new + finished checking everything new)
     "You got new stuff" reminder email
-*      "Unlocking" of new playlists that appear as new to the user every day of use
+*    "Unlocking" of new playlists that appear as new to the user every day of use (depends on user.abtesting.ninegag == true)
 *    Per-user hiding of some playlists at first use
 *    Old unvisited playlists appear at the bottom and are harder to reach
 

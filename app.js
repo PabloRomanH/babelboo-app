@@ -71,7 +71,7 @@ app.set('view engine', 'ejs');
 if (app.get('env') === 'development') {
     app.use(logger('dev'));
 } else {
-    app.use(logger('combined', { 
+    app.use(logger('combined', {
         skip: function (req, res) { return res.statusCode < 400 }
     }));
 }
@@ -79,10 +79,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser()); // cookies need to be added before sessions
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({store: new MongoStore({
-    url: 'mongodb://localhost:27017/babelboo'
-  }),
-  secret: '1234567890QWERTY', resave:true, saveUninitialized:true})); // TODO: learn about the session security requirements and change key
+app.use(session({
+    store: new MongoStore({
+        url: 'mongodb://localhost:27017/babelboo'
+    }),
+    secret: '1234567890QWERTY',
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge : 1296000000 }})); // TODO: learn about the session security requirements and change key
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
