@@ -14,6 +14,11 @@ router.post('/',
         failureFlash: true })
     );
 
+router.get('/alpha', function(req, res, next){
+    req.query.password = 'boo';
+    next();
+});
+
 router.get('/alpha',
     passport.authenticate('local', { successRedirect: '/',
         failureRedirect: '/login',
