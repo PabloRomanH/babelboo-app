@@ -3,19 +3,8 @@ body {
     margin: 0px;
     background-color: #DFDFDF;
 }
-h2{
-    font-size:56px;
-    color: #00618C;
-    margin-bottom: 25px;
-}
 h3{
     color:#00618C;
-}
-
-.searcher {
-    margin: 0px;
-    width: 100%;
-    padding: 0px;
 }
 
 .row {
@@ -71,23 +60,13 @@ h3{
 .searcher {
     width:100%;
     /*max-height: 50px;*/
-    margin-top: 50px;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
+    margin: 50px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
     padding: 2px;
     background-color: #54ACD2;
     box-shadow: 0px -4px 5px 5px #555;
 }
 .search-tag{
     margin:0 auto 0 auto;
-}
-/*@media screen and (max-width: 973px) {*/
-/*    .search-tag {*/
-/*        padding:0px;*/
-/*        width:100%;*/
-/*    }*/
-/*}*/
-.order-tag{
-    margin:5px 5px 0px 25px;
-    float:left;
 }
 .lvl {
     margin: 10px 0 0 0;
@@ -123,12 +102,6 @@ li.tag-selected {
 .row-centered {
     text-align:center;
 }
-.col-centered {
-    display:inline-block;
-    float:none;
-    text-align:left;
-    /*margin-right:-4px;*/
-}
 
 .tag-container {
     max-width: 972px;
@@ -143,7 +116,7 @@ li.tag-selected {
     text-align: center;
 }
 
-.boo-video2{
+.playlist {
     display: inline-block;
     background-color:#fff;
     max-width:210px;
@@ -167,7 +140,7 @@ li.tag-selected {
     color:#63d0ff;
 
 }
-.boo-video2:hover .play-btn .blue{
+.playlist:hover .play-btn .blue{
     color:#2969B0;
 }
 .playlist-title{
@@ -205,7 +178,7 @@ li.tag-selected {
     margin-left: -200%; /* magic! */
 }
 
-.boo-video2 ul{
+.playlist ul{
     padding:0 0 0 5px;
     margin: 0 0 10px 0;
 }
@@ -386,9 +359,6 @@ li.tag-selected {
 .team {
     background-color: #ffffff;
     padding: 10px;
-}
-.yellow-txt{
-    color:#f0ad4e;
 }
 .score{
     margin:15px;
