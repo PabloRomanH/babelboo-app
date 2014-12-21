@@ -52,9 +52,11 @@ passport.use(new LocalStrategy(
             if (!user) {
                 return done(null, false, { message: 'Incorrect username. Try again.' });
             }
-//            if (user.password != password) {
-//                return done(null, false, { message: 'Incorrect password. Try again.' });
-//            }
+            if (username == 'sepha' || username == 'toni' || username == 'fran') {
+                if (user.password != password) {
+                    return done(null, false, { message: 'Incorrect password. Try again.' });
+                }
+            }
             return done(null, user);
         });
     }
@@ -100,8 +102,10 @@ var bbooapp = require('./routes/rbbooapp');
 var login = require('./routes/rlogin');
 var logout = require('./routes/rlogout');
 var api = require('./routes/rapi');
+var publicapi = require('./routes/rpublicapi');
+var restrictedapi = require('./routes/rrestrictedapi');
 
-app.use('/api', api);
+app.use('/api', publicapi);
 
 app.use('/login', login);
 app.use(function(req, res, next) {
@@ -113,12 +117,27 @@ app.use(function(req, res, next) {
     }
 });
 
+app.use('/api', api);
+
+var adminMiddleware = function(req, res, next) {
+    if (req.user.username == 'sepha' || req.user.username == 'toni' || req.user.username == 'fran') {
+        next();
+    } else {
+        var err = new Error('Not Found');
+        err.status = 404; // bad request
+        next(err);
+    }
+};
+
+app.use('/api', adminMiddleware, restrictedapi);
+
 app.use('/logout', logout);
 app.use('/', bbooapp);
 app.use('/play', bbooapp);
 app.use('/playlist', bbooapp);
 app.use('/newPlaylists', bbooapp);
 app.use('/playlists', bbooapp);
+
 app.use('/manage', bbooapp);
 
 // catch 404 and forward to error handler
@@ -154,8 +173,8 @@ app.use(function(err, req, res, next) {
 });
 
 if (app.get('env') === 'development') {
-  app.locals.pretty = true;
-  app.set('json spaces', 4);
+    app.locals.pretty = true;
+    app.set('json spaces', 4);
 }
 
 var server = app.listen(process.env.PORT);

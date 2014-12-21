@@ -35,10 +35,11 @@
         Login
         </button>
         <div class="dropdown-menu pull-right" id="login-bubble" role="menu" aria-labelledby="dropdownMenu1" ng-show="loginCtrl.formVisible">
-          <form action="/login" method="post">
+          <form action="/login" method="post" ng-submit="loginCtrl.submit($event)">
             <div><label>Email: </label></div>
-            <div><input type="text" name="username"/></div>
-            <div><input type="hidden" name="password" value="pass"></div>
+            <div><input type="text" name="username" ng-model="loginCtrl.username"/></div>
+            <div><input type="hidden" name="password" value="boo" ng-if="!loginCtrl.showPassword" /></div>
+            <div><input type="password" name="password" ng-if="loginCtrl.showPassword" /></div>
             <div><button class="btn-success" type="submit">Login</button></div>
           </form>
         </div>

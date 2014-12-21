@@ -15,7 +15,9 @@ router.post('/',
     );
 
 router.get('/alpha', function(req, res, next){
-    req.query.password = 'boo';
+    if(!req.query.password) {
+        req.query.password = 'boo';
+    }
     next();
 });
 

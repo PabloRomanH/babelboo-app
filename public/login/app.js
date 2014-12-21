@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('login', ['ngRoute', 'angulartics', 'angulartics.google.analytics']);
-    
+
     app.config(function ($analyticsProvider) {
         $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
         $analyticsProvider.withAutoBase(true);  /* Records full path */
@@ -28,15 +28,23 @@
             // });
       }]);
 
-    app.controller('LoginController', function($analytics){
+    app.controller('LoginController', function($analytics, $http){
         var controller = this;
         controller.formVisible = false;
+        controller.showPassword = false;
 
         this.toggleForm = function() {
             controller.formVisible = !controller.formVisible;
             $analytics.eventTrack('callToAction', {
                 category: 'conversion'
             });
+        }
+
+        this.submit = function($event) {
+            if (!controller.showPassword && (this.username == 'sepha' || this.username == 'toni' || this.username == 'fran')) {
+                controller.showPassword = true;
+                $event.preventDefault()
+            }
         }
     });
 
