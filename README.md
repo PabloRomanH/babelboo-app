@@ -6,6 +6,6 @@
 
 # To run it in cloud9:
 
-    $ mongod --bind_ip=$IP --dbpath=data --smal --rest
+    $ mongod --bind_ip=$IP --dbpath=data --smallfiles
     $ node app.js
 
