@@ -3,7 +3,6 @@
     <div class="tag-container">
       <div class="row row-centered">
         <ul class="list-unstyled list-inline lvl">
-          <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == -1}" ng-click="playlistsCtrl.setLevel(-1)">everything</li>
           <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 1}" ng-click="playlistsCtrl.setLevel(1)">{{ playlistsCtrl.levelNames[1] }}</li>
           <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 2}" ng-click="playlistsCtrl.setLevel(2)">{{ playlistsCtrl.levelNames[2] }}</li>
           <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 3}" ng-click="playlistsCtrl.setLevel(3)">{{ playlistsCtrl.levelNames[3] }}</li>

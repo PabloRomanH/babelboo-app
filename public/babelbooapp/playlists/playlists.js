@@ -9,10 +9,14 @@
         controller.levelNames = ['beginner', 'intermediate', 'advanced', 'fluent', 'native'];
 
         this.setLevel = function(level) {
-            this.selectedLevel = level;
-            $analytics.eventTrack('setlevel', {
-                category: 'search', label: controller.levelNames[level]
-            });
+            if (level == this.selectedLevel) {
+                this.selectedLevel = -1;
+            } else {
+                this.selectedLevel = level;
+                $analytics.eventTrack('setlevel', {
+                    category: 'search', label: controller.levelNames[level]
+                });
+            }
             getList();
         }
 
