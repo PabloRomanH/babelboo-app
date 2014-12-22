@@ -13,10 +13,10 @@
       <p class="total-score">Total score: <span class="score-points">{{ playCtrl.points }}</span></p>
     </div>
   </div>
-  <a class="button-player button-summary" href="/">Watch More</button></a>
+  <a class="button-player button-summary" href="/">Finish</button></a>
 </div>
 
-<div>
-  <h4>Related playlists:</h4>
+<div ng-show="playCtrl.relatedplaylists.length">
+  <h4>Similar playlists:</h4>
   <relatedplaylist-card ng-repeat="playlist in playCtrl.relatedplaylists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></relatedplaylist-card>
 </div>

@@ -2,7 +2,7 @@
     var app = angular.module('playlists', []);
     app.controller('PlaylistsController', function($http, $window, $analytics, $scope, $location){
         var controller = this;
-        this.playlists = [];
+        this.playlists = null;
         this.tags = []
         this.selectedLevel = -1;
         this.selectedTag = '';

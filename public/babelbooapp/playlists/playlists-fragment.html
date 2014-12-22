@@ -17,6 +17,7 @@
 
   <div class="myContainer">
     <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-_id'" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    <h3 class="not-found" ng-show="playlistsCtrl != null && playlistsCtrl.playlists.length==0">No playlists found</h3>
   </div>
 </div>
 
