@@ -1,4 +1,45 @@
+To do first during testing week:
+
+*- More feedback when answering.
+- rename difficulty levels with easier sounding names (easy, medium, hard)
+*- Remove level "everything" and Playlists and Babelboo link removes all search filters
+
++- Logout (dropdown in user).
++- Message if nothing in filtered results.
+- No related playlists if there arent.
+*- Change "watch more" to "Finish" in summary.
++*- Progress during playlist.
+*- Play only if play button is pressed.
+*- Babelboo logo goes to all playlists.
+*- Rename "related playlists" to "similar playlists"
+- Remove hover from play button.
+
+
+
+
+
+                - ??? Remove playlists link from navbar ???
+                +*- Show # of videos in playlist card.
+                - Remove tags from playlists card.
+
+                +- Highlight (or something) 'Next' button after answering.
+                +*- Warning if leaving playlist during reproduction.
+                +- Check answer after clicking next.
+                +- Make everything fit in a screen.
+                - show that landing page can be scrolled
+
+
+
+                                *- Rethink levels and tags behaviour.
+                                *- clearer difficulty levels
+                                *- browser previous/next works in searches
+                                *- browser previous/next works in player
+
+
 to do next:
+
+
+
 
 - 9gag new playlists are marked as new (mostly done, CSS not finished)
 - Playlist completion (visual cue that marks a playlist as watched or completed) (mostly done, CSS not finished)
