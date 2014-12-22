@@ -78,7 +78,7 @@
         return service;
     });
 
-    app.controller('NavbarController', function($http, $scope, $analytics, $window, user) {
+    app.controller('NavbarController', function($http, $scope, $analytics, $window, user, $route, $location) {
         this.user = {};
         var controller = this;
 
@@ -90,7 +90,11 @@
             $analytics.eventTrack('pointsClicked', {
                     category: 'navigation', label: controller.user._id
                 });
+        };
 
+        controller.goToPlaylists = function() {
+            $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
+            $route.reload();
         };
     });
 
