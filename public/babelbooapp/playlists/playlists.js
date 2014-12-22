@@ -53,10 +53,6 @@
             return minutes + ':' + seconds;
         }
 
-        this.playPlaylist = function(id) {
-            $location.path('/play/' + id);
-        }
-
         function getList() {
             var query = '/api/playlist/?tags=' + controller.selectedTag + '&level=' + controller.selectedLevel;
             $http.get(query).success(function(data){
