@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('playlist', []);
 
-    app.controller('SearchController', function ($scope, $http, $location, $routeParams) {
+    app.controller('SearchController', function ($scope, $http, $location, $routeParams, levelNames) {
         var controller = this;
         controller.videos = [];
         controller.query = '';
@@ -11,7 +11,7 @@
         controller.playlist.tags = [];
         controller.playlist.level = '';
         controller.showWarning = false;
-        controller.levelNames = ['beginner', 'intermediate', 'advanced', 'fluent', 'native'];
+        controller.levelNames = levelNames.names;
 
         var playlistId = $routeParams.playlistId;
 

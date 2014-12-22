@@ -78,6 +78,12 @@
         return service;
     });
 
+    app.factory('levelNames', function() {
+        return {
+            names: ['zero', 'easy', 'medium', 'hard']
+        };
+    });
+
     app.controller('NavbarController', function($http, $scope, $analytics, $window, user, $route, $location) {
         this.user = {};
         var controller = this;

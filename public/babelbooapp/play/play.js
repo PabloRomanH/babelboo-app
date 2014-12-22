@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', []);
 
-    app.controller('PlayController', function($scope, $http, $routeParams, $location, $window, $timeout, $analytics, user, playlists) {
+    app.controller('PlayController', function($scope, $http, $routeParams, $location, $window, $timeout, $analytics, user, playlists, levelNames) {
         var controller = this;
         var idx = 0;
         var playlistId = $routeParams.playlistId;
@@ -21,7 +21,7 @@
         controller.showSummary = false;
         controller.videos = [];
         controller.relatedplaylists = [];
-        controller.levelNames = ['beginner', 'intermediate', 'advanced', 'fluent', 'native'];
+        controller.levelNames = levelNames.names;
 
         $window.onYouTubePlayerAPIReady = function() {
             youtubeApiIsReady = true;

@@ -1,12 +1,12 @@
 (function() {
     var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($http, $window, $analytics, $scope, $location){
+    app.controller('PlaylistsController', function($http, $window, $analytics, $scope, $location, levelNames){
         var controller = this;
         this.playlists = null;
         this.tags = []
         this.selectedLevel = -1;
         this.selectedTag = '';
-        controller.levelNames = ['beginner', 'intermediate', 'advanced', 'fluent', 'native'];
+        controller.levelNames = levelNames.names;
 
         this.setLevel = function(level) {
             if (level == this.selectedLevel) {
