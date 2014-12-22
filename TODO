@@ -3,6 +3,7 @@ To do first during testing week:
 *- More feedback when answering.
 +*- Progress during playlist.
 +- Logout (dropdown in user).
+- Bug when loading the player (start player after directive loads)
 
                 - ??? Remove playlists link from navbar ???
                 +*- Show # of videos in playlist card.

@@ -1,23 +1,30 @@
 <div class="cine clearfix">
   <p class="title-cine">{{ playCtrl.playlist.title }}</p>
-  <div id="ytplayer" class="player"></div>
+  <div class="ytplayer">
+    <youtube-video video-id="playCtrl.videoId" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
+  </div>
   <div ng-show="playCtrl.showQuestions">
     <p class="question-txt">{{ playCtrl.currentVideo.question }}</p>
-    <ul class="list-unstyled answer-list">
-      <li ng-repeat="answer in playCtrl.currentVideo.answers" ng-class="{correctAnswer: $index==playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer, incorrectAnswer: $index==playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">
-        <div class="radio">
-          <label>
-            <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index" ng-change="playCtrl.answer()">
-            {{ answer.text }}
-          </label>
-        </div>
-      </li>
-    </ul>
+    <div class="pull-left answer">
+      <ul class="list-unstyled">
+        <li ng-repeat="answer in playCtrl.currentVideo.answers">
+          <div class="radio">
+            <label>
+              <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index" ng-change="playCtrl.answer()">
+              {{ answer.text }}
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <i class="fa fa-check text-success answer-symbol pull-right" ng-show="playCtrl.answeredcorrect"></i>
+    <i class="fa fa-times text-danger answer-symbol pull-right" ng-show="playCtrl.answeredincorrect"></i>
   </div>
+  <div style="clear: both;"></div>
   <a class="button-skip button-player" ng-click="!playCtrl.answered && playCtrl.playNext()" ng-class="{'button-player-disabled': playCtrl.answered}" href="#">
     Skip
-  </button>
+  </a>
   <a class="button-next button-player" ng-click="playCtrl.answered && playCtrl.playNext()" ng-class="{'button-player-disabled': !playCtrl.answered}" href="#">
     Next
-  </button>
+  </a>
 </div>
