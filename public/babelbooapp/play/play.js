@@ -104,6 +104,28 @@
             });
         }
 
+        function pad (number) {
+            var str = '00' + String(number);
+
+            return str.substr(str.length - 2);
+        }
+
+        controller.renderTime = function (seconds) {
+            if (!seconds) return;
+
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            seconds = (seconds % 3600) % 60;
+
+            seconds = pad(seconds);
+
+            if (hours !== 0) {
+                minutes = pad(minutes);
+                return hours + ':' + minutes + ':' + seconds;
+            }
+            return minutes + ':' + seconds;
+        };
+
         /*$scope.$on('youtube.player.ended', function ($event, player) {
             if (event.data == YT.PlayerState.ENDED) { // FIXME: not adapted to angular-youtube-embed
                 if (controller.questionsAtTheEnd) {
