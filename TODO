@@ -1,10 +1,5 @@
 To do first during testing week:
 
-*- More feedback when answering.
-+*- Progress during playlist.
-+- Logout (dropdown in user).
-- Bug when loading the player (start player after directive loads)
-
                 - ??? Remove playlists link from navbar ???
                 +*- Show # of videos in playlist card.
                 - Remove tags from playlists card.
@@ -21,6 +16,7 @@ To do first during testing week:
                                 *- clearer difficulty levels
                                 *- browser previous/next works in searches
                                 *- browser previous/next works in player
+
 
 
 to do next:
