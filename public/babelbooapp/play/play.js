@@ -3,7 +3,6 @@
 
     app.controller('PlayController', function($scope, $http, $routeParams, $location, $analytics, user, playlists, levelNames) {
         var controller = this;
-        var idx = 0;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
 
@@ -25,6 +24,7 @@
         controller.relatedplaylists = [];
         controller.levelNames = levelNames.names;
 
+        controller.idx = 0;
         controller.videoId = null;
         controller.playerVars = { autoplay: 1 };
         controller.player = null;
@@ -32,10 +32,10 @@
         $http.get('/api/playlist/' + playlistId).success(function( data ) {
             controller.playlist = data;
             controller.videos = data.entries;
-            controller.currentVideo = controller.videos[idx];
+            controller.currentVideo = controller.videos[controller.idx];
             playlistRetrieved = true;
 
-            controller.videoId = controller.videos[idx].id;
+            controller.videoId = controller.videos[controller.idx].id;
         });
 
         controller.playNext = function () {
@@ -58,16 +58,16 @@
                 }
             }
 
-            $analytics.eventTrack(eventname, { category: 'video', label: controller.videos[idx].id, value: eventvalue });
+            $analytics.eventTrack(eventname, { category: 'video', label: controller.videos[controller.idx].id, value: eventvalue });
 
-            idx = idx + 1;
-            controller.currentVideo = controller.videos[idx];
+            controller.idx = controller.idx + 1;
+            controller.currentVideo = controller.videos[controller.idx];
             controller.answeredcorrect = false;
             controller.answeredincorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;
 
-            if (idx == controller.videos.length) {
+            if (controller.idx == controller.videos.length) {
                 controller.player.stopVideo();
                 controller.points = controller.videos.length * controller.POINT_PER_VIDEO;
                 controller.points += controller.correctAnswers * controller.POINT_PER_CORRECT;
@@ -80,7 +80,7 @@
 
                 user.answerPlaylist(playlistId, controller.points);
             } else {
-                var video_id = controller.videos[idx].id;
+                var video_id = controller.videos[controller.idx].id;
                 controller.player.loadVideoById({videoId:video_id});
             }
         };

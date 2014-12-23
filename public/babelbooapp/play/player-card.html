@@ -1,5 +1,6 @@
 <div class="cine clearfix">
-  <p class="title-cine">{{ playCtrl.playlist.title }}</p>
+  <p class="title-cine pull-left">{{ playCtrl.playlist.title }}</p>
+  <p class="progress-cine pull-right">{{ playCtrl.idx+1 }}/{{ playCtrl.videos.length }}</p>
   <div class="ytplayer">
     <youtube-video video-id="playCtrl.videoId" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
   </div>

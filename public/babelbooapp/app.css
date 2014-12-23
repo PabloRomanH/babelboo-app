@@ -248,11 +248,18 @@ li.tag-selected {
     text-align: left;
 }
 
-.title-cine{
-    color:#00618C;
+.title-cine, .progress-cine {
     font-size:22px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.title-cine {
+    color:#00618C;
+}
+
+.progress-cine {
+    color:#333;
 }
 
 .question-txt{
