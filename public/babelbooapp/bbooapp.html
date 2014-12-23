@@ -38,15 +38,15 @@
         <img class="pull-left" src="/img/boo-white.png"/>
         <img class="pull-left" src="/img/name-header.png"/>
       </a>
-      <ul class="list-unstyled list-inline pull-left migas">
+      <ul class="list-unstyled list-inline pull-left navbar-left">
         <li class="header-button"><a href="#" ng-click="navbarCtrl.goToPlaylists()">Playlists</a></li>
       </ul>
-      <ul class="list-unstyled list-inline pull-right migas">
-        <li class="header-button">{{ navbarCtrl.user.username }}</li>
+      <ul class="list-unstyled list-inline pull-right navbar-right">
+        <li class="header-button user-icon" id="userface"><a href="#" ng-class="{'header-button-hover': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="navbarCtrl.toggleLogout()"><i class="fa fa-user"></i></a></li><li class="header-button" id="username"><a href="#" ng-class="{'header-button-hover': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="navbarCtrl.toggleLogout()">{{ navbarCtrl.user.username }}</a></li>
         <li class="header-button"><a href="/points" ng-click="navbarCtrl.pointsClicked()">Points: {{ navbarCtrl.user.points }}</a></li>
-      </ul>
-      <ul class="list-unstyled list-inline pull-right migas user-icon">
-        <li class="header-button"><i class="fa fa-user"></i></li>
+        <div class="user-dropdown" ng-show="navbarCtrl.showLogout">
+              <a href="logout" target="_self"><i class="fa fa-sign-out"></i> Logout</a>
+        </div>
       </ul>
     </div>
     <div ng-view></div>

@@ -87,18 +87,23 @@
     app.controller('NavbarController', function($http, $scope, $analytics, $window, user, $route, $location) {
         this.user = {};
         var controller = this;
+        controller.showLogout = false;
 
         user.fillUser(function (user) {
             controller.user = user;
         });
 
-        controller.pointsClicked = function() {
+        controller.toggleLogout = function () {
+            controller.showLogout = !controller.showLogout;
+        }
+
+        controller.pointsClicked = function () {
             $analytics.eventTrack('pointsClicked', {
                     category: 'navigation', label: controller.user._id
                 });
         };
 
-        controller.goToPlaylists = function() {
+        controller.goToPlaylists = function () {
             $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
             $route.reload();
         };
