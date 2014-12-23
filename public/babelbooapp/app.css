@@ -292,8 +292,8 @@ li.tag-selected {
 .cine{
     background-color:#fff;
     max-width: 680px;
-    padding:20px;
-    margin:80px auto 30px auto;
+    padding: 20px;
+    margin: 60px auto 20px auto;
     border-radius: 5px;
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
@@ -303,7 +303,7 @@ li.tag-selected {
 .title-cine, .progress-cine {
     font-size:22px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .title-cine {
@@ -318,13 +318,14 @@ li.tag-selected {
     font-size:22px;
     font-weight: bold;
     color: #00618C;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 .answer {
-    margin-top: 10px;
+    margin-top: 00px;
     width: 460px;
-    margin-bottom:50px;
+    margin-bottom:20px;
 }
 
 .answer li {
