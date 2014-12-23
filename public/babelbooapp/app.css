@@ -283,21 +283,27 @@ li.tag-selected {
 }
 
 /*---------    PLAYLIST --------*/
-.ytplayer {
-    width: 640px;
-    height: 387px; /* 360 plus YouTube controls */
-    margin:0px 0px 20px 0px;
-}
-
-.cine{
+.cine {
     background-color:#fff;
     max-width: 680px;
-    padding: 20px;
     margin: 60px auto 20px auto;
-    border-radius: 5px;
+    border-radius: 3px;
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
     text-align: left;
+}
+
+.cine > * {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.cine-right {
+    background-color: #3c763d;
+}
+
+.cine-wrong {
+    background-color: #a94442;
 }
 
 .title-cine, .progress-cine {
@@ -308,6 +314,7 @@ li.tag-selected {
 
 .title-cine {
     color:#00618C;
+    margin-top: 20px;
 }
 
 .progress-cine {
@@ -318,14 +325,14 @@ li.tag-selected {
     font-size:22px;
     font-weight: bold;
     color: #00618C;
-    margin-top: 10px;
+    padding-top: 10px;
     margin-bottom: 0px;
 }
 
 .answer {
     margin-top: 00px;
     width: 460px;
-    margin-bottom:20px;
+    display: inline-block;
 }
 
 .answer li {
@@ -353,8 +360,10 @@ li.tag-selected {
 }
 
 .answer-symbol {
+    color: #fff;
     font-size: 122px;
     margin-right: 5px;
+    float: right;
 }
 
 .button-skip {
@@ -380,11 +389,13 @@ li.tag-selected {
     padding-bottom: 15px;
     cursor: pointer;
     font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
-    margin: -20px;
-    background-color: transparent;
+    /*margin: -20px;*/
+    background-color: #fff;
     border: none;
     text-decoration: none;
     border-top: 1px solid #ddd;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 .button-player:hover {
