@@ -34,7 +34,7 @@
             controller.videos = data.entries;
             controller.currentVideo = controller.videos[idx];
             playlistRetrieved = true;
-            
+
             controller.videoId = controller.videos[idx].id;
         });
 
@@ -98,11 +98,10 @@
             }
         }
 
-        controller.playPlaylist = function(id) {
+        controller.throwRelatedEvent = function(id) {
             $analytics.eventTrack('relatedClicked', {
                 category: 'navigation', label: id
             });
-            $location.path('/play/' + id);
         }
 
         /*$scope.$on('youtube.player.ended', function ($event, player) {

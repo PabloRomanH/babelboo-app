@@ -1,4 +1,4 @@
-<div class="playlist" ng-click="playCtrl.playPlaylist(playlist._id)">
+<div class="playlist" ng-click="playCtrl.throwRelatedE(playlist._id)">
   <div>
     <div class="th th-top-left"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : '/img/nothumbnail.png' }}"></div>
     <div class="th th-top-right"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : '/img/nothumbnail.png' }}"></div>
@@ -6,10 +6,10 @@
     <div class="th"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
   </div>
 
-  <span class="fa-stack fa-lg play-btn">
-    <i class="fa fa-circle fa-stack-2x "></i>
-    <i class="fa fa-play-circle fa-stack-2x blue"></i>
-  </span>
+  <a class="fa-stack fa-lg play-btn" ng-href="/play/{{ playlist._id }}">
+    <i class="fa fa-circle fa-stack-2x play-circle"></i>
+    <i class="fa fa-play fa-stack-1x"></i>
+  </a>
   <p class="playlist-title">{{ playlist.title }}</p>
   <div class="playlist-icons">
     <i class="fa fa-clock-o pull-right"> {{ playCtrl.renderTime(playlist.duration) }}</i>
