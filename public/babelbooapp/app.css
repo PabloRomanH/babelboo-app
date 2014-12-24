@@ -408,6 +408,7 @@ li.tag-selected {
 
 .button-player-disabled:focus {
     text-decoration: none;
+    color: #999;
 }
 
 .button-summary {

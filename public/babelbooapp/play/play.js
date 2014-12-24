@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($scope, $http, $routeParams, $location, $analytics, user, playlists, levelNames) {
+    app.controller('PlayController', function($scope, $rootScope, $http, $routeParams, $location, $window, $analytics, user, playlists, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -61,7 +61,6 @@
             $analytics.eventTrack(eventname, { category: 'video', label: controller.videos[controller.idx].id, value: eventvalue });
 
             controller.idx = controller.idx + 1;
-            controller.currentVideo = controller.videos[controller.idx];
             controller.answeredcorrect = false;
             controller.answeredincorrect = false;
             controller.answered = false;
@@ -78,9 +77,12 @@
 
                 controller.showSummary = true;
 
+                allowExit();
+
                 user.answerPlaylist(playlistId, controller.points);
             } else {
                 var video_id = controller.videos[controller.idx].id;
+                controller.currentVideo = controller.videos[controller.idx];
                 controller.player.loadVideoById({videoId:video_id});
             }
         };
@@ -125,6 +127,30 @@
             }
             return minutes + ':' + seconds;
         };
+
+        var deregister;
+
+        preventExit();
+
+        function preventExit () {
+            $window.onbeforeunload = function(){
+                return "Are you sure you want to lose your progress in the current playlist?";
+            };
+
+            deregister = $rootScope.$on('$locationChangeStart', function(event) {
+                var answer = confirm("Are you sure you want to lose your progress in the current playlist?");
+                if (!answer) {
+                    event.preventDefault();
+                } else {
+                    allowExit();
+                }
+            });
+        }
+
+        function allowExit () {
+            window.onbeforeunload = function () {};
+            deregister();
+        }
 
         /*$scope.$on('youtube.player.ended', function ($event, player) {
             if (event.data == YT.PlayerState.ENDED) { // FIXME: not adapted to angular-youtube-embed

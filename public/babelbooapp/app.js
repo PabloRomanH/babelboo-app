@@ -104,8 +104,11 @@
         };
 
         controller.goToPlaylists = function () {
-            $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
-            $route.reload();
+            if($location.path() == '/playlists') {
+                $route.reload();
+            } else {
+                $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
+            }
         };
     });
 
