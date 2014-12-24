@@ -296,6 +296,7 @@ li.tag-selected {
 .cine > * {
     padding-left: 20px;
     padding-right: 20px;
+    width: 100%;
 }
 
 .title-cine, .progress-cine {
