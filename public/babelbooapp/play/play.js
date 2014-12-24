@@ -47,14 +47,14 @@
                     eventname = 'watched_answered';
                 } else {
                     eventname = 'skipped_answered';
-                    eventvalue = controller.player.getCurrentTime() / controller.player.getDuration();
+                    eventvalue = controller.player.getCurrentTime() / controller.player.getDuration() * 100;
                 }
             } else {
                 if (controller.player.currentState == "ended") { // ended playing
                     eventname = 'watched_didntanswer';
                 } else {
                     eventname = 'skipped_didntanswer';
-                    eventvalue = controller.player.getCurrentTime() / controller.player.getDuration();
+                    eventvalue = controller.player.getCurrentTime() / controller.player.getDuration() * 100;
                 }
             }
 
@@ -79,6 +79,8 @@
                 controller.showSummary = true;
 
                 user.answerPlaylist(playlistId, controller.points);
+
+                $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             } else {
                 var video_id = controller.videos[controller.idx].id;
                 controller.player.loadVideoById({videoId:video_id});
