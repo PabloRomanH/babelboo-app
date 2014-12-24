@@ -88,10 +88,9 @@
         controller.answer = function() {
             controller.answered = true;
 
-            if (controller.answeredindex == controller.currentVideo.correctanswer)
-            {
-                controller.answeredcorrect = true;
+            if (controller.answeredindex == controller.currentVideo.correctanswer) {
                 controller.correctAnswers += 1;
+                controller.answeredcorrect = true;
             } else {
                 controller.incorrectAnswers += 1;
                 controller.answeredincorrect = true;

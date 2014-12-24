@@ -4,35 +4,30 @@
     <p class="progress-cine pull-right">{{ playCtrl.idx+1 }}/{{ playCtrl.videos.length }}</p>
   </div>
   <youtube-video video-id="playCtrl.videoId" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
-  <div ng-show="playCtrl.showQuestions" ng-class="{'cine-right': playCtrl.answered && playCtrl.answeredcorrect, 'cine-wrong': playCtrl.answered && playCtrl.answeredincorrect}">
+  <div ng-show="playCtrl.showQuestions">
     <p class="question-txt" ng-show="playCtrl.showQuestions">{{ playCtrl.currentVideo.question }}</p>
     <div class="answer">
       <ul class="list-unstyled">
         <li ng-repeat="answer in playCtrl.currentVideo.answers">
           <div class="radio">
             <label>
-              <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index" ng-change="playCtrl.answer()">
+              <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index">
               {{ answer.text }}
             </label>
           </div>
         </li>
       </ul>
     </div>
-    <i class="fa fa-check answer-symbol" ng-show="playCtrl.answeredcorrect"></i>
-    <i class="fa fa-times answer-symbol" ng-show="playCtrl.answeredincorrect"></i>
   </div>
   <div style="clear: both;"></div>
-  <div class="button-player" ng-click="playCtrl.playNext()" ng-show="!playCtrl.answered">
+  <div class="button-player" ng-click="playCtrl.answer()" ng-show="!playCtrl.answered">
     <a href="#">
-      Skip
+      Check
     </a>
   </div>
-  <div class="button-player" ng-click="playCtrl.playNext()" ng-show="playCtrl.answered">
+  <div class="button-player" ng-click="playCtrl.playNext()" ng-show="playCtrl.answered" ng-class="{'cine-right': playCtrl.answered && playCtrl.answeredcorrect, 'cine-wrong': playCtrl.answered && playCtrl.answeredincorrect}">
     <a href="#">
       Next
     </a>
   </div>
-  <!--<a class="button-next button-player" ng-click="playCtrl.answered && playCtrl.playNext()" ng-class="{'button-player-disabled': !playCtrl.answered}" href="#">-->
-  <!--  Next-->
-  <!--</a>-->
 </div>

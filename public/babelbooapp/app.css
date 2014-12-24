@@ -298,14 +298,6 @@ li.tag-selected {
     padding-right: 20px;
 }
 
-.cine-right {
-    background-color: #3c763d;
-}
-
-.cine-wrong {
-    background-color: #a94442;
-}
-
 .title-cine, .progress-cine {
     font-size:22px;
     font-weight: bold;
@@ -344,19 +336,10 @@ li.tag-selected {
     padding:0px;
     font-size: 20px;
     font-weight: bold;
-
 }
 
 .nav-list a {
     text-decoration: none;
-}
-
-.correctAnswer {
-    background-color: #cfc;
-}
-
-.incorrectAnswer {
-    background-color: #fcc;
 }
 
 .answer-symbol {
@@ -366,22 +349,6 @@ li.tag-selected {
     float: right;
 }
 
-.button-skip {
-    float: left;
-    border-bottom-left-radius: 5px;
-    color: #646464;
-}
-
-.button-next {
-    float: right;
-    border-bottom-right-radius: 5px;
-    color: #4285f4;
-}
-
-.button-next, .button-skip {
-    width: 340px;
-}
-
 .button-player {
     text-transform: uppercase;
     text-align: center;
@@ -389,8 +356,6 @@ li.tag-selected {
     padding-bottom: 15px;
     cursor: pointer;
     font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
-    /*margin: -20px;*/
-    background-color: #fff;
     border: none;
     text-decoration: none;
     border-top: 1px solid #ddd;
@@ -403,22 +368,24 @@ li.tag-selected {
     text-decoration: none;
 }
 
-.button-player:focus {
-    text-decoration: none;
+.cine-right a, .cine-wrong a {
+    color: #fff;
 }
 
-.button-player-disabled {
-    color: #999;
+.cine-right {
+    background-color: #3c763d;
 }
 
-.button-player-disabled:hover {
-    color: #999;
-    background-color: transparent;
-    cursor: default;
+.cine-wrong {
+    background-color: #a94442;
 }
 
-.button-player-disabled:focus {
-    text-decoration: none;
+.cine-right:hover {
+    background-color: #2c662d;
+}
+
+.cine-wrong:hover {
+    background-color: #993432;
 }
 
 .button-summary {
