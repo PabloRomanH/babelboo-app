@@ -309,13 +309,11 @@ li.tag-selected {
 
 .title-cine {
     color:#777;
-    /*margin-top: 20px;*/
 }
 
 .question-txt{
     font-size:22px;
     font-weight: bold;
-    /*color: #00618C;*/
     padding-top: 10px;
     margin-bottom: 0px;
 }
@@ -344,7 +342,6 @@ li.tag-selected {
 .selected-answer:hover {
     background-color: #449CC2 !important;
 }
-
 
 .answer .radio {
     margin: 0px;
@@ -388,6 +385,10 @@ li.tag-selected {
 
 .button-player:hover {
     background-color: #ddd;
+}
+
+.button-player:hover a {
+    color: #428bca;
     text-decoration: none;
 }
 
