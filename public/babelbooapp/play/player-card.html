@@ -21,8 +21,12 @@
       </ul>
     </div>
   </div>
-  <div style="clear: both;"></div>
-  <div class="button-player" ng-click="playCtrl.answer()" ng-show="!playCtrl.answered">
+  <div class="button-player" ng-click="playCtrl.playNext()" ng-show="!playCtrl.answered && playCtrl.answeredindex == -1">
+    <a href="#">
+      Skip
+    </a>
+  </div>
+  <div class="button-player" ng-click="playCtrl.answer()" ng-show="!playCtrl.answered && playCtrl.answeredindex != -1">
     <a href="#">
       Check
     </a>
