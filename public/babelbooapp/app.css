@@ -1,17 +1,18 @@
-
 body {
     margin: 0px;
     background-color: #DFDFDF;
 }
-h3{
+
+h3 {
     color:#00618C;
 }
 
 .row {
     margin: 0px;
 }
-/*----------   HEADER   ----------*/
 
+
+/*----------   HEADER   ----------*/
 .header {
     background-color: #00618C;
     padding: 10px 30px 0 10px;
@@ -36,7 +37,7 @@ h3{
     margin: -28px 0px;
 }
 
-.header-button{
+.header-button {
     color:#fff;
     margin:0px;
     padding:25px 0 15px 0;
@@ -106,8 +107,6 @@ li.header-button {
 }
 
 
-
-
 /*---------   SEARCHER   ---------*/
 .searcher {
     width:100%;
@@ -118,7 +117,7 @@ li.header-button {
     box-shadow: 0px -4px 5px 5px #555;
 }
 
-.search-tag{
+.search-tag {
     margin:0 auto 0 auto;
 }
 
@@ -126,19 +125,19 @@ li.header-button {
     margin: 10px 0 0 0;
 }
 
-.lvl li{
+.lvl li {
     background-color:#E25041;
 }
 
-.lvl li:hover{
+.lvl li:hover {
     background-color:#B8312F;
 }
 
-li.lvl-selected{
+li.lvl-selected {
     background-color:#B8312F;
 }
 
-.lvl li, .search-tag li{
+.lvl li, .search-tag li {
     padding:5px;
     margin:0 0 10px 5px;
     color:#fff;
@@ -157,6 +156,7 @@ li.lvl-selected{
 li.tag-selected {
     background-color:#2969B0;
 }
+
 
 /*---------    PLAYLIST CONTENT --------*/
 .row-centered {
@@ -188,6 +188,7 @@ li.tag-selected {
     height: 320px;
     text-align: left;
 }
+
 .play-btn {
     float:right;
     margin:-24px 5px 0 0;
@@ -216,7 +217,7 @@ li.tag-selected {
     color:#63d0ff;
 }
 
-.playlist-title{
+.playlist-title {
     font-weight: bold;
     float:left;
     width: 151px;
@@ -226,7 +227,7 @@ li.tag-selected {
     margin:0px;
 }
 
-.th{
+.th {
     float:left;
     padding: 0px;
     margin: 0px;
@@ -251,26 +252,26 @@ li.tag-selected {
     margin-left: -200%; /* magic! */
 }
 
-.playlist ul{
+.playlist ul {
     padding:0 0 0 5px;
     margin: 0 0 10px 0;
 }
 
-.playlist-icons{
+.playlist-icons {
     font-size:12px;
     color:#666666;
     margin:255px 10px 5px 10px;
     clear:left;
 }
 
-.tag-awesome{
+.tag-awesome {
     font-size:12px;
     color:#666666;
     margin-right:-10px;
     padding-right:0px;
 }
 
-.tag-box{
+.tag-box {
     color: #777;
     font-size:12px;
 }
@@ -282,13 +283,8 @@ li.tag-selected {
     text-shadow: 1px 1px #eee;
 }
 
-/*---------    PLAYLIST --------*/
-.ytplayer {
-    width: 640px;
-    height: 387px; /* 360 plus YouTube controls */
-    margin:0px 0px 20px 0px;
-}
 
+/*---------    PLAYLIST --------*/
 .cine{
     background-color:#fff;
     max-width: 680px;
@@ -314,7 +310,7 @@ li.tag-selected {
     color:#333;
 }
 
-.question-txt{
+.question-txt {
     font-size:22px;
     font-weight: bold;
     color: #00618C;
@@ -418,7 +414,7 @@ li.tag-selected {
 }
 
 /*---------    RESULTS --------*/
-.score{
+.score {
     margin:15px;
 }
 
@@ -437,11 +433,11 @@ li.tag-selected {
     margin-right: -35px;
 }
 
-.skills{
+.skills {
     font-size: 25px;
 }
 
-.total-score{
+.total-score {
     color:#00618C;
     font-size: 24px;
     font-weight: bold;
@@ -449,17 +445,17 @@ li.tag-selected {
     margin-bottom: 50px
 }
 
-.score-points{
+.score-points {
     color:#FBA026;
 }
 
-.finish-video-btn{
+.finish-video-btn {
     color:#fff;
     background-color:#00618C
 }
 
-/*---------    OTHERS --------*/
 
+/*---------    OTHERS --------*/
 .value {
     background-color: #00618C;
     color: #ffffff;
@@ -471,6 +467,6 @@ li.tag-selected {
     padding: 10px;
 }
 
-.score{
+.score {
     margin:15px;
 }
