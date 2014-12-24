@@ -1,6 +1,7 @@
 
 body {
     margin: 0px;
+    color:#333;
     background-color: #DFDFDF;
 }
 h3{
@@ -287,6 +288,7 @@ li.tag-selected {
     background-color:#fff;
     max-width: 680px;
     margin: 60px auto 20px auto;
+    padding-top: 20px;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
@@ -306,30 +308,50 @@ li.tag-selected {
 }
 
 .title-cine {
-    color:#00618C;
-    margin-top: 20px;
-}
-
-.progress-cine {
-    color:#333;
+    color:#777;
+    /*margin-top: 20px;*/
 }
 
 .question-txt{
     font-size:22px;
     font-weight: bold;
-    color: #00618C;
+    /*color: #00618C;*/
     padding-top: 10px;
     margin-bottom: 0px;
 }
 
 .answer {
     margin-top: 00px;
-    width: 460px;
+    width: 100%;
     display: inline-block;
 }
 
 .answer li {
-    margin: 0 0 1em 0;
+    margin: 0 0 3px 0;
+    border-radius: 15px;
+    padding: 2px 8px 4px 8px;
+}
+
+.answer li:hover {
+    background-color: #ddd;
+}
+
+.selected-answer {
+    color: #fff;
+    background-color: #54ACD2;
+}
+
+.selected-answer:hover {
+    background-color: #449CC2 !important;
+}
+
+
+.answer .radio {
+    margin: 0px;
+}
+
+.answer .radio label {
+    width: 100%;
 }
 
 .nav-list {
@@ -369,24 +391,24 @@ li.tag-selected {
     text-decoration: none;
 }
 
-.cine-right a, .cine-wrong a {
+.cine-right, .cine-wrong, .cine-right a, .cine-wrong a {
     color: #fff;
 }
 
 .cine-right {
-    background-color: #3c763d;
+    background-color: #3c763d !important;
 }
 
 .cine-wrong {
-    background-color: #a94442;
+    background-color: #a94442 !important;
 }
 
 .cine-right:hover {
-    background-color: #2c662d;
+    background-color: #2c662d !important;
 }
 
 .cine-wrong:hover {
-    background-color: #993432;
+    background-color: #993432 !important;
 }
 
 .button-summary {
@@ -412,17 +434,16 @@ li.tag-selected {
     text-transform: uppercase;
     background-color: #00618C;
     color:#fff;
-    margin-left: -35px;
-    margin-right: -35px;
 }
 
 .skills{
     font-size: 25px;
+    margin-top: 10px;
 }
 
 .total-score{
     color:#00618C;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 50px

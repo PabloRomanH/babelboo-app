@@ -8,10 +8,12 @@
     <p class="question-txt" ng-show="playCtrl.showQuestions">{{ playCtrl.currentVideo.question }}</p>
     <div class="answer">
       <ul class="list-unstyled">
-        <li ng-repeat="answer in playCtrl.currentVideo.answers">
+        <li ng-repeat="answer in playCtrl.currentVideo.answers" ng-class="{'selected-answer': $index == playCtrl.answeredindex, 
+                                                                            'cine-right': playCtrl.answered && $index == playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer,
+                                                                            'cine-wrong': playCtrl.answered && $index == playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">
           <div class="radio">
             <label>
-              <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index">
+            <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index">
               {{ answer.text }}
             </label>
           </div>
@@ -25,7 +27,7 @@
       Check
     </a>
   </div>
-  <div class="button-player" ng-click="playCtrl.playNext()" ng-show="playCtrl.answered" ng-class="{'cine-right': playCtrl.answered && playCtrl.answeredcorrect, 'cine-wrong': playCtrl.answered && playCtrl.answeredincorrect}">
+  <div class="button-player" ng-click="playCtrl.playNext()" ng-show="playCtrl.answered">
     <a href="#">
       Next
     </a>
