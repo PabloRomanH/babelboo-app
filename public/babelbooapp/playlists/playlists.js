@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($analytics,, playlists, tags, renderTime, levelNames){
+    app.controller('PlaylistsController', function($analytics, playlists, tags, renderTime, levelNames){
         var controller = this;
         this.playlists = null;
         this.tags = []

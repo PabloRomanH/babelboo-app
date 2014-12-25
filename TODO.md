@@ -16,8 +16,6 @@
         - Strider (es la ostia)
         - Ansible, Puppet ($$)
     - try out frameworks
-- Identify services
-- Implement services as such
 - Fix navbar code ugliness
 - Ide in mayhem
 - show that landing page can be scrolled
