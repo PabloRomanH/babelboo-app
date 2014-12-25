@@ -28,6 +28,16 @@
             // });
       }]);
 
+    app.factory('submitEmail', function($http) {
+        var service;
+
+        service = function (email) {
+            $http.post('/api/betaregistration', { "email": email });
+        }
+
+        return service;
+    });
+
     app.controller('LoginController', function($analytics, $http){
         var controller = this;
         controller.formVisible = false;
@@ -48,12 +58,12 @@
         }
     });
 
-    app.controller('EmailController', function($http, $location, $analytics){
+    app.controller('EmailController', function($http, $location, $analytics, submitEmail){
         var controller = this;
         controller.formVisible = false;
 
         this.submitEmail = function (email) {
-            $http.post('/api/betaregistration', { "email": email });
+            submitEmail(email);
             $location.path('/thanks');
             $analytics.eventTrack('emailSubmited', {
                 category: 'conversion'

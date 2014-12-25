@@ -3,10 +3,10 @@
   <p class="progress-cine pull-right">{{ playCtrl.idx+1 }}/{{ playCtrl.videos.length }}</p>
   <youtube-video video-id="playCtrl.videoId" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
   <div ng-show="playCtrl.showQuestions">
-    <p class="question-txt">{{ playCtrl.currentVideo.question }}</p>
+    <p class="question-txt">{{ playCtrl.videos[playCtrl.idx].question }}</p>
     <div class="pull-left answer">
       <ul class="list-unstyled">
-        <li ng-repeat="answer in playCtrl.currentVideo.answers">
+        <li ng-repeat="answer in playCtrl.videos[playCtrl.idx].answers">
           <div class="radio">
             <label>
               <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index" ng-change="playCtrl.answer()">

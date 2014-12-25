@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($scope, $http, $routeParams, $location, $analytics, user, playlists, levelNames) {
+    app.controller('PlayController', function($routeParams, $analytics, user, playlists, renderTime, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -15,30 +15,35 @@
 
         controller.questionsAtTheEnd = false;
         controller.showQuestions = !controller.questionsAtTheEnd;
-        controller.answeredcorrect = false;
-        controller.answeredincorrect = false;
-        controller.answeredindex = -1;
-        controller.answered = false;
         controller.showSummary = false;
         controller.videos = [];
         controller.relatedplaylists = [];
+
         controller.levelNames = levelNames.names;
+        controller.renderTime = renderTime;
 
         controller.idx = 0;
         controller.videoId = null;
         controller.playerVars = { autoplay: 1 };
         controller.player = null;
 
-        $http.get('/api/playlist/' + playlistId).success(function( data ) {
+        function resetVideo () {
+            controller.answeredcorrect = false;
+            controller.answeredincorrect = false;
+            controller.answered = false;
+            controller.answeredindex = -1;
+        }
+
+        playlists.getById(playlistId).success(function(data) {
             controller.playlist = data;
             controller.videos = data.entries;
-            controller.currentVideo = controller.videos[controller.idx];
+            resetVideo();
             playlistRetrieved = true;
 
             controller.videoId = controller.videos[controller.idx].id;
         });
 
-        controller.playNext = function () {
+        function playNextAnalytics () {
             var eventname;
             var eventvalue = 1;
 
@@ -59,20 +64,20 @@
             }
 
             $analytics.eventTrack(eventname, { category: 'video', label: controller.videos[controller.idx].id, value: eventvalue });
+        }
+
+        controller.playNext = function () {
+            playNextAnalytics();
 
             controller.idx = controller.idx + 1;
-            controller.currentVideo = controller.videos[controller.idx];
-            controller.answeredcorrect = false;
-            controller.answeredincorrect = false;
-            controller.answered = false;
-            controller.answeredindex = -1;
+            resetVideo();
 
             if (controller.idx == controller.videos.length) {
                 controller.player.stopVideo();
                 controller.points = controller.videos.length * controller.POINT_PER_VIDEO;
                 controller.points += controller.correctAnswers * controller.POINT_PER_CORRECT;
 
-                playlists.getRelated(playlistId, function (related) {
+                playlists.getRelated(playlistId).success(function (related) {
                     controller.relatedplaylists = related;
                 });
 
@@ -90,7 +95,7 @@
         controller.answer = function() {
             controller.answered = true;
 
-            if (controller.answeredindex == controller.currentVideo.correctanswer)
+            if (controller.answeredindex == controller.videos[controller.idx].correctanswer)
             {
                 controller.answeredcorrect = true;
                 controller.correctAnswers += 1;
@@ -105,28 +110,6 @@
                 category: 'navigation', label: id
             });
         }
-
-        function pad (number) {
-            var str = '00' + String(number);
-
-            return str.substr(str.length - 2);
-        }
-
-        controller.renderTime = function (seconds) {
-            if (!seconds) return;
-
-            var hours = Math.floor(seconds / 3600);
-            var minutes = Math.floor((seconds % 3600) / 60);
-            seconds = (seconds % 3600) % 60;
-
-            seconds = pad(seconds);
-
-            if (hours !== 0) {
-                minutes = pad(minutes);
-                return hours + ':' + minutes + ':' + seconds;
-            }
-            return minutes + ':' + seconds;
-        };
 
         /*$scope.$on('youtube.player.ended', function ($event, player) {
             if (event.data == YT.PlayerState.ENDED) { // FIXME: not adapted to angular-youtube-embed
