@@ -39,6 +39,13 @@
             });
     });
 
+    app.directive('navbar', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/babelbooapp/navbar-fragment.html'
+        };
+    });
+
 })();
 
 // compatibility definition of indexOf for IE8

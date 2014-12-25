@@ -7,6 +7,7 @@
     <meta name="viewport" content="initial-scale=1">
     <title>babelboo</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link href="/css/materialize.min.css" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/babelbooapp/app.css" rel="stylesheet">
@@ -35,22 +36,7 @@
     </script>
   </head>
   <body>
-    <div class="header row navbar navbar-fixed-top" ng-controller="NavbarController as navbarCtrl">
-      <a href="#" ng-click="navbarCtrl.goToPlaylists()">
-        <img class="pull-left" src="/img/boo-white.png"/>
-        <img class="pull-left" src="/img/name-header.png"/>
-      </a>
-      <ul class="list-unstyled list-inline pull-left navbar-left">
-        <li class="header-button"><a href="#" ng-click="navbarCtrl.goToPlaylists()">Playlists</a></li>
-      </ul>
-      <ul class="list-unstyled list-inline pull-right navbar-right">
-        <li class="header-button user-icon" id="userface"><a href="#" ng-class="{'header-button-hover': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="navbarCtrl.toggleLogout()"><i class="fa fa-user"></i></a></li><li class="header-button" id="username"><a href="#" ng-class="{'header-button-hover': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="navbarCtrl.toggleLogout()">{{ navbarCtrl.user.username }}</a></li>
-        <li class="header-button"><a href="/points" ng-click="navbarCtrl.pointsClicked()">Points: {{ navbarCtrl.user.points }}</a></li>
-        <div class="user-dropdown" ng-show="navbarCtrl.showLogout">
-              <a href="/logout" target="_self"><i class="fa fa-sign-out"></i> Logout</a>
-        </div>
-      </ul>
-    </div>
+    <navbar></navbar>
     <div ng-view></div>
   </body>
 </html>
