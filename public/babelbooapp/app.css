@@ -169,6 +169,7 @@ li.tag-selected {
     vertical-align: top;
     height: 320px;
     text-align: left;
+    overflow: hidden;
 }
 
 .play-btn {
@@ -217,14 +218,6 @@ li.tag-selected {
     height: 105px;
     overflow: hidden;
     text-align: center;
-}
-
-.th-top-left {
-    border-top-left-radius: 5px;
-}
-
-.th-top-right {
-    border-top-right-radius: 5px;
 }
 
 .th img {
