@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, user, playlists, renderTime, levelNames) {
+    app.controller('PlayController', function($routeParams, $analytics, $window, $rootScope, user, playlists, renderTime, levelNames)     {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -70,6 +70,7 @@
             playNextAnalytics();
 
             controller.idx = controller.idx + 1;
+
             resetVideo();
 
             if (controller.idx == controller.videos.length) {
@@ -83,11 +84,14 @@
 
                 controller.showSummary = true;
 
+                allowExit();
+
                 user.answerPlaylist(playlistId, controller.points);
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             } else {
                 var video_id = controller.videos[controller.idx].id;
+                controller.currentVideo = controller.videos[controller.idx];
                 controller.player.loadVideoById({videoId:video_id});
             }
         };
@@ -109,6 +113,30 @@
             $analytics.eventTrack('relatedClicked', {
                 category: 'navigation', label: id
             });
+        }
+
+        var deregister;
+
+        preventExit();
+
+        function preventExit () {
+            $window.onbeforeunload = function(){
+                return "Are you sure you want to lose your progress in the current playlist?";
+            };
+
+            deregister = $rootScope.$on('$locationChangeStart', function(event) {
+                var answer = confirm("Are you sure you want to lose your progress in the current playlist?");
+                if (!answer) {
+                    event.preventDefault();
+                } else {
+                    allowExit();
+                }
+            });
+        }
+
+        function allowExit () {
+            window.onbeforeunload = function () {};
+            deregister();
         }
 
         /*$scope.$on('youtube.player.ended', function ($event, player) {

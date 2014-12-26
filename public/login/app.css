@@ -118,3 +118,22 @@ h2 {
 .form-control {
     margin-bottom:20px;
 }
+
+.scrolldown-container {
+    /* fixed position a zero-height full width container */
+    position: fixed;
+    width: 100%;
+    bottom: 0; /* or whatever position is desired */
+    /*height: 50px;*/
+    /* center all inline content */
+    text-align: center;
+}
+
+.scrolldown-container > div {
+    display: inline-block;
+    text-align: left;
+    z-index: 1000;
+    font-size: 72px;
+    color: white;
+    text-shadow:0px 0px 5px black;
+}
