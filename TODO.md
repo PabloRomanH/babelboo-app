@@ -1,11 +1,10 @@
 
 # To do while Toni out
 
-- Testing node (Mocha + Chai + Sinon / Jasmine)
+- (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)
     - try out frameworks
-- Testing node's Web API (postman / frisby.js + Jasmine / Mocha + Chai + Supertest)
-    - try out frameworks
-- Testing angular + GUI (Karma + Mocha + Chai + Sinon / Jasmine)
+- Testing node's Web API (postman / frisby.js + Jasmine / *Mocha + *Chai + *Supertest + [Sinon])
+- Testing angular (Karma + Mocha + Chai + Sinon / Jasmine)
     - try out frameworks
 - Testing E2E
         - Protractor + Jasmine: All desktop browsers (needs to run in Windows for IE and MacOS for Safari)

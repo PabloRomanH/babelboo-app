@@ -12,7 +12,7 @@ router.post('/betaregistration', function(req, res) {
         });
 
 
-    res.status = 201; // CREATED
+    res.status(201); // CREATED
     res.json();
 });
 

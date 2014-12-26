@@ -78,7 +78,7 @@ router.get('/user', function(req, res) {
 
 router.post('/user/:username/answer/:playlist_id', function(req, res) {
     if (req.params.username != req.user.username) {
-        res.status = 403; // FORBIDDEN
+        res.status(403); // FORBIDDEN
         res.json();
         return;
     }
