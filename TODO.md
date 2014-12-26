@@ -17,8 +17,6 @@
         - Ansible, Puppet ($$)
     - try out frameworks
 - Ide in mayhem
-- show that landing page can be scrolled
-- browser previous/next works in searches
 
 - 9gag new playlists are marked as new (mostly done, CSS not finished)
 - Playlist completion (visual cue that marks a playlist as watched or completed) (mostly done, CSS not finished)
