@@ -18,7 +18,6 @@
     - try out frameworks
 - Ide in mayhem
 
-- 9gag new playlists are marked as new (mostly done, CSS not finished)
 - Playlist completion (visual cue that marks a playlist as watched or completed) (mostly done, CSS not finished)
 
 
