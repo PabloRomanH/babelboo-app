@@ -23,7 +23,7 @@
                     });
                 }
 
-                videos.addLoose(videos);
+                videos.addLoose(validated);
             });
         }
 

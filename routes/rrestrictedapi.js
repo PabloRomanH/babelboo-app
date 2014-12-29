@@ -43,8 +43,8 @@ function upsertPlaylist(body, playlistId, db) {
 }
 
 router.post('/video', function(req, res) {
-    var collection = db.get('videos');
-    console.log('asking for videos');
+    var collection = req.db.get('videos');
+    console.log(req.body);
 
     collection.insert(req.body,
         function (err, doc) {
