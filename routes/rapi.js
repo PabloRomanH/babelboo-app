@@ -117,4 +117,33 @@ router.post('/user/:username/answer/:playlist_id', function(req, res) {
     res.json();
 });
 
+
+router.get('/video/:level?', function(req, res) {
+    var level = req.params.level;
+    var query = {};
+    if (level) {
+        query = { level: parseInt(level) };
+    }
+
+    var collection = req.db.get('playlists');
+
+    try {
+        collection.find(query, {}, function (err, result) {
+            var output = [];
+            
+            function pushToOutput(v) {
+                output.push(v);
+            }
+
+            for (var i in result) {
+                result[i].entries.forEach(pushToOutput);
+            }
+            res.json(output);
+        });
+    } catch (err2) {
+        res.json();
+    }
+    
+});
+
 module.exports = router;

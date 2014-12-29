@@ -25,7 +25,6 @@
 
     app.factory('playlists', function($http) {
         var service = {};
-        service.user = 0;
 
         service.getById = function(playlistId) {
             return $http.get('/api/playlist/' + playlistId);
@@ -38,6 +37,22 @@
         service.getWithTagLevel = function (tag, level) {
             var query = '/api/playlist/?tags=' + tag + '&level=' + level;
             return $http.get(query);
+        }
+
+        return service;
+    });
+
+    app.factory('videos', function($http) {
+        var service = {};
+
+        service.getByLevel = function(level) {
+            return $http.get('/api/video/' + level);
+        };
+
+        service.addLoose = function (videos) {
+            $http.post('/api/video', videos).success(function() {
+                window.location.href = "/manage";
+            });
         }
 
         return service;

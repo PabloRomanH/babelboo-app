@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'player', 'tv', 'playlist', 'video', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     app.config(function ($analyticsProvider) {
         $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
@@ -28,8 +28,14 @@
             when('/play/:playlistId', {
                 templateUrl: '/babelbooapp/play/play-fragment.html'
             }).
+            when('/tv', {
+                templateUrl: '/babelbooapp/tv/tv-fragment.html'
+            }).
             when('/manage', {
                 templateUrl: '/babelbooapp/editPlaylists/playlists-fragment.html'
+            }).
+            when('/video', {
+                templateUrl: '/babelbooapp/video/video-fragment.html'
             }).
             when('/points', {
                 templateUrl: '/babelbooapp/points/under-construction.html'

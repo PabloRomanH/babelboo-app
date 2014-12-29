@@ -431,6 +431,29 @@ li.tag-selected {
     background-color:#00618C
 }
 
+/*---------    TV --------*/
+.cinetv {
+    max-width: 1000px;
+}
+
+.tvwelcome ul {
+    text-align: justify;
+}
+
+.tvwelcome li {
+    display: inline-block;
+}
+
+.tvwelcome ul:after {
+    content: '';
+    width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+    display: inline-block;
+}
+
+.tvwelcome h3 {
+    margin-bottom: 30px
+}
+
 
 /*---------    OTHERS --------*/
 .value {
