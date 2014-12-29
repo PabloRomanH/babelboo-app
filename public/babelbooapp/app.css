@@ -1,6 +1,7 @@
 body {
     margin: 0px;
     background-color: #DFDFDF;
+    padding-top: 60px;
 }
 
 .primary-bg {
@@ -93,7 +94,7 @@ nav li > a:focus {
 .searcher {
     width:100%;
     /*max-height: 50px;*/
-    margin: 50px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
+    margin: -10px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
     padding: 2px;
     background-color: #54ACD2;
     /*box-shadow: 0px -4px 5px 5px #555;*/
@@ -264,7 +265,7 @@ li.tag-selected {
     background-color:#fff;
     max-width: 680px;
     padding: 20px;
-    margin: 60px auto 20px auto;
+    margin: 0 auto 20px auto;
     border-radius: 5px;
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
