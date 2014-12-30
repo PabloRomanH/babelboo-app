@@ -432,9 +432,6 @@ li.tag-selected {
 }
 
 /*---------    TV --------*/
-.cinetv {
-    max-width: 1000px;
-}
 
 .tvwelcome ul {
     text-align: justify;
@@ -451,7 +448,25 @@ li.tag-selected {
 }
 
 .tvwelcome h3 {
-    margin-bottom: 30px
+    margin-bottom: 30px;
+}
+
+.cinetv {
+    width: 100%;
+    height: 567px;
+    background-color: #444;
+    text-align: center;
+}
+
+.tv-button {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.tv-container {
+    width: 955px;
+    text-align: left;
+    margin: 0 auto;
 }
 
 

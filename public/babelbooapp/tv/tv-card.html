@@ -1,8 +1,12 @@
-<div class="cine cinetv">
-  <p class="title-cine pull-left">{{ tvCtrl.videos[tvCtrl.idx].title }}</p>
-  <youtube-video video-id="tvCtrl.videoId" player-vars="tvCtrl.playerVars" player="tvCtrl.player" player-width="'960px'" player-height="'567px'"></youtube-video>
-  <button class="btn btn-default pull-right" href="#" role="button" ng-click="tvCtrl.playNext()" ng-disabled="tvCtrl.idx == tvCtrl.videos.length">
-    Play Next <i class="fa fa-fast-forward"></i>
-  </button>
-  <div class="clearfix"></div>
+<div class="tv">
+	<div class="tv-container">
+		<a class="btn btn-default pull-right tv-button" href="#" role="button" ng-click="tvCtrl.playNext()" ng-disabled="tvCtrl.idx == tvCtrl.videos.length">
+	  	Play Next <i class="fa fa-fast-forward"></i>
+		</a>
+		<p class="title-cine">{{ tvCtrl.videos[tvCtrl.idx].title }}</p>
+		<div class="clearfix"></div>
+	</div>
+	<div class="cinetv">
+		  <youtube-video video-id="tvCtrl.videoId" player-vars="tvCtrl.playerVars" player="tvCtrl.player" player-width="'955px'" player-height="'567px'"></youtube-video>
+	</div>
 </div>
