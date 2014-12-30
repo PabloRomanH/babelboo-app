@@ -70,27 +70,4 @@
             });
         }
     });
-
-    app.directive('scrollIcon', function ($document, $window) {
-        return {
-            restrict:'E',
-            templateUrl: '/login/scroll-icon.html',
-            controller: function ($scope) {
-                $scope.visible = true;
-            },
-            scope: {},
-            link: function (scope, element, attrs) {
-                $document.bind('scroll', function (event) {
-                    if ($window.scrollY > 100) {
-                        scope.visible = false;
-                        scope.$apply(element);
-                    }
-                    if ($window.scrollY <= 100) {
-                        scope.visible = true;
-                        scope.$apply(element);
-                    }
-                });
-            }
-        }
-    });
 })();
