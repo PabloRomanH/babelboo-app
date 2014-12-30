@@ -21,7 +21,7 @@ body {
 
 nav {
     height: 50px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
 }
 
 nav li > a {
@@ -97,7 +97,7 @@ nav li > a:focus {
     margin: -10px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
     padding: 2px;
     background-color: #54ACD2;
-    /*box-shadow: 0px -4px 5px 5px #555;*/
+    box-shadow: 0px -4px 5px 5px #555;
 }
 
 .search-tag {
