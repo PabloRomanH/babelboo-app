@@ -16,6 +16,10 @@
         - Ansible, Puppet ($$)
     - try out frameworks
 - Ide in mayhem
+    - sourcelair
+    - nitrous.io
+    - vim
+    - own installation of cloud9
 
 - Playlist completion (visual cue that marks a playlist as watched or completed) (mostly done, CSS not finished)
 
