@@ -404,6 +404,19 @@ li.tag-selected {
     background-color: #a94442 !important;
 }
 
+.cine-wrong .fa-times, .cine-right .fa-check {
+    margin-left: -20px;
+    font-size: 18px;
+}
+
+.cine-right .fa-check {
+    margin-right: -2px;
+}
+
+.cine-right .fa-times {
+    margin-right: 2px;
+}
+
 .cine-right:hover {
     background-color: #2c662d !important;
 }
