@@ -9,10 +9,6 @@
             controller.user = user;
         });
 
-        controller.toggleLogout = function () {
-            controller.showLogout = !controller.showLogout;
-        }
-
         controller.pointsClicked = function () {
             $analytics.eventTrack('pointsClicked', {
                     category: 'navigation', label: controller.user._id

@@ -67,7 +67,10 @@
         }
 
         return function (seconds) {
-            if (!seconds) return;
+            if (typeof seconds === "undefined") return '';
+            if (seconds < 0) return '';
+
+            seconds = Math.round(seconds);
 
             var hours = Math.floor(seconds / 3600);
             var minutes = Math.floor((seconds % 3600) / 60);
