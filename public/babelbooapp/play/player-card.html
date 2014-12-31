@@ -13,7 +13,9 @@
                                                                             'cine-wrong': playCtrl.answered && $index == playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">
           <div class="radio">
             <label>
-            <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index">
+            <i class="fa fa-check" ng-show="playCtrl.answered && $index == playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer"></i>
+            <i class="fa fa-times" ng-show="playCtrl.answered && $index == playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer"></i>
+            <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index" ng-hide="playCtrl.answered && $index == playCtrl.answeredindex">
               {{ answer.text }}
             </label>
           </div>
