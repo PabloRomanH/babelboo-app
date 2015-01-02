@@ -32,6 +32,19 @@ h3{
     padding-right: 15px;
 }
 
+.navbar-shadow {
+    width: 100%;
+    position: fixed;
+    margin-top: -10px;
+    box-shadow: 0px -4px 5px 5px #555;
+    z-index: -1;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
 .navbar-right {
     margin: -28px 0px;
 }
