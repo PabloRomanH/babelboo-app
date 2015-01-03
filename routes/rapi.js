@@ -31,13 +31,36 @@ router.get('/playlist', function(req, res) {
             query.tags = { $in: tags };
             runQuery(query);
         });
+    } else if (req.query.all == 'true') {
+        runQueryAll(query);
     } else {
         runQuery(query);
+    }
+
+    function runQueryAll (query) {
+        try {
+            collection.find(query, function (err, result) {
+                res.json( result );
+            });
+        } catch (err2) {
+            res.json();
+        }
     }
 
     function runQuery (query) {
         try {
             collection.find(query, function (err, result) {
+                for (var i = 0; i < result.length; i++) {
+                    var current = result[i];
+                    var newentries = [];
+                    for (var j = 0; j < current.entries.length && j < 4; j++) {
+                        var newvid = {};
+                        newvid.thumbnail = current.entries[j].thumbnail;
+                        newentries[j] = newvid;
+                    }
+
+                    current.entries = newentries;
+                }
                 res.json( result );
             });
         } catch (err2) {
