@@ -1,0 +1,28 @@
+<nav class="navbar-fixed-top primary-bg" ng-controller="NavbarController as navbarCtrl">
+  <ul class="pull-left">
+    <li>
+      <a href="#" ng-click="navbarCtrl.goToPlaylists()">
+        <img src="/img/boo-white.png"/>
+        <img src="/img/name-header.png"/>
+      </a>
+    </li>
+    <li>
+      <a href="#" ng-click="navbarCtrl.goToPlaylists()">Playlists</a>
+    </li>
+  </ul>
+  <ul class="pull-right">
+    <li>
+      <a href="#" ng-click="navbarCtrl.toggleLogout()">
+        <i class="fa fa-user"></i>
+        {{ navbarCtrl.user.username }}
+      </a>
+      <div class="user-dropdown" ng-show="navbarCtrl.showLogout">
+        <a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
+      </div>
+    </li>
+    <li>
+      <a href="/points" ng-click="navbarCtrl.pointsClicked()">Points: {{ navbarCtrl.user.points }}</a>
+    </li>
+  </ul>
+</nav>
+<div class="navbar-shadow"></div> 

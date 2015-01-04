@@ -7,21 +7,21 @@ var router = express.Router();
 router.delete('/playlist/:playlist_id', function(req, res) {
     var collection = req.db.get('playlists');
     collection.remove({_id: req.params.playlist_id}); // FIXME return appropriate JSON in callback depending on success or failure
-    res.status = 204;
+    res.status(204);
     res.json();
 });
 
 router.put('/playlist/:playlist_id', function(req, res) {
     upsertPlaylist(req.body, req.params.playlist_id, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
 
-    res.status = 200; // OK
+    res.status(200); // OK
     res.json();
 });
 
 router.post('/playlist', function(req, res) {
     upsertPlaylist(req.body, null, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
 
-    res.status = 201; // CREATED
+    res.status(201); // CREATED
     res.json();
 });
 
@@ -85,7 +85,7 @@ router.get('/adduser/:username', function(req, res, next) {
         collection.insert(query, function (err, doc) {
             if (err) throw err;
 
-            res.status = 201; // CREATED
+            res.status(201); // CREATED
             res.send('<html><body>User correctly created.</body></html>');
         });
     });

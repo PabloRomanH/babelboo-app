@@ -1,7 +1,7 @@
 <div class="playlist">
   <div>
-    <div class="th th-top-left"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : '/img/nothumbnail.png' }}"></div>
-    <div class="th th-top-right"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : '/img/nothumbnail.png' }}"></div>
+    <div class="th"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : '/img/nothumbnail.png' }}"></div>
     <div class="th"><img ng-src="{{ playlist.entries[2] ? playlist.entries[2].thumbnail : '/img/nothumbnail.png' }}"></div>
     <div class="th"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
   </div>
@@ -16,7 +16,8 @@
     <i class="fa fa-graduation-cap"> {{ playlistsCtrl.levelNames[playlist.level] }}</i>
   </div>
   <ul class="list-unstyled list-inline tag-list">
-    <li class="tag-box" ng-repeat="tag in playlist.tags">
+    <li class="tag-box"><i class="fa fa-tag"></i></li
+    ><li class="tag-box" ng-repeat="tag in playlist.tags">
       {{ tag }}
     </li>
   </ul>

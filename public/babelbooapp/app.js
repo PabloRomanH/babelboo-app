@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     app.config(function ($analyticsProvider) {
         $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
@@ -39,48 +39,10 @@
             });
     });
 
-    app.factory('user', function($http) {
-        var service = {};
-        service.user = 0;
-
-        service.fillUser = function(callback) {
-            if (!service.user) {
-                $http.get('/api/user').success(function(data) {
-                    service.user = data;
-                    callback(service.user);
-                });
-            } else {
-                callback(service.user);
-            }
-        }
-
-        service.answerPlaylist = function (playlistId, points) {
-            service.user.points += points;
-            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
-        }
-        return service;
-    });
-
-    app.factory('playlists', function($http) {
-        var service = {};
-        service.user = 0;
-
-        service.getRelated = function(playlistId, callback) {
-            $http.get('/api/playlist?related=' + playlistId).success(function(data) {
-                callback(data);
-            });
-        }
-
-        service.answerPlaylist = function (playlistId, points) {
-            service.user.points += points;
-            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
-        }
-        return service;
-    });
-
-    app.factory('levelNames', function() {
+    app.directive('navbar', function() {
         return {
-            names: ['zero', 'easy', 'medium', 'hard']
+            restrict: 'E',
+            templateUrl: '/babelbooapp/navbar-fragment.html'
         };
     });
 
@@ -104,8 +66,11 @@
         };
 
         controller.goToPlaylists = function () {
-            $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
-            $route.reload();
+            if($location.path() == '/playlists') {
+                $route.reload();
+            } else {
+                $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
+            }
         };
     });
 
