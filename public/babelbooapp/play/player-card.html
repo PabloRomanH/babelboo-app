@@ -5,16 +5,16 @@
   </div>
   <youtube-video video-id="playCtrl.videoId" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
   <div ng-show="playCtrl.showQuestions">
-    <p class="question-txt" ng-show="playCtrl.showQuestions">{{ playCtrl.currentVideo.question }}</p>
+    <p class="question-txt" ng-show="playCtrl.showQuestions">{{ playCtrl.videos[playCtrl.idx].question }}</p>
     <div class="answer">
       <ul class="list-unstyled">
-        <li ng-repeat="answer in playCtrl.currentVideo.answers" ng-class="{'selected-answer': $index == playCtrl.answeredindex, 
-                                                                            'cine-right': playCtrl.answered && $index == playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer,
-                                                                            'cine-wrong': playCtrl.answered && $index == playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer}">
+        <li ng-repeat="answer in playCtrl.videos[playCtrl.idx].answers" ng-class="{'selected-answer': $index == playCtrl.answeredindex, 
+                                                                            'cine-right': playCtrl.answered && $index == playCtrl.answeredindex && $index == playCtrl.videos[playCtrl.idx].correctanswer,
+                                                                            'cine-wrong': playCtrl.answered && $index == playCtrl.answeredindex && $index != playCtrl.videos[playCtrl.idx].correctanswer}">
           <div class="radio">
             <label>
-            <i class="fa fa-check" ng-show="playCtrl.answered && $index == playCtrl.answeredindex && $index == playCtrl.currentVideo.correctanswer"></i>
-            <i class="fa fa-times" ng-show="playCtrl.answered && $index == playCtrl.answeredindex && $index != playCtrl.currentVideo.correctanswer"></i>
+            <i class="fa fa-check" ng-show="playCtrl.answered && $index == playCtrl.answeredindex && $index == playCtrl.videos[playCtrl.idx].correctanswer"></i>
+            <i class="fa fa-times" ng-show="playCtrl.answered && $index == playCtrl.answeredindex && $index != playCtrl.videos[playCtrl.idx].correctanswer"></i>
             <input type="radio" name="answer" ng-disabled="playCtrl.answered" ng-model="playCtrl.answeredindex" ng-value="$index" ng-hide="playCtrl.answered && $index == playCtrl.answeredindex">
               {{ answer.text }}
             </label>

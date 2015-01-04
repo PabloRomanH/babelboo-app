@@ -91,7 +91,7 @@
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             } else {
                 var video_id = controller.videos[controller.idx].id;
-                controller.currentVideo = controller.videos[controller.idx];
+                controller.videos[controller.idx] = controller.videos[controller.idx];
                 controller.player.loadVideoById({videoId:video_id});
             }
         };
@@ -99,7 +99,7 @@
         controller.answer = function() {
             controller.answered = true;
 
-            if (controller.answeredindex == controller.currentVideo.correctanswer) {
+            if (controller.answeredindex == controller.videos[controller.idx].correctanswer) {
                 controller.correctAnswers += 1;
                 controller.answeredcorrect = true;
             } else {
