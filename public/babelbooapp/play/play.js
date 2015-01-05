@@ -17,7 +17,6 @@
         controller.POINT_PER_CORRECT = 100;
 
         controller.correctAnswers = 0;
-        controller.incorrectAnswers = 0;
         controller.points = 0;
 
         controller.showSummary = false;
@@ -28,13 +27,11 @@
         controller.renderTime = renderTime;
 
         controller.idx = 0;
-        controller.videoId = null;
         controller.playerVars = { autoplay: 1 };
         controller.player = null;
 
         function resetVideo () {
             controller.answeredcorrect = false;
-            controller.answeredincorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;
         }
@@ -44,8 +41,6 @@
             controller.videos = data.entries;
             resetVideo();
             playlistRetrieved = true;
-
-            controller.videoId = controller.videos[controller.idx].id;
         });
 
         function playNextAnalytics () {
@@ -74,6 +69,11 @@
         controller.playNext = function () {
             playNextAnalytics();
 
+            if (controller.correct[controller.videos[controller.idx].id] || controller.answeredcorrect) {
+                controller.correctAnswers += 1;
+
+            }
+
             controller.idx = controller.idx + 1;
 
             resetVideo();
@@ -93,9 +93,6 @@
                 user.playlistPoints(playlistId, controller.points);
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
-            } else {
-                var video_id = controller.videos[controller.idx].id;
-                controller.player.loadVideoById({videoId:video_id});
             }
         };
 
@@ -103,12 +100,8 @@
             controller.answered = true;
 
             if (controller.answeredindex == controller.videos[controller.idx].correctanswer) {
-                controller.correctAnswers += 1;
                 controller.answeredcorrect = true;
                 user.correctAnswer(playlistId, controller.videos[controller.idx].id);
-            } else {
-                controller.incorrectAnswers += 1;
-                controller.answeredincorrect = true;
             }
         }
 
