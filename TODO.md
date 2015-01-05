@@ -1,4 +1,11 @@
 
+Medals, playlist progress
+- Store answers to questions in DB after answering.
+- Award medals if reached summary and scored more than 0 points.
+- Graphical feedback when question already answered.
+- Medal graphical feedback.
+
+
 # To do while Toni out
 
 - (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)

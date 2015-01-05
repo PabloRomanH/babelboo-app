@@ -16,10 +16,26 @@
             }
         }
 
-        service.answerPlaylist = function (playlistId, points) {
+        service.playlistPoints = function (playlistId, points) {
             service.user.points += points;
-            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
+            return $http.post('/api/user/' + service.user.username + '/playlistpoints/' + playlistId, { points: points });
         }
+
+        service.correctAnswer = function (playlistId, videoId) {
+            if (!service.user.playlistAnswered) {
+                service.user.playlistAnswered = {};
+            } 
+            
+            if (!service.user.playlistAnswered[playlistId]) {
+                service.user.playlistAnswered[playlistId] = {};
+                service.user.playlistAnswered[playlistId].correct = {};
+            }
+            
+            service.user.playlistAnswered[playlistId].correct[videoId] = true;
+            
+            return $http.post('/api/user/' + service.user.username + '/correctanswer/' + playlistId, { id: videoId });
+        }
+        
         return service;
     });
 

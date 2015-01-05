@@ -272,7 +272,7 @@ li.tag-selected {
 .cine {
     background-color:#fff;
     max-width: 680px;
-    margin: 60px auto 20px auto;
+    margin: 0px auto 20px auto;
     padding-top: 20px;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #848484;
@@ -336,6 +336,19 @@ li.tag-selected {
     width: 100%;
 }
 
+.already-answered {
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    background-color: #3c763d;
+    padding: 20px;
+    margin-top: 7px;
+}
+
+.already-answered .fa-check {
+    font-size: 60px;
+}
+
 .nav-list {
     margin:15px 15px 75px 10px;
     padding:0px;
@@ -366,10 +379,12 @@ li.tag-selected {
     border-top: 1px solid #ddd;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+    display: block;
 }
 
 .button-player:hover {
     background-color: #ddd;
+    text-decoration: none;
 }
 
 .button-player:hover a {

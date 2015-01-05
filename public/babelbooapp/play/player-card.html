@@ -4,8 +4,12 @@
     <p class="progress-cine pull-right">{{ playCtrl.idx+1 }}/{{ playCtrl.videos.length }}</p>
   </div>
   <youtube-video video-id="playCtrl.videoId" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
-  <div ng-show="playCtrl.showQuestions">
-    <p class="question-txt" ng-show="playCtrl.showQuestions">{{ playCtrl.videos[playCtrl.idx].question }}</p>
+  <div ng-show="playCtrl.correct[playCtrl.videos[playCtrl.idx].id]" class="already-answered">
+    <div><i class="fa fa-check"></i></div>
+    You have already answered this question correctly.
+  </div>
+  <div ng-hide="playCtrl.correct[playCtrl.videos[playCtrl.idx].id]">
+    <p class="question-txt">{{ playCtrl.videos[playCtrl.idx].question }}</p>
     <div class="answer">
       <ul class="list-unstyled">
         <li ng-repeat="answer in playCtrl.videos[playCtrl.idx].answers" ng-class="{'selected-answer': $index == playCtrl.answeredindex, 

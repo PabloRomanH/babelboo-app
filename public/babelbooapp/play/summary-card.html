@@ -6,16 +6,13 @@
     <h3 class="score-title">You have completed the playlist "{{ playCtrl.playlist.title }}"</h3>
   </div>
   <div class="text-center summary">Summary</div>
-  
-  <p class="skills"><span>Number of videos:</span> <span>{{ playCtrl.videos.length }} × {{ playCtrl.POINT_PER_VIDEO }} = {{ playCtrl.videos.length * playCtrl.POINT_PER_VIDEO }}</span></p>
+
   <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} × {{ playCtrl.POINT_PER_CORRECT }} = {{ playCtrl.correctAnswers * playCtrl.POINT_PER_CORRECT }}</span></p>
   <p class="total-score">Total score: <span class="score-points">{{ playCtrl.points }}</span></p>
-  
-  <div class="button-player">
-    <a href="/">
-      Finish
-    </a>
-  </div>
+
+  <a class="button-player" href="/">
+    Finish
+  </a>
 </div>
 
 <div ng-show="playCtrl.relatedplaylists.length">

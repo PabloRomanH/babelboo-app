@@ -5,16 +5,21 @@
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
+        
+        user.fillUser(function (userData) {
+            if (userData.playlistAnswered && userData.playlistAnswered[playlistId]) {
+                controller.correct = userData.playlistAnswered[playlistId].correct;
+            } else {
+                controller.correct = {};
+            }
+        });
 
-        controller.POINT_PER_VIDEO = 10;
         controller.POINT_PER_CORRECT = 100;
 
         controller.correctAnswers = 0;
         controller.incorrectAnswers = 0;
         controller.points = 0;
 
-        controller.questionsAtTheEnd = false;
-        controller.showQuestions = !controller.questionsAtTheEnd;
         controller.showSummary = false;
         controller.videos = [];
         controller.relatedplaylists = [];
@@ -75,8 +80,7 @@
 
             if (controller.idx == controller.videos.length) {
                 controller.player.stopVideo();
-                controller.points = controller.videos.length * controller.POINT_PER_VIDEO;
-                controller.points += controller.correctAnswers * controller.POINT_PER_CORRECT;
+                controller.points = controller.correctAnswers * controller.POINT_PER_CORRECT;
 
                 playlists.getRelated(playlistId).success(function (related) {
                     controller.relatedplaylists = related;
@@ -86,12 +90,11 @@
 
                 allowExit();
 
-                user.answerPlaylist(playlistId, controller.points);
+                user.playlistPoints(playlistId, controller.points);
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             } else {
                 var video_id = controller.videos[controller.idx].id;
-                controller.videos[controller.idx] = controller.videos[controller.idx];
                 controller.player.loadVideoById({videoId:video_id});
             }
         };
@@ -102,6 +105,7 @@
             if (controller.answeredindex == controller.videos[controller.idx].correctanswer) {
                 controller.correctAnswers += 1;
                 controller.answeredcorrect = true;
+                user.correctAnswer(playlistId, controller.videos[controller.idx].id);
             } else {
                 controller.incorrectAnswers += 1;
                 controller.answeredincorrect = true;
