@@ -1,6 +1,6 @@
 
 Medals, playlist progress
-- Store answers to questions in DB after answering.
+- Don't award points to the user for already answered questions.
 - Award medals if reached summary and scored more than 0 points.
 - Graphical feedback when question already answered.
 - Medal graphical feedback.
