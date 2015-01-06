@@ -107,37 +107,68 @@ router.post('/user/:username/playlistpoints/:playlist_id', function(req, res) {
     }
 
     var playlist_id = req.params.playlist_id;
-    var points = req.body.points;
-    var found = false;
+    
+    var query = {
+        username: req.user.username
+    };
 
-    var user = req.user;
+    var setop = {};
+    setop['points'] = req.user.points + req.body.points;
 
-    for (var i in user.playlist_points) {
-        if (user.playlist_points[i].id == playlist_id) {
-            user.playlist_points[i].points = Math.max(user.playlist_points[i].points, points);
-            found = true;
-        }
+
+    var playlistPoints = 0;
+    if (req.user.playlist_progress[playlist_id] && req.user.playlist_progress[playlist_id].points) {
+        playlistPoints = req.user.playlist_progress[playlist_id].points;
     }
 
-    if (!found) {
-        if(!user.playlist_points) {
-            user.playlist_points = [];
-        }
+console.log('------------- ' + req.body.points);
+console.log('------------- ' + playlistPoints);
 
-        user.playlist_points.push({'id': playlist_id, 'points': points});
-    }
-
-    var collection = req.db.get('usercollection');
-
-    collection.update({ username: req.params.username },
-        {$set: {
-            points: req.user.points + req.body.points,
-            playlist_points: user.playlist_points
-            }
-        });
+    
+    setop['playlist_progress.' + req.params.playlist_id + '.points'] = Math.max(req.body.points, playlistPoints);
 
 
-    res.json();
+console.log(query);
+
+console.log(setop);
+
+    console.log(collection.update(query, {$set: setop}));
+console.log('------------- pre-end');
+
+    console.log(res.json());
+console.log('------------- end');
+
+
+    // var found = false;
+
+    // var user = req.user;
+
+    // for (var i in user.playlist_points) {
+    //     if (user.playlist_points[i].id == playlist_id) {
+    //         user.playlist_points[i].points = Math.max(user.playlist_points[i].points, points);
+    //         found = true;
+    //     }
+    // }
+
+    // if (!found) {
+    //     if(!user.playlist_points) {
+    //         user.playlist_points = [];
+    //     }
+
+    //     user.playlist_points.push({'id': playlist_id, 'points': points});
+    // }
+
+    // var collection = req.db.get('usercollection');
+
+    // collection.update({ username: req.params.username },
+    //     {$set: {
+    //         points: req.user.points + req.body.points,
+    //         playlist_points: user.playlist_points
+    //         }
+    //     });
+
+
+    // res.json();
 });
 
 router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
@@ -155,7 +186,7 @@ router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
     };
 
     var setop = {};
-    setop['playlistAnswered.' + req.params.playlist_id + '.correct.' + videoId] = true;
+    setop['playlist_progress.' + req.params.playlist_id + '.correct.' + videoId] = true;
 
     collection.update(query, {$set: setop});
 

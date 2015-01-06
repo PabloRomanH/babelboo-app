@@ -7,8 +7,8 @@
         var playlistRetrieved = false;
         
         user.fillUser(function (userData) {
-            if (userData.playlistAnswered && userData.playlistAnswered[playlistId]) {
-                controller.correct = userData.playlistAnswered[playlistId].correct;
+            if (userData.playlist_progress && userData.playlist_progress[playlistId]) {
+                controller.correct = userData.playlist_progress[playlistId].correct;
             } else {
                 controller.correct = {};
             }

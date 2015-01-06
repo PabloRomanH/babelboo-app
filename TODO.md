@@ -6,6 +6,10 @@ Medals, playlist progress
 - Medal graphical feedback.
 
 
+IDEAS:
+- Give extra points when a new medal is achieved for a playlist.
+
+
 # To do while Toni out
 
 - (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)
