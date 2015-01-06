@@ -5,6 +5,7 @@ Medals, playlist progress
 - Graphical feedback when question already answered.
 - Medal graphical feedback.
 
+REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STAFF LIKE user AND userData (see play.js)
 
 # To do while Toni out
 

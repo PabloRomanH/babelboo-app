@@ -7,10 +7,10 @@
         var playlistRetrieved = false;
         
         user.fillUser(function (userData) {
+            controller.correct = {};
+            
             if (userData.playlistAnswered && userData.playlistAnswered[playlistId]) {
-                controller.correct = userData.playlistAnswered[playlistId].correct;
-            } else {
-                controller.correct = {};
+                angular.copy(userData.playlistAnswered[playlistId].correct, controller.correct);
             }
         });
 
