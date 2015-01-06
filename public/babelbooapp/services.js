@@ -22,16 +22,16 @@
         }
 
         service.correctAnswer = function (playlistId, videoId) {
-            if (!service.user.playlistAnswered) {
-                service.user.playlistAnswered = {};
+            if (!service.user.playlistprogress) {
+                service.user.playlistprogress = {};
             } 
             
-            if (!service.user.playlistAnswered[playlistId]) {
-                service.user.playlistAnswered[playlistId] = {};
-                service.user.playlistAnswered[playlistId].correct = {};
+            if (!service.user.playlistprogress[playlistId]) {
+                service.user.playlistprogress[playlistId] = {};
+                service.user.playlistprogress[playlistId].correct = {};
             }
             
-            service.user.playlistAnswered[playlistId].correct[videoId] = true;
+            service.user.playlistprogress[playlistId].correct[videoId] = true;
             
             return $http.post('/api/user/' + service.user.username + '/correctanswer/' + playlistId, { id: videoId });
         }
