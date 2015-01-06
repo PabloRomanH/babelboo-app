@@ -106,70 +106,27 @@ router.post('/user/:username/playlistpoints/:playlist_id', function(req, res) {
         return;
     }
 
-    var playlist_id = req.params.playlist_id;
-    
+    var playlistId = req.params.playlist_id;
+
+    var oldPoints = 0;
+    if (req.user.playlistprogress[playlistId] && req.user.playlistprogress[playlistId].points) {
+        oldPoints = req.user.playlistprogress[playlistId].points;
+    }
+
+    var pointsDiff = req.body.points - oldPoints;
+
     var query = {
         username: req.user.username
     };
 
     var setop = {};
-    setop['points'] = req.user.points + req.body.points;
-
-
-    var playlistPoints = 0;
-    if (req.user.playlistprogress[playlist_id] && req.user.playlistprogress[playlist_id].points) {
-        playlistPoints = req.user.playlistprogress[playlist_id].points;
-    }
-
-console.log('------------- ' + req.body.points);
-console.log('------------- ' + playlistPoints);
-
-    
-    setop['playlistprogress.' + req.params.playlist_id + '.points'] = Math.max(req.body.points, playlistPoints);
-
-
-console.log(query);
-
-console.log(setop);
+    setop['points'] = req.user.points + pointsDiff;
+    setop['playlistprogress.' + req.params.playlist_id + '.points'] = req.body.points;
 
     var collection = req.db.get('usercollection');
     collection.update(query, {$set: setop});
-console.log('------------- pre-end');
 
-    console.log(res.json());
-console.log('------------- end');
-
-
-    // var found = false;
-
-    // var user = req.user;
-
-    // for (var i in user.playlist_points) {
-    //     if (user.playlist_points[i].id == playlist_id) {
-    //         user.playlist_points[i].points = Math.max(user.playlist_points[i].points, points);
-    //         found = true;
-    //     }
-    // }
-
-    // if (!found) {
-    //     if(!user.playlist_points) {
-    //         user.playlist_points = [];
-    //     }
-
-    //     user.playlist_points.push({'id': playlist_id, 'points': points});
-    // }
-
-    // var collection = req.db.get('usercollection');
-
-    // collection.update({ username: req.params.username },
-    //     {$set: {
-    //         points: req.user.points + req.body.points,
-    //         playlist_points: user.playlist_points
-    //         }
-    //     });
-
-
-    // res.json();
+    res.json();
 });
 
 router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
