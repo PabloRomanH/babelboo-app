@@ -7,10 +7,10 @@
         var playlistRetrieved = false;
         
         user.fillUser(function (userData) {
+            controller.correct = {};
+            
             if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
-                controller.correct = userData.playlistprogress[playlistId].correct;
-            } else {
-                controller.correct = {};
+                angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
             }
         });
 

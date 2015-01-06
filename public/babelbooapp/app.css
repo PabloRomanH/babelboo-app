@@ -392,6 +392,10 @@ li.tag-selected {
     text-decoration: none;
 }
 
+.button-player a:focus {
+    text-decoration: none;
+}
+
 .cine-right, .cine-wrong, .cine-right a, .cine-wrong a {
     color: #fff;
 }
