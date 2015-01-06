@@ -117,22 +117,23 @@ router.post('/user/:username/playlistpoints/:playlist_id', function(req, res) {
 
 
     var playlistPoints = 0;
-    if (req.user.playlist_progress[playlist_id] && req.user.playlist_progress[playlist_id].points) {
-        playlistPoints = req.user.playlist_progress[playlist_id].points;
+    if (req.user.playlistprogress[playlist_id] && req.user.playlistprogress[playlist_id].points) {
+        playlistPoints = req.user.playlistprogress[playlist_id].points;
     }
 
 console.log('------------- ' + req.body.points);
 console.log('------------- ' + playlistPoints);
 
     
-    setop['playlist_progress.' + req.params.playlist_id + '.points'] = Math.max(req.body.points, playlistPoints);
+    setop['playlistprogress.' + req.params.playlist_id + '.points'] = Math.max(req.body.points, playlistPoints);
 
 
 console.log(query);
 
 console.log(setop);
 
-    console.log(collection.update(query, {$set: setop}));
+    var collection = req.db.get('usercollection');
+    collection.update(query, {$set: setop});
 console.log('------------- pre-end');
 
     console.log(res.json());
@@ -186,7 +187,7 @@ router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
     };
 
     var setop = {};
-    setop['playlist_progress.' + req.params.playlist_id + '.correct.' + videoId] = true;
+    setop['playlistprogress.' + req.params.playlist_id + '.correct.' + videoId] = true;
 
     collection.update(query, {$set: setop});
 
