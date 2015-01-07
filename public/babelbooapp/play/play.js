@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $window, $scope, $rootScope, user, playlists, renderTime, levelNames)     {
+    app.controller('PlayController', function($routeParams, $analytics, $scope, user, playlists, renderTime, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -84,7 +84,6 @@
                     controller.relatedplaylists = related;
                 });
 
-                allowExit();
                 controller.showSummary = true;
                 controller.player.stopVideo();
 
@@ -111,45 +110,9 @@
             });
         }
 
-        var deregister;
-
-        preventExit();
-
-        function preventExit () {
-            $window.onbeforeunload = function(){
-                return "Are you sure you want to lose your progress in the current playlist?";
-            };
-
-            deregister = $rootScope.$on('$locationChangeStart', function(event) {
-                var answer = confirm("Are you sure you want to lose your progress in the current playlist?");
-                if (!answer) {
-                    event.preventDefault();
-                } else {
-                    allowExit();
-                }
-            });
-        }
-
-        function allowExit () {
-            window.onbeforeunload = function () {};
-            deregister();
-        }
-
         $scope.$on('youtube.player.ready', function ($event, player) {
             controller.ready = true;
         });
-
-        /*$scope.$on('youtube.player.ended', function ($event, player) {
-            if (event.data == YT.PlayerState.ENDED) { // FIXME: not adapted to angular-youtube-embed
-                if (controller.questionsAtTheEnd) {
-                    controller.showQuestions = true;
-                } else {
-                    controller.playNext();
-                }
-
-                $scope.$apply();
-            }
-        }*/
     });
 
     app.directive('playerCard', function() {
