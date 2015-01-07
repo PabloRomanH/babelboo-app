@@ -31,13 +31,36 @@ router.get('/playlist', function(req, res) {
             query.tags = { $in: tags };
             runQuery(query);
         });
+    } else if (req.query.all == 'true') {
+        runQueryAll(query);
     } else {
         runQuery(query);
+    }
+
+    function runQueryAll (query) {
+        try {
+            collection.find(query, function (err, result) {
+                res.json( result );
+            });
+        } catch (err2) {
+            res.json();
+        }
     }
 
     function runQuery (query) {
         try {
             collection.find(query, function (err, result) {
+                for (var i = 0; i < result.length; i++) {
+                    var current = result[i];
+                    var newentries = [];
+                    for (var j = 0; j < current.entries.length && j < 4; j++) {
+                        var newvid = {};
+                        newvid.thumbnail = current.entries[j].thumbnail;
+                        newentries[j] = newvid;
+                    }
+
+                    current.entries = newentries;
+                }
                 res.json( result );
             });
         } catch (err2) {
@@ -76,43 +99,25 @@ router.get('/user', function(req, res) {
     res.json(req.user);
 });
 
-router.post('/user/:username/answer/:playlist_id', function(req, res) {
+router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
     if (req.params.username != req.user.username) {
         res.status(403); // FORBIDDEN
         res.json();
         return;
     }
-
-    var playlist_id = req.params.playlist_id;
-    var points = req.body.points;
-    var found = false;
-
-    var user = req.user;
-
-    for (var i in user.playlist_points) {
-        if (user.playlist_points[i].id == playlist_id) {
-            user.playlist_points[i].points = Math.max(user.playlist_points[i].points, points);
-            found = true;
-        }
-    }
-
-    if (!found) {
-        if(!user.playlist_points) {
-            user.playlist_points = [];
-        }
-
-        user.playlist_points.push({'id': playlist_id, 'points': points});
-    }
-
     var collection = req.db.get('usercollection');
 
-    collection.update({ username: req.params.username },
-        {$set: {
-            points: req.user.points + req.body.points,
-            playlist_points: user.playlist_points
-            }
-        });
+    var videoId = req.body.id;
 
+    var query = {
+        username: req.user.username
+    };
+
+    var setop = {};
+    setop['playlistprogress.' + req.params.playlist_id + '.correct.' + videoId] = true;
+    setop['playlistprogress.' + req.params.playlist_id + '.ratio'] = req.body.ratio;
+
+    collection.update(query, {$set: setop});
 
     res.json();
 });

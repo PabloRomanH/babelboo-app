@@ -1,4 +1,7 @@
 
+REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see play.js)
+
+
 # To do while Toni out
 
 - (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)

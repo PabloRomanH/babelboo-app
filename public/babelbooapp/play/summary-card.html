@@ -1,19 +1,20 @@
 <div class="cine clearfix">
-  <div class="score col-">
-    <div>
-      <div class="text-center">
-        <i class="fa fa-thumbs-o-up fa-5x"></i>
-      </div>
-      <h3 class="score-title">You have completed the playlist "{{ playCtrl.playlist.title }}"</h3>
+  <div>
+    <div class="text-center">
+      <i ng-show="playCtrl.ratio == 0" class="fa fa-circle-thin fa-5x medal-none"></i>
+      <i ng-show="playCtrl.ratio > 0 && playCtrl.ratio <= 0.5" class="fa fa-circle fa-5x medal-bronze"></i>
+      <i ng-show="playCtrl.ratio > 0.5 && playCtrl.ratio < 1" class="fa fa-circle fa-5x medal-silver"></i>
+      <i ng-show="playCtrl.ratio == 1" class="fa fa-circle fa-5x medal-gold"></i>
     </div>
-    <div>
-      <div class="text-center"><p class="summary">Summary</p></div>
-      <p class="skills"><span>Number of videos:</span> <span>{{ playCtrl.videos.length }} × {{ playCtrl.POINT_PER_VIDEO }} = {{ playCtrl.videos.length * playCtrl.POINT_PER_VIDEO }}</span></p>
-      <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} × {{ playCtrl.POINT_PER_CORRECT }} = {{ playCtrl.correctAnswers * playCtrl.POINT_PER_CORRECT }}</span></p>
-      <p class="total-score">Total score: <span class="score-points">{{ playCtrl.points }}</span></p>
-    </div>
+    <h3 class="score-title">You have completed the playlist "{{ playCtrl.playlist.title }}"</h3>
   </div>
-  <a class="button-player button-summary" href="/">Finish</button></a>
+  <div class="text-center summary">Summary</div>
+
+  <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} out of {{ playCtrl.videos.length }}</span></p>
+  
+  <a class="button-player" href="/">
+    Finish
+  </a>
 </div>
 
 <div ng-show="playCtrl.relatedplaylists.length">

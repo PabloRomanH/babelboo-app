@@ -3,29 +3,43 @@
 
     app.factory('user', function($http) {
         var service = {};
-        service.user = 0;
+        service.data = 0;
 
         service.fillUser = function(callback) {
-            if (!service.user) {
+            if (!service.data) {
                 $http.get('/api/user').success(function(data) {
-                    service.user = data;
-                    callback(service.user);
+                    service.data = data;
+                    callback(service.data);
                 });
             } else {
-                callback(service.user);
+                callback(service.data);
             }
         }
 
-        service.answerPlaylist = function (playlistId, points) {
-            service.user.points += points;
-            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
+        service.correctAnswer = function (playlistId, videoId, ratio) {
+            if (!service.data.playlistprogress) {
+                service.data.playlistprogress = {};
+            }
+
+            if (!service.data.playlistprogress[playlistId]) {
+                service.data.playlistprogress[playlistId] = {};
+            }
+
+            if (!service.data.playlistprogress[playlistId].correct) {
+                service.data.playlistprogress[playlistId].correct = {};
+            }
+            
+            service.data.playlistprogress[playlistId].ratio = ratio;
+            service.data.playlistprogress[playlistId].correct[videoId] = true;
+
+            return $http.post('/api/user/' + service.data.username + '/correctanswer/' + playlistId, { id: videoId, ratio: ratio });
         }
+
         return service;
     });
 
     app.factory('playlists', function($http) {
         var service = {};
-        service.user = 0;
 
         service.getById = function(playlistId) {
             return $http.get('/api/playlist/' + playlistId);
