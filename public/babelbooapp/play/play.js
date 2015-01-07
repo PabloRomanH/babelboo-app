@@ -1,12 +1,13 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $window, $rootScope, user, playlists, renderTime, levelNames)     {
+    app.controller('PlayController', function($routeParams, $analytics, $window, $scope, $rootScope, user, playlists, renderTime, levelNames)     {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
 
         controller.correctAnswers = 0;
+        controller.ready = false;
 
         user.fillUser(function (userData) {
             controller.correct = {};
@@ -14,7 +15,7 @@
             if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
                 angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
             }
-            
+
             for (var key in controller.correct) {
                 controller.correctAnswers++;
             }
@@ -72,6 +73,8 @@
         controller.playNext = function () {
             playNextAnalytics();
 
+            controller.ready = false;
+
             controller.idx = controller.idx + 1;
 
             resetVideo();
@@ -84,20 +87,20 @@
                 allowExit();
                 controller.showSummary = true;
                 controller.player.stopVideo();
-                
+
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             }
         };
 
         controller.answer = function() {
             controller.answered = true;
-            
+
             if (controller.answeredindex == controller.videos[controller.idx].correctanswer) {
                 controller.correctAnswers += 1;
                 controller.answeredcorrect = true;
-                
+
                 controller.ratio = controller.correctAnswers / controller.videos.length;
-                
+
                 user.correctAnswer(playlistId, controller.videos[controller.idx].id, controller.ratio);
             }
         }
@@ -131,6 +134,10 @@
             window.onbeforeunload = function () {};
             deregister();
         }
+
+        $scope.$on('youtube.player.ready', function ($event, player) {
+            controller.ready = true;
+        });
 
         /*$scope.$on('youtube.player.ended', function ($event, player) {
             if (event.data == YT.PlayerState.ENDED) { // FIXME: not adapted to angular-youtube-embed

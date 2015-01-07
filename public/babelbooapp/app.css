@@ -405,15 +405,12 @@ li.tag-selected {
 
 .button-player:hover {
     background-color: #ddd;
-    text-decoration: none;
-}
-
-.button-player:hover a {
     color: #428bca;
     text-decoration: none;
 }
 
-.button-player a:focus {
+.button-player:focus {
+    color: #428bca;
     text-decoration: none;
 }
 
@@ -448,6 +445,13 @@ li.tag-selected {
 
 .cine-wrong:hover {
     background-color: #993432 !important;
+}
+
+.button-player-disabled, .button-player-disabled:hover, .button-player-disabled:focus {
+    color: #999;
+    cursor: default;
+    background-color: transparent;
+    text-decoration: none;
 }
 
 .button-summary {

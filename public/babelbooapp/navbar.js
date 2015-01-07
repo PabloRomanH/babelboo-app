@@ -5,11 +5,11 @@
         var controller = this;
         controller.showLogout = false;
 
+        $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
+            updateMedalCount();
+        });
+
         user.fillUser(function (user) {
-            $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
-                updateMedalCount();
-            });
-            
             controller.user = user;
             updateMedalCount();
         });
@@ -34,8 +34,8 @@
             controller.silvers = 0;
             controller.golds = 0;
 
-            for (var playlistId in controller.user.playlistprogress) {
-                var ratio = controller.user.playlistprogress[playlistId].ratio;
+            for (var playlistId in user.data.playlistprogress) {
+                var ratio = user.data.playlistprogress[playlistId].ratio;
                 if (0 < ratio && ratio <= 0.5) {
                     controller.bronzes++;
                 } else if (0.5 < ratio && ratio < 1) {
