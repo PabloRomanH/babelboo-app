@@ -237,15 +237,10 @@ li.tag-selected {
     margin-left: -200%; /* magic! */
 }
 
-.playlist ul {
-    padding:0 0 0 5px;
-    margin: 0 0 10px 0;
-}
-
 .playlist-icons {
     font-size:12px;
     color:#666666;
-    margin:255px 10px 5px 10px;
+    padding: 2px 10px 5px 10px;
     clear:left;
 }
 
@@ -266,6 +261,27 @@ li.tag-selected {
     text-transform: lowercase;
     color: #8E8E8E;
     text-shadow: 1px 1px #eee;
+}
+
+.medal-gold {
+    color: rgb(255, 204, 0);
+}
+
+.medal-silver {
+    color: rgb(197, 197, 197);
+}
+
+.medal-bronze {
+    color: rgb(204, 153, 102);
+}
+
+.medal-none {
+    color: rgb(220, 220, 220);
+}
+
+.playlist-icons .medal-gold, .playlist-icons .medal-silver, .playlist-icons .medal-bronze, .playlist-icons .medal-none {
+    font-size: 2em;
+    margin-top: 8px;
 }
 
 /*---------    PLAYLIST --------*/

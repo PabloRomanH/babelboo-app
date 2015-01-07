@@ -5,19 +5,25 @@
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
-        
+
+        controller.correctAnswers = 0;
+
         user.fillUser(function (userData) {
             controller.correct = {};
-            
+
             if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
                 angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
+            }
+            
+            for (var key in controller.correct) {
+                controller.correctAnswers++;
             }
         });
 
         controller.POINT_PER_CORRECT = 100;
 
-        controller.correctAnswers = 0;
         controller.points = 0;
+        controller.ratio = 0;
 
         controller.showSummary = false;
         controller.videos = [];
@@ -69,27 +75,20 @@
         controller.playNext = function () {
             playNextAnalytics();
 
-            if (controller.correct[controller.videos[controller.idx].id] || controller.answeredcorrect) {
-                controller.correctAnswers += 1;
-
-            }
-
             controller.idx = controller.idx + 1;
 
             resetVideo();
 
             if (controller.idx == controller.videos.length) {
-                controller.player.stopVideo();
-                controller.points = controller.correctAnswers * controller.POINT_PER_CORRECT;
-
                 playlists.getRelated(playlistId).success(function (related) {
                     controller.relatedplaylists = related;
                 });
 
-                controller.showSummary = true;
-
                 allowExit();
-
+                controller.showSummary = true;
+                controller.player.stopVideo();
+                
+                controller.points = controller.correctAnswers * controller.POINT_PER_CORRECT;
                 user.playlistPoints(playlistId, controller.points);
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
@@ -98,10 +97,16 @@
 
         controller.answer = function() {
             controller.answered = true;
-
+            
             if (controller.answeredindex == controller.videos[controller.idx].correctanswer) {
+                controller.correctAnswers += 1;
                 controller.answeredcorrect = true;
-                user.correctAnswer(playlistId, controller.videos[controller.idx].id);
+                
+                var maxpoints = controller.videos.length * controller.POINT_PER_CORRECT;
+                var points = controller.correctAnswers * controller.POINT_PER_CORRECT;
+                controller.ratio = points / maxpoints;
+                
+                user.correctAnswer(playlistId, controller.videos[controller.idx].id, controller.ratio);
             }
         }
 

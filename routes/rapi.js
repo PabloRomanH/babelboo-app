@@ -145,6 +145,7 @@ router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
 
     var setop = {};
     setop['playlistprogress.' + req.params.playlist_id + '.correct.' + videoId] = true;
+    setop['playlistprogress.' + req.params.playlist_id + '.ratio'] = req.body.ratio;
 
     collection.update(query, {$set: setop});
 
