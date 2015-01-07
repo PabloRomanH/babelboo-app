@@ -84,6 +84,7 @@
                     controller.relatedplaylists = related;
                 });
 
+                controller.ratio = controller.correctAnswers / controller.videos.length;
                 controller.showSummary = true;
                 controller.player.stopVideo();
 
@@ -98,9 +99,9 @@
                 controller.correctAnswers += 1;
                 controller.answeredcorrect = true;
 
-                controller.ratio = controller.correctAnswers / controller.videos.length;
+                var ratio = controller.correctAnswers / controller.videos.length;
 
-                user.correctAnswer(playlistId, controller.videos[controller.idx].id, controller.ratio);
+                user.correctAnswer(playlistId, controller.videos[controller.idx].id, ratio);
             }
         }
 

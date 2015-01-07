@@ -1,13 +1,5 @@
 
-Medals, playlist progress
-- Award medals if reached summary and scored more than 0 points.
-- Graphical feedback when question already answered.
-- Medal graphical feedback.
-
-REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STAFF LIKE user AND userData (see play.js)
-
-IDEAS:
-- Give extra points when a new medal is achieved for a playlist.
+REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see play.js)
 
 
 # To do while Toni out
