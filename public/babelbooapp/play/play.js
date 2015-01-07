@@ -20,9 +20,6 @@
             }
         });
 
-        controller.POINT_PER_CORRECT = 100;
-
-        controller.points = 0;
         controller.ratio = 0;
 
         controller.showSummary = false;
@@ -88,9 +85,6 @@
                 controller.showSummary = true;
                 controller.player.stopVideo();
                 
-                controller.points = controller.correctAnswers * controller.POINT_PER_CORRECT;
-                user.playlistPoints(playlistId, controller.points);
-
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             }
         };
@@ -102,9 +96,7 @@
                 controller.correctAnswers += 1;
                 controller.answeredcorrect = true;
                 
-                var maxpoints = controller.videos.length * controller.POINT_PER_CORRECT;
-                var points = controller.correctAnswers * controller.POINT_PER_CORRECT;
-                controller.ratio = points / maxpoints;
+                controller.ratio = controller.correctAnswers / controller.videos.length;
                 
                 user.correctAnswer(playlistId, controller.videos[controller.idx].id, controller.ratio);
             }

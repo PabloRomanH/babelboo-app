@@ -99,36 +99,6 @@ router.get('/user', function(req, res) {
     res.json(req.user);
 });
 
-router.post('/user/:username/playlistpoints/:playlist_id', function(req, res) {
-    if (req.params.username != req.user.username) {
-        res.status(403); // FORBIDDEN
-        res.json();
-        return;
-    }
-
-    var playlistId = req.params.playlist_id;
-
-    var oldPoints = 0;
-    if (req.user.playlistprogress[playlistId] && req.user.playlistprogress[playlistId].points) {
-        oldPoints = req.user.playlistprogress[playlistId].points;
-    }
-
-    var pointsDiff = req.body.points - oldPoints;
-
-    var query = {
-        username: req.user.username
-    };
-
-    var setop = {};
-    setop['points'] = req.user.points + pointsDiff;
-    setop['playlistprogress.' + req.params.playlist_id + '.points'] = req.body.points;
-
-    var collection = req.db.get('usercollection');
-    collection.update(query, {$set: setop});
-
-    res.json();
-});
-
 router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
     if (req.params.username != req.user.username) {
         res.status(403); // FORBIDDEN

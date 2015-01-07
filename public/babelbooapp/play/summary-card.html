@@ -10,9 +10,8 @@
   </div>
   <div class="text-center summary">Summary</div>
 
-  <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} × {{ playCtrl.POINT_PER_CORRECT }} = {{ playCtrl.correctAnswers * playCtrl.POINT_PER_CORRECT }}</span></p>
-  <p class="total-score">Total score: <span class="score-points">{{ playCtrl.points }}</span></p>
-
+  <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} out of {{ playCtrl.videos.length }}</span></p>
+  
   <a class="button-player" href="/">
     Finish
   </a>

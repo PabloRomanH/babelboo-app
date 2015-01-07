@@ -45,6 +45,11 @@ nav ul li {
     z-index: -1;
 }
 
+.medals i {
+    padding-left: 5px;
+    padding-right: 3px;
+}
+
 ul {
     list-style-type: none;
     padding: 0;

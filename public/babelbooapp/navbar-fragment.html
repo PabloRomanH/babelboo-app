@@ -21,8 +21,12 @@
       </div>
     </li>
     <li>
-      <a href="/points" ng-click="navbarCtrl.pointsClicked()">Points: {{ navbarCtrl.user.points }}</a>
+      <a href="/points" class="medals" ng-click="navbarCtrl.pointsClicked()"> 
+        <i class="fa fa-circle medal-gold"></i> {{ navbarCtrl.golds }}
+        <i class="fa fa-circle medal-silver"></i> {{ navbarCtrl.silvers }}
+        <i class="fa fa-circle medal-bronze"></i> {{ navbarCtrl.bronzes }}
+      </a>
     </li>
   </ul>
 </nav>
-<div class="navbar-shadow"></div> 
+<div class="navbar-shadow"></div>

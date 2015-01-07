@@ -16,31 +16,6 @@
             }
         }
 
-        service.playlistPoints = function (playlistId, points) {
-            if (!service.user.playlistprogress) {
-                service.user.playlistprogress = {};
-            }
-
-            if (!service.user.playlistprogress[playlistId]) {
-                service.user.playlistprogress[playlistId] = {};
-            }
-
-            if (!service.user.playlistprogress[playlistId].points) {
-                service.user.playlistprogress[playlistId].points = 0;
-            }
-
-            var pointsDiff = points - service.user.playlistprogress[playlistId].points;
-
-            if (pointsDiff > 0) {
-                service.user.points += pointsDiff;
-                service.user.playlistprogress[playlistId].points = points;
-                
-                return $http.post('/api/user/' + service.user.username + '/playlistpoints/' + playlistId, { points: points });
-            }
-
-            return null;
-        }
-
         service.correctAnswer = function (playlistId, videoId, ratio) {
             if (!service.user.playlistprogress) {
                 service.user.playlistprogress = {};
@@ -53,7 +28,7 @@
             if (!service.user.playlistprogress[playlistId].correct) {
                 service.user.playlistprogress[playlistId].correct = {};
             }
-
+            
             service.user.playlistprogress[playlistId].ratio = ratio;
             service.user.playlistprogress[playlistId].correct[videoId] = true;
 
