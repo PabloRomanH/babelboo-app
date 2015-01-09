@@ -1,18 +1,20 @@
 describe("controllers", function() {
     beforeEach(module('navbar'));
+    beforeEach(module('babelbooapp'));
 
     var route = {
         reload: function() {}
     };
 
+    var userData = {
+        username: 'guest',
+        points: 25,
+        _id: 3
+    };
     var fillUser = function(callback) {
-        callback({
-            username: 'guest',
-            points: 25,
-            _id: 3
-        });
+        callback(userData);
     }
-    var user = { fillUser: fillUser };
+    var user = { fillUser: fillUser, data: userData, correctAnswer: sinon.spy() };
 
     describe("navbar controller", function() {
         var ctrl;
@@ -31,8 +33,6 @@ describe("controllers", function() {
             ctrl = $controller('NavbarController', {
                 $scope: scope,
                 $analytics: analytics,
-                $route: route,
-                $location: location,
                 user: user
             });
         }));
