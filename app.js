@@ -6,3 +6,5 @@ function startServer () {
 }
 
 app.onSessionConnected(startServer);
+
+module.exports = app;
