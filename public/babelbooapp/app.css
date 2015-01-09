@@ -21,6 +21,33 @@ body {
     color: inherit;
 }
 
+#login-button {
+    display: inline;
+}
+
+#login-button button {
+    margin-top: 7px;
+    margin-right: 20px;
+}
+
+#login-bubble {
+    padding: 10px;
+    margin-right: 15px;
+    margin-top: -5px;
+}
+
+#login-bubble button {
+    width: 100%;
+}
+
+#login-bubble {
+    display: block;
+}
+
+#login-bubble div {
+    margin: 10px;
+}
+
 .call {
     margin-top: -10px !important;
     padding: 10px;

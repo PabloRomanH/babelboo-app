@@ -6,12 +6,12 @@
         <img src="/img/name-header.png"/>
       </a>
     </li>
-    <li>
+    <li ng-show="navbarCtrl.userLogged">
       <a href="#" ng-click="navbarCtrl.goToPlaylists()">Playlists</a>
     </li>
   </ul>
   <ul class="pull-right">
-    <li>
+    <li ng-show="navbarCtrl.userLogged">
       <a href="#" ng-click="navbarCtrl.toggleLogout()">
         <i class="fa fa-user"></i>
         {{ navbarCtrl.user.username }}
@@ -20,7 +20,7 @@
         <a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
       </div>
     </li>
-    <li>
+    <li ng-show="navbarCtrl.userLogged">
       <a href="/points" class="medals" ng-click="navbarCtrl.pointsClicked()"> 
         <i class="fa fa-circle medal-gold"></i> {{ navbarCtrl.golds }}
         <i class="fa fa-circle medal-silver"></i> {{ navbarCtrl.silvers }}
@@ -28,5 +28,19 @@
       </a>
     </li>
   </ul>
+  <div id="login-button" ng-controller="LoginController as loginCtrl" ng-hide="navbarCtrl.userLogged">
+      <button class="pull-right btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" ng-click="loginCtrl.toggleForm()">
+      Login
+      </button>
+      <div class="dropdown-menu pull-right" id="login-bubble" role="menu" aria-labelledby="dropdownMenu1" ng-show="loginCtrl.formVisible">
+        <form action="/login" method="post" ng-submit="loginCtrl.submit($event)">
+          <div><label>Email: </label></div>
+          <div><input type="text" name="username" ng-model="loginCtrl.username"/></div>
+          <div><input type="hidden" name="password" value="boo" ng-if="!loginCtrl.showPassword" /></div>
+          <div><input type="password" name="password" ng-if="loginCtrl.showPassword" /></div>
+          <div><button class="btn-success" type="submit">Login</button></div>
+        </form>
+      </div>
+    </div>
 </nav>
 <div class="navbar-shadow"></div>

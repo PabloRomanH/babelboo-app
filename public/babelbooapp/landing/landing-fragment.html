@@ -1,11 +1,31 @@
-
-   <div class="landing"> 
+   <div class="landing" ng-controller="LandingController as landingCtrl"> 
      <div class="call row">
       <div class="vcenter col-md-4 col-md-offset-1">
         <img class="img-responsive" src="/img/big-boo.png"/>
       </div>
 
-      <!-- <div class="vcenter text-center col-md-5 col-md-offset-1" ng-view></div> -->
+      <div class="vcenter text-center col-md-5 col-md-offset-1" ng-show="landingCtrl.betaregistrationStep == 0">
+        <h2>Have fun in English</h2>
+        <a class="btn-lg btn-success" ng-click="landingCtrl.showForm()">Empezar a aprender</a>
+      </div>
+      <div class="vcenter text-center col-md-5 col-md-offset-1" ng-show="landingCtrl.betaregistrationStep == 1">
+        <h2>BOOOOOOOO</h2>
+        <div class="cuadrado">
+            <p>¡Maldita sea! Boo está haciendo de las suyas y no podemos ofrecerte nuestros servicios, dejanos tu e-mail y te avisaremos cuando estemos listos para hacerte aprender inglés.</p>
+            <div class="form-group">
+                <form ng-submit="landingCtrl.submitEmail(email)">
+                    <label for="mail"></label>
+                    <input type="email" class="form-control" id="mail" placeholder="Dejanos tu e-mail" ng-model="email" required>
+                    <button type="submit" class="btn btn-default">Dejar e-mail</button>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div class="vcenter text-center col-md-5 col-md-offset-1"  ng-show="landingCtrl.betaregistrationStep == 2">
+        <div class="cuadrado">
+          <h2>Gracias! Nos pondremos en contacto brevemente.</h2>
+        </div>
+      </div>
 
     </div>
 
