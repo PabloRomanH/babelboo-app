@@ -1,6 +1,9 @@
 
 REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see play.js)
 
+# Angular auth
+- default api not working when user is not logged.
+
 
 # To do while Toni out
 

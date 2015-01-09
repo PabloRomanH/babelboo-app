@@ -4,6 +4,7 @@
         this.user = {};
         var controller = this;
         controller.showLogout = false;
+        controller.userLogged = false;
 
         $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
             updateMedalCount();
@@ -11,6 +12,7 @@
 
         user.fillUser(function (user) {
             controller.user = user;
+            controller.userLogged = true;
             updateMedalCount();
         });
 
@@ -39,6 +41,26 @@
                 } else if (ratio == 1) {
                     controller.golds++;
                 }
+            }
+        }
+    });
+
+    app.controller('LoginController', function($analytics, $http){
+        var controller = this;
+        controller.formVisible = false;
+        controller.showPassword = false;
+
+        this.toggleForm = function() {
+            controller.formVisible = !controller.formVisible;
+            $analytics.eventTrack('callToAction', {
+                category: 'conversion'
+            });
+        }
+
+        this.submit = function($event) {
+            if (!controller.showPassword && (this.username == 'sepha' || this.username == 'toni' || this.username == 'fran')) {
+                controller.showPassword = true;
+                $event.preventDefault()
             }
         }
     });

@@ -1,58 +1,31 @@
-<!DOCTYPE html>
-<html ng-app="login">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="content-language" content="es"/>
-  <meta name="title" content="babelboo"/>
-  <meta name="viewport" content="initial-scale=1">
-  <title>babelboo</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <link href="/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/login/app.css">
-  <script src="/lib/angular.js"></script>
-  <script src="/lib/angular-route.js"></script>
-  <script src="/lib/angulartics.min.js"></script>
-  <script src="/lib/angulartics-ga.min.js"></script>
-  <script src="/login/app.js"></script>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-57416177-2', 'auto');
-//    ga('send', 'pageview');
-  </script>
-</head>
-<body>
-  <div class="container">
-    <div class="header row navbar navbar-fixed-top">
-      <img src="/img/boo-white.png"/>
-      <img src="/img/name-header.png"/>
-      <div class="" id="login-button" ng-controller="LoginController as loginCtrl">
-        <button class="pull-right btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" ng-click="loginCtrl.toggleForm()">
-        Login
-        </button>
-        <div class="dropdown-menu pull-right" id="login-bubble" role="menu" aria-labelledby="dropdownMenu1" ng-show="loginCtrl.formVisible">
-          <form action="/login" method="post" ng-submit="loginCtrl.submit($event)">
-            <div><label>Email: </label></div>
-            <div><input type="text" name="username" ng-model="loginCtrl.username"/></div>
-            <div><input type="hidden" name="password" value="boo" ng-if="!loginCtrl.showPassword" /></div>
-            <div><input type="password" name="password" ng-if="loginCtrl.showPassword" /></div>
-            <div><button class="btn-success" type="submit">Login</button></div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <div class="call row">
+   <div class="landing" ng-controller="LandingController as landingCtrl"> 
+     <div class="call row">
       <div class="vcenter col-md-4 col-md-offset-1">
         <img class="img-responsive" src="/img/big-boo.png"/>
       </div>
 
-      <div class="vcenter text-center col-md-5 col-md-offset-1" ng-view></div>
+      <div class="vcenter text-center col-md-5 col-md-offset-1" ng-show="landingCtrl.betaregistrationStep == 0">
+        <h2>Have fun in English</h2>
+        <a class="btn-lg btn-success" ng-click="landingCtrl.showForm()">Empezar a aprender</a>
+      </div>
+      <div class="vcenter text-center col-md-5 col-md-offset-1" ng-show="landingCtrl.betaregistrationStep == 1">
+        <h2>BOOOOOOOO</h2>
+        <div class="cuadrado">
+            <p>¡Maldita sea! Boo está haciendo de las suyas y no podemos ofrecerte nuestros servicios, dejanos tu e-mail y te avisaremos cuando estemos listos para hacerte aprender inglés.</p>
+            <div class="form-group">
+                <form ng-submit="landingCtrl.submitEmail(email)">
+                    <label for="mail"></label>
+                    <input type="email" class="form-control" id="mail" placeholder="Dejanos tu e-mail" ng-model="email" required>
+                    <button type="submit" class="btn btn-default">Dejar e-mail</button>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div class="vcenter text-center col-md-5 col-md-offset-1"  ng-show="landingCtrl.betaregistrationStep == 2">
+        <div class="cuadrado">
+          <h2>Gracias! Nos pondremos en contacto brevemente.</h2>
+        </div>
+      </div>
 
     </div>
 
@@ -128,5 +101,3 @@
       </div>
     </div>
   </div>
-</body>
-</html>
