@@ -3,23 +3,38 @@
 
     app.factory('user', function($http) {
         var service = {};
-        service.user = 0;
+        service.data = 0;
 
         service.fillUser = function(callback) {
-            if (!service.user) {
+            if (!service.data) {
                 $http.get('/api/user').success(function(data) {
-                    service.user = data;
-                    callback(service.user);
+                    service.data = data;
+                    callback(service.data);
                 });
             } else {
-                callback(service.user);
+                callback(service.data);
             }
         }
 
-        service.answerPlaylist = function (playlistId, points) {
-            service.user.points += points;
-            return $http.post('/api/user/' + service.user.username + '/answer/' + playlistId, { points: points });
+        service.correctAnswer = function (playlistId, videoId, ratio) {
+            if (!service.data.playlistprogress) {
+                service.data.playlistprogress = {};
+            }
+
+            if (!service.data.playlistprogress[playlistId]) {
+                service.data.playlistprogress[playlistId] = {};
+            }
+
+            if (!service.data.playlistprogress[playlistId].correct) {
+                service.data.playlistprogress[playlistId].correct = {};
+            }
+            
+            service.data.playlistprogress[playlistId].ratio = ratio;
+            service.data.playlistprogress[playlistId].correct[videoId] = true;
+
+            return $http.post('/api/user/' + service.data.username + '/correctanswer/' + playlistId, { id: videoId, ratio: ratio });
         }
+
         return service;
     });
 
@@ -82,7 +97,10 @@
         }
 
         return function (seconds) {
-            if (!seconds) return;
+            if (typeof seconds === "undefined") return '';
+            if (seconds < 0) return '';
+
+            seconds = Math.round(seconds);
 
             var hours = Math.floor(seconds / 3600);
             var minutes = Math.floor((seconds % 3600) / 60);

@@ -15,10 +15,16 @@
     <i class="fa fa-clock-o pull-right"> {{ playlistsCtrl.renderTime(playlist.duration) }}</i>
     <i class="fa fa-graduation-cap"> {{ playlistsCtrl.levelNames[playlist.level] }}</i>
   </div>
-  <ul class="list-unstyled list-inline tag-list">
-    <li class="tag-box"><i class="fa fa-tag"></i></li
-    ><li class="tag-box" ng-repeat="tag in playlist.tags">
-      {{ tag }}
-    </li>
-  </ul>
+  <div class="playlist-icons">
+    <i title="no medal" ng-show="!playlistsCtrl.userData.playlistprogress[playlist._id].ratio || playlistsCtrl.userData.playlistprogress[playlist._id].ratio == 0" class="fa fa-circle-thin medal-none pull-right"></i>
+    <i title="bronze medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio > 0 && playlistsCtrl.userData.playlistprogress[playlist._id].ratio <= 0.5" class="fa fa-circle medal-bronze pull-right"></i>
+    <i title="silver medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio > 0.5 && playlistsCtrl.userData.playlistprogress[playlist._id].ratio < 1" class="fa fa-circle medal-silver pull-right"></i>
+    <i title="gold medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio == 1" class="fa fa-circle medal-gold pull-right"></i>
+    <ul class="list-unstyled list-inline">
+      <li class="tag-box"><i class="fa fa-tag"></i></li
+      ><li class="tag-box" ng-repeat="tag in playlist.tags">
+        {{ tag }}
+      </li>
+    </ul>
+  </div>
 </div>

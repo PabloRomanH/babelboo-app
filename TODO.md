@@ -1,11 +1,16 @@
 
+REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see play.js)
+
+# Angular auth
+- default api not working when user is not logged.
+
+
 # To do while Toni out
 
 - (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)
     - try out frameworks
 - Testing node's Web API (postman / frisby.js + Jasmine / *Mocha + *Chai + *Supertest + [Sinon])
 - Testing angular (Karma + Mocha + Chai + Sinon / Jasmine)
-    - try out frameworks
 - Testing E2E
         - Protractor + Jasmine: All desktop browsers (needs to run in Windows for IE and MacOS for Safari)
         - saucelabs.com ($$): EVERYTHING (including mobile)

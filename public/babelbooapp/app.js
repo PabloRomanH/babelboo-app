@@ -1,5 +1,20 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'player', 'tv', 'playlist', 'video', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'landing', 'player', 'tv', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+
+    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise 
+        var deferred = $q.defer(); 
+
+        // Make an AJAX call to check if the user is logged in 
+        $http.get('/loggedin').success(function(user){ 
+            if (user !== '0') { // Authenticated 
+              $timeout(deferred.resolve, 0);   
+            } else { // Not Authenticated 
+                $rootScope.message = 'You need to log in.';
+                $timeout(function(){deferred.reject();}, 0);
+                $location.url('/login');
+             }
+         });
+    };
 
     app.config(function ($analyticsProvider) {
         $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
@@ -14,34 +29,57 @@
         $routeProvider.
             when('/', {
                 redirectTo: '/playlists'
-
+            }).
+            when('/login', {
+                templateUrl: '/babelbooapp/landing/landing-fragment.html'
             }).
             when('/playlist', {
-                templateUrl: '/babelbooapp/playlist/playlist-fragment.html'
+                templateUrl: '/babelbooapp/playlist/playlist-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             when('/playlist/:playlistId', {
-                templateUrl: '/babelbooapp/playlist/playlist-fragment.html'
+                templateUrl: '/babelbooapp/playlist/playlist-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             when('/playlists', {
-                templateUrl: '/babelbooapp/playlists/playlists-fragment.html'
+                templateUrl: '/babelbooapp/playlists/playlists-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             when('/play/:playlistId', {
-                templateUrl: '/babelbooapp/play/play-fragment.html'
+                templateUrl: '/babelbooapp/play/play-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             when('/tv', {
                 templateUrl: '/babelbooapp/tv/tv-fragment.html'
             }).
             when('/manage', {
-                templateUrl: '/babelbooapp/editPlaylists/playlists-fragment.html'
+                templateUrl: '/babelbooapp/editPlaylists/playlists-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             when('/video', {
                 templateUrl: '/babelbooapp/video/video-fragment.html'
             }).
             when('/points', {
-                templateUrl: '/babelbooapp/points/under-construction.html'
+                templateUrl: '/babelbooapp/points/under-construction.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             otherwise({
-                templateUrl: '/babelbooapp/error-fragment.html'
+                templateUrl: '/babelbooapp/error-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             });
     });
 
@@ -49,34 +87,6 @@
         return {
             restrict: 'E',
             templateUrl: '/babelbooapp/navbar-fragment.html'
-        };
-    });
-
-    app.controller('NavbarController', function($http, $scope, $analytics, $window, user, $route, $location) {
-        this.user = {};
-        var controller = this;
-        controller.showLogout = false;
-
-        user.fillUser(function (user) {
-            controller.user = user;
-        });
-
-        controller.toggleLogout = function () {
-            controller.showLogout = !controller.showLogout;
-        }
-
-        controller.pointsClicked = function () {
-            $analytics.eventTrack('pointsClicked', {
-                    category: 'navigation', label: controller.user._id
-                });
-        };
-
-        controller.goToPlaylists = function () {
-            if($location.path() == '/playlists') {
-                $route.reload();
-            } else {
-                $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
-            }
         };
     });
 

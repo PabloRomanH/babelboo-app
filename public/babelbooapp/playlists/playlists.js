@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('playlists', []);
-    app.controller('PlaylistsController', function($analytics, playlists, tags, renderTime, levelNames){
+    app.controller('PlaylistsController', function($analytics, playlists, tags, renderTime, levelNames, user){
         var controller = this;
         this.playlists = null;
         this.tags = []
@@ -8,6 +8,11 @@
         this.selectedTag = '';
         controller.levelNames = levelNames.names;
         controller.renderTime = renderTime;
+        controller.userData = {}
+
+        user.fillUser (function (data) {
+            controller.userData = data;
+        });
 
         this.setLevel = function(level) {
             if (level == this.selectedLevel) {

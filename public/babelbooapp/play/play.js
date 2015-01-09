@@ -1,20 +1,28 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $window, $rootScope, user, playlists, renderTime, levelNames)     {
+    app.controller('PlayController', function($routeParams, $analytics, $scope, user, playlists, renderTime, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
 
-        controller.POINT_PER_VIDEO = 10;
-        controller.POINT_PER_CORRECT = 100;
-
         controller.correctAnswers = 0;
-        controller.incorrectAnswers = 0;
-        controller.points = 0;
+        controller.ready = false;
 
-        controller.questionsAtTheEnd = false;
-        controller.showQuestions = !controller.questionsAtTheEnd;
+        user.fillUser(function (userData) {
+            controller.correct = {};
+
+            if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
+                angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
+            }
+
+            for (var key in controller.correct) {
+                controller.correctAnswers++;
+            }
+        });
+
+        controller.ratio = 0;
+
         controller.showSummary = false;
         controller.videos = [];
         controller.relatedplaylists = [];
@@ -23,13 +31,11 @@
         controller.renderTime = renderTime;
 
         controller.idx = 0;
-        controller.videoId = null;
         controller.playerVars = { autoplay: 1 };
         controller.player = null;
 
         function resetVideo () {
             controller.answeredcorrect = false;
-            controller.answeredincorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;
         }
@@ -39,8 +45,6 @@
             controller.videos = data.entries;
             resetVideo();
             playlistRetrieved = true;
-
-            controller.videoId = controller.videos[controller.idx].id;
         });
 
         function playNextAnalytics () {
@@ -69,43 +73,35 @@
         controller.playNext = function () {
             playNextAnalytics();
 
+            controller.ready = false;
+
             controller.idx = controller.idx + 1;
 
             resetVideo();
 
             if (controller.idx == controller.videos.length) {
-                controller.player.stopVideo();
-                controller.points = controller.videos.length * controller.POINT_PER_VIDEO;
-                controller.points += controller.correctAnswers * controller.POINT_PER_CORRECT;
-
                 playlists.getRelated(playlistId).success(function (related) {
                     controller.relatedplaylists = related;
                 });
 
+                controller.ratio = controller.correctAnswers / controller.videos.length;
                 controller.showSummary = true;
-
-                allowExit();
-
-                user.answerPlaylist(playlistId, controller.points);
+                controller.player.stopVideo();
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
-            } else {
-                var video_id = controller.videos[controller.idx].id;
-                controller.currentVideo = controller.videos[controller.idx];
-                controller.player.loadVideoById({videoId:video_id});
             }
         };
 
         controller.answer = function() {
             controller.answered = true;
 
-            if (controller.answeredindex == controller.videos[controller.idx].correctanswer)
-            {
-                controller.answeredcorrect = true;
+            if (controller.answeredindex == controller.videos[controller.idx].correctanswer) {
                 controller.correctAnswers += 1;
-            } else {
-                controller.incorrectAnswers += 1;
-                controller.answeredincorrect = true;
+                controller.answeredcorrect = true;
+
+                var ratio = controller.correctAnswers / controller.videos.length;
+
+                user.correctAnswer(playlistId, controller.videos[controller.idx].id, ratio);
             }
         }
 
@@ -115,41 +111,9 @@
             });
         }
 
-        var deregister;
-
-        preventExit();
-
-        function preventExit () {
-            $window.onbeforeunload = function(){
-                return "Are you sure you want to lose your progress in the current playlist?";
-            };
-
-            deregister = $rootScope.$on('$locationChangeStart', function(event) {
-                var answer = confirm("Are you sure you want to lose your progress in the current playlist?");
-                if (!answer) {
-                    event.preventDefault();
-                } else {
-                    allowExit();
-                }
-            });
-        }
-
-        function allowExit () {
-            window.onbeforeunload = function () {};
-            deregister();
-        }
-
-        /*$scope.$on('youtube.player.ended', function ($event, player) {
-            if (event.data == YT.PlayerState.ENDED) { // FIXME: not adapted to angular-youtube-embed
-                if (controller.questionsAtTheEnd) {
-                    controller.showQuestions = true;
-                } else {
-                    controller.playNext();
-                }
-
-                $scope.$apply();
-            }
-        }*/
+        $scope.$on('youtube.player.ready', function ($event, player) {
+            controller.ready = true;
+        });
     });
 
     app.directive('playerCard', function() {
