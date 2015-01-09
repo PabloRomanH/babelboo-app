@@ -132,32 +132,33 @@ var api = require('./routes/rapi');
 var publicapi = require('./routes/rpublicapi');
 var restrictedapi = require('./routes/rrestrictedapi');
 
+
+var auth = function(req, res, next) {
+    if (!req.isAuthenticated()) {
+        res.status(401).end();
+    } else {
+        next();
+    }
+    
+}
+
+var restrictedAuth = function(req, res, next) {
+    if (req.isAuthenticated() && (req.user.username == 'sepha' || req.user.username == 'toni' || req.user.username == 'fran')) {
+        next();
+    } else {
+        res.status(401).end();
+    }
+}
+
+app.get('/loggedin', function(req, res) { res.send(req.isAuthenticated() ? req.user : '0'); });
+
 app.use('/api', publicapi);
 
+app.use('/api', auth, api);
+
+app.use('/api', restrictedAuth, restrictedapi);
+
 app.use('/login', login);
-app.use(function(req, res, next) {
-    if (req.user) {
-        updateLastLogin(req.user);
-        next();
-    } else {
-        res.redirect('/login');
-    }
-});
-
-app.use('/api', api);
-
-var adminMiddleware = function(req, res, next) {
-    if (req.user.username == 'sepha' || req.user.username == 'toni' || req.user.username == 'fran') {
-        next();
-    } else {
-        var err = new Error('Not Found');
-        err.status = 404; // bad request
-        next(err);
-    }
-};
-
-app.use('/api', adminMiddleware, restrictedapi);
-
 app.use('/logout', logout);
 app.use('/', bbooapp);
 app.use('/play', bbooapp);

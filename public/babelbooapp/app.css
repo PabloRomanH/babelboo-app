@@ -5,6 +5,82 @@ body {
     padding-top: 60px;
 }
 
+
+/*----------   LANDING   ----------*/
+.landing h1 {
+    margin-bottom: 40px;
+}
+
+.landing h2 {
+    font-size:56px;
+    color: #00618C;
+    margin-bottom: 25px;
+}
+
+.landing h3 {
+    color: inherit;
+}
+
+.call {
+    margin-top: -10px !important;
+    padding: 10px;
+    padding-top: 20px;
+    background: url(/img/popcorn.jpg) no-repeat center center fixed;
+}
+
+.value {
+    background-color: #00618C;
+    color: #ffffff;
+    padding: 40px;
+}
+
+.team {
+    background-color: #ffffff;
+    color: #333;
+    padding: 40px;
+}
+
+.footer {
+    background-color: #00618C;
+    color: #ffffff;
+    height: 80px;
+    padding: 5px;
+}
+
+.footer .row {
+    padding: 5px;
+}
+
+.footer a, .footer a:visited, .footer a:hover {
+    color: #ffffff;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.cuadrado {
+    background-color:#00618C;
+    border-radius: 10px;
+    padding:20px;
+    color:#fff;
+    font-size:20px;
+}
+
+.cuadrado h2 {
+    color:#fff;
+}
+
+.form-control {
+    margin-bottom:20px;
+}
+
+/*----------   /LANDING   ----------*/
+
 .primary-bg {
     background-color: #00618C;
 }
@@ -503,17 +579,6 @@ li.tag-selected {
 
 
 /*---------    OTHERS --------*/
-.value {
-    background-color: #00618C;
-    color: #ffffff;
-    padding: 10px;
-}
-
-.team {
-    background-color: #ffffff;
-    padding: 10px;
-}
-
 .score {
     margin:15px;
 }
