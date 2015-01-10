@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'landing', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'landing', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise 
         var deferred = $q.defer(); 
@@ -33,6 +33,9 @@
             when('/login', {
                 templateUrl: '/babelbooapp/landing/landing-fragment.html'
             }).
+            when('/register', {
+                templateUrl: '/babelbooapp/betaregistration/betaregistration-fragment.html'
+            }).
             when('/playlist', {
                 templateUrl: '/babelbooapp/playlist/playlist-fragment.html',
                 resolve: {
@@ -52,10 +55,7 @@
                 }
             }).
             when('/play/:playlistId', {
-                templateUrl: '/babelbooapp/play/play-fragment.html',
-                resolve: {
-                    loggedin: checkLoggedin
-                }
+                templateUrl: '/babelbooapp/play/play-fragment.html'
             }).
             when('/manage', {
                 templateUrl: '/babelbooapp/editPlaylists/playlists-fragment.html',

@@ -12,8 +12,11 @@
 
   <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} out of {{ playCtrl.videos.length }}</span></p>
   
-  <a class="button-player" href="/">
+  <a class="button-player" href="/" ng-show="playCtrl.userLogged">
     Finish
+  </a>
+  <a class="button-player" href="/register" nh-hide="playCtrl.userLogged">
+    Watch More!
   </a>
 </div>
 
