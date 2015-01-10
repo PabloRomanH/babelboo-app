@@ -6,6 +6,8 @@
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
 
+        controller.userLogged = false;
+
         controller.correctAnswers = 0;
         controller.ready = false;
 
@@ -19,6 +21,8 @@
             for (var key in controller.correct) {
                 controller.correctAnswers++;
             }
+
+            controller.userLogged = true;
         });
 
         controller.ratio = 0;

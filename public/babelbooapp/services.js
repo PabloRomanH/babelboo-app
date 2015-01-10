@@ -17,6 +17,10 @@
         }
 
         service.correctAnswer = function (playlistId, videoId, ratio) {
+            if (!service.data) {
+                return;
+            }
+
             if (!service.data.playlistprogress) {
                 service.data.playlistprogress = {};
             }
