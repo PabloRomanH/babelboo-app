@@ -69,18 +69,6 @@ router.get('/playlist', function(req, res) {
     }
 });
 
-router.get('/playlist/:playlist_id', function(req, res) {
-    var collection = req.db.get('playlists');
-
-    try {
-        collection.find({_id: req.params.playlist_id},{},function (err, result) {
-            res.json( result[0] );
-        });
-    } catch (err2) {
-        res.json();
-    }
-});
-
 router.get('/tag', function(req, res) {
     var collection = req.db.get('tags');
 
