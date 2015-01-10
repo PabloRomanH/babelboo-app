@@ -122,7 +122,6 @@ router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
     res.json();
 });
 
-
 router.get('/video/:level?', function(req, res) {
     var level = req.params.level;
     var query = {};
@@ -130,25 +129,35 @@ router.get('/video/:level?', function(req, res) {
         query = { level: parseInt(level) };
     }
 
-    var collection = req.db.get('playlists');
+    var collection = req.db.get('videos');
 
     try {
         collection.find(query, {}, function (err, result) {
-            var output = [];
-            
-            function pushToOutput(v) {
-                output.push(v);
-            }
-
-            for (var i in result) {
-                result[i].entries.forEach(pushToOutput);
-            }
-            res.json(output);
+            res.json(result);
         });
     } catch (err2) {
         res.json();
+    } 
+});
+
+router.post('/video', function(req, res) {
+    var collection = req.db.get('videos');
+
+    var videoIds = req.body;
+    var videos = videoIds.map(function (currentValue) {
+        return {
+            videoId: currentValue.id,
+            title: currentValue.title,
+            level: currentValue.level,
+            source: 'YouTube'
+        }
+    });
+
+    for (var i = 0; i < videoIds.length; i++) {
+        collection.insert(videos);
     }
-    
+
+    res.json();
 });
 
 module.exports = router;

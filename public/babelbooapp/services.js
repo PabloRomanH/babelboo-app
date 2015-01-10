@@ -65,9 +65,7 @@
         };
 
         service.addLoose = function (videos) {
-            $http.post('/api/video', videos).success(function() {
-                window.location.href = "/manage";
-            });
+            return $http.post('/api/video', videos);
         }
 
         return service;

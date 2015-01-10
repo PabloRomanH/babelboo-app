@@ -6,16 +6,35 @@
         controller.ids = [];
         controller.levelNames = levelNames.names;
         controller.level = -1;
+        controller.total = 0;
+        controller.done = 0;
+        
+        var requests = [];
 
         function search(query) {
-            var request = gapi.client.youtube.videos.list({
-                id: query.join(','),
-                part: 'snippet'
-            });
+            controller.total = 0;
+            controller.done = 0;
+            var i = 0;
+            function listVideos() {
+                if (i >= query.length) {
+                    return;
+                }
+                var ids = query.slice(i, i + 50);
+                i += 50;
+                var request = gapi.client.youtube.videos.list({
+                    id: ids.join(','),
+                    part: 'snippet'
+                });
+                console.log('pushed');
+                request.execute(submitResults);
+            }
 
-            request.execute(function(response) {
+            function submitResults(response) {
+                console.log('executed');
                 var validated = [];
+                controller.total += response.result.items.length;
                 for (var i in response.result.items) {
+                    controller.done++;
                     validated.push({
                         id: response.result.items[i].id,
                         title: response.result.items[i].snippet.title,
@@ -24,13 +43,15 @@
                 }
 
                 videos.addLoose(validated);
-            });
+
+                setTimeout(listVideos, 100);
+            }
+
+            listVideos();
         }
 
         this.submit = function() {
-            console.log(controller.ids.split("\n"));
             search(controller.ids.split("\n"));
-
         };
 
         $scope.parseInt = function(number) {

@@ -35,7 +35,7 @@
             videos.getByLevel(level).success(function (data) {
                 controller.videos = shuffle(data);
 
-                controller.videoId = controller.videos[controller.idx].id;
+                controller.videoId = controller.videos[controller.idx].videoId;
 
                 controller.isLevelSelected = true;
             });
@@ -47,8 +47,8 @@
             if (controller.idx == controller.videos.length) {
                 controller.player.seekTo(controller.player.getDuration(), true);
             } else {
-                var videoId = controller.videos[controller.idx].id;
-                controller.player.loadVideoById({videoId:videoId});
+                var videoId = controller.videos[controller.idx].videoId;
+                controller.player.loadVideoById(videoId);
             }
         }
 
