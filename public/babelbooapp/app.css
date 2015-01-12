@@ -5,109 +5,6 @@ body {
     padding-top: 60px;
 }
 
-
-/*----------   LANDING   ----------*/
-.landing h1 {
-    margin-bottom: 40px;
-}
-
-.landing h2 {
-    font-size:56px;
-    color: #00618C;
-    margin-bottom: 25px;
-}
-
-.landing h3 {
-    color: inherit;
-}
-
-#login-button {
-    display: inline;
-}
-
-#login-button button {
-    margin-top: 7px;
-    margin-right: 20px;
-}
-
-#login-bubble {
-    padding: 10px;
-    margin-right: 15px;
-    margin-top: -5px;
-}
-
-#login-bubble button {
-    width: 100%;
-}
-
-#login-bubble {
-    display: block;
-}
-
-#login-bubble div {
-    margin: 10px;
-}
-
-.call {
-    margin-top: -10px !important;
-    padding: 10px;
-    padding-top: 20px;
-    background: url(/img/popcorn.jpg) no-repeat center center fixed;
-}
-
-.value {
-    background-color: #00618C;
-    color: #ffffff;
-    padding: 40px;
-}
-
-.team {
-    background-color: #ffffff;
-    color: #333;
-    padding: 40px;
-}
-
-.footer {
-    background-color: #00618C;
-    color: #ffffff;
-    height: 80px;
-    padding: 5px;
-}
-
-.footer .row {
-    padding: 5px;
-}
-
-.footer a, .footer a:visited, .footer a:hover {
-    color: #ffffff;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
-
-.cuadrado {
-    background-color:#00618C;
-    border-radius: 10px;
-    padding:20px;
-    color:#fff;
-    font-size:20px;
-}
-
-.cuadrado h2 {
-    color:#fff;
-}
-
-.form-control {
-    margin-bottom:20px;
-}
-
-/*----------   /LANDING   ----------*/
-
 .primary-bg {
     background-color: #00618C;
 }
@@ -372,15 +269,53 @@ li.tag-selected {
 }
 
 .medal-gold {
-    color: rgb(255, 204, 0);
+    color: rgb(254, 214, 20);
 }
 
 .medal-silver {
-    color: rgb(197, 197, 197);
+    color: rgb(211, 224, 222);
 }
 
 .medal-bronze {
-    color: rgb(204, 153, 102);
+    color: rgb(220, 155, 122);
+}
+
+.playlist .medal {
+    width: 28px;
+    height: 28px;
+    background-size: 28px 28px;
+}
+
+.playlist .medal-gold {
+    background-image: url('/img/gold-small.png');
+}
+
+.playlist .medal-silver {
+    background-image: url('/img/silver-small.png');
+}
+
+.playlist .medal-bronze {
+    background-image: url('/img/bronze-small.png');
+}
+
+.summary-card .medal {
+    background-repeat: no-repeat;
+    margin-top: -30px;
+    background-position: 50% 0;
+    width: 100%;
+    height: 270px;
+}
+
+.summary-card .medal-gold {
+    background-image: url('/img/gold.png');
+}
+
+.summary-card .medal-silver {
+    background-image: url('/img/silver.png');
+}
+
+.summary-card .medal-bronze {
+    background-image: url('/img/bronze.png');
 }
 
 .medal-none {
@@ -402,6 +337,7 @@ li.tag-selected {
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
     text-align: left;
+    overflow: hidden;
 }
 
 .cine > * {
@@ -574,12 +510,58 @@ li.tag-selected {
     margin-bottom: 20px;
 }
 
+.summary-medal {
+    font-size: 190px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
 .summary {
-    font-size:24px;
-    font-weight: bold;
-    text-transform: uppercase;
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
     background-color: #00618C;
-    color:#fff;
+    padding: 20px;
+    margin-top: 7px;
+}
+
+.summary-progress {
+    width: 105px;
+    height: 105px;
+    position: relative;
+    display: inline-block;
+    margin: 20px 10px 0px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.summary-thumbnail {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.summary-thumbnail img {
+    height: 105px;
+    position: relative;
+    left: 100%;
+    margin-left: -200%;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    color: #fff;
+    background-color: rgba(50,50,50,0.3);
 }
 
 .skills {
@@ -606,6 +588,17 @@ li.tag-selected {
 
 
 /*---------    OTHERS --------*/
+.value {
+    background-color: #00618C;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.team {
+    background-color: #ffffff;
+    padding: 10px;
+}
+
 .score {
     margin:15px;
 }
