@@ -269,17 +269,16 @@ li.tag-selected {
 }
 
 .medal-gold {
-    color: rgb(255, 204, 0);
+    color: rgb(254, 214, 20);
 }
 
 .medal-silver {
-    color: rgb(197, 197, 197);
+    color: rgb(211, 224, 222);
 }
 
 .medal-bronze {
-    color: rgb(204, 153, 102);
+    color: rgb(220, 155, 122);
 }
-
 
 .playlist .medal-gold {
     background-image: url('/img/gold-small.png');
