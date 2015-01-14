@@ -39,9 +39,14 @@
         controller.player = null;
 
         function resetVideo () {
+            if (controller.idx >= controller.videos.length) {
+                return;
+            }
             controller.answeredcorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;
+            controller.playerVars.start = controller.videos[controller.idx].starttime;
+            controller.playerVars.end = controller.videos[controller.idx].endtime;
         }
 
         playlists.getById(playlistId).success(function(data) {
