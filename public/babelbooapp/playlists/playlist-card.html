@@ -16,7 +16,7 @@
     <i class="fa fa-graduation-cap"> {{ playlistsCtrl.levelNames[playlist.level] }}</i>
   </div>
   <div class="playlist-icons">
-    <i title="no medal" ng-show="!playlistsCtrl.userData.playlistprogress[playlist._id].ratio || playlistsCtrl.userData.playlistprogress[playlist._id].ratio == 0" class="fa fa-circle-thin medal-none pull-right"></i>
+    <i title="no medal" ng-show="!playlistsCtrl.userData.playlistprogress[playlist._id].ratio || playlistsCtrl.userData.playlistprogress[playlist._id].ratio == 0" class="medal medal-none pull-right"></i>
     <i title="bronze medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio > 0 && playlistsCtrl.userData.playlistprogress[playlist._id].ratio <= 0.5" class="medal medal-bronze pull-right"></i>
     <i title="silver medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio > 0.5 && playlistsCtrl.userData.playlistprogress[playlist._id].ratio < 1" class="medal medal-silver pull-right"></i>
     <i title="gold medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio == 1" class="medal medal-gold pull-right"></i>

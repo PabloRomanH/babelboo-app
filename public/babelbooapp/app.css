@@ -406,6 +406,10 @@ li.tag-selected {
     background-image: url('/img/bronze-small.png');
 }
 
+.playlist .medal-none {
+    background-image: url('/img/none-small.png');
+}
+
 .summary-card .medal {
     background-repeat: no-repeat;
     margin-top: -30px;
@@ -430,9 +434,9 @@ li.tag-selected {
     color: rgb(220, 220, 220);
 }
 
-.playlist-icons .medal-gold, .playlist-icons .medal-silver, .playlist-icons .medal-bronze, .playlist-icons .medal-none {
+.playlist .medal {
     font-size: 2em;
-    margin-top: 8px;
+    margin-top: 5px;
 }
 
 /*---------    PLAYLIST --------*/
