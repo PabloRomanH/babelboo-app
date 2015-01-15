@@ -116,6 +116,11 @@
             });
         }
 
+        controller.seek = function(event) {
+            var ratio = event.offsetX / event.toElement.parentElement.clientWidth;
+            controller.player.seekTo(controller.player.getDuration() * ratio);
+        }
+
         $scope.$on('youtube.player.ready', function ($event, player) {
             controller.ready = true;
             controller.player.unMute();
