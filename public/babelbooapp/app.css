@@ -625,7 +625,56 @@ li.tag-selected {
     float: left;
 }
 
-/*---------    RESULTS --------*/
+
+/*---------  PLAYER   --------*/
+.player-controls {
+    background-color: #54ACD2;
+    color: #fff;
+    padding-left: 22px;
+    padding-right: 0px;
+    margin-top: -5px;*
+}
+
+.video-progress {
+    height: 7px;
+    background-color: #ccc;
+    margin-left: -22px;
+    cursor: pointer;
+}
+
+.video-progress .bar {
+    height: 100%;
+    background-color: #00618C;
+}
+
+.player-controls i {
+    font-size: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 40px;
+    text-align: center;
+}
+
+.player-controls i:hover {
+    color: #ddd;
+    cursor: pointer;
+}
+
+.player-time {
+    font-size: 11px;
+    display: inline-block;
+    float: right;
+    margin-right: 15px;
+    margin-top: 6px;
+}
+
+.total-time {
+    font-weight: bold;
+}
+/*---------  /PLAYER  --------*/
+
+
+/*---------  RESULTS  --------*/
 .score {
     margin:15px;
 }
