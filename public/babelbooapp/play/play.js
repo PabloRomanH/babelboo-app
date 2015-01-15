@@ -84,7 +84,7 @@
             playNextAnalytics();
 
             controller.ready = false;
-
+            clearInterval(controller.elapsedInterval);
             controller.idx = controller.idx + 1;
 
             resetVideo();
@@ -123,7 +123,9 @@
 
         controller.seek = function(event) {
             var ratio = event.offsetX / event.toElement.parentElement.clientWidth;
-            controller.player.seekTo(controller.player.getDuration() * ratio);
+            var start = controller.videos[controller.idx].starttime? controller.videos[controller.idx].starttime : 0;
+            var end = controller.videos[controller.idx].endtime? controller.videos[controller.idx].endtime: controller.player.getDuration();
+            controller.player.seekTo( start + (end - start) * ratio);
         }
 
         $scope.$on('youtube.player.ready', function ($event, player) {
@@ -131,9 +133,11 @@
             controller.player.unMute();
             controller.player.setVolume(100);
 
-            setInterval(function(){
+            controller.elapsedInterval = setInterval(function(){
                 $scope.$apply( function() {
-                    controller.elapsed = controller.player.getCurrentTime();
+                    if (controller.player) {
+                        controller.elapsed = controller.player.getCurrentTime();
+                    }
                 });
             }, 500); //polling frequency in miliseconds
 

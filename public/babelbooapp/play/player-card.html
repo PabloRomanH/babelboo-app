@@ -6,10 +6,18 @@
   <youtube-video video-id="playCtrl.videos[playCtrl.idx].id" player-height="'360px'" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
   <div>
     <div class="player-controls" ng-show="playCtrl.ready">
-      <div class="video-progress" ng-click="playCtrl.seek($event)"><div class="bar" style="width: {{playCtrl.elapsed/playCtrl.player.getDuration()*100}}%"></div></div>
+      <div class="video-progress" ng-click="playCtrl.seek($event)"><div class="bar" style="width: {{
+          (playCtrl.elapsed-playCtrl.videos[playCtrl.idx].starttime)
+          /((playCtrl.videos[playCtrl.idx].endtime? playCtrl.videos[playCtrl.idx].endtime : playCtrl.player.getDuration())-playCtrl.videos[playCtrl.idx].starttime)*100
+      }}%"></div></div>
       <i class="fa fa-play" ng-click="playCtrl.player.playVideo()" ng-hide="playCtrl.player.getPlayerState() == 1 || playCtrl.player.getPlayerState() == 3"></i>
       <i class="fa fa-pause" ng-click="playCtrl.player.pauseVideo()" ng-show="playCtrl.player.getPlayerState() == 1 || playCtrl.player.getPlayerState() == 3"></i>
-      <div class="player-time">{{playCtrl.renderTime(playCtrl.elapsed)}} / <span class="total-time">{{playCtrl.renderTime(playCtrl.player.getDuration())}}</span></div>      
+      <div class="player-time">{{playCtrl.renderTime(playCtrl.elapsed - playCtrl.videos[playCtrl.idx].starttime)}} / 
+        <span class="total-time">{{playCtrl.renderTime(
+                                    (playCtrl.videos[playCtrl.idx].endtime? playCtrl.videos[playCtrl.idx].endtime : playCtrl.player.getDuration())
+                                    - playCtrl.videos[playCtrl.idx].starttime
+                                  )}}</span>
+      </div>      
     </div>
   </div>
   <div ng-show="playCtrl.correct[playCtrl.videos[playCtrl.idx].id]" class="already-answered">
