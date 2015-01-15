@@ -10,6 +10,7 @@
 
         controller.correctAnswers = 0;
         controller.ready = false;
+        controller.elapsed = 0;
 
         user.fillUser(function (userData) {
             controller.correct = {};
@@ -35,7 +36,7 @@
         controller.renderTime = renderTime;
 
         controller.idx = 0;
-        controller.playerVars = { autoplay: 1 };
+        controller.playerVars = { autoplay: 1, controls: 0 };
         controller.player = null;
 
         function resetVideo () {
@@ -117,6 +118,15 @@
 
         $scope.$on('youtube.player.ready', function ($event, player) {
             controller.ready = true;
+            controller.player.unMute();
+            controller.player.setVolume(100);
+
+            setInterval(function(){
+                $scope.$apply( function() {
+                    controller.elapsed = controller.player.getCurrentTime();
+                });
+            }, 500); //polling frequency in miliseconds
+
         });
     });
 
