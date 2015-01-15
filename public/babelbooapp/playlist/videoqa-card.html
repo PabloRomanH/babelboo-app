@@ -1,12 +1,14 @@
 <div class="col-sm-12">
   <div class="row video">
     <div class="col-sm-4">
-      <img id="videoimg" class="img-responsive" ng-src="{{ video.thumbnail }}">
+      <img class="img-responsive" ng-src="{{ video.thumbnail }}">
     </div>
     <div class="col-sm-7">
-      <div id="title" class="row title">{{ video.title }}</div>
-      <div id="description" class="row description">{{ video.description }}</div>
-      <div id="duration" class="row duration">{{ searchCtrl.renderTime(video.duration) }}</div>
+      <div class="row title">{{ video.title }}</div>
+      <div class="row description">{{ video.description }}</div>
+      <div class="row duration">{{ searchCtrl.renderTime(video.duration) }}</div>
+      <div class="row">Start: <input type="text" class="form-control" placeholder="MM:SS" ng-model="video.starttime" /></div>
+      <div class="row">End: <input type="text" class="form-control" placeholder="MM:SS" ng-model="video.endtime" /></div>
     </div>
     <div class="col-sm-1"><a id="itembutton" class="fa fa-trash fa-2x text-danger" data-video-id="" ng-click="searchCtrl.rmvideo($index)"></a></div>
   </div>

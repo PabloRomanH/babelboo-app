@@ -53,7 +53,7 @@ router.get('/playlist', function(req, res) {
                 for (var i = 0; i < result.length; i++) {
                     var current = result[i];
                     var newentries = [];
-                    for (var j = 0; j < current.entries.length && j < 4; j++) {
+                    for (var j = 0; j < current.entries.length; j++) {
                         var newvid = {};
                         newvid.thumbnail = current.entries[j].thumbnail;
                         newentries[j] = newvid;
