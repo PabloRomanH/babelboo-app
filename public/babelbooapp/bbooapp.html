@@ -37,6 +37,19 @@
   </head>
   <body>
     <navbar></navbar>
+    <div ng-controller="FeedbackController as feedbackCtrl">
+      <div class="feedback-btn" ng-show="feedbackCtrl.userLogged" ng-click="feedbackCtrl.toggleForm()">
+        <i class="fa fa-comments"></i>Feedback
+      </div>
+      <div class="feedback-form" ng-show="feedbackCtrl.formVisible">
+        <i class="pull-right fa fa-times fa-2x close-form" ng-click="feedbackCtrl.toggleForm()"></i>
+        <form ng-submit="feedbackCtrl.submit(feedback)">
+          <h3>What's on your mind?</h3>
+          <textarea class="form-control" rows="7" placeholder="Send us any comments or opinions on babelboo." ng-model="feedback"></textarea>
+          <button class="btn btn-default" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
     <div ng-view></div>
   </body>
 </html>

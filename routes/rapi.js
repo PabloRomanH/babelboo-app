@@ -110,4 +110,23 @@ router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
     res.json();
 });
 
+router.post('/feedback', function(req, res) {
+    var collection = req.db.get('feedback');
+
+    var id = req.user._id;
+    var username = req.user.username;
+    var message = req.body.message;
+
+    var object = {
+        userid: id,
+        username: username,
+        message: message,
+        date: new Date()
+    };
+    
+    collection.insert(object);
+
+    res.json();
+});
+
 module.exports = router;
