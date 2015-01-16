@@ -10,8 +10,8 @@
             updateMedalCount();
         });
 
-        user.fillUser(function (user) {
-            controller.user = user;
+        user.fillUser(function (userData) {
+            controller.user = userData;
             controller.userLogged = true;
             updateMedalCount();
         });
