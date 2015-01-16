@@ -126,6 +126,58 @@ body {
 /*----------   /LANDING   ----------*/
 
 
+/*----------    FEEDBACK   ----------*/
+.feedback-btn {
+    color: #fff;
+    background-color: #00618C;
+    border-radius: 2px;
+    box-shadow: 1px -1px 3px #848484;
+    padding: 5px 10px 5px 10px;
+    position: fixed;
+    top: 50%;
+    left: -38px;
+    z-index: 999;
+    cursor: pointer;
+    -ms-transform: rotate(7deg);
+    -webkit-transform: rotate(7deg);
+    transform: rotate(90deg); 
+}
+
+.feedback-btn i {
+    padding-right: 7px;
+}
+
+.feedback-form {
+    position: fixed;
+    padding: 10px;
+    background-color: #fff;
+    z-index: 999;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px #848484;
+    top: 35%;
+    left: 40px;
+}
+
+.feedback-form h3 {
+    margin-top: 0px;
+}
+
+.feedback-form .close-form {
+    color: #00618C;
+}
+
+.feedback-form .close-form:hover {
+    color: #54ACD2;
+}
+
+
+.feedback-form textarea {
+    min-width: 400px;
+}
+
+/*----------   /FEEDBACK   ----------*/
+
+
 /*----------   HEADER   ----------*/
 
 nav {

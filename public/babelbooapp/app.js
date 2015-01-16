@@ -16,6 +16,37 @@
          });
     };
 
+    app.factory('submitFeedback', function($http) {
+        var service;
+
+        service = function (feedback) {
+            $http.post('/api/feedback', { "message": feedback });
+        }
+
+        return service;
+    });
+
+    app.controller('FeedbackController', function(user, submitFeedback){
+        this.user = {};
+        var controller = this;
+        controller.userLogged = false;
+        controller.formVisible = false;
+
+        user.fillUser(function (user) {
+            controller.user = user;
+            controller.userLogged = true;
+        });
+
+        controller.toggleForm = function() {
+            controller.formVisible = !controller.formVisible;
+        }
+
+        controller.submit = function(feedback) {
+            submitFeedback(feedback);
+            controller.formVisible = false;
+        }
+    });
+
     app.config(function ($analyticsProvider) {
         $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
         $analyticsProvider.withAutoBase(true);  /* Records full path */

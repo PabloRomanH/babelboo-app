@@ -120,8 +120,10 @@ router.post('/feedback', function(req, res) {
     var object = {
         userid: id,
         username: username,
-        message: message
+        message: message,
+        date: new Date()
     };
+    
     collection.insert(object);
 
     res.json();
