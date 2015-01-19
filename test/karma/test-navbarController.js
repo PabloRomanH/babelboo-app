@@ -26,17 +26,13 @@ describe("controllers", function() {
                     7: {ratio: 0.8}
                 }
             };
-            
+
             var fillUser = function(callback) {
                 callback(userData);
             }
-            
+
             user = { fillUser: fillUser, data: userData, correctAnswer: sinon.spy() };
         });
-
-        beforeEach(module(function($provide) {
-            $provide.value('user', user);
-        }));
 
         beforeEach(inject(function($rootScope, $controller) {
             analytics = {
@@ -146,6 +142,9 @@ describe("controllers", function() {
         });
 
         describe('fill user', function(){
+            it('detects user is logged', function() {
+                expect(ctrl.userLogged).to.be.true;
+            });
             it('loads user name', function() {
                 expect(ctrl.user.username).to.equal("guest");
             });
@@ -158,6 +157,23 @@ describe("controllers", function() {
                 expect(ctrl.golds).to.equal(1);
                 expect(ctrl.silvers).to.equal(3);
                 expect(ctrl.bronzes).to.equal(2);
+            });
+        });
+
+        describe('no user logged', function () {
+            var ctrl2;
+            var user2;
+
+            beforeEach(inject(function($rootScope, $controller) {
+                user2 = { fillUser: function(){} }; // callback is not called when user is not logged in
+                ctrl2 = $controller('NavbarController', {
+                    $scope: scope,
+                    $analytics: analytics,
+                    user: user2
+                });
+            }));
+            it('detects user is not logged', function () {
+                expect(ctrl2.userLogged).to.be.false;
             });
         });
     });
