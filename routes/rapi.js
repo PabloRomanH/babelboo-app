@@ -93,6 +93,7 @@ router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
         res.json();
         return;
     }
+    
     var collection = req.db.get('usercollection');
 
     var videoId = req.body.id;
@@ -107,6 +108,42 @@ router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
 
     collection.update(query, {$set: setop});
 
+    res.json();
+});
+
+router.post('/user/:username/finished/:playlist_id', function(req, res) {
+    if (req.params.username != req.user.username) {
+        res.status(403); // FORBIDDEN
+        res.json();
+        return;
+    }
+
+    var playlistId = req.params.playlist_id;
+
+    try {
+        if (req.user.playlistprogress[playlistId].finished) {
+            return;
+        }
+    } catch(err) {
+        return;
+    }
+
+    var setop = {};
+    setop['playlistprogress.' + playlistId + '.finished'] = true;
+    
+    var query = {
+        username: req.user.username
+    }
+    
+    var collection = req.db.get('usercollection');
+    collection.update(query, {$set: setop});
+    
+    collection = req.db.get('playlists');
+    query = {
+        _id: playlistId
+    }
+        
+    collection.update(query, {$inc: {visitcount: 1}});
     res.json();
 });
 

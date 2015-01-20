@@ -50,7 +50,7 @@
             controller.playerVars.end = controller.videos[controller.idx].endtime;
         }
 
-        playlists.getById(playlistId).success(function(data) {
+        playlists.playById(playlistId).success(function(data) {
             controller.playlist = data;
             controller.videos = data.entries;
             resetVideo();
@@ -97,6 +97,8 @@
                 controller.ratio = controller.correctAnswers / controller.videos.length;
                 controller.showSummary = true;
                 controller.player.stopVideo();
+
+                user.finished(playlistId);
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             }
