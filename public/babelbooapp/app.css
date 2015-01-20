@@ -134,13 +134,14 @@ body {
     box-shadow: 1px -1px 3px #848484;
     padding: 5px 10px 5px 10px;
     position: fixed;
-    top: 50%;
-    left: -38px;
+    bottom: -3px;
+    /*left: -71px;*/
+    right: 40px;
     z-index: 999;
     cursor: pointer;
-    -ms-transform: rotate(7deg);
-    -webkit-transform: rotate(7deg);
-    transform: rotate(90deg); 
+    /*-ms-transform: rotate(90deg);*/
+    /*-webkit-transform: rotate(90deg);*/
+    /*transform: rotate(90deg);*/
 }
 
 .feedback-btn i {
@@ -153,9 +154,9 @@ body {
     background-color: #fff;
     z-index: 999;
     border-radius: 2px;
-    box-shadow: 1px 1px 3px #848484;
-    top: 35%;
-    left: 40px;
+    box-shadow: 1px 1px 6px #848484;
+    bottom: 40px;
+    right: 40px;
 }
 
 .feedback-form h3 {
