@@ -12,10 +12,9 @@ Release cycle:
 +- Boo TV
     - Finish up CSS
     
-    
-+- Remove US/UK tags.
+
++- Tests for the logic to count playlist visits.
 +- Log time when a medal is awarded.
-+- Count times each playlist has been finished and times a user enters the playlist again.
 
 # Next release:
 
