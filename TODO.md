@@ -1,3 +1,64 @@
+Release cycle:
+- Release
+- Set next meeting day in >= 10 days
+- >= 7 days to let the users use it
+- 3 days of interviews
+- Decision meeting
+- Repeat
+
+
+
++- Empty medal and crying boo graphics.
++- Boo TV
+    - Finish up CSS
+    
+    
++- Remove US/UK tags.
++- Log time when a medal is awarded.
++- Count times each playlist has been finished and times a user enters the playlist again.
+
+# Next release:
+
+- Give more visibility to related playlists. "Watch more" button in summary brings to different view.
+    - View change logic in controller.
+- Popular videos.
+    - Popular video list in main view.
+    - Init count from analytics.
+- Show history (graph).
+    - Graph lib.
+    - Save date in which medals were obtained.
+- Mail reminder after 1 week without using the website. (wizard of oz by now)
+    - Script to list people who haven't used the website.
+    - Specific list in Mailchimp to allow people to unsubscribe.
+- A) Questions at the beginning, answers at the end.
+    - Button 'Answer now' that pauses video and shows answers.
+- B) Questions at the end.
+    - Remove boring part at the end of videos.
+- Ranking (competitive social component).
+    - User names.
+        - View requesting to set user name.
+    - Ranking view.
+    - Access link.
+    - Where to show ranking.
+
+
+
+- Sign up for category updates.
+- Video not playing automatically to allow you to read the questions.
+- Star playlists (bookmarks).
+- Bookmarklet to suggest YouTube videos.
+- Remove tags from cards.
+- Focus on easier videos or on harder videos
+- Make playlists for specific people.
+- Smarter related playlists.
+- Visual difficulty levels.
+- Cut current playlists.
+- Keep level after finishing playlist.
+
+
+
+
+###########################################################
 
 REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see play.js)
 
