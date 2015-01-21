@@ -1,12 +1,13 @@
 <div class="cine clearfix summary-card">
   <div>
     <div class="text-center">
-      <i ng-show="playCtrl.ratio == 0" class="fa fa-circle-thin fa-5x medal-none"></i>
+      <div ng-show="playCtrl.ratio == 0" class="sad-boo">You made Boo cry!</div>
       <div ng-show="playCtrl.ratio > 0 && playCtrl.ratio <= 0.5" class="medal medal-bronze"></div>
       <div ng-show="playCtrl.ratio > 0.5 && playCtrl.ratio < 1" class="medal medal-silver"></div>
       <div ng-show="playCtrl.ratio == 1" class="medal medal-gold"></div>
     </div>
-    <h3 class="score-title">You have completed the playlist "{{ playCtrl.playlist.title }}"</h3>
+    <h3 class="score-title" ng-show="playCtrl.ratio > 0">You have completed the playlist "{{ playCtrl.playlist.title }}"</h3>
+    <h3 class="score-title" ng-show="playCtrl.ratio == 0">Sorry but you didn't answer any question correctly of "{{ playCtrl.playlist.title }}"</h3>
   </div>
   <div class="text-center summary">Summary</div>
 
