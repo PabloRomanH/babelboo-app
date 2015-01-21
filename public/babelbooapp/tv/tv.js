@@ -42,9 +42,7 @@
             });
         }
 
-        controller.playPrevious = function () {            
-            clearInterval(controller.elapsedInterval);
-
+        controller.playPrevious = function () {
             if (controller.idx == 0) {
                 controller.player.seekTo(0, true);
             } else {
@@ -55,8 +53,6 @@
         }
 
         controller.playNext = function () {            
-            clearInterval(controller.elapsedInterval);
-
             if (controller.idx == controller.videos.length - 1) {
                 controller.player.seekTo(controller.player.getDuration(), true);
             } else {
@@ -81,7 +77,7 @@
             controller.player.unMute();
             controller.player.setVolume(100);
 
-            controller.elapsedInterval = setInterval(function(){
+            setInterval(function(){
                 $scope.$apply( function() {
                     if (controller.player) {
                         controller.elapsed = controller.player.getCurrentTime();
