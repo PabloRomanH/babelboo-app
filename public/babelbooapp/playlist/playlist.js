@@ -120,6 +120,26 @@
                 video.answers.splice(answeridx, 1);
         }
 
+        function parseTime(timestr) {
+            var re = /(?:(\d+):)?(\d+)/;
+            var matching = re.exec(timestr);
+            var minutes;
+            var seconds;
+
+            try {
+                if (matching[1] === undefined) {
+                    minutes = 0;
+                } else {
+                    minutes = parseInt(matching[1]);
+                }
+                seconds = parseInt(matching[2]);
+            } catch (err) {
+                return NaN;
+            }
+            
+            return minutes * 60 + seconds;
+        }
+
         this.submit = function() {
             if (controller.playlist.title === '') {
                 controller.warningMessage = 'Cannot create a playlist without a name.'
@@ -148,30 +168,68 @@
 
                 totalTime += video.duration;
 
-                if (questiontext) {
-                    var validanswers = [];
-                    for (var j = 0; j < answers.length; j++) {
-                        if(!answers[j].text) {
-                            answers.splice(j,1);
-                            continue;
-                        }
+                if (video.starttime) {
+                    video.starttime = parseTime(video.starttime);
+                    if (isNaN(video.starttime)) {
+                        controller.warningMessage = 'Can\'t understand start time for video "' + video.title + '".';
+                        controller.showWarning = true;
+                        return;                
                     }
 
-                    if (answers.length < 3) {
-                        controller.warningMessage = 'Write at least three answers to question: ' + questiontext + '.';
+                    if (video.starttime > video.duration) {
+                        controller.warningMessage = 'Start time can\'t be after end of video: "' + video.title + '".';
                         controller.showWarning = true;
-                        return;
+                        return;  
+                    }
+                }
+
+                if (video.endtime) {
+                    video.endtime = parseTime(video.endtime);
+
+                    if (isNaN(video.endtime)) {
+                        controller.warningMessage = 'Can\t understand end time for video "' + video.title + '".';
+                        controller.showWarning = true;
+                        return;                
                     }
 
-                    if (typeof video.correctanswer === 'undefined') {
-                        controller.warningMessage = 'Correct answer not selected for question: ' + questiontext + '.';
+                    if (video.endtime > video.duration) {
+                        controller.warningMessage = 'End time can\'t be after end of video: "' + video.title + '".';
                         controller.showWarning = true;
-                        return;
+                        return;  
                     }
-                } else { // in case the video doesn't include a question
-                    delete video.questiontext;
-                    delete video.answers;
-                    delete video.correctanswer;
+
+                    if (video.starttime && video.starttime > video.endtime) {
+                        controller.warningMessage = 'End time can\'t be before start time for video: "' + video.title + '".';
+                        controller.showWarning = true;
+                        return;  
+                    }
+                }
+
+
+                if (!questiontext) { // in case the video doesn't include a question
+                    controller.warningMessage = 'Write question and answers.';
+                    controller.showWarning = true;
+                    return;
+                }
+
+                var validanswers = [];
+                for (var j = 0; j < answers.length; j++) {
+                    if(!answers[j].text) {
+                        answers.splice(j,1);
+                        continue;
+                    }
+                }
+
+                if (answers.length < 3) {
+                    controller.warningMessage = 'Write at least three answers to question: ' + questiontext + '.';
+                    controller.showWarning = true;
+                    return;
+                }
+
+                if (typeof video.correctanswer === 'undefined') {
+                    controller.warningMessage = 'Correct answer not selected for question: ' + questiontext + '.';
+                    controller.showWarning = true;
+                    return;
                 }
             }
 

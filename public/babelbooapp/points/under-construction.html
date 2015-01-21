@@ -1,18 +1,16 @@
 
-<div class="cine clearfix">
-  <div class="text-center">
-    <img src="/img/boo-blue.png"/>
+<div class="cine clearfix medals" ng-controller="NavbarController as navbarCtrl">
+  <div class="medal medal-gold">
+    {{navbarCtrl.golds}}
   </div>
-
-  <div class="summary">
-    Boo! You got us...
+  <div class="medal medal-silver">
+    {{navbarCtrl.silvers}}
   </div>
-
-  <p class="skills"><span>Curious about what all these medals are for?</span></p>
-  <p class="skills"><span>Come back soon to see what </span></p>
-  <p class="total-score"><span>It's going to be boo-tastic.</span></p>
+  <div class="medal medal-bronze">
+    {{navbarCtrl.bronzes}}
+  </div>
   
   <a class="button-player" href="/">
-    Finish
+    Back
   </a>
 </div>

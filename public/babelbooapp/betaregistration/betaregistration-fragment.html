@@ -1,0 +1,17 @@
+<div class="container" ng-controller="BetaregistrationController as betaCtrl">
+  <div class="cine clearfix form-group" ng-hide="betaCtrl.submitted">
+    <p><h3>¡Maldita sea! Boo está haciendo de las suyas y no podemos ofrecerte nuestros servicios, dejanos tu e-mail y te avisaremos cuando estemos listos para hacerte aprender inglés.</h3></p>
+    <form ng-submit="betaCtrl.submitEmail(email)">
+        <label for="mail"></label>
+        <input type="email" class="form-control" id="mail" placeholder="Dejanos tu e-mail" ng-model="email" required>
+        <button type="submit" class="btn btn-default">Dejar e-mail</button>
+    </form>
+    <p></p>
+  </div>
+
+  <div class="cine clearfix form-group"  ng-show="betaCtrl.submitted">
+    <p><h2>Gracias! Nos pondremos en contacto brevemente.</h2></p>
+  </div>      
+          
+      
+</div>

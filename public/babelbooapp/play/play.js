@@ -6,8 +6,11 @@
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
 
+        controller.userLogged = false;
+
         controller.correctAnswers = 0;
         controller.ready = false;
+        controller.elapsed = 0;
 
         user.fillUser(function (userData) {
             controller.correct = {};
@@ -19,6 +22,8 @@
             for (var key in controller.correct) {
                 controller.correctAnswers++;
             }
+
+            controller.userLogged = true;
         });
 
         controller.ratio = 0;
@@ -31,16 +36,21 @@
         controller.renderTime = renderTime;
 
         controller.idx = 0;
-        controller.playerVars = { autoplay: 1 };
+        controller.playerVars = { autoplay: 1, controls: 0 };
         controller.player = null;
 
         function resetVideo () {
+            if (controller.idx >= controller.videos.length) {
+                return;
+            }
             controller.answeredcorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;
+            controller.playerVars.start = controller.videos[controller.idx].starttime;
+            controller.playerVars.end = controller.videos[controller.idx].endtime;
         }
 
-        playlists.getById(playlistId).success(function(data) {
+        playlists.playById(playlistId).success(function(data) {
             controller.playlist = data;
             controller.videos = data.entries;
             resetVideo();
@@ -74,7 +84,7 @@
             playNextAnalytics();
 
             controller.ready = false;
-
+            clearInterval(controller.elapsedInterval);
             controller.idx = controller.idx + 1;
 
             resetVideo();
@@ -87,6 +97,8 @@
                 controller.ratio = controller.correctAnswers / controller.videos.length;
                 controller.showSummary = true;
                 controller.player.stopVideo();
+
+                user.finished(playlistId);
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             }
@@ -111,8 +123,26 @@
             });
         }
 
+        controller.seek = function(event) {
+            var ratio = event.offsetX / event.toElement.parentElement.clientWidth;
+            var start = controller.videos[controller.idx].starttime? controller.videos[controller.idx].starttime : 0;
+            var end = controller.videos[controller.idx].endtime? controller.videos[controller.idx].endtime: controller.player.getDuration();
+            controller.player.seekTo( start + (end - start) * ratio);
+        }
+
         $scope.$on('youtube.player.ready', function ($event, player) {
             controller.ready = true;
+            controller.player.unMute();
+            controller.player.setVolume(100);
+
+            controller.elapsedInterval = setInterval(function(){
+                $scope.$apply( function() {
+                    if (controller.player) {
+                        controller.elapsed = controller.player.getCurrentTime();
+                    }
+                });
+            }, 500); //polling frequency in miliseconds
+
         });
     });
 

@@ -5,29 +5,22 @@ body {
     padding-top: 60px;
 }
 
+.primary-bg {
+    background-color: #00618C;
+}
+
+.primary, h3 {
+    color: #00618C;
+}
+
+.row {
+    margin: 0px;
+}
 
 /*----------   LANDING   ----------*/
-.landing h1 {
-    margin-bottom: 40px;
-}
-
-.landing h2 {
-    font-size:56px;
-    color: #00618C;
-    margin-bottom: 25px;
-}
-
-.landing h3 {
-    color: inherit;
-}
-
 #login-button {
-    display: inline;
-}
-
-#login-button button {
-    margin-top: 7px;
-    margin-right: 20px;
+    margin-top: 8px;
+    margin-right: 15px;
 }
 
 #login-bubble {
@@ -49,21 +42,45 @@ body {
 }
 
 .call {
-    margin-top: -10px !important;
-    padding: 10px;
-    padding-top: 20px;
     background: url(/img/popcorn.jpg) no-repeat center center fixed;
+    margin-top: -10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
 }
 
-.value {
+.landing h1 {
+    margin-bottom: 40px;
+}
+
+.landing h2 {
+    font-size: 56px;
+    color: #00618C;
+    margin-bottom: 25px;
+}
+
+.value h3 {
+    color: #fff;
+}
+
+.team h3 {
+    color: #333;
+}
+
+.landing .container {
+    margin: 0px;
+    width: 100%;
+    padding: 0px;
+}
+
+.landing .value {
     background-color: #00618C;
     color: #ffffff;
     padding: 40px;
 }
 
-.team {
+.landing .team {
     background-color: #ffffff;
-    color: #333;
     padding: 40px;
 }
 
@@ -108,20 +125,59 @@ body {
 
 /*----------   /LANDING   ----------*/
 
-.primary-bg {
+
+/*----------    FEEDBACK   ----------*/
+.feedback-btn {
+    color: #fff;
     background-color: #00618C;
+    border-radius: 2px;
+    box-shadow: 1px -1px 3px #848484;
+    padding: 5px 10px 5px 10px;
+    position: fixed;
+    top: 50%;
+    left: -38px;
+    z-index: 999;
+    cursor: pointer;
+    -ms-transform: rotate(7deg);
+    -webkit-transform: rotate(7deg);
+    transform: rotate(90deg); 
 }
 
-.primary, h3 {
+.feedback-btn i {
+    padding-right: 7px;
+}
+
+.feedback-form {
+    position: fixed;
+    padding: 10px;
+    background-color: #fff;
+    z-index: 999;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px #848484;
+    top: 35%;
+    left: 40px;
+}
+
+.feedback-form h3 {
+    margin-top: 0px;
+}
+
+.feedback-form .close-form {
     color: #00618C;
 }
 
-.row {
-    margin: 0px;
+.feedback-form .close-form:hover {
+    color: #54ACD2;
 }
 
-/*----------   HEADER   ----------*/
 
+.feedback-form textarea {
+    min-width: 400px;
+}
+/*----------   /FEEDBACK   ----------*/
+
+
+/*----------   HEADER   ----------*/
 nav {
     height: 50px;
     /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
@@ -376,24 +432,88 @@ li.tag-selected {
 }
 
 .medal-gold {
-    color: rgb(255, 204, 0);
+    color: rgb(254, 214, 20);
 }
 
 .medal-silver {
-    color: rgb(197, 197, 197);
+    color: rgb(211, 224, 222);
 }
 
 .medal-bronze {
-    color: rgb(204, 153, 102);
+    color: rgb(220, 155, 122);
 }
 
-.medal-none {
-    color: rgb(220, 220, 220);
+.playlist .medal {
+    width: 28px;
+    height: 28px;
+    background-size: 28px 28px;
+}
+
+.playlist .medal-gold {
+    background-image: url('/img/gold-small.png');
+}
+
+.playlist .medal-silver {
+    background-image: url('/img/silver-small.png');
+}
+
+.playlist .medal-bronze {
+    background-image: url('/img/bronze-small.png');
+}
+
+.playlist .medal-none {
+    background-image: url('/img/none-small.png');
+}
+
+.summary-card .medal, .medals .medal {
+    background-repeat: no-repeat;
+    position: relative;
+    top: -30px;
+    background-position: 50% 0;
+    height: 270px;
+}
+
+.summary-card .medal-gold, .medals .medal-gold {
+    background-image: url('/img/gold.png');
+}
+
+.summary-card .medal-silver, .medals .medal-silver {
+    background-image: url('/img/silver.png');
+}
+
+.summary-card .medal-bronze, .medals .medal-bronze {
+    background-image: url('/img/bronze.png');
+}
+
+.sad-boo {
+    background-image: url('/img/sad-boo.png');
+    background-repeat: no-repeat;
+    color: #00618C;
+    font-size: 40px;
+    font-weight: 500;
+    height: 200px;
+    margin-top: 20px;
+    margin-left: 30px;
+    padding-left: 135px;
+    padding-top: 50px;
+}
+
+.medals {
+    text-align: center !important;
+}
+
+.medals .medal {
+    width: 32%;
+    display: inline-block;
+    padding-top: 160px;
+    color: #333;
+    font-size: 37px;
+    font-weight: 900;
 }
 
 .playlist-icons .medal-gold, .playlist-icons .medal-silver, .playlist-icons .medal-bronze, .playlist-icons .medal-none {
     font-size: 2em;
-    margin-top: 8px;
+    margin-top: 5px;
 }
 
 /*---------    PLAYLIST --------*/
@@ -406,6 +526,7 @@ li.tag-selected {
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
     text-align: left;
+    overflow: hidden;
 }
 
 .cine > * {
@@ -568,8 +689,57 @@ li.tag-selected {
     float: left;
 }
 
-/*---------    RESULTS --------*/
-.score{
+
+/*---------  PLAYER   --------*/
+.player-controls {
+    background-color: #54ACD2;
+    color: #fff;
+    padding-left: 22px;
+    padding-right: 0px;
+    margin-top: -5px;*
+}
+
+.video-progress {
+    height: 7px;
+    background-color: #ccc;
+    margin-left: -22px;
+    cursor: pointer;
+}
+
+.video-progress .bar {
+    height: 100%;
+    background-color: #00618C;
+}
+
+.player-controls i {
+    font-size: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 40px;
+    text-align: center;
+}
+
+.player-controls i:hover {
+    color: #ddd;
+    cursor: pointer;
+}
+
+.player-time {
+    font-size: 11px;
+    display: inline-block;
+    float: right;
+    margin-right: 15px;
+    margin-top: 6px;
+}
+
+.total-time {
+    font-weight: bold;
+}
+/*---------  /PLAYER  --------*/
+
+
+/*---------  RESULTS  --------*/
+.score {
     margin:15px;
 }
 
@@ -578,12 +748,58 @@ li.tag-selected {
     margin-bottom: 20px;
 }
 
+.summary-medal {
+    font-size: 190px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
 .summary {
-    font-size:24px;
-    font-weight: bold;
-    text-transform: uppercase;
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
     background-color: #00618C;
-    color:#fff;
+    padding: 20px;
+    margin-top: 7px;
+}
+
+.summary-progress {
+    width: 105px;
+    height: 105px;
+    position: relative;
+    display: inline-block;
+    margin: 20px 10px 0px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.summary-thumbnail {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.summary-thumbnail img {
+    height: 105px;
+    position: relative;
+    left: 100%;
+    margin-left: -200%;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    color: #fff;
+    background-color: rgba(50,50,50,0.3);
 }
 
 .skills{
@@ -648,6 +864,16 @@ li.tag-selected {
 
 
 /*---------    OTHERS --------*/
+.value {
+    background-color: #00618C;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.team {
+    background-color: #ffffff;
+    padding: 10px;
+}
 
 .score {
     margin:15px;
