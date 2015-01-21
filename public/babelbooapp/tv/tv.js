@@ -13,8 +13,9 @@
 
         controller.idx = 0;
         controller.videoId = null;
-        controller.playerVars = { autoplay: 1, autohide: 3, iv_load_policy: 3 };
+        controller.playerVars = { autoplay: 1, autohide: 3, iv_load_policy: 3, showinfo: false, controls: 0 };
         controller.player = null;
+        controller.elapsed = 0;
 
         function shuffle(array) {
             var currentIndex = array.length, temporaryValue, randomIndex ;
@@ -41,21 +42,53 @@
             });
         }
 
-        controller.playNext = function () {
-            controller.idx = controller.idx + 1;
+        controller.playPrevious = function () {            
+            clearInterval(controller.elapsedInterval);
 
-            if (controller.idx == controller.videos.length) {
-                controller.player.seekTo(controller.player.getDuration(), true);
+            if (controller.idx == 0) {
+                controller.player.seekTo(0, true);
             } else {
+                controller.idx = controller.idx - 1;
                 var videoId = controller.videos[controller.idx].videoId;
                 controller.player.loadVideoById(videoId);
             }
+        }
+
+        controller.playNext = function () {            
+            clearInterval(controller.elapsedInterval);
+
+            if (controller.idx == controller.videos.length - 1) {
+                controller.player.seekTo(controller.player.getDuration(), true);
+            } else {
+                controller.idx = controller.idx + 1;
+                var videoId = controller.videos[controller.idx].videoId;
+                controller.player.loadVideoById(videoId);
+            }
+        }
+
+        controller.seek = function(event) {
+            var ratio = event.offsetX / event.toElement.parentElement.clientWidth;
+            controller.player.seekTo( controller.player.getDuration() * ratio);
         }
 
         $scope.$on('youtube.player.ended', function ($event, player) {
             if (controller.idx < controller.videos.length - 1) {
                 controller.playNext();
             }
+        });
+
+        $scope.$on('youtube.player.ready', function ($event, player) {
+            controller.player.unMute();
+            controller.player.setVolume(100);
+
+            controller.elapsedInterval = setInterval(function(){
+                $scope.$apply( function() {
+                    if (controller.player) {
+                        controller.elapsed = controller.player.getCurrentTime();
+                    }
+                });
+            }, 500); //polling frequency in miliseconds
+
         });
     });
 
