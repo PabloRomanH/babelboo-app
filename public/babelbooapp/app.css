@@ -137,7 +137,6 @@ body {
     right: 40px;
     z-index: 999;
     cursor: pointer;
-
 }
 
 .feedback-btn i {
@@ -383,14 +382,6 @@ li.tag-selected {
     height: 105px;
     overflow: hidden;
     text-align: center;
-}
-
-.th-top-left {
-    border-top-left-radius: 5px;
-}
-
-.th-top-right {
-    border-top-right-radius: 5px;
 }
 
 .th img {
