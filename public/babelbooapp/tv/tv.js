@@ -45,6 +45,8 @@
                 controller.videos = shuffle(data);
                 controller.videoId = controller.videos[controller.idx].videoId;
             });
+
+            $analytics.eventTrack('played', { category: 'tv', label: controller.videos[controller.idx].id });
         }
 
         controller.playPrevious = function () {
@@ -54,6 +56,8 @@
                 controller.idx = controller.idx - 1;
                 var videoId = controller.videos[controller.idx].videoId;
                 controller.player.loadVideoById(videoId);
+
+                $analytics.eventTrack('went_back', { category: 'tv', label: controller.videos[controller.idx].id });
             }
         }
 
@@ -66,6 +70,12 @@
             if (controller.idx == controller.videos.length - 1) {
                 controller.player.seekTo(controller.player.getDuration(), true);
             } else {
+                $analytics.eventTrack('played', { category: 'tv', label: controller.videos[controller.idx].id });
+                var eventvalue = controller.player.getCurrentTime() / controller.player.getDuration() * 100;
+                if (eventvalue < 90) {
+                    $analytics.eventTrack('skipped', { category: 'tv', label: controller.videos[controller.idx].id, value: eventvalue });
+                }
+
                 controller.idx = controller.idx + 1;
                 var videoId = controller.videos[controller.idx].videoId;
                 controller.player.loadVideoById(videoId);
