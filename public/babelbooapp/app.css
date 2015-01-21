@@ -140,7 +140,7 @@ body {
     cursor: pointer;
     -ms-transform: rotate(7deg);
     -webkit-transform: rotate(7deg);
-    transform: rotate(90deg); 
+    transform: rotate(90deg);
 }
 
 .feedback-btn i {
@@ -180,7 +180,6 @@ body {
 /*----------   HEADER   ----------*/
 nav {
     height: 50px;
-    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
 }
 
 nav li > a {
@@ -265,7 +264,6 @@ nav li > a:focus {
 /*---------   SEARCHER   ---------*/
 .searcher {
     width:100%;
-    /*max-height: 50px;*/
     margin: -10px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
     padding: 2px;
     background-color: #54ACD2;
@@ -831,7 +829,6 @@ li.tag-selected {
     position: absolute;
     top: 50px;
     bottom: 0px;
-    background-image: url('/img/popcorn.jpg');
     z-index: -5;
     padding-top: 20px;
 }
@@ -879,27 +876,13 @@ li.tag-selected {
 
 .tv .player-controls i {
     width: 33%;
-    padding-top: 10px;
-    padding-top: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .tv .video-progress {
     margin-left: 0px;
 }
-
-
-
-/*.tv-button {
-    float: right;
-    margin-bottom: 10px;
-}*/
-
-/*.tv-container {
-    width: 955px;
-    text-align: left;
-    margin: 0 auto;
-}*/
-
 
 /*---------    OTHERS --------*/
 .value {

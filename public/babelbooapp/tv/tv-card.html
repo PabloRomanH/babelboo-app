@@ -14,12 +14,12 @@
 				<div class="video-progress" ng-click="tvCtrl.seek($event)"><div class="bar" style="width: {{
 				  tvCtrl.elapsed
 				  /tvCtrl.player.getDuration()*100
-				}}%"></div></div>				
+				}}%"></div></div>
 				<i class="fa fa-backward" ng-click="tvCtrl.playPrevious()"></i>
 				<i class="fa fa-play" ng-click="tvCtrl.player.playVideo()" ng-hide="tvCtrl.player.getPlayerState() == 1 || tvCtrl.player.getPlayerState() == 3"></i>
 				<i class="fa fa-pause" ng-click="tvCtrl.player.pauseVideo()" ng-show="tvCtrl.player.getPlayerState() == 1 || tvCtrl.player.getPlayerState() == 3"></i>
 				<i class="fa fa-forward" ng-click="tvCtrl.playNext()"></i>
-				</div>      
+				</div>
 		    </div>
 		</div>
 	</div>
