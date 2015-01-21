@@ -49,5 +49,22 @@ router.post('/playlist/:playlist_id/increasevisitcount', function(req, res) {
     res.json();
 });
 
+router.get('/video/:level?', function(req, res) {
+    var level = req.params.level;
+    var query = {};
+    if (level) {
+        query = { level: parseInt(level) };
+    }
+
+    var collection = req.db.get('videos');
+
+    try {
+        collection.find(query, {}, function (err, result) {
+            res.json(result);
+        });
+    } catch (err2) {
+        res.json();
+    }
+});
 
 module.exports = router;

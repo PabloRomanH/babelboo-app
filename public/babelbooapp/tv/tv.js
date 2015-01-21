@@ -1,11 +1,14 @@
 (function() {
     var app = angular.module('tv', ['youtube-embed']);
 
-    app.controller('TvController', function($analytics, $scope, videos, levelNames) {
+    app.controller('TvController', function($analytics, $scope, $location, user, videos, levelNames) {
+        MAX_VIDEOS_UNREGISTERED = 3;
         var controller = this;
         var playlistRetrieved = false;
 
         controller.videos = [];
+
+        controller.userLogged = false;
 
         controller.levelNames = levelNames.names;
 
@@ -16,6 +19,10 @@
         controller.playerVars = { autoplay: 1, autohide: 3, iv_load_policy: 3, showinfo: false, controls: 0 };
         controller.player = null;
         controller.elapsed = 0;
+
+        user.fillUser(function (userData) {
+            controller.userLogged = true;
+        });
 
         function shuffle(array) {
             var currentIndex = array.length, temporaryValue, randomIndex ;
@@ -33,12 +40,10 @@
         }
 
         controller.playLevel = function (level) {
+            controller.isLevelSelected = true;
             videos.getByLevel(level).success(function (data) {
                 controller.videos = shuffle(data);
-
                 controller.videoId = controller.videos[controller.idx].videoId;
-
-                controller.isLevelSelected = true;
             });
         }
 
@@ -52,7 +57,12 @@
             }
         }
 
-        controller.playNext = function () {            
+        controller.playNext = function () {
+            if (controller.idx >= MAX_VIDEOS_UNREGISTERED && !controller.userLogged) {
+                $location.path('/register'); // FIXME: prevent controller from being loaded twice
+                // $route.reload();
+            }
+
             if (controller.idx == controller.videos.length - 1) {
                 controller.player.seekTo(controller.player.getDuration(), true);
             } else {
