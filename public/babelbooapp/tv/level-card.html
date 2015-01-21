@@ -1,13 +1,11 @@
-<div class="row tvwelcome">
-	<div class="col-md-4 col-md-offset-4">
-	  <h1>Welcome to Boo TV</h1>
-	  <p>Watch videos for fun without worrying about questions.</p>
-	  <p>If you find a video boring just press <strong>Play Next</strong> and watch a different one.</p>
-	  <h3>Choose your level:</h3>
-	  <ul>
-	    <li><button class="btn btn-success btn-lg" ng-click="tvCtrl.playLevel(1)">{{ tvCtrl.levelNames[1] }}</button></li>
-	    <li><button class="btn btn-warning btn-lg" ng-click="tvCtrl.playLevel(2)">{{ tvCtrl.levelNames[2] }}</button></li>
-	    <li><button class="btn btn-default btn-lg" ng-click="tvCtrl.playLevel(3)" disabled>{{ tvCtrl.levelNames[3] }}</button></li>
-	  </ul>
-	</div>
+<div class="cine clearfix tvwelcome">
+  <h1>Welcome to Boo TV</h1>
+  <p>Watch videos for fun without worrying about questions.</p>
+  <p>If you find a video boring just click next ( <i class="fa fa-forward"></i>) and watch a different one.</p>
+  <h3>Choose your level:</h3>
+  <ul>
+    <li><button class="btn btn-success btn-lg" ng-click="tvCtrl.playLevel(1)">{{ tvCtrl.levelNames[1] }}</button></li>
+    <li><button class="btn btn-warning btn-lg" ng-click="tvCtrl.playLevel(2)">{{ tvCtrl.levelNames[2] }}</button></li>
+    <li><button class="btn btn-default btn-lg" ng-click="tvCtrl.playLevel(3)" disabled>{{ tvCtrl.levelNames[3] }}</button></li>
+  </ul>
 </div>

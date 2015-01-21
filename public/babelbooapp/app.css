@@ -821,6 +821,10 @@ li.tag-selected {
     padding-top: 20px;
 }
 
+.tvwelcome {
+    width: 400px;
+}
+
 .tvwelcome ul {
     text-align: justify;
 }
