@@ -17,6 +17,10 @@
         }
 
         service.correctAnswer = function (playlistId, videoId, ratio) {
+            if (!service.data) {
+                return;
+            }
+
             if (!service.data.playlistprogress) {
                 service.data.playlistprogress = {};
             }
@@ -28,11 +32,15 @@
             if (!service.data.playlistprogress[playlistId].correct) {
                 service.data.playlistprogress[playlistId].correct = {};
             }
-            
+
             service.data.playlistprogress[playlistId].ratio = ratio;
             service.data.playlistprogress[playlistId].correct[videoId] = true;
 
             return $http.post('/api/user/' + service.data.username + '/correctanswer/' + playlistId, { id: videoId, ratio: ratio });
+        }
+
+        service.finished = function(playlistId) {
+            return $http.post('/api/user/' + service.data.username + '/finished/' + playlistId);
         }
 
         return service;
@@ -41,7 +49,12 @@
     app.factory('playlists', function($http) {
         var service = {};
 
-        service.getById = function(playlistId) {
+        /**
+         * This retrieves the videos of a playlist to play and notifies the API
+         * to increase the play count.
+         */
+        service.playById = function(playlistId) {
+            $http.post('/api/playlist/' + playlistId + '/increasevisitcount');
             return $http.get('/api/playlist/' + playlistId);
         };
 

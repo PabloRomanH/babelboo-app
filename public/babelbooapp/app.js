@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'landing', 'player', 'tv', 'video', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise 
         var deferred = $q.defer(); 
@@ -15,6 +15,37 @@
              }
          });
     };
+
+    app.factory('submitFeedback', function($http) {
+        var service;
+
+        service = function (feedback) {
+            $http.post('/api/feedback', { "message": feedback });
+        }
+
+        return service;
+    });
+
+    app.controller('FeedbackController', function(user, submitFeedback){
+        this.user = {};
+        var controller = this;
+        controller.userLogged = false;
+        controller.formVisible = false;
+
+        user.fillUser(function (user) {
+            controller.user = user;
+            controller.userLogged = true;
+        });
+
+        controller.toggleForm = function() {
+            controller.formVisible = !controller.formVisible;
+        }
+
+        controller.submit = function(feedback) {
+            submitFeedback(feedback);
+            controller.formVisible = false;
+        }
+    });
 
     app.config(function ($analyticsProvider) {
         $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
@@ -32,6 +63,9 @@
             }).
             when('/login', {
                 templateUrl: '/babelbooapp/landing/landing-fragment.html'
+            }).
+            when('/register', {
+                templateUrl: '/babelbooapp/betaregistration/betaregistration-fragment.html'
             }).
             when('/playlist', {
                 templateUrl: '/babelbooapp/playlist/playlist-fragment.html',
@@ -52,10 +86,7 @@
                 }
             }).
             when('/play/:playlistId', {
-                templateUrl: '/babelbooapp/play/play-fragment.html',
-                resolve: {
-                    loggedin: checkLoggedin
-                }
+                templateUrl: '/babelbooapp/play/play-fragment.html'
             }).
             when('/tv', {
                 templateUrl: '/babelbooapp/tv/tv-fragment.html'
