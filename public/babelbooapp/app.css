@@ -139,9 +139,6 @@ body {
     right: 40px;
     z-index: 999;
     cursor: pointer;
-    /*-ms-transform: rotate(90deg);*/
-    /*-webkit-transform: rotate(90deg);*/
-    /*transform: rotate(90deg);*/
 }
 
 .feedback-btn i {
