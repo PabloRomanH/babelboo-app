@@ -866,10 +866,12 @@ li.tag-selected {
     background-color: #333;
 }
 
-.tv .player-controls i {
+.tv-button {
     width: 33%;
     padding-top: 15px;
     padding-bottom: 15px;
+    display: inline-block;
+    text-align: center;
 }
 
 .tv .video-progress {
