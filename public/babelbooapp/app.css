@@ -482,8 +482,17 @@ li.tag-selected {
     background-image: url('/img/bronze.png');
 }
 
-.medal-none {
-    color: rgb(220, 220, 220);
+.sad-boo {
+    background-image: url('/img/sad-boo.png');
+    background-repeat: no-repeat;
+    color: #00618C;
+    font-size: 40px;
+    font-weight: 500;
+    height: 200px;
+    margin-top: 20px;
+    margin-left: 30px;
+    padding-left: 135px;
+    padding-top: 50px;
 }
 
 .medals {
