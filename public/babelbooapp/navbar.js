@@ -10,8 +10,8 @@
             updateMedalCount();
         });
 
-        user.fillUser(function (userData) {
-            controller.user = userData;
+        user.fillUser(function (user) {
+            controller.user = user;
             controller.userLogged = true;
             updateMedalCount();
         });
@@ -24,6 +24,11 @@
 
         controller.goToPlaylists = function () {
             $location.path('/playlists'); // FIXME: prevent controller from being loaded twice
+            $route.reload();
+        };
+
+        controller.goToBooTV = function () {
+            $location.path('/tv'); // FIXME: prevent controller from being loaded twice
             $route.reload();
         };
 
