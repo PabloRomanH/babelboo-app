@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'landing', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise 
         var deferred = $q.defer(); 
@@ -88,11 +88,17 @@
             when('/play/:playlistId', {
                 templateUrl: '/babelbooapp/play/play-fragment.html'
             }).
+            when('/tv', {
+                templateUrl: '/babelbooapp/tv/tv-fragment.html'
+            }).
             when('/manage', {
                 templateUrl: '/babelbooapp/editPlaylists/playlists-fragment.html',
                 resolve: {
                     loggedin: checkLoggedin
                 }
+            }).
+            when('/video', {
+                templateUrl: '/babelbooapp/video/video-fragment.html'
             }).
             when('/points', {
                 templateUrl: '/babelbooapp/points/under-construction.html',

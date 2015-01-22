@@ -43,6 +43,7 @@
             if (controller.idx >= controller.videos.length) {
                 return;
             }
+            
             controller.answeredcorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;

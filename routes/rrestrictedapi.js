@@ -42,6 +42,19 @@ function upsertPlaylist(body, playlistId, db) {
     }
 }
 
+router.post('/video', function(req, res) {
+    var collection = req.db.get('videos');
+    console.log(req.body);
+
+    collection.insert(req.body,
+        function (err, doc) {
+            if (err) throw err;
+        });
+
+    res.status(201); // CREATED
+    res.json(req.body);
+});
+
 router.get('/betaregistration', function(req, res) {
     var collection = req.db.get('betaregistration');
 

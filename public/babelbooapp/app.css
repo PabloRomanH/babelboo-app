@@ -123,8 +123,6 @@ body {
     margin-bottom:20px;
 }
 
-/*----------   /LANDING   ----------*/
-
 
 /*----------    FEEDBACK   ----------*/
 .feedback-btn {
@@ -172,15 +170,12 @@ body {
 .feedback-form textarea {
     min-width: 400px;
 }
-
 /*----------   /FEEDBACK   ----------*/
 
 
 /*----------   HEADER   ----------*/
-
 nav {
     height: 50px;
-    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
 }
 
 nav li > a {
@@ -265,14 +260,13 @@ nav li > a:focus {
 /*---------   SEARCHER   ---------*/
 .searcher {
     width:100%;
-    /*max-height: 50px;*/
     margin: -10px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
     padding: 2px;
     background-color: #54ACD2;
     box-shadow: 0px -4px 5px 5px #555;
 }
 
-.search-tag {
+.search-tag{
     margin:0 auto 0 auto;
 }
 
@@ -280,19 +274,19 @@ nav li > a:focus {
     margin: 10px 0 0 0;
 }
 
-.lvl li {
+.lvl li{
     background-color:#E25041;
 }
 
-.lvl li:hover {
+.lvl li:hover{
     background-color:#B8312F;
 }
 
-li.lvl-selected {
+li.lvl-selected{
     background-color:#B8312F;
 }
 
-.lvl li, .search-tag li {
+.lvl li, .search-tag li{
     padding:5px;
     margin:0 0 10px 5px;
     color:#fff;
@@ -311,7 +305,6 @@ li.lvl-selected {
 li.tag-selected {
     background-color:#2969B0;
 }
-
 
 /*---------    PLAYLIST CONTENT --------*/
 .row-centered {
@@ -342,9 +335,7 @@ li.tag-selected {
     vertical-align: top;
     height: 320px;
     text-align: left;
-    overflow: hidden;
 }
-
 .play-btn {
     float:right;
     margin:-24px 5px 0 0;
@@ -373,7 +364,7 @@ li.tag-selected {
     color:#63d0ff;
 }
 
-.playlist-title {
+.playlist-title{
     font-weight: bold;
     float:left;
     width: 151px;
@@ -383,7 +374,7 @@ li.tag-selected {
     margin:0px;
 }
 
-.th {
+.th{
     float:left;
     padding: 0px;
     margin: 0px;
@@ -407,14 +398,14 @@ li.tag-selected {
     clear:left;
 }
 
-.tag-awesome {
+.tag-awesome{
     font-size:12px;
     color:#666666;
     margin-right:-10px;
     padding-right:0px;
 }
 
-.tag-box {
+.tag-box{
     color: #777;
     font-size:12px;
 }
@@ -540,7 +531,7 @@ li.tag-selected {
     color:#777;
 }
 
-.question-txt {
+.question-txt{
     font-size:22px;
     font-weight: bold;
     padding-top: 10px;
@@ -797,12 +788,12 @@ li.tag-selected {
     background-color: rgba(50,50,50,0.3);
 }
 
-.skills {
+.skills{
     font-size: 25px;
     margin-top: 10px;
 }
 
-.total-score {
+.total-score{
     color:#00618C;
     font-size: 30px;
     font-weight: bold;
@@ -810,15 +801,82 @@ li.tag-selected {
     margin-bottom: 50px
 }
 
-.score-points {
+.score-points{
     color:#FBA026;
 }
 
-.finish-video-btn {
+.finish-video-btn{
     color:#fff;
     background-color:#00618C
 }
 
+/*---------    TV --------*/
+
+.tv {
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    bottom: 0px;
+    z-index: -5;
+    padding-top: 20px;
+}
+
+.tvwelcome {
+    width: 400px;
+}
+
+.tvwelcome ul {
+    text-align: justify;
+}
+
+.tvwelcome li {
+    display: inline-block;
+}
+
+.tvwelcome ul:after {
+    content: '';
+    width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+    display: inline-block;
+}
+
+.tvwelcome h3 {
+    margin-bottom: 30px;
+}
+
+.cinetv {
+    width: 855px;
+    margin-left: auto;
+    margin-right:auto;
+    background-color: #111;
+    box-shadow: 1px 1px 15px #848484;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.cinetv .title {
+    background-color: #333;
+    color: #fff;
+    padding: 7px 15px 7px 15px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.tv .player-controls {
+    padding-left: 0px;
+    background-color: #333;
+}
+
+.tv-button {
+    width: 33%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: inline-block;
+    text-align: center;
+}
+
+.tv .video-progress {
+    margin-left: 0px;
+}
 
 /*---------    OTHERS --------*/
 .value {

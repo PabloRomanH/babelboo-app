@@ -213,4 +213,26 @@ router.post('/feedback', function(req, res) {
     res.json();
 });
 
+
+
+router.post('/video', function(req, res) {
+    var collection = req.db.get('videos');
+
+    var videoIds = req.body;
+    var videos = videoIds.map(function (currentValue) {
+        return {
+            videoId: currentValue.id,
+            title: currentValue.title,
+            level: currentValue.level,
+            source: 'YouTube'
+        }
+    });
+
+    for (var i = 0; i < videoIds.length; i++) {
+        collection.insert(videos);
+    }
+
+    res.json();
+});
+
 module.exports = router;

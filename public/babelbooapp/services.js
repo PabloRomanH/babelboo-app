@@ -70,6 +70,20 @@
         return service;
     });
 
+    app.factory('videos', function($http) {
+        var service = {};
+
+        service.getByLevel = function(level) {
+            return $http.get('/api/video/' + level);
+        };
+
+        service.addLoose = function (videos) {
+            return $http.post('/api/video', videos);
+        }
+
+        return service;
+    });
+
     app.factory('tags', function($http) {
         var service = {};
 

@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Add loose videos</h1>
+    </div>
+  </div>
+
+  <div class="row" ng-controller="VideoController as videoCtrl">
+    <div class="col-sm-12">
+      <form name="videoForm" ng-submit="videoCtrl.submit()">
+        <div class="input-group">
+          <span class="input-group-addon">Level</span>
+          <select class="form-control" required name="level" ng-model="videoCtrl.level" ng-options="parseInt(i) as name for (i, name) in videoCtrl.levelNames">
+            <option value="" selected="selected" label=""></option>
+          </select>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">Video IDs</span>
+          <textarea name="ids" cols="100" rows="15" placeholder="Write YouTube video IDs here" required ng-model="videoCtrl.ids"></textarea>
+        </div>
+
+        <input type="submit" id="btn-submit" class="btn btn-primary">Save</input>
+      </form>
+    </div>
+    Done {{videoCtrl.done}}/{{videoCtrl.total}} videos.
+  </div>
+</div>
