@@ -48,12 +48,12 @@ describe("controllers", function() {
                 playlistId: "123A"
             };
             playlists = {
-                getById: function (playlistId) {
+                playById: function (playlistId) {
                     return {
                         success: function (callback) {
                             callback(playlist);
                         }
-                    };
+                    }
                 }
             };
 
