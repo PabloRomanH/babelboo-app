@@ -8,14 +8,6 @@ Release cycle:
 
 
 
-+- Empty medal and crying boo graphics.
-+- Boo TV
-    - Finish up CSS
-    
-
-+- Tests for the logic to count playlist visits.
-+- Log time when a medal is awarded.
-
 # Next release:
 
 - Give more visibility to related playlists. "Watch more" button in summary brings to different view.

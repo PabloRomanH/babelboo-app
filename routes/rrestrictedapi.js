@@ -80,7 +80,6 @@ router.get('/adduser/:username', function(req, res, next) {
     }
 
     query.username = req.params.username;
-    query.lastvisit = new Date();
     query.daysvisited = 0;
     query.password = "";
     query.points = 0;
