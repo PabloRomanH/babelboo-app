@@ -19,17 +19,13 @@ router.get('/playlist', function(req, res) {
     if (req.query.related) {
         collection.find({ _id: req.query.related },{},function (err, result) {
             var tags = result[0].tags;
-            var i = tags.indexOf('american english');
-            if (i != -1) {
-                tags.splice(i, 1);
-            }
-            i = tags.indexOf('british english');
-            if (i != -1) {
-                tags.splice(i, 1);
-            }
             query._id = { $ne: collection.id(req.query.related) };
             query.tags = { $in: tags };
             runQuery(query);
+        });
+    } else if (req.query.popular) {
+        collection.find({visitcount: { $exists: true }}, {sort: {visitcount: -1}, limit: req.query.num_results}, function (err, result) {
+            res.json( result );
         });
     } else if (req.query.all == 'true') {
         runQueryAll(query);

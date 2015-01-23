@@ -1,7 +1,7 @@
 
 describe("services", function() {
     // it('should fail', function() { expect(true).to.be.false; });
-    beforeEach(module('babelbooapp'));
+    beforeEach(module('services'));
 
     describe("renderTime", function() {
         var renderTime;
@@ -27,6 +27,29 @@ describe("services", function() {
 
             expect(renderTime(-1)).to.equal('');
             expect(renderTime()).to.equal('');
+        });
+    });
+
+    describe("playlists", function() {
+        var playlists;
+        var $httpBackend;
+
+        beforeEach(inject(function(_playlists_, _$httpBackend_) {
+            playlists = _playlists_;
+            $httpBackend = _$httpBackend_;
+        }));
+
+        var popularPlaylists = 'ntaeoduir8c7oefrucgadfoe7uyf'; // Random string to check equality
+
+        it("popular playlists", function() {
+            var NUM_POPULAR_RESULTS = 3;
+            $httpBackend.expectGET('/api/playlist?popular=true&num_results=' + NUM_POPULAR_RESULTS).respond(popularPlaylists);
+            
+            playlists.getPopular(NUM_POPULAR_RESULTS).success(function(data) {
+                expect(data).to.equal(popularPlaylists);
+            });
+            
+            $httpBackend.flush();
         });
     });
 

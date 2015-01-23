@@ -1,9 +1,9 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise 
         var deferred = $q.defer(); 
-
+        
         // Make an AJAX call to check if the user is logged in 
         $http.get('/loggedin').success(function(user){ 
             if (user !== '0') { // Authenticated 

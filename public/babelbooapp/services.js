@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('babelbooapp');
+    var app = angular.module('services', []);
 
     app.factory('user', function($http) {
         var service = {};
@@ -64,6 +64,11 @@
 
         service.getWithTagLevel = function (tag, level) {
             var query = '/api/playlist/?tags=' + tag + '&level=' + level;
+            return $http.get(query);
+        }
+
+        service.getPopular = function (numResults) {
+            var query = '/api/playlist?popular=true&num_results=' + numResults;
             return $http.get(query);
         }
 
