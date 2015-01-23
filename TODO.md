@@ -10,10 +10,7 @@ Release cycle:
 
 # Next release:
 
-- Popular videos.
-    - Popular video list in main view.
 - Mail reminder after 1 week without using the website. (wizard of oz by now)
-    - Script to list people who haven't used the website.
     - Specific list in Mailchimp to allow people to unsubscribe.
 - Ranking (competitive social component).
     - User names.
