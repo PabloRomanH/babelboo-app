@@ -19,6 +19,7 @@ module.exports = function(config) {
       'public/lib/angular-route.js',
       'public/lib/angulartics.min.js',
       'public/lib/angulartics-ga.min.js',
+      'public/lib/angular-youtube-embed.js',
       'public/babelbooapp/**/*.js',
       'public/lib/angular-mocks.js',
       'test/karma/**/test*.js'

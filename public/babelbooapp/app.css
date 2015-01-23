@@ -334,6 +334,7 @@ li.tag-selected {
     max-width:210px;
     padding:0;
     margin:15px;
+    overflow: hidden;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #848484;
     vertical-align: top;
