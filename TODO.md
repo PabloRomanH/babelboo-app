@@ -10,29 +10,29 @@ Release cycle:
 
 # Next release:
 
-- Give more visibility to related playlists. "Watch more" button in summary brings to different view.
-    - View change logic in controller.
 - Popular videos.
     - Popular video list in main view.
-    - Init count from analytics.
-- Show history (graph).
-    - Graph lib.
-    - Save date in which medals were obtained.
 - Mail reminder after 1 week without using the website. (wizard of oz by now)
     - Script to list people who haven't used the website.
     - Specific list in Mailchimp to allow people to unsubscribe.
-- A) Questions at the beginning, answers at the end.
-    - Button 'Answer now' that pauses video and shows answers.
-- B) Questions at the end.
-    - Remove boring part at the end of videos.
 - Ranking (competitive social component).
     - User names.
         - View requesting to set user name.
     - Ranking view.
     - Access link.
     - Where to show ranking.
+    - Avatars automatically generated.
+- Show history (graph).
+    - Graph lib.
+- Give more visibility to related playlists. "Watch more" button in summary brings to different view.
+    - View change logic in controller.
+- A) Questions at the beginning, answers at the end.
+    - Button 'Answer now' that pauses video and shows answers.
+- B) Questions at the end.
+    - Remove boring part at the end of videos.
 
 
+# For future releases:
 
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
@@ -47,22 +47,10 @@ Release cycle:
 - Keep level after finishing playlist.
 
 
-
-
-###########################################################
-
-REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see play.js)
-
-# Angular auth
-- when user is not logged default api returns 401 instead of 404.
-
-
-# To do while Toni out
+# Development/deployment
 
 - (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)
     - try out frameworks
-- Testing node's Web API (postman / frisby.js + Jasmine / *Mocha + *Chai + *Supertest + [Sinon])
-- Testing angular (Karma + Mocha + Chai + Sinon / Jasmine)
 - Testing E2E
         - Protractor + Jasmine: All desktop browsers (needs to run in Windows for IE and MacOS for Safari)
         - saucelabs.com ($$): EVERYTHING (including mobile)
@@ -78,41 +66,20 @@ REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see 
     - vim
     - own installation of cloud9
 
-- Playlist completion (visual cue that marks a playlist as watched or completed) (mostly done, CSS not finished)
-
-
-# Want to think about after more feedback comes in
-
-- Show # of videos in playlist card.
-- Remove tags from playlists card.
-- Highlight (or something) 'Next' button after answering.
-- Rethink levels and tags behaviour.
-- Visual difficulty levels
-- Different levels of finishing a playlist (stars)
-
 
 # Functionality to maybe test in the future:
 
 - Playlists
     - Playlist quality mark (playlists marked as good)
-    * Search by tag
-    * Playlist tags
-    * Playlist storage (DB)
-    * Playlist reproduction
 
 - Q&A
-    * Questions completed (visual cue that marks a playlist as answered)
-    * Questions while playing video
     * Questions after watching video (depends on user.abtesting.questionsatend == true)
 
 - 9Gag (always something new + finished checking everything new)
     - "You got new stuff" reminder email
-    * "Unlocking" of new playlists that appear as new to the user every day of use (depends on user.abtesting.ninegag == true)
-    * Per-user hiding of some playlists at first use
     * Old unvisited playlists appear at the bottom and are harder to reach
 
 - Video-based playing
-    - Endless mode.
     - Manual search + related videos at the end
 
 - Wiki (user-generated playlists, questions, difficulty adjustment, etc.)
