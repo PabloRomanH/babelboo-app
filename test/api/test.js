@@ -7,7 +7,7 @@ var supertest = require('supertest-as-promised');
 
 process.env.NODE_ENV = 'test';
 
-var app = require('../server');
+var app = require('../../server');
 
 var request = supertest(app);
 

@@ -22,7 +22,7 @@ module.exports = function(config) {
       'public/lib/angular-youtube-embed.js',
       'public/babelbooapp/**/*.js',
       'public/lib/angular-mocks.js',
-      'test/karma/**/test*.js'
+      'test/webapp/**/test*.js'
     ],
 
 
