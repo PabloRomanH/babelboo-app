@@ -10,8 +10,6 @@ Release cycle:
 
 # Next release:
 
-- Mail reminder after 1 week without using the website. (wizard of oz by now)
-    - Specific list in Mailchimp to allow people to unsubscribe.
 - Ranking (competitive social component).
     - User names.
         - View requesting to set user name.

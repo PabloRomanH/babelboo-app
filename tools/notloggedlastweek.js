@@ -16,3 +16,11 @@ while (cursor.hasNext()){
     print(user.lastvisit.toISOString(), user.username);
 }
 
+print('');
+
+cursor = db.usercollection.find({lastvisit: {$lt: lastweek, $gt: lastmonth}});
+
+while (cursor.hasNext()){
+    var user = cursor.next();
+    print(user.username);
+}
