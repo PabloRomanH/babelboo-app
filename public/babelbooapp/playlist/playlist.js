@@ -166,8 +166,6 @@
                 var questiontext = video.question;
                 var answers = video.answers;
 
-                totalTime += video.duration;
-
                 if (video.starttime) {
                     video.starttime = parseTime(video.starttime);
                     if (isNaN(video.starttime)) {
@@ -204,6 +202,11 @@
                         return;  
                     }
                 }
+
+                var lStartTime = video.starttime? video.starttime: 0;
+                var lEndTime = video.endtime? video.endtime: video.duration;
+                var lDuration = lEndTime - lStartTime;
+                totalTime += lDuration;
 
 
                 if (!questiontext) { // in case the video doesn't include a question
