@@ -13,8 +13,10 @@ Release cycle:
 - Ranking (competitive social component).
     - User names.
         - View requesting to set user name.
-    - Ranking view.
-    - Access link.
+    - Ranking view (rank by gold then silver then bronze).
+        - Weekly and monthly and all-time.
+        - Show highest-ranked and then user in context. Show user around the middle.
+    - Access link in navbar.
     - Where to show ranking.
     - Avatars automatically generated.
 - Show history (graph).
