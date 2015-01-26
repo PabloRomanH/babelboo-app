@@ -101,10 +101,8 @@
         }
 
         this.add = function(video) {
-            if (addedVideos.indexOf(video) == -1) { // verify that the video doesn't exist
-                video.answers = [{text: ''},{text: ''},{text: ''}];
-                addedVideos.push(video);
-            }
+            video.answers = [{text: ''},{text: ''},{text: ''}];
+            addedVideos.push(angular.copy(video));
         }
 
         this.rmvideo = function(index) {
@@ -136,7 +134,7 @@
             } catch (err) {
                 return NaN;
             }
-            
+
             return minutes * 60 + seconds;
         }
 
@@ -173,13 +171,13 @@
                     if (isNaN(video.starttime)) {
                         controller.warningMessage = 'Can\'t understand start time for video "' + video.title + '".';
                         controller.showWarning = true;
-                        return;                
+                        return;
                     }
 
                     if (video.starttime > video.duration) {
                         controller.warningMessage = 'Start time can\'t be after end of video: "' + video.title + '".';
                         controller.showWarning = true;
-                        return;  
+                        return;
                     }
                 }
 
@@ -189,19 +187,19 @@
                     if (isNaN(video.endtime)) {
                         controller.warningMessage = 'Can\t understand end time for video "' + video.title + '".';
                         controller.showWarning = true;
-                        return;                
+                        return;
                     }
 
                     if (video.endtime > video.duration) {
                         controller.warningMessage = 'End time can\'t be after end of video: "' + video.title + '".';
                         controller.showWarning = true;
-                        return;  
+                        return;
                     }
 
                     if (video.starttime && video.starttime > video.endtime) {
                         controller.warningMessage = 'End time can\'t be before start time for video: "' + video.title + '".';
                         controller.showWarning = true;
-                        return;  
+                        return;
                     }
                 }
 

@@ -46,7 +46,7 @@
           <a id="btn-submit" class="btn btn-primary" ng-click="searchCtrl.submit()">Save</a>
         </form>
       </div>
-      <videoqa-card ng-repeat="video in searchCtrl.playlist.entries"></videoqa-card>
+      <videoqa-card ng-repeat="video in searchCtrl.playlist.entries track by $index"></videoqa-card>
     </div>
   </div>
 </div>
