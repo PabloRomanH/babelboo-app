@@ -17,7 +17,7 @@
     <li ng-show="navbarCtrl.userLogged">
       <a href="#" ng-click="navbarCtrl.showLogout = !navbarCtrl.showLogout">
         <i class="fa fa-user"></i>
-        {{ navbarCtrl.user.username }}
+        {{ navbarCtrl.user.nickname }}
       </a>
       <div class="user-dropdown" ng-show="navbarCtrl.showLogout">
         <a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>

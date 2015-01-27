@@ -7,8 +7,9 @@ Release cycle:
 - Repeat
 
 Deploy:
-git stuff
-copy new playlists
+git stuff.
+run script to update nicknames.
+copy new playlists.
 edit and save playlists with start or end time (to update duration in playlist object).
 
 
@@ -16,6 +17,7 @@ edit and save playlists with start or end time (to update duration in playlist o
 # Next release:
 
 - Ranking (competitive social component).
+    - Create nicknames from email left side.
     - User names.
         - View requesting to set user name.
     - Ranking view (rank by gold then silver then bronze).
@@ -33,12 +35,13 @@ edit and save playlists with start or end time (to update duration in playlist o
 - B) Questions at the end.
     - Remove boring part at the end of videos.
 
+# Bugfixes:
+
+- Check that videos still work in YouTube.
+- Remove unnecessary describes in karma tests.
 
 # For future releases:
 
-- Check that videos still work in YouTube.
-- Bug when calculating playing time of playlists with videos that specify beginning/end.
-- Disable related videos at the end.
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
 - Star playlists (bookmarks).

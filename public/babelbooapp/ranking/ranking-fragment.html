@@ -1,13 +1,10 @@
 <div ng-controller="RankingController as rankCtrl">
-    <ol ng-show="rankCtrl.view == 'week'">
-        <li ng-repeat=""></li>
+    <ol>
+        <li ng-repeat="entry in rankCtrl.topRanked">{{ entry.nickname }}</li>
     </ol>
-
-    <ol ng-show="rankCtrl.view == 'month'">
-        <li ng-repeat=""></li>
-    </ol>
-
-    <ol ng-show="rankCtrl.view == 'alltime'">
-        <li ng-repeat=""></li>
+    <ol start="rankCtrl.aboveUser[0].rank">
+        <li ng-repeat="entry in rankCtrl.aboveUser">{{ entry.nickname }}</li>
+        <li>{{ rankCtrl.userRank.nickname }}</li>
+        <li ng-repeat="entry in rankCtrl.belowUser">{{ entry.nickname }}</li>
     </ol>
 </div>
