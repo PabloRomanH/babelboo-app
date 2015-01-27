@@ -7,11 +7,10 @@ Release cycle:
 - Repeat
 
 Deploy:
-git stuff
-copy new playlists
+git stuff.
+run script to update nicknames.
+copy new playlists.
 edit and save playlists with start or end time (to update duration in playlist object).
-
-
 
 # Next release:
 
@@ -19,10 +18,10 @@ edit and save playlists with start or end time (to update duration in playlist o
     - User names.
         - View requesting to set user name.
     - Ranking view (rank by gold then silver then bronze).
-        - Weekly and monthly and all-time.
-        - Show highest-ranked and then user in context. Show user around the middle.
-    - Access link in navbar.
-    - Where to show ranking.
+
+        - In the summary
+        - In the medals view
+        - Ranking of the user in the navbar
     - Avatars automatically generated.
 - Show history (graph).
     - Graph lib.
@@ -33,12 +32,13 @@ edit and save playlists with start or end time (to update duration in playlist o
 - B) Questions at the end.
     - Remove boring part at the end of videos.
 
+# Bugfixes:
+
+- Check that videos still work in YouTube.
+- Remove unnecessary describes in karma tests and rename controller highest-level describes.
 
 # For future releases:
 
-- Check that videos still work in YouTube.
-- Bug when calculating playing time of playlists with videos that specify beginning/end.
-- Disable related videos at the end.
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
 - Star playlists (bookmarks).

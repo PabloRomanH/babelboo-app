@@ -209,8 +209,6 @@ router.post('/feedback', function(req, res) {
     res.json();
 });
 
-
-
 router.post('/video', function(req, res) {
     var collection = req.db.get('videos');
 
@@ -230,5 +228,113 @@ router.post('/video', function(req, res) {
 
     res.json();
 });
+
+router.get('/ranking/:period', function(req, res) {
+    var period = req.params.period;
+    var periodBegin;
+
+    if (period == 'week') {
+        periodBegin = nDaysAgo(6);
+    } else if (period == 'month') {
+        periodBegin = nDaysAgo(29);
+    } else if (period == 'alltime') {
+        periodBegin = new Date(null);
+    } else {
+        res.status(404);
+        res.json();
+        return;
+    }
+
+    var collection = req.db.get('usercollection');
+    var fields = {username: 1, nickname: 1, medalhistory: 1, _id: 0};
+    collection.find({}, {fields: fields}, function(err, result) {
+        var ranking = result.map(processMedalHistory);
+        ranking.sort(medalCompare);
+        fillRanks(ranking);
+
+        res.json(ranking);
+    });
+
+    function processMedalHistory(element) {
+        var seenMedals = seenMedalsMap(element.medalhistory);
+        var medals = accumulateMedals(seenMedals);
+        var entry  = {
+            username: element.username,
+            nickname: element.nickname,
+            golds: medals.golds,
+            silvers: medals.silvers,
+            bronzes: medals.bronzes
+        }
+
+        return entry;
+    }
+
+    function seenMedalsMap(medalhistory) {
+        var seenMedals = {};
+        if (!medalhistory) {
+            return seenMedals;
+        }
+
+        for (var j = 0; j < medalhistory.length; j++) {
+            var hEntry = medalhistory[j];
+
+            if (hEntry.date < periodBegin) {
+                continue;
+            }
+
+            var playlistId = hEntry.playlistid;
+            var currentMedal = seenMedals[playlistId]? seenMedals[playlistId]: 0;
+            seenMedals[playlistId] = Math.max(currentMedal, hEntry.medal);
+        }
+
+        return seenMedals;
+    }
+
+    function accumulateMedals(seenMedals) {
+        var medals = {golds: 0, silvers: 0, bronzes: 0};
+        for (var playlistId in seenMedals) {
+            if (seenMedals[playlistId] == GOLD) {
+                medals.golds++;
+            } else if (seenMedals[playlistId] == SILVER) {
+                medals.silvers++;
+            } else if (seenMedals[playlistId] == BRONZE) {
+                medals.bronzes++;
+            }
+        }
+
+        return medals;
+    }
+
+    function medalCompare(a,b) {
+        if (b.golds != a.golds) {
+            return b.golds - a.golds;
+        }
+
+        if (b.silvers != a.silvers) {
+            return b.silvers - a.silvers;
+        }
+
+        return b.bronzes - a.bronzes;
+    }
+
+    function fillRanks(ranking) {
+        for (var i = 0; i < ranking.length; i ++) {
+            ranking[i].rank = i+1;
+        }
+    }
+
+    function nDaysAgo(nDays) {
+        var date = new Date();
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+        date.setDate(date.getDate() - nDays);
+        return date;
+    }
+
+
+});
+
 
 module.exports = router;

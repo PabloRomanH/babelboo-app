@@ -58,7 +58,7 @@ describe('API /api/playlist, logged in part', function() {
     before(function(done) {
         app.onSessionConnected(function() {
             var db = app.db;
-            var users = db.get('usercollection');
+            var users = db.get('testlogin');
             users.insert({username: 'testuser1', password: 'apassword'},
                 function(){
                     request.post('/login')
@@ -117,7 +117,6 @@ describe('API /api/playlist, logged in part', function() {
             }
             visitcounts = visitcounts.sort().reverse();
             var numResultsExpected = Math.min(numResultsRequested, visitcounts.length);
-            // console.log(visitcounts);
 
             playlistsdb.insert(playlists,
                 function() {
@@ -127,11 +126,9 @@ describe('API /api/playlist, logged in part', function() {
                         .expect('Content-Type', /json/)
                         .end(function(err, res){
                             if (err) throw err;
-                            // console.log(res.body);
                             expect(res.body.length).to.equal(numResultsExpected);
 
                             for (var j = 0; j < numResultsExpected; j++){
-                                // console.log(res.body[j].visitcount + " " + visitcounts[j]);
                                 expect(res.body[j].visitcount).to.equal(visitcounts[j]);
                             }
 
@@ -150,8 +147,7 @@ describe('API /api/playlist, logged in part', function() {
     after(function(done) {
     // runs after all tests in this block
         var users = app.db.get('usercollection');
-        users.drop(function() {
-            app.db.close();
+        users.drop(function () {
             done();
         });
     });
