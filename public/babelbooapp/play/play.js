@@ -36,14 +36,14 @@
         controller.renderTime = renderTime;
 
         controller.idx = 0;
-        controller.playerVars = { autoplay: 1, controls: 0 };
+        controller.playerVars = { autoplay: 1, controls: 0, rel: 0 };
         controller.player = null;
 
         function resetVideo () {
             if (controller.idx >= controller.videos.length) {
                 return;
             }
-            
+
             controller.answeredcorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;

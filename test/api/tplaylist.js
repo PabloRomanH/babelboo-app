@@ -7,11 +7,53 @@ var supertest = require('supertest-as-promised');
 
 process.env.NODE_ENV = 'test';
 
-var app = require('../server');
+var app = require('../../server');
 
 var request = supertest(app);
 
-describe('App HTTP interface', function() {
+describe('API /api/playlist public part', function(done) {
+    var db;
+    var playlistsdb;
+
+    before(function() {
+        db = app.db;
+        playlistsdb = db.get('playlists');
+    });
+
+    beforeEach(function(done) {
+        playlistsdb.drop(function () {
+            done();
+        });
+    });
+
+    it('should return a playlist by Id', function(done) {
+        var playlistId = "396b3374783839356f786378";
+        playlistsdb.insert({ _id: playlistId}, function() {
+            request.get('/api/playlist/' + playlistId)
+                .expect(200)
+                .end(function(req, res) {
+                    expect(res.body).to.deep.equal({ _id: playlistId});
+                    done();
+                });
+        });
+    });
+
+    it('should return 404', function() {
+        var playlistId = '2mfl94tobuti';
+
+        return request.get('/api/playlist/' + playlistId)
+            .expect(404);
+    });
+
+    afterEach(function(done) {
+        playlistsdb.drop(function () {
+            done();
+        });
+    });
+});
+
+
+describe('API /api/playlist, logged in part', function() {
     var setCookie;
     before(function(done) {
         app.onSessionConnected(function() {
@@ -29,16 +71,6 @@ describe('App HTTP interface', function() {
                 }
             );
         });
-    });
-
-    it('GET /login should return 200',function() {
-        return request.get('/login/')
-            .expect(200);
-    });
-
-    it('GET / should return 200',function() {
-        return request.get('/')
-            .expect(200);
     });
 
     describe('Testing /api/playlist?popular', function() {
