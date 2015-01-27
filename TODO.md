@@ -6,6 +6,11 @@ Release cycle:
 - Decision meeting
 - Repeat
 
+Deploy:
+git stuff
+copy new playlists
+edit and save playlists with start or end time (to update duration in playlist object).
+
 
 
 # Next release:
@@ -29,6 +34,9 @@ Release cycle:
 
 # For future releases:
 
+- Check that videos still work in YouTube.
+- Bug when calculating playing time of playlists with videos that specify beginning/end.
+- Disable related videos at the end.
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
 - Star playlists (bookmarks).
