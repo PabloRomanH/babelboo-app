@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha --require test/helpers/chai.js -R nyan; karma  start test/karma/karma.once.js"
+    "test": "mocha --require test/api/helpers/chai.js -R nyan test/api; karma start test/webapp/karma.once.js"
   },
   "dependencies": {
     "body-parser": "~1.8.1",
