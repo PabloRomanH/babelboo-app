@@ -1,10 +1,32 @@
 <div ng-controller="RankingController as rankCtrl">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default" 
+        ng-class="{'active': rankCtrl.period == 'week'}"
+        ng-click="rankCtrl.setPeriod('week')">
+          Week
+      </button>
+      <button type="button" class="btn btn-default" 
+        ng-class="{'active': rankCtrl.period == 'month'}"
+        ng-click="rankCtrl.setPeriod('month')">
+          Month
+      </button>
+      <button type="button" class="btn btn-default" 
+        ng-class="{'active': rankCtrl.period == 'alltime'}"
+        ng-click="rankCtrl.setPeriod('alltime')">
+          All time
+      </button>
+    </div>
+    
     <ol>
         <li ng-repeat="entry in rankCtrl.topRanked">{{ entry.nickname }}</li>
     </ol>
-    <ol start="rankCtrl.aboveUser[0].rank">
+    <ol start="{{ rankCtrl.aboveUser[0].rank }}">
         <li ng-repeat="entry in rankCtrl.aboveUser">{{ entry.nickname }}</li>
+    </ol>
+    <ol start=" {{ rankCtrl.userRank.rank }}">
         <li>{{ rankCtrl.userRank.nickname }}</li>
+    </ol>
+    <ol start="{{ rankCtrl.belowUser[0].rank }}">
         <li ng-repeat="entry in rankCtrl.belowUser">{{ entry.nickname }}</li>
     </ol>
 </div>

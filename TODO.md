@@ -17,14 +17,14 @@ edit and save playlists with start or end time (to update duration in playlist o
 # Next release:
 
 - Ranking (competitive social component).
-    - Create nicknames from email left side.
     - User names.
         - View requesting to set user name.
     - Ranking view (rank by gold then silver then bronze).
         - Weekly and monthly and all-time.
         - Show highest-ranked and then user in context. Show user around the middle.
-    - Access link in navbar.
-    - Where to show ranking.
+        - In the summary
+        - In the medals view
+        - Ranking of the user in the navbar
     - Avatars automatically generated.
 - Show history (graph).
     - Graph lib.
@@ -38,7 +38,7 @@ edit and save playlists with start or end time (to update duration in playlist o
 # Bugfixes:
 
 - Check that videos still work in YouTube.
-- Remove unnecessary describes in karma tests.
+- Remove unnecessary describes in karma tests and rename controller highest-level describes.
 
 # For future releases:
 

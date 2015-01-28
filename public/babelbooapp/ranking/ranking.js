@@ -10,7 +10,7 @@
         controller.topRanked;
         controller.aboveUser;
         controller.userRank;
-        controller.belowUser;
+        controller.belowUser
 
         controller.setPeriod = function(period) {
             controller.period = period;
