@@ -33,9 +33,10 @@
                         break;
                     }
                 }
-
+                
                 var nTop = Math.min(N_TOP, userRank);
-                var nAbove = Math.min(N_PADDING_BEFORE, Math.max(0, userRank - N_TOP));
+                var missingBelow = Math.max(0, RANK_LENGTH - N_TOP - N_PADDING_BEFORE - (result.length - userRank));
+                var nAbove = Math.min(N_PADDING_BEFORE + missingBelow, Math.max(0, userRank - N_TOP));
                 var nBelow = RANK_LENGTH - nTop - nAbove - 1;
 
                 controller.topRanked = result.slice(0, nTop);

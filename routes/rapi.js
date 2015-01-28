@@ -209,8 +209,6 @@ router.post('/feedback', function(req, res) {
     res.json();
 });
 
-
-
 router.post('/video', function(req, res) {
     var collection = req.db.get('videos');
 
@@ -230,5 +228,53 @@ router.post('/video', function(req, res) {
 
     res.json();
 });
+
+router.get('/ranking/:period', function(req, res) {
+    // var period = req.params.period;
+    
+    var collection = req.db.get('usercollection');
+    var fields = {username: 1, nickname: 1, medalhistory: 1, _id: 0};
+    collection.find({}, {fields: fields}, function(err, result) {
+        var ranking = [];
+        
+        for (var i = 0; i < result.length; i++) {
+            var entry  = {
+                username: result[i].username,
+                nickname: result[i].nickname,
+                golds: 0,
+                silvers: 0,
+                bronzes: 0
+            }
+            
+            var nMedals = result[i].medalhistory? result[i].medalhistory.length: 0;
+            for (var j = 0; j < nMedals; j++) {
+                var hEntry = result[i].medalhistory[j];
+                if (hEntry.medal == GOLD) {
+                    entry.golds++;
+                } else if (hEntry.medal == SILVER) {
+                    entry.silvers++;
+                } else if (hEntry.medal == BRONZE) {
+                    entry.bronzes++;
+                }
+            }
+            
+            ranking.push(entry);
+        }
+        
+        ranking.sort(function(a, b) {
+            return b.golds - a.golds;
+        });
+        
+        for (var i = 0; i < ranking.length; i ++) {
+            ranking[i].rank = i+1;
+        }
+        
+        res.json(ranking);
+        
+    });
+    
+    
+});
+
 
 module.exports = router;

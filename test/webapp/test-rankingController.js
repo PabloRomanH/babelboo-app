@@ -320,16 +320,21 @@ describe('RankingController', function() {
     });
 
     describe('Weekly, monthly and alltime ranking', function() {
+        var aUser;
         beforeEach(inject(function($controller) {
+            aUser = {username: 'user', ranking: 14};
             var ranking = {
                 week: [
-                    {username: 'u1', ranking: 1}
+                    {username: 'u1', ranking: 1},
+                    aUser
                 ],
                 month: [
-                    {username: 'u2', ranking: 1}
+                    {username: 'u2', ranking: 1},
+                    aUser
                 ],
                 alltime: [
-                    {username: 'u3', ranking: 1}
+                    {username: 'u3', ranking: 1},
+                    aUser
                 ]
             };
 
