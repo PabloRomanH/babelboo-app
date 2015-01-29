@@ -10,7 +10,9 @@ describe("controllers", function() {
         var ctrl;
         var scope;
         var analytics;
-        var user;
+        var userService;
+        var rankingService;
+        var rankData;
 
         beforeEach(function() {
             var userData = {
@@ -31,7 +33,15 @@ describe("controllers", function() {
                 callback(userData);
             }
 
-            user = { fillUser: fillUser, data: userData, correctAnswer: sinon.spy() };
+            userService = { fillUser: fillUser, data: userData, correctAnswer: sinon.spy() };
+
+            rankData = { username: 'u1', nickname: 'n1', rank: 42, golds: 3, silvers: 13, bronzes: 51 };
+
+            var getUserRank = function(callback) {
+                callback(rankData);
+            };
+
+            rankingService = { getUserRank: getUserRank };
         });
 
         beforeEach(inject(function($rootScope, $controller) {
@@ -42,7 +52,8 @@ describe("controllers", function() {
             ctrl = $controller('NavbarController', {
                 $scope: scope,
                 $analytics: analytics,
-                user: user
+                user: userService,
+                ranking: rankingService
             });
         }));
 
@@ -59,79 +70,26 @@ describe("controllers", function() {
             })).to.be.true;
         });
 
-        describe('routeChangeSuccess event (updates medal count)', function() {
-            it('complete user profile', function () {
-                ctrl.user.playlistprogress = {
-                    1: {ratio: 0},
-                    2: {ratio: 0.9},
-                    3: {ratio: 1},
-                    4: {ratio: 0.1},
-                    5: {ratio: 0.3},
-                    6: {ratio: 0.7},
-                    7: {ratio: 0.8}
-                };
-                scope.$emit('$routeChangeSuccess');
-                expect(ctrl.golds).to.equal(1);
-                expect(ctrl.silvers).to.equal(3);
-                expect(ctrl.bronzes).to.equal(2);
+        describe('sets and updates rank and medal count', function() {
+            it('correctly copies medals at the beginning', function() {
+                expect(ctrl.rank).to.equal(rankData.rank);
+                expect(ctrl.golds).to.equal(rankData.golds);
+                expect(ctrl.silvers).to.equal(rankData.silvers);
+                expect(ctrl.bronzes).to.equal(rankData.bronzes);
             });
 
-            it('no playlist progress', function () {
-                ctrl.user.playlistprogress = undefined;
+            it('correctly updates after route change event', function() {
+                rankData.rank = 1337;
+                rankData.golds = 15;
+                rankData.silvers = 3;
+                rankData.bronzes = 666;
+                
                 scope.$emit('$routeChangeSuccess');
-                expect(ctrl.golds).to.equal(0);
-                expect(ctrl.silvers).to.equal(0);
-                expect(ctrl.bronzes).to.equal(0);
-            });
-
-            it('empty playlist progress', function () {
-                ctrl.user.playlistprogress = {};
-                scope.$emit('$routeChangeSuccess');
-                expect(ctrl.golds).to.equal(0);
-                expect(ctrl.silvers).to.equal(0);
-                expect(ctrl.bronzes).to.equal(0);
-            });
-
-            it('ratio 0 means no medals', function () {
-                ctrl.user.playlistprogress = {
-                    1: {ratio: 0},
-                    2: {ratio: 0}
-                };
-                scope.$emit('$routeChangeSuccess');
-                expect(ctrl.golds).to.equal(0);
-                expect(ctrl.silvers).to.equal(0);
-                expect(ctrl.bronzes).to.equal(0);
-            });
-
-            it('bronze ratio', function () {
-                ctrl.user.playlistprogress = {
-                    1: {ratio: 0},
-                    2: {ratio: 0.00000001},
-                    3: {ratio: 0.5},
-                    4: {ratio: 0.50000001}
-                };
-                scope.$emit('$routeChangeSuccess');
-                expect(ctrl.bronzes).to.equal(2);
-            });
-
-            it('ratio silver', function () {
-                ctrl.user.playlistprogress = {
-                    1: {ratio: 0.5},
-                    2: {ratio: 0.50000001},
-                    3: {ratio: 0.99999999},
-                    4: {ratio: 1}
-                };
-                scope.$emit('$routeChangeSuccess');
-                expect(ctrl.silvers).to.equal(2);
-            });
-
-            it('ratio gold', function () {
-                ctrl.user.playlistprogress = {
-                    1: {ratio: 0.99999999},
-                    2: {ratio: 1}
-                };
-                scope.$emit('$routeChangeSuccess');
-                expect(ctrl.golds).to.equal(1);
+                
+                expect(ctrl.rank).to.equal(rankData.rank);
+                expect(ctrl.golds).to.equal(rankData.golds);
+                expect(ctrl.silvers).to.equal(rankData.silvers);
+                expect(ctrl.bronzes).to.equal(rankData.bronzes);
             });
         });
 
@@ -153,11 +111,6 @@ describe("controllers", function() {
                 expect(ctrl.user._id).to.equal(3);
             });
 
-            it('updates medal count', function(){
-                expect(ctrl.golds).to.equal(1);
-                expect(ctrl.silvers).to.equal(3);
-                expect(ctrl.bronzes).to.equal(2);
-            });
         });
 
         describe('no user logged', function () {

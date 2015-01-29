@@ -25,6 +25,7 @@
     </li>
     <li ng-show="navbarCtrl.userLogged">
       <a href="/points" class="medals" ng-click="navbarCtrl.pointsClicked()">
+        <i class="fa fa-trophy"></i> {{navbarCtrl.rank}}
         <i class="fa fa-circle medal-gold"></i> {{ navbarCtrl.golds }}
         <i class="fa fa-circle medal-silver"></i> {{ navbarCtrl.silvers }}
         <i class="fa fa-circle medal-bronze"></i> {{ navbarCtrl.bronzes }}
