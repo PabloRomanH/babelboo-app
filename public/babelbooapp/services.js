@@ -74,6 +74,16 @@
 
         return service;
     });
+    
+    app.factory('ranking', function($http) {
+        var service = {};
+        
+        service.getRanking = function(period) {
+            return $http.get('/api/ranking/' + period);   
+        };
+        
+        return service;
+    });
 
     app.factory('ranking', function($http, user) {
         var service = {};

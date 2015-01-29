@@ -18,7 +18,8 @@ edit and save playlists with start or end time (to update duration in playlist o
     - User names.
         - View requesting to set user name.
     - Ranking view (rank by gold then silver then bronze).
-
+        - Weekly and monthly and all-time.
+        - Show highest-ranked and then user in context. Show user around the middle.
         - In the summary
         - In the medals view
         - Ranking of the user in the navbar
