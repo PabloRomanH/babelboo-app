@@ -118,6 +118,16 @@
         return service;
     });
 
+    app.factory('plot', function($http) {
+        var service = {};
+
+        service.getData = function(period) {
+            return $http.get('/api/plot/' + period);
+        };
+
+        return service;
+    });
+
     app.factory('videos', function($http) {
         var service = {};
 

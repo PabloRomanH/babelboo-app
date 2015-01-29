@@ -1,5 +1,8 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists', 'ranking', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', [
+        'ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video',
+        'tv', 'player', 'playlist', 'playlists', 'ranking', 'plot',
+        'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise
         var deferred = $q.defer();

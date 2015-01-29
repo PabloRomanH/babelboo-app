@@ -322,19 +322,84 @@ router.get('/ranking/:period', function(req, res) {
             ranking[i].rank = i+1;
         }
     }
-
-    function nDaysAgo(nDays) {
-        var date = new Date();
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        date.setMilliseconds(0);
-        date.setDate(date.getDate() - nDays);
-        return date;
-    }
-
-
 });
 
+router.get('/plot/:period', function(req, res) {
+    var period = req.params.period;
+    var periodDays;
+    
+    if (period == 'week') {
+        periodDays = 7;
+    } else if (period == 'month') {
+        periodDays = 30;
+    } else {
+        res.status(404);
+        res.json();
+        return;
+    }
+    
+    var periodStart = nDaysAgo(periodDays - 1)
+
+    var collection = req.db.get('usercollection');
+
+    var query = { username: req.user.username };
+
+    collection.col.aggregate(
+        { $match: query},
+        { $unwind: '$medalhistory'},
+        { $match: {'medalhistory.date': {$gt: nDaysAgo(periodDays)}}},
+        { $group: {_id: '$_id', medalhistory: {$push: '$medalhistory'}}},
+        function(err,result) {
+            var medalhistory = result[0].medalhistory;
+
+            var goldsarray = [];
+            var silversarray = [];
+            var bronzesarray = [];
+
+            for (var i = 0; i < periodDays; i++) {
+                goldsarray[i] = 0;
+                silversarray[i] = 0;
+                bronzesarray[i] = 0;
+            }
+
+            for (var i = 0; i < medalhistory.length; i++) {
+                switch(medalhistory[i].medal) {
+                case GOLD:
+                    goldsarray[dayDifference(periodStart, medalhistory[i].date)]++
+                    break;
+                case SILVER:
+                    silversarray[dayDifference(periodStart, medalhistory[i].date)]++
+                    break;
+                case BRONZE:
+                    bronzesarray[dayDifference(periodStart, medalhistory[i].date)]++
+                    break;
+                }
+            }
+
+            res.json([goldsarray, silversarray, bronzesarray]);
+        });
+});
+
+function dayDifference(firstDate, secondDate) {
+    clearTime(firstDate);
+    clearTime(secondDate);
+
+    var timeDiff = Math.abs(secondDate.getTime() - firstDate.getTime());
+    return Math.ceil(timeDiff / (1000 * 3600 * 24));
+}
+
+function nDaysAgo(nDays) {
+    var date = new Date();
+    clearTime(date);
+    date.setDate(date.getDate() - nDays);
+    return date;
+}
+
+function clearTime(date) {
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+}
 
 module.exports = router;

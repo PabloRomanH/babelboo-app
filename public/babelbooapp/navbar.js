@@ -1,14 +1,13 @@
 (function() {
     var app = angular.module('navbar', []);
     app.controller('NavbarController', function($analytics, $route, $location, $scope, user, ranking) {
-        var rankData; 
         var controller = this;
         controller.user = {};
         controller.showLogout = false;
         controller.userLogged = false;
 
         $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
-            updateMedalsAndRank();
+            ranking.getUserRank(updateMedalsAndRank);
         });
 
         user.fillUser(function (user) {
@@ -16,10 +15,7 @@
             controller.userLogged = true;
         });
 
-        ranking.getUserRank(function (rank) {
-            rankData = rank;
-            updateMedalsAndRank();
-        });
+        ranking.getUserRank(updateMedalsAndRank);
 
         controller.pointsClicked = function () {
             $analytics.eventTrack('pointsClicked', {
@@ -37,11 +33,11 @@
             $route.reload();
         };
 
-        function updateMedalsAndRank() {
-            controller.rank = rankData.rank;
-            controller.golds = rankData.golds;
-            controller.silvers = rankData.silvers;
-            controller.bronzes = rankData.bronzes;
+        function updateMedalsAndRank(rank) {
+            controller.rank = rank.rank;
+            controller.golds = rank.golds;
+            controller.silvers = rank.silvers;
+            controller.bronzes = rank.bronzes;
         }
     });
 

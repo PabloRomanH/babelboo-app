@@ -119,35 +119,30 @@ describe('services', function() {
         }
     });
     
-    describe('ranking', function() {
-        var ranking;
+    describe('plot', function() {
+        var plot;
         var $httpBackend;
         
-        var weekRanking = 'oeu0789efa'; // Random string to check equality
-        var monthRanking = 'aoteud98a'; // Random string to check equality
-        var alltimeRanking = 'a9oeiu9a'; // Random string to check equality
+        var weekData = 'oeu0789efa'; // Random string to check equality
+        var monthData = 'aoteud98a'; // Random string to check equality
         
-        beforeEach(inject(function(_ranking_, _$httpBackend_) {
-            ranking = _ranking_;
+        beforeEach(inject(function(_plot_, _$httpBackend_) {
+            plot = _plot_;
             $httpBackend = _$httpBackend_;
         }));
         
-        it('ranking week', function() {
-            testRankingPeriod('week', weekRanking);
+        it('week plot', function() {
+            testDataPeriod('week', weekData);
         });
         
-        it('ranking month', function() {
-            testRankingPeriod('month', monthRanking);
+        it('month plot', function() {
+            testDataPeriod('month', monthData);
         });
         
-        it('ranking alltime', function() {
-            testRankingPeriod('alltime', alltimeRanking);
-        });
-        
-        function testRankingPeriod(period, result) {
-            $httpBackend.expectGET('/api/ranking/' + period).respond(result);
+        function testDataPeriod(period, result) {
+            $httpBackend.expectGET('/api/plot/' + period).respond(result);
             
-            ranking.getRanking(period).success(function(data) {
+            plot.getData(period).success(function(data) {
                 expect(data).to.equal(result);
             });
             
