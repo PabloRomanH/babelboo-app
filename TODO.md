@@ -14,7 +14,6 @@ edit and save playlists with start or end time (to update duration in playlist o
 
 # Next release:
 
-- Group days by week in graph monthly view
 - Fill medalhistory with missing medals from playlistprogress.
 - Give more visibility to related playlists. "Watch more" button in summary brings to different view.
     - View change logic in controller.
@@ -26,6 +25,7 @@ edit and save playlists with start or end time (to update duration in playlist o
 - Ranking in summary after finishing a playlist is not updated with last medal (because the controller is loaded when starting playing a playlist)
 - Shadow of navbar appears under cards in summary
 - Remove unnecessary describes in karma tests and rename controller highest-level describes.
+- in the new peppa pig playlist videos start from a weird position
 
 # For future releases:
 - A) Questions at the beginning, answers at the end.
@@ -49,6 +49,10 @@ edit and save playlists with start or end time (to update duration in playlist o
 - Visual difficulty levels.
 - Cut current playlists.
 - Keep level after finishing playlist.
+- 
+
+# Silly things to do when bored
+- Double shadows (difuse from top, hard from corner).
 
 
 # Development/deployment

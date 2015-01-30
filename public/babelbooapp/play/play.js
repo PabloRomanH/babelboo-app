@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $scope, user, playlists, renderTime, levelNames) {
+    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, user, playlists, renderTime, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -97,6 +97,7 @@
 
                 controller.ratio = controller.correctAnswers / controller.videos.length;
                 controller.showSummary = true;
+                $rootScope.$emit('ranking.refresh');
                 controller.player.stopVideo();
 
                 user.finished(playlistId);

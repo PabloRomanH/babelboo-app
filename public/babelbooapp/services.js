@@ -74,14 +74,14 @@
 
         return service;
     });
-    
+
     app.factory('ranking', function($http) {
         var service = {};
-        
+
         service.getRanking = function(period) {
-            return $http.get('/api/ranking/' + period);   
+            return $http.get('/api/ranking/' + period);
         };
-        
+
         return service;
     });
 
@@ -184,6 +184,10 @@
 
             return minutes + ':' + seconds;
         };
+    });
+
+    app.factory('now', function() {
+        return function() { return new Date(); };
     });
 
 })();

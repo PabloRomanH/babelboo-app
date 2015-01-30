@@ -28,7 +28,7 @@ describe('RankingController', function() {
     describe('Happy path', function() {
         var aUser;
 
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 8};
             ranking = [
                 {username: 'u1', ranking: 1},
@@ -47,7 +47,8 @@ describe('RankingController', function() {
                 {username: 'u14', ranking: 14}
             ];
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            scope = $rootScope.$new();
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('topRanked with the top three users', function() {
@@ -70,7 +71,7 @@ describe('RankingController', function() {
     describe('User is first', function() {
         var aUser;
 
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 1};
             ranking = [
                 aUser,
@@ -89,7 +90,8 @@ describe('RankingController', function() {
                 {username: 'u14', ranking: 14}
             ];
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            scope = $rootScope.$new();
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('topRanked is empty', function() {
@@ -112,7 +114,7 @@ describe('RankingController', function() {
     describe('User is second', function() {
         var aUser;
 
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 2};
             ranking = [
                 {username: 'u1', ranking: 1},
@@ -131,7 +133,8 @@ describe('RankingController', function() {
                 {username: 'u14', ranking: 14}
             ];
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            scope = $rootScope.$new();
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('topRanked contains first', function() {
@@ -154,7 +157,7 @@ describe('RankingController', function() {
     describe('User must be displayed below the half of the list (no aboveUser)', function() {
         var aUser;
 
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 4};
             ranking = [
                 {username: 'u1', ranking: 1},
@@ -173,7 +176,8 @@ describe('RankingController', function() {
                 {username: 'u14', ranking: 14}
             ];
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            scope = $rootScope.$new();
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('topRanked contains top three', function() {
@@ -196,7 +200,7 @@ describe('RankingController', function() {
     describe('User must be displayed above the half of the list (1-aboveUser)', function() {
         var aUser;
 
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 5};
             ranking = [
                 {username: 'u1', ranking: 1},
@@ -215,7 +219,8 @@ describe('RankingController', function() {
                 {username: 'u14', ranking: 14}
             ];
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            scope = $rootScope.$new();
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('topRanked contains top three', function() {
@@ -238,7 +243,7 @@ describe('RankingController', function() {
     describe('User must be displayed below the half of the list', function() {
         var aUser;
 
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 11};
             ranking = [
                 {username: 'u1', ranking: 1},
@@ -257,7 +262,8 @@ describe('RankingController', function() {
                 {username: 'u14', ranking: 14}
             ];
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            scope = $rootScope.$new();
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('topRanked contains top three', function() {
@@ -280,7 +286,7 @@ describe('RankingController', function() {
     describe('User is at the bottom of the list', function() {
         var aUser;
 
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 14};
             ranking = [
                 {username: 'u1', ranking: 1},
@@ -299,7 +305,7 @@ describe('RankingController', function() {
                 aUser,
             ];
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('topRanked contains top three', function() {
@@ -321,7 +327,7 @@ describe('RankingController', function() {
 
     describe('Weekly, monthly and alltime ranking', function() {
         var aUser;
-        beforeEach(inject(function($controller) {
+        beforeEach(inject(function($controller, $rootScope) {
             aUser = {username: 'user', ranking: 14};
             var ranking = {
                 week: [
@@ -348,7 +354,8 @@ describe('RankingController', function() {
                 }
             };
 
-            ctrl = $controller('RankingController', {ranking: rankingService, user: userService});
+            scope = $rootScope.$new();
+            ctrl = $controller('RankingController', {ranking: rankingService, user: userService, $scope: scope});
         }));
 
         it('selects week by default', function() {

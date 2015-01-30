@@ -103,7 +103,7 @@ describe('services', function() {
                 expect(data).to.deep.equal(userrank);
                 done();
             });
-            
+
             $httpBackend.flush();
         });
 
@@ -118,36 +118,60 @@ describe('services', function() {
             $httpBackend.flush();
         }
     });
-    
+
     describe('plot', function() {
         var plot;
         var $httpBackend;
-        
+
         var weekData = 'oeu0789efa'; // Random string to check equality
         var monthData = 'aoteud98a'; // Random string to check equality
-        
+
         beforeEach(inject(function(_plot_, _$httpBackend_) {
             plot = _plot_;
             $httpBackend = _$httpBackend_;
         }));
-        
+
         it('week plot', function() {
             testDataPeriod('week', weekData);
         });
-        
+
         it('month plot', function() {
             testDataPeriod('month', monthData);
         });
-        
+
         function testDataPeriod(period, result) {
             $httpBackend.expectGET('/api/plot/' + period).respond(result);
-            
+
             plot.getData(period).success(function(data) {
                 expect(data).to.equal(result);
             });
-            
+
             $httpBackend.flush();
         }
+    });
+
+    describe('now', function() {
+        var now;
+
+        var weekData = 'oeu0789efa'; // Random string to check equality
+        var monthData = 'aoteud98a'; // Random string to check equality
+
+        beforeEach(inject(function(_now_) {
+            now = _now_;
+        }));
+
+        it('returns current date', function() {
+            var before = new Date();
+            var output = now();
+            var after = new Date();
+            expect(output).to.be.within(before, after);
+
+            before.setMilliseconds(before.getMilliseconds() - 1);
+            expect(output).to.be.above(before);
+
+            after.setMilliseconds(after.getMilliseconds() + 1);
+            expect(output).to.be.below(after);
+        });
     });
 
     afterEach(function() {});
