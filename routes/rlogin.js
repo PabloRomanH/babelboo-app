@@ -14,6 +14,7 @@ router.get('/alpha', function(req, res, next){
     if(!req.query.password) {
         req.query.password = 'boo';
     }
+    req.query.username = decodeURIComponent(req.query.username);
     next();
 });
 
