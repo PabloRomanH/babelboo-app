@@ -47,5 +47,12 @@
             });
         }
     });
+    
+    app.directive('ranking', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/babelbooapp/ranking/ranking.html'
+        };
+    });
 
 })();

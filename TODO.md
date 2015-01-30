@@ -23,9 +23,9 @@ edit and save playlists with start or end time (to update duration in playlist o
 # Bugfixes:
 
 - Check that videos still work in YouTube.
-- Remove unnecessary describes in karma tests and rename controller highest-level describes.
-- Ranking in summary after finishing a playlist is not updated with last medal
+- Ranking in summary after finishing a playlist is not updated with last medal (because the controller is loaded when starting playing a playlist)
 - Shadow of navbar appears under cards in summary
+- Remove unnecessary describes in karma tests and rename controller highest-level describes.
 
 # For future releases:
 - A) Questions at the beginning, answers at the end.

@@ -103,14 +103,8 @@
             when('/video', {
                 templateUrl: '/babelbooapp/video/video-fragment.html'
             }).
-            when('/points', {
-                templateUrl: '/babelbooapp/points/under-construction.html',
-                resolve: {
-                    loggedin: checkLoggedin
-                }
-            }).
-            when('/ranking', {
-                templateUrl: '/babelbooapp/ranking/ranking-fragment.html',
+            when('/progress', {
+                templateUrl: '/babelbooapp/progress/progress-fragment.html',
                 resolve: {
                     loggedin: checkLoggedin
                 }

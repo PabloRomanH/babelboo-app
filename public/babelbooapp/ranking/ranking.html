@@ -1,0 +1,52 @@
+<div ng-controller="RankingController as rankCtrl">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default" 
+        ng-class="{'active': rankCtrl.period == 'week'}"
+        ng-click="rankCtrl.setPeriod('week')">
+          Week
+      </button>
+      <button type="button" class="btn btn-default" 
+        ng-class="{'active': rankCtrl.period == 'month'}"
+        ng-click="rankCtrl.setPeriod('month')">
+          Month
+      </button>
+      <button type="button" class="btn btn-default" 
+        ng-class="{'active': rankCtrl.period == 'alltime'}"
+        ng-click="rankCtrl.setPeriod('alltime')">
+          All time
+      </button>
+    </div>
+    
+    <ol>
+        <li ng-repeat="entry in rankCtrl.topRanked">
+          {{ entry.nickname }} 
+          <i class="fa fa-circle medal-gold"></i> {{ entry.golds }}
+          <i class="fa fa-circle medal-silver"></i> {{ entry.silvers }}
+          <i class="fa fa-circle medal-bronze"></i> {{ entry.bronzes }}
+        </li>
+    </ol>
+    <ol start="{{ rankCtrl.aboveUser[0].rank }}">
+        <li ng-repeat="entry in rankCtrl.aboveUser">
+          {{ entry.nickname }} 
+          <i class="fa fa-circle medal-gold"></i> {{ entry.golds }}
+          <i class="fa fa-circle medal-silver"></i> {{ entry.silvers }}
+          <i class="fa fa-circle medal-bronze"></i> {{ entry.bronzes }}
+        </li>
+    </ol>
+    <ol start=" {{ rankCtrl.userRank.rank }}">
+        <li>
+          {{ rankCtrl.userRank.nickname }}
+          <i class="fa fa-circle medal-gold"></i> {{ rankCtrl.userRank.golds }}
+          <i class="fa fa-circle medal-silver"></i> {{ rankCtrl.userRank.silvers }}
+          <i class="fa fa-circle medal-bronze"></i> {{ rankCtrl.userRank.bronzes }}
+        </li>
+    </ol>
+    <ol start="{{ rankCtrl.belowUser[0].rank }}">
+        <li ng-repeat="entry in rankCtrl.belowUser">
+          {{ entry.nickname }} 
+          <i class="fa fa-circle medal-gold"></i> {{ entry.golds }}
+          <i class="fa fa-circle medal-silver"></i> {{ entry.silvers }}
+          <i class="fa fa-circle medal-bronze"></i> {{ entry.bronzes }}
+        </li>
+    </ol>
+</div>
