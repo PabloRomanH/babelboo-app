@@ -19,6 +19,7 @@ describe('API /api/plot test it is private', function(done) {
 
 describe('API /api/plot, logged in part', function() {
     describe('Testing /api/plot/', function() {
+        var userdb;
         var setCookie;
 
         var BRONZE = 1;
@@ -62,7 +63,7 @@ describe('API /api/plot, logged in part', function() {
 
         beforeEach(function(done) {
             var db = app.db;
-            var userdb = db.get('usercollection');
+            userdb = db.get('usercollection');
             var db = app.db;
             var logindb = db.get('testlogin');
             logindb.drop(function () {
@@ -85,15 +86,31 @@ describe('API /api/plot, logged in part', function() {
         });
 
         it('correctly adds medals in the same day and returns only last week', function (done) {
-            return testPlotData('week', [[0,0,0,0,0,2,0],
-                                         [0,0,0,0,0,1,0],
-                                         [1,0,0,0,0,0,1]], done);
+            testPlotData('week', [[0,0,0,0,0,2,0],
+                                  [0,0,0,0,0,1,0],
+                                  [1,0,0,0,0,0,1]], done);
         });
 
         it('correctly selects medals obtained last month (above and below limits)', function (done) {
-            return testPlotData('month', [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0],
-                                          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-                                          [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1]], done);
+            testPlotData('month', [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0],
+                                   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+                                   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1]], done);
+        });
+
+        it('weekly works when user has no medalhistory', function(done) {
+            userdb.update({username: 'testuser1'}, {username: 'testuser1', password: 'apassword'}, function() {
+                testPlotData('week', [[0,0,0,0,0,0,0],
+                                      [0,0,0,0,0,0,0],
+                                      [0,0,0,0,0,0,0]], done);
+            });
+        });
+
+        it('monthly works when user has no medalhistory', function(done) {
+            userdb.update({username: 'testuser1'}, {username: 'testuser1', password: 'apassword'}, function() {
+                testPlotData('month', [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                                       [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                                       [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]], done);
+            });
         });
 
 

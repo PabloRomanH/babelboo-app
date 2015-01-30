@@ -226,14 +226,50 @@ describe('API /api/ranking, logged in part', function() {
             var medals = [[0,0,1],[1,0,0]];
             testUserOrder(indices, order, medals, 'month', done);
         });
-        
+
+        it('Works when user has no medalhistory', function(done) {
+            var period = 'alltime';
+            var users = getUsers([0]);
+            users.unshift({username: 'uempty', nickname: 'nempty'});
+
+            userdb.insert(users, function() {
+                request.get('/api/ranking/' + period)
+                    .set('Cookie', setCookie)
+                    .expect(200)
+                    .expect('Content-Type', /json/)
+                    .end(function(err, res){
+                        if (err) throw err;
+
+                        expect(res.body[0]).to.deep.equal({
+                            username: 'u0',
+                            nickname: 'n0',
+                            rank: 1,
+                            golds: 1,
+                            silvers: 1,
+                            bronzes: 0
+                        });
+
+                        expect(res.body[1]).to.deep.equal({
+                            username: 'uempty',
+                            nickname: 'nempty',
+                            rank: 2,
+                            golds: 0,
+                            silvers: 0,
+                            bronzes: 0
+                        });
+
+                        done();
+                    });
+            });
+        });
+
         it('404 if wrong period', function() {
             var period = '7adi7ak09';
             return request.get('/api/ranking/' + period)
                 .set('Cookie', setCookie)
                 .expect(404);
         });
-        
+
         // it('404 if no period', function() {
         //     return request.get('/api/ranking/')
         //         .set('Cookie', setCookie)

@@ -6,8 +6,8 @@
         // controller.data;
         controller.period = 'week';
 
-        controller.labels = ['sample 1', 'sample 2', 'sample 3', 'sample 4'];
-        controller.data = [[1, 2, 3, 2], [2, 3, 4, 1], [3, 1, 1, 4]];
+        controller.labels = [6,5,4,3,2,1,0];
+        controller.data = [[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]];
         controller.series = ['Gold', 'Silver', 'Bronze'];
         controller.colours = [
             {
@@ -45,12 +45,12 @@
 
         function update() {
             plot.getData(controller.period).success(function(data) {
-                console.log('hello');
                 controller.data = data;
                 controller.labels = [];
-                for (var i = 0; i < data[0].length; i++) controller.labels[i] = i;
-                console.log(controller.data);
-                console.log(controller.labels);
+
+                for (var i = 0; i < data[0].length; i++) {
+                    controller.labels[i] = controller.data[0].length - i -1;
+                }
             });
         }
 

@@ -1,8 +1,8 @@
 Release cycle:
 - Release
 - Set next meeting day in >= 10 days
-- >= 7 days to let the users use it
-- 3 days of interviews
+- >= 7 days to let the users use it  + development
+- 3 days of interviews               + development
 - Decision meeting
 - Repeat
 
@@ -14,28 +14,30 @@ edit and save playlists with start or end time (to update duration in playlist o
 
 # Next release:
 
-- Ranking (competitive social component).
-    - User names.
-        - View requesting to set user name.
-    - Ranking view (rank by gold then silver then bronze).
-        - In the summary
-    - Avatars automatically generated.
-- Show history (graph).
-    - Graph lib.
+- Group days by week in graph monthly view
+- Fill medalhistory with missing medals from playlistprogress.
 - Give more visibility to related playlists. "Watch more" button in summary brings to different view.
     - View change logic in controller.
-- A) Questions at the beginning, answers at the end.
-    - Button 'Answer now' that pauses video and shows answers.
-- B) Questions at the end.
-    - Remove boring part at the end of videos.
+
 
 # Bugfixes:
 
 - Check that videos still work in YouTube.
 - Remove unnecessary describes in karma tests and rename controller highest-level describes.
+- Ranking in summary after finishing a playlist is not updated with last medal
+- Shadow of navbar appears under cards in summary
 
 # For future releases:
-
+- A) Questions at the beginning, answers at the end.
+    - Button 'Answer now' that pauses video and shows answers.
+- B) Questions at the end.
+    - Remove boring part at the end of videos.
+- Ranking (competitive social component).
+    - Avatars automatically generated.
+- Feedback form save the route where the user is a.t.m. of submitting.
+- Change medal indices and values to ALWAYS GOLD = 0, SILVER = 1, BRONZE = 1
+- User names.
+    - View requesting to set user name.
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
 - Star playlists (bookmarks).
@@ -69,7 +71,7 @@ edit and save playlists with start or end time (to update duration in playlist o
     - own installation of cloud9
 
 
-# Functionality to maybe test in the future:
+# Someday:
 
 - Playlists
     - Playlist quality mark (playlists marked as good)

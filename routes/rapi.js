@@ -248,11 +248,11 @@ router.get('/ranking/:period', function(req, res) {
     var collection = req.db.get('usercollection');
     var fields = {username: 1, nickname: 1, medalhistory: 1, _id: 0};
     collection.find({}, {fields: fields}, function(err, result) {
-        var ranking = result.map(processMedalHistory);
-        ranking.sort(medalCompare);
-        fillRanks(ranking);
+            var ranking = result.map(processMedalHistory);
+            ranking.sort(medalCompare);
+            fillRanks(ranking);
 
-        res.json(ranking);
+            res.json(ranking);
     });
 
     function processMedalHistory(element) {
@@ -327,7 +327,7 @@ router.get('/ranking/:period', function(req, res) {
 router.get('/plot/:period', function(req, res) {
     var period = req.params.period;
     var periodDays;
-    
+
     if (period == 'week') {
         periodDays = 7;
     } else if (period == 'month') {
@@ -337,7 +337,7 @@ router.get('/plot/:period', function(req, res) {
         res.json();
         return;
     }
-    
+
     var periodStart = nDaysAgo(periodDays - 1)
 
     var collection = req.db.get('usercollection');
@@ -345,13 +345,11 @@ router.get('/plot/:period', function(req, res) {
     var query = { username: req.user.username };
 
     collection.col.aggregate(
-        { $match: query},
-        { $unwind: '$medalhistory'},
-        { $match: {'medalhistory.date': {$gt: nDaysAgo(periodDays)}}},
-        { $group: {_id: '$_id', medalhistory: {$push: '$medalhistory'}}},
+        { $match: query },
+        { $unwind: '$medalhistory' },
+        { $match: {'medalhistory.date': {$gt: nDaysAgo(periodDays)}} },
+        { $group: {_id: '$_id', medalhistory: {$push: '$medalhistory'}} },
         function(err,result) {
-            var medalhistory = result[0].medalhistory;
-
             var goldsarray = [];
             var silversarray = [];
             var bronzesarray = [];
@@ -362,17 +360,21 @@ router.get('/plot/:period', function(req, res) {
                 bronzesarray[i] = 0;
             }
 
-            for (var i = 0; i < medalhistory.length; i++) {
-                switch(medalhistory[i].medal) {
-                case GOLD:
-                    goldsarray[dayDifference(periodStart, medalhistory[i].date)]++
-                    break;
-                case SILVER:
-                    silversarray[dayDifference(periodStart, medalhistory[i].date)]++
-                    break;
-                case BRONZE:
-                    bronzesarray[dayDifference(periodStart, medalhistory[i].date)]++
-                    break;
+            if(result.length > 0) {
+                var medalhistory = result[0].medalhistory;
+
+                for (var i = 0; i < medalhistory.length; i++) {
+                    switch(medalhistory[i].medal) {
+                    case GOLD:
+                        goldsarray[dayDifference(periodStart, medalhistory[i].date)]++
+                        break;
+                    case SILVER:
+                        silversarray[dayDifference(periodStart, medalhistory[i].date)]++
+                        break;
+                    case BRONZE:
+                        bronzesarray[dayDifference(periodStart, medalhistory[i].date)]++
+                        break;
+                    }
                 }
             }
 

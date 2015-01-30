@@ -11,6 +11,18 @@
   </div>
 
   <div ng-controller="PlotController as plotCtrl">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default"
+        ng-class="{'active': plotCtrl.period == 'week'}"
+        ng-click="plotCtrl.setPeriod('week')">
+          Week
+      </button>
+      <button type="button" class="btn btn-default"
+        ng-class="{'active': plotCtrl.period == 'month'}"
+        ng-click="plotCtrl.setPeriod('month')">
+          Month
+      </button>
+    </div>
     <canvas id="line" class="chart chart-line" data="plotCtrl.data"
       labels="plotCtrl.labels" legend="true" series="plotCtrl.series"
       colours="plotCtrl.colours">
