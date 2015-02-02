@@ -15,14 +15,10 @@ edit and save playlists with start or end time (to update duration in playlist o
 # Next release:
 
 - Fill medalhistory with missing medals from playlistprogress.
-- Give more visibility to related playlists. "Watch more" button in summary brings to different view.
-    - View change logic in controller.
-
 
 # Bugfixes:
 
 - Check that videos still work in YouTube.
-- Ranking in summary after finishing a playlist is not updated with last medal (because the controller is loaded when starting playing a playlist)
 - Shadow of navbar appears under cards in summary
 - Remove unnecessary describes in karma tests and rename controller highest-level describes.
 - in the new peppa pig playlist videos start from a weird position
