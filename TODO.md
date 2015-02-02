@@ -11,6 +11,7 @@ git stuff.
 run script to update nicknames.
 copy new playlists.
 edit and save playlists with start or end time (to update duration in playlist object).
+remove users' playlist_points
 
 # Next release:
 
