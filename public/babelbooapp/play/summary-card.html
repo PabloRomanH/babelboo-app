@@ -12,18 +12,13 @@
   <div class="text-center summary">Summary</div>
 
   <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} out of {{ playCtrl.videos.length }}</span></p>
-  
+
   <ranking></ranking>
-  
-  <a class="button-player" href="/" ng-show="playCtrl.userLogged">
-    Finish
+
+  <a class="button-player" href="#" ng-click="playCtrl.showRelated()" ng-show="playCtrl.userLogged">
+    Watch More!
   </a>
   <a class="button-player" href="/register" ng-hide="playCtrl.userLogged">
     Watch More!
   </a>
-</div>
-
-<div ng-show="playCtrl.relatedplaylists.length">
-  <h4>Similar playlists:</h4>
-  <relatedplaylist-card ng-repeat="playlist in playCtrl.relatedplaylists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></relatedplaylist-card>
 </div>

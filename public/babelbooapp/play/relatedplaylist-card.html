@@ -1,4 +1,4 @@
-<div class="playlist" ng-click="playCtrl.throwRelatedEvent(playlist._id)">
+<div class="playlist">
   <div>
     <div class="th"><img ng-src="{{ playlist.entries[0] ? playlist.entries[0].thumbnail : '/img/nothumbnail.png' }}"></div>
     <div class="th"><img ng-src="{{ playlist.entries[1] ? playlist.entries[1].thumbnail : '/img/nothumbnail.png' }}"></div>
@@ -6,7 +6,7 @@
     <div class="th"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
   </div>
 
-  <a class="fa-stack fa-lg play-btn" ng-href="/play/{{ playlist._id }}">
+  <a class="fa-stack fa-lg play-btn" ng-href="/play/{{ playlist._id }}" ng-click="playCtrl.throwRelatedEvent(playlist._id)">
     <i class="fa fa-circle fa-stack-2x play-circle"></i>
     <i class="fa fa-play fa-stack-1x"></i>
   </a>
@@ -15,9 +15,12 @@
     <i class="fa fa-clock-o pull-right"> {{ playCtrl.renderTime(playlist.duration) }}</i>
     <i class="fa fa-graduation-cap"> {{ playCtrl.levelNames[playlist.level] }}</i>
   </div>
-  <ul class="list-unstyled list-inline tag-list">
-    <li class="tag-box" ng-repeat="tag in playlist.tags">
-      {{ tag }}
-    </li>
-  </ul>
+  <div class="playlist-icons">
+    <ul class="list-unstyled list-inline">
+      <li class="tag-box"><i class="fa fa-tag"></i></li
+      ><li class="tag-box" ng-repeat="tag in playlist.tags">
+        {{ tag }}
+      </li>
+    </ul>
+  </div>
 </div>
