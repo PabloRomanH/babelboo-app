@@ -1,13 +1,15 @@
 
-<div class="cine clearfix medals" ng-controller="NavbarController as navbarCtrl">
-  <div class="medal medal-gold">
-    {{navbarCtrl.golds}}
-  </div>
-  <div class="medal medal-silver">
-    {{navbarCtrl.silvers}}
-  </div>
-  <div class="medal medal-bronze">
-    {{navbarCtrl.bronzes}}
+<div class="cine clearfix" ng-controller="NavbarController as navbarCtrl">
+  <div class="medals">
+    <div class="medal medal-gold">
+      {{navbarCtrl.golds}}
+    </div>
+    <div class="medal medal-silver">
+      {{navbarCtrl.silvers}}
+    </div>
+    <div class="medal medal-bronze">
+      {{navbarCtrl.bronzes}}
+    </div>
   </div>
 
   <div ng-controller="PlotController as plotCtrl">

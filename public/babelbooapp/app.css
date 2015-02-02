@@ -890,6 +890,36 @@ li.tag-selected {
     margin-left: 0px;
 }
 
+/*--------- RANKING ---------*/
+.ranking {
+    text-align: center;
+}
+
+.ranking table {
+    text-align: left;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.ranking tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.ranking .first-above {
+    border-top: 3px solid #00618C;
+}
+
+.ranking td {
+    padding: 5px;
+}
+
+.ranking .me {
+    color: #fff;
+    background-color: #00618C;
+}
+
+/*--------- /RANKING ---------*/
+
 /*---------    OTHERS --------*/
 .value {
     background-color: #00618C;
