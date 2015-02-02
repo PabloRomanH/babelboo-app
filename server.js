@@ -21,9 +21,14 @@ if (process.env.NODE_ENV === 'test') {
 
 app.db = require('monk')(dbpath);
 
-function findByUserName(username, callback)
-{
-    var collection = app.db.get('usercollection');
+function findByUserName(username, callback) {
+    var collection;
+    if (process.env.NODE_ENV === 'test')
+        collection = app.db.get('testlogin');
+    else {
+        collection = app.db.get('usercollection');
+    }
+    
     collection.find({username: username},{},function (err, result) {
         if (result.length === 0)
             return callback(null, null);
@@ -32,9 +37,14 @@ function findByUserName(username, callback)
     });
 }
 
-function findById(id, callback)
-{
-    var collection = app.db.get('usercollection');
+function findById(id, callback) {
+    var collection;
+    if (process.env.NODE_ENV === 'test')
+        collection = app.db.get('testlogin');
+    else {
+        collection = app.db.get('usercollection');
+    }
+    
     collection.findById(id, function(err, user){
         if (user != null) {
             callback(null, user);
@@ -150,14 +160,14 @@ var restrictedAuth = function(req, res, next) {
     }
 }
 
-app.get('/loggedin', function(req, res) { 
+app.get('/loggedin', function(req, res) {
     var user = '0';
-    
+
     if (req.isAuthenticated()) {
         user = req.user;
         updateLastLogin(user);
     }
-    
+
     res.send(user);
 });
 

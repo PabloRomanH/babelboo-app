@@ -75,6 +75,59 @@
         return service;
     });
 
+    app.factory('ranking', function($http) {
+        var service = {};
+
+        service.getRanking = function(period) {
+            return $http.get('/api/ranking/' + period);
+        };
+
+        return service;
+    });
+
+    app.factory('ranking', function($http, user) {
+        var service = {};
+        var username = null;
+
+        service.getRanking = function(period) {
+            return $http.get('/api/ranking/' + period);
+        };
+
+        service.getUserRank = function(callback) {
+            if (username == null) {
+                user.fillUser(function (user) {
+                    username = user.username;
+                    getRank(callback);
+                });
+            } else {
+                getRank(callback);
+            }
+        }
+
+        function getRank(callback) {
+            $http.get('/api/ranking/alltime').success(function(data) {
+                for(var i = 0; i < data.length; i++) {
+                    if (data[i].username == username) {
+                        callback(data[i]);
+                        break;
+                    }
+                }
+            });
+        }
+
+        return service;
+    });
+
+    app.factory('plot', function($http) {
+        var service = {};
+
+        service.getData = function(period) {
+            return $http.get('/api/plot/' + period);
+        };
+
+        return service;
+    });
+
     app.factory('videos', function($http) {
         var service = {};
 
@@ -128,8 +181,13 @@
                 minutes = pad(minutes);
                 return hours + ':' + minutes + ':' + seconds;
             }
+
             return minutes + ':' + seconds;
         };
+    });
+
+    app.factory('now', function() {
+        return function() { return new Date(); };
     });
 
 })();

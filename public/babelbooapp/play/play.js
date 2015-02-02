@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $scope, user, playlists, renderTime, levelNames) {
+    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, user, playlists, renderTime, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -28,7 +28,7 @@
 
         controller.ratio = 0;
 
-        controller.showSummary = false;
+        controller.show = 'player';
         controller.videos = [];
         controller.relatedplaylists = [];
 
@@ -96,7 +96,8 @@
                 });
 
                 controller.ratio = controller.correctAnswers / controller.videos.length;
-                controller.showSummary = true;
+                controller.show = 'summary';
+                $rootScope.$emit('ranking.refresh');
                 controller.player.stopVideo();
 
                 user.finished(playlistId);
@@ -131,6 +132,10 @@
             controller.player.seekTo( start + (end - start) * ratio);
         }
 
+        controller.showRelated = function() {
+            controller.show = 'related';
+        }
+
         $scope.$on('youtube.player.ready', function ($event, player) {
             controller.ready = true;
             controller.player.unMute();
@@ -159,6 +164,13 @@
             restrict: 'E',
             templateUrl: '/babelbooapp/play/summary-card.html'
         }
+    });
+
+    app.directive('relatedCard', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/babelbooapp/play/related-card.html'
+        };
     });
 
     app.directive('relatedplaylistCard', function() {

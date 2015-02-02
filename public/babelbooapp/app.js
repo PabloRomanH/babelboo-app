@@ -1,14 +1,17 @@
 (function() {
-    var app = angular.module('babelbooapp', ['ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists', 'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+    var app = angular.module('babelbooapp', [
+        'ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video',
+        'tv', 'player', 'playlist', 'playlists', 'ranking', 'plot',
+        'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
-    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise 
-        var deferred = $q.defer(); 
-        
-        // Make an AJAX call to check if the user is logged in 
-        $http.get('/loggedin').success(function(user){ 
-            if (user !== '0') { // Authenticated 
-              $timeout(deferred.resolve, 0);   
-            } else { // Not Authenticated 
+    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise
+        var deferred = $q.defer();
+
+        // Make an AJAX call to check if the user is logged in
+        $http.get('/loggedin').success(function(user){
+            if (user !== '0') { // Authenticated
+              $timeout(deferred.resolve, 0);
+            } else { // Not Authenticated
                 $rootScope.message = 'You need to log in.';
                 $timeout(function(){deferred.reject();}, 0);
                 $location.url('/login');
@@ -100,8 +103,8 @@
             when('/video', {
                 templateUrl: '/babelbooapp/video/video-fragment.html'
             }).
-            when('/points', {
-                templateUrl: '/babelbooapp/points/under-construction.html',
+            when('/progress', {
+                templateUrl: '/babelbooapp/progress/progress-fragment.html',
                 resolve: {
                     loggedin: checkLoggedin
                 }

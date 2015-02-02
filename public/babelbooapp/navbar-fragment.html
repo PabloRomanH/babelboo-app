@@ -17,14 +17,15 @@
     <li ng-show="navbarCtrl.userLogged">
       <a href="#" ng-click="navbarCtrl.showLogout = !navbarCtrl.showLogout">
         <i class="fa fa-user"></i>
-        {{ navbarCtrl.user.username }}
+        {{ navbarCtrl.user.nickname }}
       </a>
       <div class="user-dropdown" ng-show="navbarCtrl.showLogout">
         <a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
       </div>
     </li>
     <li ng-show="navbarCtrl.userLogged">
-      <a href="/points" class="medals" ng-click="navbarCtrl.pointsClicked()">
+      <a href="/progress" class="medals" ng-click="navbarCtrl.pointsClicked()">
+        <i class="fa fa-trophy"></i> {{navbarCtrl.rank}}
         <i class="fa fa-circle medal-gold"></i> {{ navbarCtrl.golds }}
         <i class="fa fa-circle medal-silver"></i> {{ navbarCtrl.silvers }}
         <i class="fa fa-circle medal-bronze"></i> {{ navbarCtrl.bronzes }}

@@ -20,6 +20,8 @@ module.exports = function(config) {
       'public/lib/angulartics.min.js',
       'public/lib/angulartics-ga.min.js',
       'public/lib/angular-youtube-embed.js',
+      'public/lib/Chart.min.js',
+      'public/lib/angular-chart.js',
       'public/babelbooapp/**/*.js',
       'public/lib/angular-mocks.js',
       'test/webapp/**/test*.js'
