@@ -463,6 +463,11 @@ li.tag-selected {
     background-image: url('/img/none-small.png');
 }
 
+.summary-card {
+    padding-top: 0px !important;
+    width: 600px;
+}
+
 .summary-card .medal, .medals .medal {
     background-repeat: no-repeat;
     position: relative;
@@ -506,6 +511,8 @@ li.tag-selected {
     padding-top: 160px;
     color: #333;
     font-size: 37px;
+    margin-top: -15px;
+    margin-bottom: -30px;
     font-weight: 900;
 }
 
@@ -929,6 +936,71 @@ li.tag-selected {
 }
 
 /*--------- /RANKING ---------*/
+
+/*--------- PROGRESS ---------*/
+.left-container {
+    display: inline-block;
+    width: 610px;
+    padding-right: 10px;
+}
+
+.progress-card.medal-table, .progress-card.chart {
+    width: 100%;
+}
+
+.progress-card.chart {
+    height: 350px;
+}
+
+.progress-card.ranking {
+    height: 636px;
+}
+
+.blue-title {
+    color: #fff;
+    font-size: 22px;
+    background-color: #00618C;
+    padding: 10px 20px;
+}
+
+.progress-card.ranking table {
+    margin: 20px 20px 0px 20px;
+}
+
+.progress-card.ranking td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.progress-card .chart-container {
+    width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progress-card {
+    background-color:#fff;
+    /*max-width: 680px;*/
+    margin: 0px auto 10px auto;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px #848484;
+    vertical-align: top;
+    text-align: left;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.progress-card > * {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.medals {
+    overflow: hidden;
+}
+/*--------- /PROGRESS ---------*/
+
 
 /*---------    OTHERS --------*/
 .value {

@@ -3,7 +3,7 @@
 
     app.controller('PlotController', function(plot, now){
         var controller = this;
-        controller.period = 'week';
+        controller.period = 'month';
 
         controller.data = [[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]];
         controller.series = ['Gold', 'Silver', 'Bronze'];
