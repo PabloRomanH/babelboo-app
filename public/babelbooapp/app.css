@@ -550,8 +550,18 @@ li.tag-selected {
     margin-bottom: 0px;
 }
 
+.player-container {
+    width: 640px;
+    height: 360px;
+    background-color: #222;
+    display: inline-block;
+    margin-left: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .answer {
-    margin-top: 00px;
+    margin-top: 0px;
     width: 100%;
     display: inline-block;
 }
