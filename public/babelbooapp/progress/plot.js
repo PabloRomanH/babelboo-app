@@ -12,25 +12,25 @@
         controller.series = ['Gold', 'Silver', 'Bronze'];
         controller.colours = [
             {
-                fillColor: "rgba(255, 234, 50, 1)",
-                strokeColor: "rgba(254, 214, 20,1)",
+                fillColor: "rgba(255, 211, 0, 1)",
+                strokeColor: "rgba(246, 204, 0,1)",
                 pointColor: "rgba(254, 214, 20,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(254, 214, 20,0.8)"
+                pointHighlightStroke: "rgba(254, 214, 20, 0.8)"
             },
             {
-                fillColor: "rgba(231, 254, 242, 1)",
-                strokeColor: "rgba(211, 224, 222,1)",
-                pointColor: "rgba(211, 224, 222,1)",
+                fillColor: "rgba(218, 218, 218, 1)",
+                strokeColor: "rgba(210, 210, 210, 1)",
+                pointColor: "rgba(211, 224, 222, 1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(211, 224, 222,0.8)"
+                pointHighlightStroke: "rgba(211, 224, 222, 0.8)"
             },
             {
-                fillColor: "rgba(240, 175, 142, 1)",
-                strokeColor: "rgba(220, 155, 122,1)",
-                pointColor: "rgba(220, 155, 122,1)",
+                fillColor: "rgba(223, 168, 129, 1)",
+                strokeColor: "rgba(215, 162, 124, 1)",
+                pointColor: "rgba(220, 155, 122, 1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220, 155, 122,0.8)"

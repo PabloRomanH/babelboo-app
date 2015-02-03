@@ -7,15 +7,16 @@ Release cycle:
 - Repeat
 
 Deploy:
+write email
 git stuff.
 run script to update nicknames.
+run script fill-medalhistory
 copy new playlists.
 edit and save playlists with start or end time (to update duration in playlist object).
 remove users' playlist_points
+send email
 
 # Next release:
-
-- Fill medalhistory with missing medals from playlistprogress.
 
 # Bugfixes:
 
@@ -46,10 +47,9 @@ remove users' playlist_points
 - Visual difficulty levels.
 - Cut current playlists.
 - Keep level after finishing playlist.
-- 
+-
 
 # Silly things to do when bored
-- Double shadows (difuse from top, hard from corner).
 
 
 # Development/deployment
