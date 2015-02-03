@@ -920,6 +920,7 @@ li.tag-selected {
 
 .ranking tr {
     border-bottom: 1px solid #ccc;
+    text-align: left;
 }
 
 .ranking .first-above {
@@ -934,7 +935,6 @@ li.tag-selected {
     color: #fff;
     background-color: #00618C;
 }
-
 /*--------- /RANKING ---------*/
 
 /*--------- PROGRESS ---------*/

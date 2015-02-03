@@ -3,7 +3,9 @@ describe('PlotController', function() {
     beforeEach(module('services'));
 
     var ctrl;
-    var weekData = 'aeo79ua7o';
+    var weekData = [[12,0,0,0,0,0,1],
+                    [0,8,0,2,0,4,0],
+                    [5,0,0,0,0,0,1]];
     var monthData = [[8,11,     0,1,0,0,0,84,0,     0,0,3,0,0,2,0,      15,0,0,8,0,0,0,      12,0,0,0,0,0,1], // gold
                      [3,7,      0,0,0,5,0,0,0,      0,0,0,0,0,0,0,      0,0,1,0,0,54,0,      0,0,0,0,0,0,0], // silver
                      [5341,36,  0,0,0,0,1,1,1,      1,0,0,0,0,0,0,      2,0,0,0,0,0,3,       5,0,0,0,0,0,1]]; // bronze
@@ -29,29 +31,39 @@ describe('PlotController', function() {
             return new Date(nowDate);
         };
 
-        ctrl = $controller('PlotController', {plot: plotService, now: nowService});
+        var rankingService = {
+            getUserRank: function(callback) {
+                callback({golds: 150, silvers: 70, bronzes: 5392});
+            }
+        };
+
+        ctrl = $controller('PlotController', {plot: plotService, now: nowService, ranking: rankingService});
     }));
 
-    it ('loads week data by default', function() {
-        expect(ctrl.data).to.deep.equal(weekData);
+    var aggregatedMonthData = [
+        [5504,5510,5593,5612],
+        [5395,5396,5456,5462],
+        [5380,5381,5386,5392]
+    ];
+    
+    var expectedWeekData = [[5596, 5604, 5604, 5606, 5606, 5610, 5612],
+                            [5447, 5455, 5455, 5457, 5457, 5461, 5462],
+                            [5391, 5391, 5391, 5391, 5391, 5391, 5392]];
+
+    it('loads month by default and aggregates month data by weeks (discards first two days)', function() {
+        expect(ctrl.data).to.deep.equal(aggregatedMonthData);
     });
 
-    var aggregatedMonthData = [
-        [85,5,23,13],
-        [5,0,55,0],
-        [3,1,5,6]
-    ];
-
-    it('aggregates month data by weeks (discards last two days)', function() {
-        ctrl.setPeriod('month');
-        expect(ctrl.data).to.deep.equal(aggregatedMonthData);
+    it ('loads week data', function() {
+        ctrl.setPeriod('week');
+        expect(ctrl.data).to.deep.equal(expectedWeekData);
     });
 
     it('changes data when setPeriod called', function() {
+        ctrl.setPeriod('week');
+        expect(ctrl.data).to.deep.equal(expectedWeekData);
         ctrl.setPeriod('month');
         expect(ctrl.data).to.deep.equal(aggregatedMonthData);
-        ctrl.setPeriod('week');
-        expect(ctrl.data).to.deep.equal(weekData);
     });
 
     it('week labels', function() {
