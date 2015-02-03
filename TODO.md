@@ -9,23 +9,56 @@ Release cycle:
 Deploy:
 write email
 git stuff.
+    git fetch
+    git merge origin/master
+restart node
+    forever restartall
+run script to update tags
 run script to update nicknames.
 run script fill-medalhistory
 copy new playlists.
 edit and save playlists with start or end time (to update duration in playlist object).
 remove users' playlist_points
+manual testing
+    delete sepha and toni's playlistpoints and medalhistory
 send email
 
 # Next release:
+- in the new peppa pig playlist videos start from a weird position.
+- generate nickname for new user created from the API
+- Registration
+    - Link in landing to register.
+    - Form with nickname, email, password.
+    - Send mail confirmation.
+    - Password recovery.
+    - Registration at the end of guest player.
+    - Registration at the end of guest booTV.
+    - Registration logs user in.
+- Remove autologin URL.
+- Password hashing.
+- Login with nickname or email (username).
+- User area.
+    - View to change nickname, password or avatar.
+- User avatar in navbar and ranking.
+
+# Design work:
+- Formulario de registro en la landing con nombre de usuario, email y password.
+- Pagina de "area de usuario" con avatar y la opcion de cambiar avatar, nombre de usuario y password (con casilla que vuelve a pedir la password actual).
+- Formulario de login en la landing (rediseñar con link para recuperar password).
+-
 
 # Bugfixes:
-
-- Check that videos still work in YouTube.
-- Shadow of navbar appears under cards in summary
-- Remove unnecessary describes in karma tests and rename controller highest-level describes.
-- in the new peppa pig playlist videos start from a weird position
+- Shadow of navbar appears under cards in summary.
 
 # For future releases:
+- Playlists infinite scrolling.
+- Social
+    - Login.
+    - Register.
+    - Share.
+- Going to an URL (besides http://www.babelboo.com) without being logged asks for user and password, then redirects to the requested URL.
+- Remove unnecessary describes in karma tests and rename controller highest-level describes.
+- Check that videos still work in YouTube.
 - A) Questions at the beginning, answers at the end.
     - Button 'Answer now' that pauses video and shows answers.
 - B) Questions at the end.
@@ -34,8 +67,6 @@ send email
     - Avatars automatically generated.
 - Feedback form save the route where the user is a.t.m. of submitting.
 - Change medal indices and values to ALWAYS GOLD = 0, SILVER = 1, BRONZE = 1
-- User names.
-    - View requesting to set user name.
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
 - Star playlists (bookmarks).

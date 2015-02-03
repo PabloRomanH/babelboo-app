@@ -80,10 +80,9 @@ router.get('/adduser/:username', function(req, res, next) {
     }
 
     query.username = req.params.username;
+    query.nickname = query.username.split('@')[0];
     query.daysvisited = 0;
     query.password = "";
-    query.points = 0;
-    query.playlist_points = [];
     query.abtesting = { questionsatend: false, ninegag: true };
 
     collection.find({ username: req.params.username },{},function (err, result) {
