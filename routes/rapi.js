@@ -23,10 +23,6 @@ router.get('/playlist', function(req, res) {
             query.tags = { $in: tags };
             runQuery(query);
         });
-    } else if (req.query.popular) {
-        collection.find({visitcount: { $exists: true }}, {sort: {visitcount: -1}, limit: req.query.num_results}, function (err, result) {
-            res.json( result );
-        });
     } else if (req.query.all == 'true') {
         runQueryAll(query);
     } else {

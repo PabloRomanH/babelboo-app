@@ -67,8 +67,13 @@
             return $http.get(query);
         }
 
-        service.getPopular = function (numResults) {
-            var query = '/api/playlist?popular=true&num_results=' + numResults;
+        service.getPopular = function (numResults, level) {
+            var query = '/api/playlist/popular?num_results=' + numResults;
+
+            if (typeof level !== 'undefined') {
+                query += '&level=' + level;
+            }
+
             return $http.get(query);
         }
 

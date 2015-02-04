@@ -1,17 +1,7 @@
 (function() {
     var app = angular.module('landing', []);
 
-    app.factory('submitEmail', function($http) {
-        var service;
-
-        service = function (email) {
-            $http.post('/api/betaregistration', { "email": email });
-        }
-
-        return service;
-    });
-
-    app.controller('LandingController', function($location, $analytics, submitEmail, playlists){
+    app.controller('LandingController', function($location, $analytics, playlists){
         var controller = this;
         controller.levelSelectorVisible = false;
 

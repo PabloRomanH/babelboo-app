@@ -16,16 +16,16 @@ describe("landing controller", function() {
 
     beforeEach(inject(function($controller) {
         analytics = { eventTrack: sinon.spy() };
-        
+
         playlistsService = {
             getPopular: sinon.spy(function (numResults, level) {
                 return {
                     success: function (callback) {
                         switch(level) {
-                            case 1:  
+                            case 1:
                                 callback([EASY_PLAYLIST]);
                                 break;
-                            case 2: 
+                            case 2:
                                 callback([MEDIUM_PLAYLIST]);
                                 break;
                             case 3:
@@ -36,9 +36,9 @@ describe("landing controller", function() {
                 }
             })
         };
-        
+
         locationService = { path: sinon.spy() };
-        
+
         var levelNamesService = {};
 
         ctrl = $controller('LandingController', {
@@ -57,11 +57,11 @@ describe("landing controller", function() {
         ctrl.showLevelSelector();
         expect(ctrl.levelSelectorVisible).to.be.true;
     });
-    
+
     it('playlists service is called with the right parameters', function() {
-        expect(playlistsService.getPopular.firstCall.calledWithExactly(1, 1)).to.be.true;
-        expect(playlistsService.getPopular.secondCall.calledWithExactly(1, 2)).to.be.true;
-        expect(playlistsService.getPopular.thirdCall.calledWithExactly(1, 3)).to.be.true;
+        expect(playlistsService.getPopular.calledWithExactly(1, 1)).to.be.true;
+        expect(playlistsService.getPopular.calledWithExactly(1, 2)).to.be.true;
+        expect(playlistsService.getPopular.calledWithExactly(1, 3)).to.be.true;
     });
 
     it('gets playlists from service', function() {
@@ -69,41 +69,35 @@ describe("landing controller", function() {
         expect(ctrl.mediumPlaylist).to.equal(MEDIUM_PLAYLIST);
         expect(ctrl.hardPlaylist).to.equal(HARD_PLAYLIST);
     });
-    
+
     it('navigates to easy path', function() {
         ctrl.startEasyPlaylist();
-        expect(locationService.path.called).to.be.true;
         expect(locationService.path.calledWithExactly(EASY_PATH)).to.be.true;
     });
-    
+
     it('navigates to medium path', function() {
         ctrl.startMediumPlaylist();
-        expect(locationService.path.called).to.be.true;
         expect(locationService.path.calledWithExactly(MEDIUM_PATH)).to.be.true;
     });
-    
+
     it('navigates to hard path', function() {
         ctrl.startHardPlaylist();
-        expect(locationService.path.called).to.be.true;
         expect(locationService.path.calledWithExactly(HARD_PATH)).to.be.true;
     });
 
     it('tracks navigation to easy path', function() {
         ctrl.startEasyPlaylist();
-        expect(analytics.eventTrack.called).to.be.true;
         expect(analytics.eventTrack.calledWithExactly('startEasyPlaylist', {category: 'conversion'}));
     });
-    
+
     it('tracks navigation to medium path', function() {
         ctrl.startMediumPlaylist();
-        expect(analytics.eventTrack.called).to.be.true;
         expect(analytics.eventTrack.calledWithExactly('startMediumPlaylist', {category: 'conversion'}));
     });
-    
+
     it('tracks navigation to hard path', function() {
         ctrl.startHardPlaylist();
-        expect(analytics.eventTrack.called).to.be.true;
         expect(analytics.eventTrack.calledWithExactly('startHardPlaylist', {category: 'conversion'}));
     });
-    
+
 });

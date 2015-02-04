@@ -24,8 +24,6 @@ manual testing
 send email
 
 # Next release:
-- in the new peppa pig playlist videos start from a weird position.
-- generate nickname for new user created from the API
 - Registration
     - Link in landing to register.
     - Form with nickname, email, password.
@@ -41,11 +39,6 @@ send email
     - View to change nickname, password or avatar.
 - User avatar in navbar and ranking.
 
-# Design work:
-- Formulario de registro en la landing con nombre de usuario, email y password.
-- Pagina de "area de usuario" con avatar y la opcion de cambiar avatar, nombre de usuario y password (con casilla que vuelve a pedir la password actual).
-- Formulario de login en la landing (rediseñar con link para recuperar password).
--
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
