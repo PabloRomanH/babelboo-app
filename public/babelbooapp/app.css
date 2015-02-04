@@ -43,6 +43,10 @@ body {
 
 .call {
     background: url(/img/popcorn.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
     margin-top: -10px;
     margin-left: auto;
     margin-right: auto;
@@ -123,24 +127,20 @@ body {
     margin-bottom:20px;
 }
 
-/*----------   /LANDING   ----------*/
-
 
 /*----------    FEEDBACK   ----------*/
 .feedback-btn {
     color: #fff;
     background-color: #00618C;
     border-radius: 2px;
-    box-shadow: 1px -1px 3px #848484;
+    box-shadow: 1px -1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
     padding: 5px 10px 5px 10px;
     position: fixed;
-    top: 50%;
-    left: -38px;
+    bottom: -3px;
+    /*left: -71px;*/
+    right: 40px;
     z-index: 999;
     cursor: pointer;
-    -ms-transform: rotate(7deg);
-    -webkit-transform: rotate(7deg);
-    transform: rotate(90deg); 
 }
 
 .feedback-btn i {
@@ -153,9 +153,9 @@ body {
     background-color: #fff;
     z-index: 999;
     border-radius: 2px;
-    box-shadow: 1px 1px 3px #848484;
-    top: 35%;
-    left: 40px;
+    box-shadow: 1px 1px 6px #848484, 0px 0px 20px rgba(132, 132, 132, 0.6);
+    bottom: 40px;
+    right: 40px;
 }
 
 .feedback-form h3 {
@@ -174,15 +174,12 @@ body {
 .feedback-form textarea {
     min-width: 400px;
 }
-
 /*----------   /FEEDBACK   ----------*/
 
 
 /*----------   HEADER   ----------*/
-
 nav {
     height: 50px;
-    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
 }
 
 nav li > a {
@@ -250,7 +247,7 @@ nav li > a:focus {
     border: 1px solid rgba(0,0,0,.15);
     border-radius: 3px;
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 1 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
 }
 
 .user-dropdown .fa {
@@ -267,14 +264,13 @@ nav li > a:focus {
 /*---------   SEARCHER   ---------*/
 .searcher {
     width:100%;
-    /*max-height: 50px;*/
     margin: -10px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
     padding: 2px;
     background-color: #54ACD2;
     box-shadow: 0px -4px 5px 5px #555;
 }
 
-.search-tag {
+.search-tag{
     margin:0 auto 0 auto;
 }
 
@@ -282,19 +278,19 @@ nav li > a:focus {
     margin: 10px 0 0 0;
 }
 
-.lvl li {
+.lvl li{
     background-color:#E25041;
 }
 
-.lvl li:hover {
+.lvl li:hover{
     background-color:#B8312F;
 }
 
-li.lvl-selected {
+li.lvl-selected{
     background-color:#B8312F;
 }
 
-.lvl li, .search-tag li {
+.lvl li, .search-tag li{
     padding:5px;
     margin:0 0 10px 5px;
     color:#fff;
@@ -314,7 +310,6 @@ li.tag-selected {
     background-color:#2969B0;
 }
 
-
 /*---------    PLAYLIST CONTENT --------*/
 .row-centered {
     text-align:center;
@@ -330,7 +325,14 @@ li.tag-selected {
     max-width: 972px;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
+    text-align: left;
+}
+
+.playlists-block h3 {
+    color: #333;
+    text-align: left;
+    padding-left: 18px;
+    margin-bottom: 0px;
 }
 
 .playlist {
@@ -339,14 +341,13 @@ li.tag-selected {
     max-width:210px;
     padding:0;
     margin:15px;
+    overflow: hidden;
     border-radius: 3px;
-    box-shadow: 1px 1px 3px #848484;
+    box-shadow: 1px 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
     vertical-align: top;
     height: 320px;
     text-align: left;
-    overflow: hidden;
 }
-
 .play-btn {
     float:right;
     margin:-24px 5px 0 0;
@@ -375,7 +376,7 @@ li.tag-selected {
     color:#63d0ff;
 }
 
-.playlist-title {
+.playlist-title{
     font-weight: bold;
     float:left;
     width: 151px;
@@ -385,7 +386,7 @@ li.tag-selected {
     margin:0px;
 }
 
-.th {
+.th{
     float:left;
     padding: 0px;
     margin: 0px;
@@ -409,14 +410,14 @@ li.tag-selected {
     clear:left;
 }
 
-.tag-awesome {
+.tag-awesome{
     font-size:12px;
     color:#666666;
     margin-right:-10px;
     padding-right:0px;
 }
 
-.tag-box {
+.tag-box{
     color: #777;
     font-size:12px;
 }
@@ -462,6 +463,11 @@ li.tag-selected {
     background-image: url('/img/none-small.png');
 }
 
+.summary-card {
+    padding-top: 0px !important;
+    width: 600px;
+}
+
 .summary-card .medal, .medals .medal {
     background-repeat: no-repeat;
     position: relative;
@@ -482,8 +488,17 @@ li.tag-selected {
     background-image: url('/img/bronze.png');
 }
 
-.medal-none {
-    color: rgb(220, 220, 220);
+.sad-boo {
+    background-image: url('/img/sad-boo.png');
+    background-repeat: no-repeat;
+    color: #00618C;
+    font-size: 40px;
+    font-weight: 500;
+    height: 200px;
+    margin-top: 20px;
+    margin-left: 30px;
+    padding-left: 135px;
+    padding-top: 50px;
 }
 
 .medals {
@@ -496,6 +511,8 @@ li.tag-selected {
     padding-top: 160px;
     color: #333;
     font-size: 37px;
+    margin-top: -15px;
+    margin-bottom: -30px;
     font-weight: 900;
 }
 
@@ -511,7 +528,7 @@ li.tag-selected {
     margin: 0px auto 20px auto;
     padding-top: 20px;
     border-radius: 3px;
-    box-shadow: 1px 1px 3px #848484;
+    box-shadow: 1px 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
     vertical-align: top;
     text-align: left;
     overflow: hidden;
@@ -533,15 +550,25 @@ li.tag-selected {
     color:#777;
 }
 
-.question-txt {
+.question-txt{
     font-size:22px;
     font-weight: bold;
     padding-top: 10px;
     margin-bottom: 0px;
 }
 
+.player-container {
+    width: 640px;
+    height: 360px;
+    background-color: #222;
+    display: inline-block;
+    margin-left: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .answer {
-    margin-top: 00px;
+    margin-top: 0px;
     width: 100%;
     display: inline-block;
 }
@@ -790,12 +817,12 @@ li.tag-selected {
     background-color: rgba(50,50,50,0.3);
 }
 
-.skills {
+.skills{
     font-size: 25px;
     margin-top: 10px;
 }
 
-.total-score {
+.total-score{
     color:#00618C;
     font-size: 30px;
     font-weight: bold;
@@ -803,14 +830,176 @@ li.tag-selected {
     margin-bottom: 50px
 }
 
-.score-points {
+.score-points{
     color:#FBA026;
 }
 
-.finish-video-btn {
+.finish-video-btn{
     color:#fff;
     background-color:#00618C
 }
+
+/*---------    TV --------*/
+
+.tv {
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    bottom: 0px;
+    z-index: -5;
+    padding-top: 20px;
+}
+
+.tvwelcome {
+    width: 400px;
+}
+
+.tvwelcome ul {
+    text-align: justify;
+}
+
+.tvwelcome li {
+    display: inline-block;
+}
+
+.tvwelcome ul:after {
+    content: '';
+    width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+    display: inline-block;
+}
+
+.tvwelcome h3 {
+    margin-bottom: 30px;
+}
+
+.cinetv {
+    width: 855px;
+    margin-left: auto;
+    margin-right:auto;
+    background-color: #111;
+    box-shadow: 1px 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.cinetv .title {
+    background-color: #333;
+    color: #fff;
+    padding: 7px 15px 7px 15px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.tv .player-controls {
+    padding-left: 0px;
+    background-color: #333;
+}
+
+.tv-button {
+    width: 33%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: inline-block;
+    text-align: center;
+}
+
+.tv .video-progress {
+    margin-left: 0px;
+}
+
+/*--------- RANKING ---------*/
+.ranking {
+    text-align: center;
+}
+
+.ranking table {
+    text-align: left;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.ranking tr {
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+.ranking .first-above {
+    border-top: 3px solid #00618C;
+}
+
+.ranking td {
+    padding: 5px;
+}
+
+.ranking .me {
+    color: #fff;
+    background-color: #00618C;
+}
+/*--------- /RANKING ---------*/
+
+/*--------- PROGRESS ---------*/
+.left-container {
+    display: inline-block;
+    width: 610px;
+    padding-right: 10px;
+}
+
+.progress-card.medal-table, .progress-card.chart {
+    width: 100%;
+}
+
+.progress-card.chart {
+    height: 350px;
+}
+
+.progress-card.ranking {
+    height: 636px;
+}
+
+.blue-title {
+    color: #fff;
+    font-size: 22px;
+    background-color: #00618C;
+    padding: 10px 20px;
+}
+
+.progress-card.ranking table {
+    margin: 20px 20px 0px 20px;
+}
+
+.progress-card.ranking td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.progress-card .chart-container {
+    width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progress-card {
+    background-color:#fff;
+    /*max-width: 680px;*/
+    margin: 0px auto 10px auto;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px #848484;
+    vertical-align: top;
+    text-align: left;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.progress-card > * {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.medals {
+    overflow: hidden;
+}
+/*--------- /PROGRESS ---------*/
 
 
 /*---------    OTHERS --------*/

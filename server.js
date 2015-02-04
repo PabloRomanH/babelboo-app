@@ -21,9 +21,14 @@ if (process.env.NODE_ENV === 'test') {
 
 app.db = require('monk')(dbpath);
 
-function findByUserName(username, callback)
-{
-    var collection = app.db.get('usercollection');
+function findByUserName(username, callback) {
+    var collection;
+    if (process.env.NODE_ENV === 'test')
+        collection = app.db.get('testlogin');
+    else {
+        collection = app.db.get('usercollection');
+    }
+    
     collection.find({username: username},{},function (err, result) {
         if (result.length === 0)
             return callback(null, null);
@@ -32,9 +37,14 @@ function findByUserName(username, callback)
     });
 }
 
-function findById(id, callback)
-{
-    var collection = app.db.get('usercollection');
+function findById(id, callback) {
+    var collection;
+    if (process.env.NODE_ENV === 'test')
+        collection = app.db.get('testlogin');
+    else {
+        collection = app.db.get('usercollection');
+    }
+    
     collection.findById(id, function(err, user){
         if (user != null) {
             callback(null, user);
@@ -139,7 +149,7 @@ var auth = function(req, res, next) {
     } else {
         next();
     }
-    
+
 }
 
 var restrictedAuth = function(req, res, next) {
@@ -150,7 +160,16 @@ var restrictedAuth = function(req, res, next) {
     }
 }
 
-app.get('/loggedin', function(req, res) { res.send(req.isAuthenticated() ? req.user : '0'); });
+app.get('/loggedin', function(req, res) {
+    var user = '0';
+
+    if (req.isAuthenticated()) {
+        user = req.user;
+        updateLastLogin(user);
+    }
+
+    res.send(user);
+});
 
 app.use('/api', publicapi);
 app.use('/api', auth, api);
@@ -200,8 +219,8 @@ if (process.env.NODE_ENV === 'development') {
 function updateLastLogin(user) {
     var collection = app.db.get('usercollection');
 
-    if (user.lastvisit.toLocaleDateString() != new Date().toLocaleDateString()) {
-        user.daysvisited = user.daysvisited + 1;
+    if (!user.lastvisit || user.lastvisit.toLocaleDateString() != new Date().toLocaleDateString()) {
+        user.daysvisited += 1;
         user.lastvisit = new Date();
 
         var find = {"_id" : user._id};

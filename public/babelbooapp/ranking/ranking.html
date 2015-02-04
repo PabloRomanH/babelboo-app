@@ -1,0 +1,50 @@
+<div ng-controller="RankingController as rankCtrl" class="ranking">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default"
+        ng-class="{'active': rankCtrl.period == 'week'}"
+        ng-click="rankCtrl.setPeriod('week')">
+          Week
+      </button>
+      <button type="button" class="btn btn-default"
+        ng-class="{'active': rankCtrl.period == 'month'}"
+        ng-click="rankCtrl.setPeriod('month')">
+          Month
+      </button>
+      <button type="button" class="btn btn-default"
+        ng-class="{'active': rankCtrl.period == 'alltime'}"
+        ng-click="rankCtrl.setPeriod('alltime')">
+          All time
+      </button>
+    </div>
+
+    <table class="medals">
+      <tr ng-repeat="entry in rankCtrl.topRanked">
+        <td>{{ entry.rank }}.</td>
+        <td>{{ entry.nickname }}</td>
+        <td><i class="fa fa-circle medal-gold"></i>{{ entry.golds }}</td>
+        <td><i class="fa fa-circle medal-silver"></i>{{ entry.silvers }}</td>
+        <td><i class="fa fa-circle medal-bronze"></i>{{ entry.bronzes }}</td>
+      </tr>
+      <tr ng-repeat="entry in rankCtrl.aboveUser" ng-class="{'first-above': entry.rank > 4 && entry.rank == rankCtrl.aboveUser[0].rank}">
+        <td>{{ entry.rank }}.</td>
+        <td>{{ entry.nickname }}</td>
+        <td><i class="fa fa-circle medal-gold"></i>{{ entry.golds }}</td>
+        <td><i class="fa fa-circle medal-silver"></i>{{ entry.silvers }}</td>
+        <td><i class="fa fa-circle medal-bronze"></i>{{ entry.bronzes }}</td>
+      </tr>
+      <tr class="me">
+        <td>{{ rankCtrl.userRank.rank}}.</td>
+        <td>{{ rankCtrl.userRank.nickname }}</td>
+        <td><i class="fa fa-circle medal-gold"></i>{{ rankCtrl.userRank.golds }}</td>
+        <td><i class="fa fa-circle medal-silver"></i>{{ rankCtrl.userRank.silvers }}</td>
+        <td><i class="fa fa-circle medal-bronze"></i>{{ rankCtrl.userRank.bronzes }}</td>
+      </tr>
+      <tr ng-repeat="entry in rankCtrl.belowUser">
+        <td>{{entry.rank}}.</td>
+        <td>{{ entry.nickname }}</td>
+        <td><i class="fa fa-circle medal-gold"></i>{{ entry.golds }}</td>
+        <td><i class="fa fa-circle medal-silver"></i>{{ entry.silvers }}</td>
+        <td><i class="fa fa-circle medal-bronze"></i>{{ entry.bronzes }}</td>
+      </tr>
+    </table>
+</div>

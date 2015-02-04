@@ -15,7 +15,16 @@
   </div>
 
   <div class="myContainer">
-    <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-_id'" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    <div ng-show="playlistsCtrl.showPopular" class="playlists-block">
+      <h3>Popular</h3>
+      <playlist-card ng-repeat="playlist in playlistsCtrl.popular" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    </div>
+
+    <div class="playlists-block">
+      <h3>Newest</h3>
+      <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-_id'" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    </div>
+
     <h3 class="not-found" ng-show="playlistsCtrl != null && playlistsCtrl.playlists.length==0">No playlists found</h3>
   </div>
 </div>

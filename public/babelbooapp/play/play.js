@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $scope, user, playlists, renderTime, levelNames) {
+    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, user, playlists, renderTime, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -28,7 +28,7 @@
 
         controller.ratio = 0;
 
-        controller.showSummary = false;
+        controller.show = 'player';
         controller.videos = [];
         controller.relatedplaylists = [];
 
@@ -36,13 +36,14 @@
         controller.renderTime = renderTime;
 
         controller.idx = 0;
-        controller.playerVars = { autoplay: 1, controls: 0 };
+        controller.playerVars = { autoplay: 1, controls: 0, rel: 0 };
         controller.player = null;
 
         function resetVideo () {
             if (controller.idx >= controller.videos.length) {
                 return;
             }
+
             controller.answeredcorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;
@@ -50,7 +51,7 @@
             controller.playerVars.end = controller.videos[controller.idx].endtime;
         }
 
-        playlists.getById(playlistId).success(function(data) {
+        playlists.playById(playlistId).success(function(data) {
             controller.playlist = data;
             controller.videos = data.entries;
             resetVideo();
@@ -95,8 +96,11 @@
                 });
 
                 controller.ratio = controller.correctAnswers / controller.videos.length;
-                controller.showSummary = true;
+                controller.show = 'summary';
+                $rootScope.$emit('ranking.refresh');
                 controller.player.stopVideo();
+
+                user.finished(playlistId);
 
                 $analytics.eventTrack('finished_playlist', { category: 'video', label: playlistId });
             }
@@ -128,6 +132,10 @@
             controller.player.seekTo( start + (end - start) * ratio);
         }
 
+        controller.showRelated = function() {
+            controller.show = 'related';
+        }
+
         $scope.$on('youtube.player.ready', function ($event, player) {
             controller.ready = true;
             controller.player.unMute();
@@ -156,6 +164,13 @@
             restrict: 'E',
             templateUrl: '/babelbooapp/play/summary-card.html'
         }
+    });
+
+    app.directive('relatedCard', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/babelbooapp/play/related-card.html'
+        };
     });
 
     app.directive('relatedplaylistCard', function() {

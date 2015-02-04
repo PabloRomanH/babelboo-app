@@ -1,16 +1,92 @@
+Release cycle:
+- Release
+- Set next meeting day in >= 10 days
+- >= 7 days to let the users use it  + development
+- 3 days of interviews               + development
+- Decision meeting
+- Repeat
 
-REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see play.js)
+Deploy:
+write email
+git stuff.
+    git fetch
+    git merge origin/master
+restart node
+    forever restartall
+run script to update tags
+run script to update nicknames.
+run script fill-medalhistory
+copy new playlists.
+edit and save playlists with start or end time (to update duration in playlist object).
+remove users' playlist_points
+manual testing
+    delete sepha and toni's playlistpoints and medalhistory
+send email
 
-# Angular auth
-- default api not working when user is not logged.
+# Next release:
+- in the new peppa pig playlist videos start from a weird position.
+- generate nickname for new user created from the API
+- Registration
+    - Link in landing to register.
+    - Form with nickname, email, password.
+    - Send mail confirmation.
+    - Password recovery.
+    - Registration at the end of guest player.
+    - Registration at the end of guest booTV.
+    - Registration logs user in.
+- Remove autologin URL.
+- Password hashing.
+- Login with nickname or email (username).
+- User area.
+    - View to change nickname, password or avatar.
+- User avatar in navbar and ranking.
+
+# Design work:
+- Formulario de registro en la landing con nombre de usuario, email y password.
+- Pagina de "area de usuario" con avatar y la opcion de cambiar avatar, nombre de usuario y password (con casilla que vuelve a pedir la password actual).
+- Formulario de login en la landing (rediseñar con link para recuperar password).
+-
+
+# Bugfixes:
+- Shadow of navbar appears under cards in summary.
+
+# For future releases:
+- Playlists infinite scrolling.
+- Social
+    - Login.
+    - Register.
+    - Share.
+- Going to an URL (besides http://www.babelboo.com) without being logged asks for user and password, then redirects to the requested URL.
+- Remove unnecessary describes in karma tests and rename controller highest-level describes.
+- Check that videos still work in YouTube.
+- A) Questions at the beginning, answers at the end.
+    - Button 'Answer now' that pauses video and shows answers.
+- B) Questions at the end.
+    - Remove boring part at the end of videos.
+- Ranking (competitive social component).
+    - Avatars automatically generated.
+- Feedback form save the route where the user is a.t.m. of submitting.
+- Change medal indices and values to ALWAYS GOLD = 0, SILVER = 1, BRONZE = 1
+- Sign up for category updates.
+- Video not playing automatically to allow you to read the questions.
+- Star playlists (bookmarks).
+- Bookmarklet to suggest YouTube videos.
+- Remove tags from cards.
+- Focus on easier videos or on harder videos
+- Make playlists for specific people.
+- Smarter related playlists.
+- Visual difficulty levels.
+- Cut current playlists.
+- Keep level after finishing playlist.
+-
+
+# Silly things to do when bored
 
 
-# To do while Toni out
+# Development/deployment
 
 - (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)
     - try out frameworks
-- Testing node's Web API (postman / frisby.js + Jasmine / *Mocha + *Chai + *Supertest + [Sinon])
-- Testing angular (Karma + Mocha + Chai + Sinon / Jasmine)
 - Testing E2E
         - Protractor + Jasmine: All desktop browsers (needs to run in Windows for IE and MacOS for Safari)
         - saucelabs.com ($$): EVERYTHING (including mobile)
@@ -26,41 +102,20 @@ REFACTOR SERVICES NAMES TO AVOID ENCOUNTERING STUFF LIKE user AND userData (see 
     - vim
     - own installation of cloud9
 
-- Playlist completion (visual cue that marks a playlist as watched or completed) (mostly done, CSS not finished)
 
-
-# Want to think about after more feedback comes in
-
-- Show # of videos in playlist card.
-- Remove tags from playlists card.
-- Highlight (or something) 'Next' button after answering.
-- Rethink levels and tags behaviour.
-- Visual difficulty levels
-- Different levels of finishing a playlist (stars)
-
-
-# Functionality to maybe test in the future:
+# Someday:
 
 - Playlists
     - Playlist quality mark (playlists marked as good)
-    * Search by tag
-    * Playlist tags
-    * Playlist storage (DB)
-    * Playlist reproduction
 
 - Q&A
-    * Questions completed (visual cue that marks a playlist as answered)
-    * Questions while playing video
     * Questions after watching video (depends on user.abtesting.questionsatend == true)
 
 - 9Gag (always something new + finished checking everything new)
     - "You got new stuff" reminder email
-    * "Unlocking" of new playlists that appear as new to the user every day of use (depends on user.abtesting.ninegag == true)
-    * Per-user hiding of some playlists at first use
     * Old unvisited playlists appear at the bottom and are harder to reach
 
 - Video-based playing
-    - Endless mode.
     - Manual search + related videos at the end
 
 - Wiki (user-generated playlists, questions, difficulty adjustment, etc.)

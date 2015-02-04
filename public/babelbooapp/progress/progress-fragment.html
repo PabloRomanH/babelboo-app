@@ -1,0 +1,41 @@
+<div class="myContainer">
+  <div class="left-container">
+    <div class="progress-card medal-table" ng-controller="NavbarController as navbarCtrl">
+      <div class="blue-title">
+        Medal table
+      </div>
+
+      <div class="medals">
+        <div class="medal medal-gold">
+          {{navbarCtrl.golds}}
+        </div>
+        <div class="medal medal-silver">
+          {{navbarCtrl.silvers}}
+        </div>
+        <div class="medal medal-bronze">
+          {{navbarCtrl.bronzes}}
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-card chart">
+      <div class="blue-title">
+        Medal history
+      </div>
+      <div ng-controller="PlotController as plotCtrl">
+        <canvas id="line" class="chart chart-line" data="plotCtrl.data"
+          labels="plotCtrl.labels" legend="true" series="plotCtrl.series"
+          colours="plotCtrl.colours" options="plotCtrl.plotOptions">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-card ranking">
+    <div class="blue-title">
+      Ranking
+    </div>
+    <ranking></ranking>
+  </div>
+</div>
+

@@ -1,0 +1,4 @@
+<div class="playlists-block myContainer" ng-show="playCtrl.relatedplaylists.length">
+  <h3>Similar playlists</h3>
+  <relatedplaylist-card ng-repeat="playlist in playCtrl.relatedplaylists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></relatedplaylist-card>
+</div>

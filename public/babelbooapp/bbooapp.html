@@ -4,12 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="content-language" content="es"/>
     <meta name="title" content="babelboo"/>
-    <meta name="viewport" content="initial-scale=1">
+    <meta name="viewport" content="initial-scale=1"/>
     <title>babelboo</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/babelbooapp/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/angular-chart.css">
+    <link rel="stylesheet" href="/babelbooapp/app.css">
     <script src="/lib/angular.js"></script>
     <script src="/lib/angular-route.js"></script>
     <script src="/lib/angulartics.min.js"></script>
@@ -18,10 +19,16 @@
     <script src="/babelbooapp/betaregistration/beta.js"></script>
     <script src="/babelbooapp/landing/landing.js"></script>
     <script src="/babelbooapp/playlist/playlist.js"></script>
+    <script src="/babelbooapp/video/video.js"></script>
     <script src="/babelbooapp/editPlaylists/playlists.js"></script>
     <script src="/babelbooapp/playlists/playlists.js"></script>
-    <script src="/babelbooapp/play/angular-youtube-embed.js"></script>
+    <script src="/babelbooapp/ranking/ranking.js"></script>
+    <script src="/lib/angular-youtube-embed.js"></script>
     <script src="/babelbooapp/play/play.js"></script>
+    <script src="/babelbooapp/tv/tv.js"></script>
+    <script src="/lib/Chart.min.js"></script>
+    <script src="/lib/angular-chart.js"></script>
+    <script src="/babelbooapp/progress/plot.js"></script>
     <script src="/babelbooapp/app.js"></script>
     <script src="/babelbooapp/services.js"></script>
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
@@ -39,7 +46,7 @@
     <navbar></navbar>
     <div ng-controller="FeedbackController as feedbackCtrl">
       <div class="feedback-btn" ng-show="feedbackCtrl.userLogged" ng-click="feedbackCtrl.toggleForm()">
-        <i class="fa fa-comments"></i>Feedback
+        <i class="fa fa-comments"></i>Give us your opinion
       </div>
       <div class="feedback-form" ng-show="feedbackCtrl.formVisible">
         <i class="pull-right fa fa-times fa-2x close-form" ng-click="feedbackCtrl.toggleForm()"></i>

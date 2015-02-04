@@ -42,6 +42,19 @@ function upsertPlaylist(body, playlistId, db) {
     }
 }
 
+router.post('/video', function(req, res) {
+    var collection = req.db.get('videos');
+    console.log(req.body);
+
+    collection.insert(req.body,
+        function (err, doc) {
+            if (err) throw err;
+        });
+
+    res.status(201); // CREATED
+    res.json(req.body);
+});
+
 router.get('/betaregistration', function(req, res) {
     var collection = req.db.get('betaregistration');
 
@@ -67,11 +80,9 @@ router.get('/adduser/:username', function(req, res, next) {
     }
 
     query.username = req.params.username;
-    query.lastvisit = new Date();
+    query.nickname = query.username.split('@')[0];
     query.daysvisited = 0;
     query.password = "";
-    query.points = 0;
-    query.playlist_points = [];
     query.abtesting = { questionsatend: false, ninegag: true };
 
     collection.find({ username: req.params.username },{},function (err, result) {
