@@ -758,6 +758,10 @@ li.tag-selected {
     margin:15px;
 }
 
+.container .myContainer {
+    text-align: center;
+}
+
 .score-title {
     color:#00618C;
     margin-bottom: 20px;
