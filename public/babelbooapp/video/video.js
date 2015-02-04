@@ -25,12 +25,11 @@
                     id: ids.join(','),
                     part: 'snippet'
                 });
-                console.log('pushed');
+                
                 request.execute(submitResults);
             }
 
             function submitResults(response) {
-                console.log('executed');
                 var validated = [];
                 controller.total += response.result.items.length;
                 for (var i in response.result.items) {

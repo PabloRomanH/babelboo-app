@@ -11,20 +11,32 @@
         return service;
     });
 
-    app.controller('LandingController', function($http, $location, $scope, $analytics, submitEmail){
+    app.controller('LandingController', function($location, $analytics, submitEmail, signup){
         var controller = this;
-        controller.betaregistrationStep = 0;
+        controller.levelSelectorVisible = false;
+        controller.playlists = [];
 
-        controller.showForm = function() {
-            controller.betaregistrationStep = 1;
+        signup.signupPlaylists().success(function(playlists) {
+            controller.playlists = playlists;
+        });
+
+        controller.showLevelSelector = function() {
+            controller.levelSelectorVisible = true;            
         }
 
-        controller.submitEmail = function (email) {
-            controller.betaregistrationStep = 2;
-            submitEmail(email);
-            $analytics.eventTrack('emailSubmited', {
-                category: 'conversion'
-            });
+        controller.startEasyPlaylist = function() {
+            $location.path('/play/' + controller.playlists[0]._id);
+            $analytics.eventTrack('startEasyPlaylist', {category: 'conversion'});
+        }
+
+        controller.startMediumPlaylist = function() {
+            $location.path('/play/' + controller.playlists[1]._id);
+            $analytics.eventTrack('startMediumPlaylist', {category: 'conversion'});
+        }
+
+        controller.startHardPlaylist = function() {
+            $location.path('/play/' + controller.playlists[2]._id);
+            $analytics.eventTrack('startHardPlaylist', {category: 'conversion'});
         }
     });
 })();
