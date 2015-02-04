@@ -1,2 +1,2 @@
 #!/bin/bash
-karma start ~/workspace/babelboo-app/test/webapp/karma.conf.js
+karma start ./test/webapp/karma.conf.js
