@@ -1,2 +1,3 @@
 #!/bin/bash
-karma start ~/workspace/babelboo-app/test/karma/karma.conf.js
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+karma start ${DIR}/karma/karma.conf.js
