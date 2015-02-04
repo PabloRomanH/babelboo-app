@@ -25,14 +25,10 @@ send email
 
 # Next release:
 - Registration
-    - Link in landing to register.
-    - Form with nickname, email, password.
+    - Form with nickname, email, password instead of betaregistration.
     - Send mail confirmation.
     - Password recovery.
-    - Registration at the end of guest player.
-    - Registration at the end of guest booTV.
     - Registration logs user in.
-- Remove autologin URL.
 - Password hashing.
 - Login with nickname or email (username).
 - User area.
