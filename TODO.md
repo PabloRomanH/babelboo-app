@@ -8,19 +8,13 @@ Release cycle:
 
 Deploy:
 write email
-git stuff.
+update sepha/toni/fran passwords with hashes
+git stuff
     git fetch
     git merge origin/master
 restart node
     forever restartall
-run script to update tags
-run script to update nicknames.
-run script fill-medalhistory
-copy new playlists.
-edit and save playlists with start or end time (to update duration in playlist object).
-remove users' playlist_points
 manual testing
-    delete sepha and toni's playlistpoints and medalhistory
 send email
 
 # Next release:
@@ -40,6 +34,7 @@ send email
 - Shadow of navbar appears under cards in summary.
 
 # For future releases:
+- When selecting a level in playlists view show popular playlists of that level
 - Playlists infinite scrolling.
 - Social
     - Login.

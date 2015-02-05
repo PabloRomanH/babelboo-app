@@ -22,6 +22,7 @@ module.exports = function(config) {
       'public/lib/angular-youtube-embed.js',
       'public/lib/Chart.min.js',
       'public/lib/angular-chart.js',
+      'public/lib/sha1.js',
       'public/babelbooapp/**/*.js',
       'public/lib/angular-mocks.js',
       'test/webapp/**/test*.js'

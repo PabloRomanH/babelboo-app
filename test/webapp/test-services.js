@@ -375,5 +375,53 @@ describe('services', function() {
         });
     });
 
+    describe('login', function() {
+        var login;
+        var $httpBackend;
+
+        beforeEach(inject(function(_login_, _$httpBackend_) {
+            login = _login_;
+            $httpBackend = _$httpBackend_;
+        }));
+
+        it('Happy path', function() {
+            var username = 'auser';
+            var password = 'apass';
+            var hashedPassword = CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
+
+            $httpBackend.expectPOST('/login/', {username: username, password: hashedPassword}).respond(200, '');
+
+            var callbackSpy = sinon.spy(function(success) {
+                    expect(success).to.be.true;
+                });
+
+            login(username, password, callbackSpy);
+
+            $httpBackend.flush();
+
+            expect(callbackSpy.calledOnce).to.be.true;
+        });
+
+        it('fails to login', function() {
+            var failureSpy = sinon.spy();
+            var username = 'auser';
+            var password = 'apass';
+            var hashedPassword = CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
+
+            $httpBackend.expectPOST('/login/', {username: username, password: hashedPassword}).respond(401, '');
+
+            var callbackSpy = sinon.spy(function(success) {
+                    expect(success).to.be.false;
+                });
+
+            login(username, password, callbackSpy);
+
+            $httpBackend.flush();
+
+            expect(callbackSpy.calledOnce).to.be.true;
+        });
+
+    });
+
     afterEach(function() {});
 });

@@ -1,10 +1,14 @@
 <div class="container" ng-controller="BetaregistrationController as betaCtrl">
   <div class="cine clearfix form-group" ng-hide="betaCtrl.submitted">
     <p><h3>Parece que te han gustado nuestros vídeos. Déjanos tu e-mail y te avisaremos cuando estemos listos para darte acceso completo a la web.</h3></p>
-    <form ng-submit="betaCtrl.submitEmail(email)">
+    <form ng-submit="betaCtrl.register(email, nickname, password)">
         <label for="mail"></label>
         <input type="email" class="form-control" id="mail" placeholder="Dejanos tu e-mail" ng-model="email" required>
-        <button type="submit" class="btn btn-default">Dejar e-mail</button>
+        <label for="nickname"></label>
+        <input type="text" class="form-control" id="nickname" placeholder="Nombre de usuario" ng-model="nickname" required>
+        <label for="password"></label>
+        <input type="password" class="form-control" id="password" placeholder="Contraseña" ng-model="password" required>
+        <button type="submit" class="btn btn-default">Registrarse</button>
     </form>
     <p></p>
   </div>

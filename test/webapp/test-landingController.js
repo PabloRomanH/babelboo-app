@@ -87,17 +87,17 @@ describe("landing controller", function() {
 
     it('tracks navigation to easy path', function() {
         ctrl.startEasyPlaylist();
-        expect(analytics.eventTrack.calledWithExactly('startEasyPlaylist', {category: 'conversion'}));
+        expect(analytics.eventTrack.calledWithExactly('startEasyPlaylist', {category: 'conversion'})).to.be.true;
     });
 
     it('tracks navigation to medium path', function() {
         ctrl.startMediumPlaylist();
-        expect(analytics.eventTrack.calledWithExactly('startMediumPlaylist', {category: 'conversion'}));
+        expect(analytics.eventTrack.calledWithExactly('startMediumPlaylist', {category: 'conversion'})).to.be.true;
     });
 
     it('tracks navigation to hard path', function() {
         ctrl.startHardPlaylist();
-        expect(analytics.eventTrack.calledWithExactly('startHardPlaylist', {category: 'conversion'}));
+        expect(analytics.eventTrack.calledWithExactly('startHardPlaylist', {category: 'conversion'})).to.be.true;
     });
 
 });

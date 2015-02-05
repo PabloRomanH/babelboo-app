@@ -8,14 +8,19 @@
 
         $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
             ranking.getUserRank(updateMedalsAndRank);
+
+            user.fillUser(function (user) {
+                controller.user = user;
+                controller.userLogged = true;
+            });
         });
+
+        ranking.getUserRank(updateMedalsAndRank);
 
         user.fillUser(function (user) {
             controller.user = user;
             controller.userLogged = true;
         });
-
-        ranking.getUserRank(updateMedalsAndRank);
 
         controller.pointsClicked = function () {
             $analytics.eventTrack('pointsClicked', {
@@ -41,23 +46,30 @@
         }
     });
 
-    app.controller('LoginController', function($analytics, $http){
+    app.controller('LoginController', function($analytics, $location, login){
         var controller = this;
         controller.formVisible = false;
         controller.showPassword = false;
+        controller.showError = false;
 
         this.toggleForm = function() {
             controller.formVisible = !controller.formVisible;
-            $analytics.eventTrack('callToAction', {
-                category: 'conversion'
-            });
+
+            if (controller.formVisible) {
+                $analytics.eventTrack('callToAction', {
+                    category: 'conversion'
+                });
+            }
         }
 
-        this.submit = function($event) {
-            if (!controller.showPassword && (this.username == 'sepha' || this.username == 'toni' || this.username == 'fran')) {
-                controller.showPassword = true;
-                $event.preventDefault()
-            }
+        this.submit = function(username, password) {
+            login(username, password, function(success) {
+                if(success) {
+                    $location.path('/playlists');
+                } else {
+                    controller.showError = true;
+                }
+            });
         }
     });
 })();

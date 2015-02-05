@@ -195,4 +195,18 @@
         return function() { return new Date(); };
     });
 
+    app.factory('login', function($http) {
+        return function(username, password, callback) {
+            var hashedPassword = CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
+
+            $http.post('/login/', { username: username, password: hashedPassword })
+                .success(function(data, status) {
+                    callback(true);
+                })
+                .error(function(data, status) {
+                    callback(false);
+                });
+        };
+    });
+
 })();

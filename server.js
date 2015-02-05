@@ -149,7 +149,6 @@ var auth = function(req, res, next) {
     } else {
         next();
     }
-
 }
 
 var restrictedAuth = function(req, res, next) {
