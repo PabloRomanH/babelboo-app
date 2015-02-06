@@ -5,22 +5,13 @@
         controller.user = {};
         controller.showLogout = false;
         controller.userLogged = false;
+        controller.showRegister = false;
 
         $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
-            ranking.getUserRank(updateMedalsAndRank);
-
-            user.fillUser(function (user) {
-                controller.user = user;
-                controller.userLogged = true;
-            });
+            init('event');
         });
 
-        ranking.getUserRank(updateMedalsAndRank);
-
-        user.fillUser(function (user) {
-            controller.user = user;
-            controller.userLogged = true;
-        });
+        init('init');
 
         controller.pointsClicked = function () {
             $analytics.eventTrack('pointsClicked', {
@@ -37,6 +28,21 @@
             $location.path('/tv'); // FIXME: prevent controller from being loaded twice
             $route.reload();
         };
+
+        function init(when) {
+            ranking.getUserRank(updateMedalsAndRank);
+            controller.showRegister = false;
+
+            if (($location.path() == '/tv' || $location.path().match(/^\/play/)) && !controller.userLogged) {
+                controller.showRegister = true;
+            }
+
+            user.fillUser(function (user) {
+                controller.showRegister = false;
+                controller.user = user;
+                controller.userLogged = true;
+            });
+        }
 
         function updateMedalsAndRank(rank) {
             controller.rank = rank.rank;

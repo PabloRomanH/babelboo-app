@@ -22,7 +22,6 @@ send email
     - Password recovery.
 - Password for existing users.
     - Node.js script to create random passwords and send emails
-- Allow to register during demo playlist.
 - User area.
     - View to change nickname, password or avatar.
 - User avatar in navbar and ranking.
@@ -64,6 +63,7 @@ send email
 -
 
 # Silly things to do when bored
+Change design of buttons.
 
 
 # Development/deployment

@@ -182,7 +182,7 @@ router.post('/user/', function(req, res) {
                     '<h1 style="font-size: 40px; line-height: 125%; letter-spacing: -1px; margin: 0;">Bienvenido a babelboo</h1>' +
                     '<h2 style="font-size: 18px; line-height: 125%; letter-spacing: -.5px; margin: 0;">Have fun, learn English!</h2>' +
                     '<p style="font-size: 15px; line-height: 150%;">Tu usuario #username# se ha creado correctamente. ' +
-                    'Puedes hacer click en el botón de más abajo para entrar a babelboo y empezar a ver vídeos.' +
+                    'Puedes hacer click en el botón de más abajo para entrar a babelboo y empezar a ver vídeos. ' +
                     'Cuando entres verás diferentes playlists y puedes escoger tema y dificultad. La idea es que puedas pasarte horas mirando vídeos de cosas que te interesan y de tu nivel.' +
                     '</p>' +
                     '<div style="text-align: center; padding: 30px;" align="center">' +
