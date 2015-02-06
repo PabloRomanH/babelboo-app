@@ -1,2 +1,3 @@
 #!/bin/bash
-karma start ./test/webapp/karma.conf.js
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+karma start ${DIR}/webapp/karma.conf.js

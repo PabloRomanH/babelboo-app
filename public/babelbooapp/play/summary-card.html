@@ -13,11 +13,7 @@
         <h3 class="score-title" ng-show="playCtrl.ratio == 0">Sorry but you didn't answer any question correctly of "{{ playCtrl.playlist.title }}"</h3>
       </div>
 
-
       <p class="skills"><span>Correct answers:</span> <span>{{ playCtrl.correctAnswers }} out of {{ playCtrl.videos.length }}</span></p>
-
-      <!--<ranking></ranking>-->
-
 
       <a class="button-player" href="#" ng-click="playCtrl.showRelated()" ng-show="playCtrl.userLogged">
         Watch More!
@@ -28,7 +24,7 @@
     </div>
   </div>
 
-  <div class="progress-card ranking">
+  <div class="progress-card ranking" ng-show="playCtrl.userLogged">
     <div class="blue-title">
       Ranking
     </div>
