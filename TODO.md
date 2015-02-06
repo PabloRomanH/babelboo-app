@@ -19,12 +19,10 @@ send email
 
 # Next release:
 - Registration
-    - Form with nickname, email, password instead of betaregistration.
-    - Send mail confirmation.
     - Password recovery.
-    - Registration logs user in.
-- Password hashing.
-- Login with nickname or email (username).
+- Password for existing users.
+    - Node.js script to create random passwords and send emails
+- Allow to register during demo playlist.
 - User area.
     - View to change nickname, password or avatar.
 - User avatar in navbar and ranking.
@@ -32,6 +30,7 @@ send email
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
+- Navbar
 
 # For future releases:
 - When selecting a level in playlists view show popular playlists of that level

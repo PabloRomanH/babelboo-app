@@ -1,26 +1,21 @@
 (function() {
     var app = angular.module('betaregistration', []);
 
-    app.factory('submitEmail', function($http) {
-        var service;
-
-        service = function (email) {
-            $http.post('/api/betaregistration', { "email": email });
-        }
-
-        return service;
-    });
-
-    app.controller('BetaregistrationController', function($http, $location, $scope, $analytics, submitEmail){
+    app.controller('BetaregistrationController', function($location, registration, login){
         var controller = this;
-        controller.submitted = false;
+        controller.showError = false;
 
-        controller.submitEmail = function (email) {
-            controller.submitted = true;
-            submitEmail(email);
-            $analytics.eventTrack('emailSubmited', {
-                category: 'conversion'
+        controller.register = function(email, nickname, password) {
+            registration(email, nickname, password, function(success) {
+                if(success) {
+                    login(nickname, password, function() {
+                        $location.path('/');
+                    });
+                } else {
+                    controller.showError = true;
+                }
             });
-        }
+        };
+
     });
 })();

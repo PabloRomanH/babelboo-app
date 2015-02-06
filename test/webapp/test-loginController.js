@@ -1,4 +1,4 @@
-describe("controllers", function() {
+describe("Login controller", function() {
     beforeEach(module('navbar'));
 
     var success = true;
@@ -47,7 +47,7 @@ describe("controllers", function() {
     it('redirects to /playlists after login success', function() {
         success = true;
         ctrl.submit('user1', 'apass7869');
-        expect(locationService.path.calledWith('/playlists')).to.be.true;
+        expect(locationService.path.calledWith('/')).to.be.true;
         expect(ctrl.showError).to.be.false;
     });
 

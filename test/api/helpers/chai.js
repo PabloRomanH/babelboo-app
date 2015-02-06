@@ -1,4 +1,5 @@
 var chai = require('chai');
+global.sinon = require('sinon');
 
 chai.config.includeStack = true;
 

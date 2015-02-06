@@ -65,7 +65,7 @@
         this.submit = function(username, password) {
             login(username, password, function(success) {
                 if(success) {
-                    $location.path('/playlists');
+                    $location.path('/');
                 } else {
                     controller.showError = true;
                 }

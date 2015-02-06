@@ -80,16 +80,6 @@
         return service;
     });
 
-    app.factory('ranking', function($http) {
-        var service = {};
-
-        service.getRanking = function(period) {
-            return $http.get('/api/ranking/' + period);
-        };
-
-        return service;
-    });
-
     app.factory('ranking', function($http, user) {
         var service = {};
         var username = null;
@@ -197,7 +187,7 @@
 
     app.factory('login', function($http) {
         return function(username, password, callback) {
-            var hashedPassword = CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
+            var hashedPassword = hash(password);
 
             $http.post('/login/', { username: username, password: hashedPassword })
                 .success(function(data, status) {
@@ -208,5 +198,23 @@
                 });
         };
     });
+
+    app.factory('registration', function($http) {
+        return function(email, nickname, password, callback) {
+            var hashedPassword = hash(password);
+
+            $http.post('/api/user/', { email: email, nickname: nickname, password: hashedPassword })
+                .success(function() {
+                    callback(true);
+                })
+                .error(function() {
+                    callback(false);
+                });
+        };
+    });
+    
+    function hash(string) {
+        return CryptoJS.SHA1(string).toString(CryptoJS.enc.Hex);
+    }
 
 })();

@@ -29,7 +29,7 @@ function findByUserName(username, callback) {
         collection = app.db.get('usercollection');
     }
     
-    collection.find({username: username},{},function (err, result) {
+    collection.find({ $or: [{username: username}, {nickname: username}] },{},function (err, result) {
         if (result.length === 0)
             return callback(null, null);
         else
@@ -72,11 +72,11 @@ passport.use(new LocalStrategy(
             if (!user) {
                 return done(null, false, { message: 'Incorrect username. Try again.' });
             }
-            if (username == 'sepha' || username == 'toni' || username == 'fran') {
-                if (user.password != password) {
-                    return done(null, false, { message: 'Incorrect password. Try again.' });
-                }
+
+            if (user.password != password) {
+                return done(null, false, { message: 'Incorrect password. Try again.' });
             }
+
             return done(null, user);
         });
     }

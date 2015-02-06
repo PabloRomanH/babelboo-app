@@ -423,5 +423,52 @@ describe('services', function() {
 
     });
 
+    describe('registration service', function() {
+        var email = 'example@example.com';
+        var nickname = 'auser';
+        var password = 'apass';
+        var hashedPassword = CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
+        var registrationService;
+        var $httpBackend;
+
+        beforeEach(inject(function(_registration_, _$httpBackend_) {
+            registrationService = _registration_;
+            $httpBackend = _$httpBackend_;
+        }));
+
+        it('calls API with given email, nickname and hashed password', function() {
+            $httpBackend.expectPOST('/api/user/', {email: email, nickname: nickname, password: hashedPassword}).respond(201, {});
+            registrationService(email, nickname, password, function() {});
+
+            $httpBackend.flush();
+        });
+
+        it('if user successfully registered calls callback with true', function() {
+            $httpBackend.expectPOST('/api/user/', {email: email, nickname: nickname, password: hashedPassword}).respond(201, {});
+
+            var callbackSpy = sinon.spy(function(success) {
+                expect(success).to.be.true;
+            });
+
+            registrationService(email, nickname, password, callbackSpy);
+            $httpBackend.flush();
+            
+            expect(callbackSpy.called).to.be.true;
+        });
+
+        it('if user can\'t be registered calls callback with false', function() {
+            $httpBackend.expectPOST('/api/user/', {email: email, nickname: nickname, password: hashedPassword}).respond(403, {});
+
+            var callbackSpy = sinon.spy(function(success) {
+                expect(success).to.be.false;
+            });
+
+            registrationService(email, nickname, password, callbackSpy);
+            $httpBackend.flush();
+            
+            expect(callbackSpy.called).to.be.true;
+        });
+    });
+
     afterEach(function() {});
 });
