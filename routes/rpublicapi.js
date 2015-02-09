@@ -1,6 +1,7 @@
 
 var express = require('express');
 var mailer = require('nodemailer');
+var mailchimp = new (require('mailchimp-api').Mailchimp)('d644f26190a45f861fd87642679135ec-us9');
 
 var router = express.Router();
 
@@ -119,6 +120,8 @@ router.post('/user/', function(req, res) {
             return;
         }
 
+        registerOnMailchimp(req.body.email);
+
         var query = {
             username: req.body.email,
             nickname: req.body.nickname,
@@ -132,87 +135,128 @@ router.post('/user/', function(req, res) {
             res.status(201); // CREATED
             res.end();
 
-            sendEmail(req.body.nickname, req.body.email);
+            sendRegistrationEmail(req.body.nickname, req.body.email);
         });
     });
 
-    function sendEmail(nickname, email) {
-        var transporterOptions = {
-            service: 'Gmail',
-            auth: {
-                user: 'babelboodotcom@gmail.com',
-                pass: 'kyqgfawqokbemjdz'
-            }
-        };
-
-        var transporter = mailer.createTransport(transporterOptions);
-
-        var text =
-            '*********************\n'
-            +'Bienvenido a babelboo\n'
-            +'*********************\n'
-            +'\n'
-            +'------------------------\n'
-            +'Have fun, learn English!\n'
-            +'------------------------\n'
-            +'\n'
-            +'Tu usuario #username# se ha creado correctamente.\n'
-            +'Puedes hacer click en el botón de más abajo para entrar a\n'
-            +'babelboo y empezar a ver vídeos.\n'
-            +'Cuando entres verás diferentes playlists y puedes escoger\n'
-            +'tema y dificultad. La idea es que puedas pasarte horas mirando\n'
-            +'viídeos de cosas que te interesan y de tu nivel.\n'
-            +'\n'
-            +'Entra a babelboo ( http://www.babelboo.com )\n'
-            +'\n'
-            +'¿Andas muy liado? Aquí ( http://www.babelboo.com/play/54aab86ba5606f354096a9eb ) tienes\n'
-            +'una playlist cortita que no te llevará más de cinco minutos.\n'
-            +'\n'
-            +'www.babelboo.com ( http://www.babelboo.com )\n'
-            +'\n'
-            +'babelboo.com ( http://www.babelboo.com )\n'
-            +'\n'
-            +'Copyright © 2015 Babelboo, All rights reserved.\n';
-
-        var html = '<html>' +
-            '<body style="background-color: #F2F2F2; height: 100% !important; width: 100% !important;">' +
-            '<div style="padding: 10px">' +
-                '<div style="width: 600px; background-color: #fff; color: #606060 !important; font-family: Helvetica !important; margin: 10px auto; padding: 20px;" bgcolor="#fff">' +
-                    '<img src="http://www.babelboo.com/img/welcomeboo.png"/>' +
-                    '<h1 style="font-size: 40px; line-height: 125%; letter-spacing: -1px; margin: 0;">Bienvenido a babelboo</h1>' +
-                    '<h2 style="font-size: 18px; line-height: 125%; letter-spacing: -.5px; margin: 0;">Have fun, learn English!</h2>' +
-                    '<p style="font-size: 15px; line-height: 150%;">Tu usuario #username# se ha creado correctamente. ' +
-                    'Puedes hacer click en el botón de más abajo para entrar a babelboo y empezar a ver vídeos. ' +
-                    'Cuando entres verás diferentes playlists y puedes escoger tema y dificultad. La idea es que puedas pasarte horas mirando vídeos de cosas que te interesan y de tu nivel.' +
-                    '</p>' +
-                    '<div style="text-align: center; padding: 30px;" align="center">' +
-                        '<a href="http://www.babelboo.com" style="color: #fff !important; text-decoration: none; border-radius: 5px; font-family: Helvetica; font-weight: bold; background-color: #228b22; padding: 15px; border: 2px solid #176617;">Entra a babelboo</a>' +
-                    '</div>' +
-                    '<p style="font-size: 15px; line-height: 150%;">¿Andas muy liado? <a href="http://www.babelboo.com/play/54aab86ba5606f354096a9eb" style="color: #6DC6DD;">Aquí</a> tienes una playlist cortita que no te llevará más de cinco minutos.</p>' +
-                    '<p style="font-size: 15px; line-height: 150%;"><a href="http://www.babelboo.com" style="color: #6DC6DD;">www.babelboo.com</a></p>' +
-                    '<em style="font-size: 12px;">' +
-                        '<a href="http://www.babelboo.com" style="color: #606060 !important;">babelboo.com</a>' +
-                        '<br/>' +
-                        'Copyright © 2015 Babelboo, All rights reserved.' +
-                    '</em>' +
-                '</div>' +
-            '</div>' +
-            '</body>' +
-            '</html>';
-
-        text = text.replace('#username#', nickname);
-        html = html.replace('#username#', nickname);
-
-        var mailOptions = {
-            from: 'Babelboo <contact@babelboo.com>',
-            to: email,
-            subject: 'Bienvenido a babelboo',
-            text: text,
-            html: html
-        };
-
-        transporter.sendMail(mailOptions);
-    }
 });
+
+function sendRegistrationEmail(nickname, email) {
+    var text =
+        '*********************\n'
+        +'Bienvenido a babelboo\n'
+        +'*********************\n'
+        +'\n'
+        +'------------------------\n'
+        +'Have fun, learn English!\n'
+        +'------------------------\n'
+        +'\n'
+        +'Tu usuario #username# se ha creado correctamente.\n'
+        +'Puedes hacer click en el botón de más abajo para entrar a\n'
+        +'babelboo y empezar a ver vídeos.\n'
+        +'Cuando entres verás diferentes playlists y puedes escoger\n'
+        +'tema y dificultad. La idea es que puedas pasarte horas mirando\n'
+        +'viídeos de cosas que te interesan y de tu nivel.\n'
+        +'\n'
+        +'Entra a babelboo ( http://www.babelboo.com )\n'
+        +'\n'
+        +'¿Andas muy liado? Aquí ( http://www.babelboo.com/play/54aab86ba5606f354096a9eb ) tienes\n'
+        +'una playlist cortita que no te llevará más de cinco minutos.\n'
+        +'\n'
+        +'www.babelboo.com ( http://www.babelboo.com )\n'
+        +'\n'
+        +'babelboo.com ( http://www.babelboo.com )\n'
+        +'\n'
+        +'Copyright © 2015 Babelboo, All rights reserved.\n';
+
+    var html = '<html>' +
+        '<body style="background-color: #F2F2F2; height: 100% !important; width: 100% !important;">' +
+        '<div style="padding: 10px">' +
+            '<div style="width: 600px; background-color: #fff; color: #606060 !important; font-family: Helvetica !important; margin: 10px auto; padding: 20px;" bgcolor="#fff">' +
+                '<img src="http://www.babelboo.com/img/welcomeboo.png"/>' +
+                '<h1 style="font-size: 40px; line-height: 125%; letter-spacing: -1px; margin: 0;">Bienvenido a babelboo</h1>' +
+                '<h2 style="font-size: 18px; line-height: 125%; letter-spacing: -.5px; margin: 0;">Have fun, learn English!</h2>' +
+                '<p style="font-size: 15px; line-height: 150%;">Tu usuario #username# se ha creado correctamente. ' +
+                'Puedes hacer click en el botón de más abajo para entrar a babelboo y empezar a ver vídeos. ' +
+                'Cuando entres verás diferentes playlists y puedes escoger tema y dificultad. La idea es que puedas pasarte horas mirando vídeos de cosas que te interesan y de tu nivel.' +
+                '</p>' +
+                '<div style="text-align: center; padding: 30px;" align="center">' +
+                    '<a href="http://www.babelboo.com" style="color: #fff !important; text-decoration: none; border-radius: 5px; font-family: Helvetica; font-weight: bold; background-color: #228b22; padding: 15px; border: 2px solid #176617;">Entra a babelboo</a>' +
+                '</div>' +
+                '<p style="font-size: 15px; line-height: 150%;">¿Andas muy liado? <a href="http://www.babelboo.com/play/54aab86ba5606f354096a9eb" style="color: #6DC6DD;">Aquí</a> tienes una playlist cortita que no te llevará más de cinco minutos.</p>' +
+                '<p style="font-size: 15px; line-height: 150%;"><a href="http://www.babelboo.com" style="color: #6DC6DD;">www.babelboo.com</a></p>' +
+                '<em style="font-size: 12px;">' +
+                    '<a href="http://www.babelboo.com" style="color: #606060 !important;">babelboo.com</a>' +
+                    '<br/>' +
+                    'Copyright © 2015 Babelboo, All rights reserved.' +
+                '</em>' +
+            '</div>' +
+        '</div>' +
+        '</body>' +
+        '</html>';
+
+    text = text.replace('#username#', nickname);
+    html = html.replace('#username#', nickname);
+    sendEmail(email, 'Bienvenido a babelboo', text, html);
+}
+
+function sendEmail(to, subject, text, html) {
+    var transporterOptions = {
+        service: 'Gmail',
+        auth: {
+            user: 'babelboodotcom@gmail.com',
+            pass: 'kyqgfawqokbemjdz'
+        }
+    };
+
+    var transporter = mailer.createTransport(transporterOptions);
+
+    var mailOptions = {
+        from: 'Babelboo <contact@babelboo.com>',
+        to: to,
+        subject: subject,
+        text: text,
+        html: html
+    };
+
+    transporter.sendMail(mailOptions);
+}
+
+function registerOnMailchimp(email) {
+    var mailchimpOpts = {
+        id: 'ae8469cddc',
+        email: email,
+        merge_vars: {
+            groupings: [
+                {
+                    name: "Language",
+                    groups: ["Spanish"]
+                },
+                {
+                    name: "Reminders",
+                    groups: ["Inactivity reminder"]
+                },
+                {
+                    name: "Babelboo updates",
+                    groups: ["New release"]
+                }
+            ],
+            mc_language: 'es_ES'
+        },
+        double_optin: true
+    };
+
+    mailchimp.lists.subscribe(mailchimpOpts,
+        function(data) {},
+        function(err) {
+            var text = 'Error registering email to Mailchimp after successful database registration.\n' + JSON.stringify({
+                mailchimpOpts: mailchimpOpts,
+                err: err
+            }, null, 4);
+
+            sendEmail('contact@babelboo.com', '[mayhem] Mailchimp registration error', text, '');
+        }
+    );
+}
 
 module.exports = router;

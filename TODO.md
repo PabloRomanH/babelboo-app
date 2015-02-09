@@ -29,7 +29,7 @@ send email
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
-- Navbar
+- Playlists not always ordered by newest
 
 # For future releases:
 - When selecting a level in playlists view show popular playlists of that level

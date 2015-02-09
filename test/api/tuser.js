@@ -18,6 +18,20 @@ var nodemailerMock = {
     createTransport: createTransportSpy
 };
 
+var mailchimpAPIMock = {
+    lists: {
+        subscribe: sinon.spy()
+    }
+};
+
+var mailchimpFactoryMock = sinon.spy(function(apiKey) {
+    return mailchimpAPIMock;
+});
+
+mockery.registerMock('mailchimp-api', {
+    Mailchimp: mailchimpFactoryMock
+});
+
 mockery.registerMock('nodemailer', nodemailerMock);
 mockery.enable({ useCleanCache: true, warnOnUnregistered: false });
 
@@ -320,6 +334,59 @@ describe('API /api/user', function() {
                             });
                     });
             });
+        });
+
+        describe('mailchimp user registration', function() {
+            beforeEach(function() {
+                mailchimpAPIMock.lists.subscribe.reset();
+            });
+
+            it('using the right api key', function() {
+                var apiKey = 'd644f26190a45f861fd87642679135ec-us9';
+                expect(mailchimpFactoryMock.calledWithExactly(apiKey)).to.be.true;
+            });
+
+            it('registers user in mailchimp if success (200)', function(done) {
+                var mailchimpOpts = {
+                    id: 'ae8469cddc',
+                    email: email,
+                    merge_vars: {
+                        groupings: [
+                            {
+                                name: "Language",
+                                groups: ["Spanish"]
+                            },
+                            {
+                                name: "Reminders",
+                                groups: ["Inactivity reminder"]
+                            },
+                            {
+                                name: "Babelboo updates",
+                                groups: ["New release"]
+                            }
+                        ],
+                        mc_language: 'es_ES'
+                    },
+                    double_optin: true
+                };
+
+                request.post('/api/user')
+                    .send({ email: email, nickname: nickname, password: hashedPassword })
+                    .end(function(err, res) {
+                        expect(mailchimpAPIMock.lists.subscribe.calledWith(mailchimpOpts)).to.be.true;
+                        done();
+                    });
+            });
+
+            it('does not register user in mailchimp if error (40x)', function(done) {
+                request.post('/api/user')
+                    .send({ email: email, nickname: 'nicknametoolongforanickname', password: hashedPassword })
+                    .end(function(err, res) {
+                        expect(mailchimpAPIMock.lists.subscribe.called).to.be.false;
+                        done();
+                    });
+            });
+
         });
     });
 
