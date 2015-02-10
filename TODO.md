@@ -6,6 +6,7 @@ Release cycle:
 - Decision meeting
 - Repeat
 
+
 Deploy:
 write email
 update sepha/toni/fran passwords with hashes
