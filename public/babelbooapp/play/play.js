@@ -36,7 +36,7 @@
         controller.renderTime = renderTime;
 
         controller.idx = 0;
-        controller.playerVars = { autoplay: 1, controls: 0, rel: 0 };
+        controller.playerVars = { autoplay: 1, controls: 0, rel: 0, cc_load_policy: 0 };
         controller.player = null;
 
         function resetVideo () {
