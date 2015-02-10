@@ -5,7 +5,7 @@
       <h1>
         Add playlist
         <a class="fa fa-plus text-success" href="/playlist"></a>
-        Add loose videos 
+        Add loose videos
         <a class="fa fa-plus text-success" href="/video"></a>
       </h1>
     </div>
@@ -13,9 +13,7 @@
 
   <div class="row" ng-controller="ManagePlaylistsController as manageCtrl">
     <div class="col-sm-12">
-      <ul>
-        <li ng-repeat="tag in manageCtrl.tags"><span><a ng-click="manageCtrl.toggleTag(tag._id)">{{ tag._id }}</a></span></li>
-      </ul>
+      <span ng-repeat="tag in manageCtrl.tags"><a ng-click="manageCtrl.toggleTag(tag._id)">{{ tag._id }}</a> </span>
       <div>{{playlistsCtrl.selectedLevel}} {{playlistsCtrl.selectedTags}}</div>
     </div>
   <manage-playlist-card ng-repeat="playlist in manageCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></manage-playlist-card>
