@@ -212,7 +212,22 @@
                 });
         };
     });
-    
+
+    app.factory('profile', function($http) {
+        return function(username, email, password){
+            var postOpts = {
+                nickname: username,
+                username: email
+            };
+
+            if (typeof password !== 'undefined') {
+                postOpts.password = hash(password);
+            }
+
+            $http.post('/api/user/update', postOpts);
+        };
+    })
+
     function hash(string) {
         return CryptoJS.SHA1(string).toString(CryptoJS.enc.Hex);
     }
