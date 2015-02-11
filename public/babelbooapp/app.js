@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('babelbooapp', [
         'ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video',
-        'tv', 'player', 'playlist', 'playlists', 'ranking', 'plot',
+        'tv', 'player', 'playlist', 'playlists', 'ranking', 'plot', 'profile',
         'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise
@@ -105,6 +105,12 @@
             }).
             when('/progress', {
                 templateUrl: '/babelbooapp/progress/progress-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
+            }).
+            when('/profile', {
+                templateUrl: '/babelbooapp/profile/profile-fragment.html',
                 resolve: {
                     loggedin: checkLoggedin
                 }
