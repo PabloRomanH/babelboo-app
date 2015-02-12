@@ -79,6 +79,33 @@ router.get('/user', function(req, res) {
     res.json(req.user);
 });
 
+router.post('/user/update', function(req, res) {
+    var username = req.user.username;
+
+    var newUsername = req.body.username;
+    var newNickname = req.body.nickname;
+    var newPassword = req.body.password;
+
+    var query = {
+        username: username
+    };
+
+    var setop = {
+        username: newUsername,
+        nickname: newNickname
+    }
+
+    if (typeof newPassword !== 'undefined') {
+        setop.password = newPassword;
+    }
+
+    var collection = req.db.get('usercollection');
+    collection.update(query, {$set: setop});
+
+    res.status(201);
+    res.json();
+});
+
 router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
     if (req.params.username != req.user.username) {
         res.status(403); // FORBIDDEN
