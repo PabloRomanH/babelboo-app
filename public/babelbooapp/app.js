@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('babelbooapp', [
-        'ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video',
+        'ngRoute', 'navbar', 'betaregistration', 'recover', 'resetpassword', 'services', 'landing', 'video',
         'tv', 'player', 'playlist', 'playlists', 'ranking', 'plot',
         'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
 
@@ -108,6 +108,12 @@
                 resolve: {
                     loggedin: checkLoggedin
                 }
+            }).
+            when('/recover', {
+                templateUrl: '/babelbooapp/recover/recover-fragment.html',
+            }).
+            when('/resetpassword', {
+                templateUrl: '/babelbooapp/resetpassword/resetpassword-fragment.html',
             }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html',

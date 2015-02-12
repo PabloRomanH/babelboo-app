@@ -212,9 +212,23 @@
                 });
         };
     });
-    
+
+    app.factory('recover', function($http) {
+        return function(email) {
+            $http.post('/api/user/recover', { email: email});
+        };
+    });
+
+    app.factory('resetpassword', function($http) {
+        return function(token, password, callback) {
+            $http
+                .post('/api/user/reset', { token: token, password: hash(password) })
+                .success(function() {callback(true)})
+                .error(function() {callback(false)});
+        };
+    });
+
     function hash(string) {
         return CryptoJS.SHA1(string).toString(CryptoJS.enc.Hex);
     }
-
 })();

@@ -2,6 +2,8 @@
 var express = require('express');
 var mailer = require('nodemailer');
 var mailchimp = new (require('mailchimp-api').Mailchimp)('d644f26190a45f861fd87642679135ec-us9');
+var crypto = require('crypto');
+var passport = require('passport');
 
 var router = express.Router();
 
@@ -257,6 +259,90 @@ function registerOnMailchimp(email) {
             sendEmail('contact@babelboo.com', '[mayhem] Mailchimp registration error', text, '');
         }
     );
+}
+
+router.post('/user/recover', function(req, res) {
+    var collection = req.db.get('usercollection');
+    var token = null;
+
+    while(token === null) {
+        try {
+            var buf = crypto.randomBytes(20);
+            token = buf.toString('hex');
+        } catch (err) {}
+    }
+
+    var expireDate = nDaysAgo(-1);
+
+    collection.find({username: req.body.email}, function(err, result) {
+        collection.update({username: req.body.email}, {$set: {resetpasswordtoken: token, resetpasswordexpires: expireDate}}, function(err, updated) {
+            if (updated > 0) {
+                var text = '*********************\n' +
+                    'Bienvenido a babelboo\n' +
+                    '***********#username#**********' +
+                    'http://www.babelboo.com/resetpassword/#token#';
+                var html = '<html>#username#<br/><a href="http://www.babelboo.com/resetpassword?token=#token#">Click here</a> to reset your password.</html>';
+
+                text = text.replace('#username#', result[0].nickname);
+                html = html.replace('#username#', result[0].nickname);
+                text = text.replace('#token#', token);
+                html = html.replace('#token#', token);
+                var subject = 'Bienvenido a babelboo';
+                sendEmail(req.body.email, subject, text, html);
+            }
+
+            res.status(200); // CREATED
+            res.end();
+        });
+    });
+
+});
+
+router.post('/user/reset', function(req, res, next) {
+    var token = req.body.token;
+    var password = req.body.password;
+
+    if (typeof token == 'undefined' || typeof password == 'undefined' || password.length == 0) {
+        res.status(400);
+        res.end();
+        return;
+    }
+
+    var collection = req.db.get('usercollection');
+
+    collection.find({resetpasswordtoken: token, resetpasswordexpires: {$gte: new Date()}}, function(err, result) {
+        if (result.length == 0) {
+            res.status(401);
+            res.end();
+            return;
+        }
+
+        collection.update(
+            {resetpasswordtoken: token},
+            {$set: {password: password}, $unset: {resetpasswordtoken: true}},
+            function(err, nUpdated){
+                res.status(200);
+                req.body.username = result[0].username;
+                req.body.password = password;
+                next();
+            });
+    });
+}, passport.authenticate('local'), function(req, res){
+    res.end();
+});
+
+function nDaysAgo(nDays) {
+    var date = new Date();
+    clearTime(date);
+    date.setDate(date.getDate() - nDays);
+    return date;
+}
+
+function clearTime(date) {
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
 }
 
 module.exports = router;

@@ -28,7 +28,7 @@ function findByUserName(username, callback) {
     else {
         collection = app.db.get('usercollection');
     }
-    
+
     collection.find({ $or: [{username: username}, {nickname: username}] },{},function (err, result) {
         if (result.length === 0)
             return callback(null, null);
@@ -44,7 +44,7 @@ function findById(id, callback) {
     else {
         collection = app.db.get('usercollection');
     }
-    
+
     collection.findById(id, function(err, user){
         if (user != null) {
             callback(null, user);

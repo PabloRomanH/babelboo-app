@@ -452,7 +452,7 @@ describe('services', function() {
 
             registrationService(email, nickname, password, callbackSpy);
             $httpBackend.flush();
-            
+
             expect(callbackSpy.called).to.be.true;
         });
 
@@ -465,8 +465,79 @@ describe('services', function() {
 
             registrationService(email, nickname, password, callbackSpy);
             $httpBackend.flush();
-            
+
             expect(callbackSpy.called).to.be.true;
+        });
+    });
+
+    describe('password recovery service', function() {
+        var email = 'example@example.com';
+
+        beforeEach(inject(function(_recover_, _$httpBackend_) {
+            recoverService = _recover_;
+            $httpBackend = _$httpBackend_;
+        }));
+
+        it('calls API with given email', function() {
+            $httpBackend.expectPOST('/api/user/recover', { email: email }).respond(201, {});
+            recoverService(email);
+
+            $httpBackend.flush();
+        });
+
+    });
+
+    describe('resetpassword service', function() {
+        var password = 'l9aud80l890';
+        var token = '29294d7f3778838fc1591844e1efdf1eed7f01eb';
+
+        beforeEach(inject(function(_resetpassword_, _$httpBackend_) {
+            resetService = _resetpassword_;
+            $httpBackend = _$httpBackend_;
+        }));
+
+        it('calls API with call parameters', function() {
+            var hashedPassword = CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
+            $httpBackend.expectPOST('/api/user/reset', { token: token, password: hashedPassword }).respond(200, {});
+            resetService(token, password, function() {});
+
+            $httpBackend.flush();
+        });
+
+        it('calls callback if success', function() {
+            $httpBackend.whenPOST('/api/user/reset').respond(200, {});
+            var callback = sinon.spy();
+            resetService(token, password, callback);
+
+            $httpBackend.flush();
+            expect(callback.called).to.be.true;
+        });
+
+        it('calls callback if error', function() {
+            $httpBackend.whenPOST('/api/user/reset').respond(401, {});
+            var callback = sinon.spy();
+            resetService(token, password, callback);
+
+            $httpBackend.flush();
+            expect(callback.called).to.be.true;
+        });
+
+        it('calls callback with true if successful', function() {
+            $httpBackend.whenPOST('/api/user/reset').respond(200, {});
+            resetService(token, password, function(success) {
+                expect(success).to.be.true;
+            });
+
+            $httpBackend.flush();
+        });
+
+        it('calls callback with false if it fails', function() {
+            $httpBackend.whenPOST('/api/user/reset').respond(401, {});
+            resetService(token, password, function(success) {
+                expect(success).to.be.false;
+            });
+
+            $httpBackend.flush();
         });
     });
 

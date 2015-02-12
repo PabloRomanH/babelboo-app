@@ -55,17 +55,11 @@ describe('API /api/user', function() {
         });
     });
 
-    describe('POST', function(done) {
+    describe('POST /api/user', function(done) {
         var email = 'example@example.com';
         var nickname = 'auser';
         var password = 'apass';
         var hashedPassword = SHA1(password).toString();
-
-        beforeEach(function(done) {
-            collection.drop(function () {
-                done();
-            });
-        });
 
         it('should create user with email, nickname and password', function(done) {
             request.post('/api/user')
@@ -390,6 +384,275 @@ describe('API /api/user', function() {
         });
     });
 
+    describe('API /api/user/recover', function() {
+        var db = app.db;
+        var collection = db.get('usercollection');
+        var email = 'example@example.com';
+        var nickname = 'auser';
+
+        beforeEach(function(done) {
+            createTransportSpy.reset();
+            sendMailSpy.reset();
+
+            var query = {
+                username: email,
+                nickname: nickname,
+                password: 'sceaosrcbaorlub',
+                daysvisited: 0
+            };
+
+            collection.insert(query, done);
+        });
+
+        it('gives a success code when reseting a password for an existing email', function(done) {
+            request.post('/api/user/recover')
+                .send({ email: email })
+                .expect(200)
+                .end(function(err, res){
+                    if (err) throw err;
+                    done();
+                });
+        });
+
+        it('gives a success code when reseting a password for a nonexisting email', function(done) {
+            request.post('/api/user/recover')
+                .send({ email: email })
+                .expect(200)
+                .end(function(err, res){
+                    if (err) throw err;
+                    done();
+                });
+        });
+
+        it('generates a token for the user in the database', function(done) {
+            request.post('/api/user/recover')
+                .send({ email: email })
+                .end(function(err, res) {
+                    collection.find({ username: email }, function (err, result) {
+                        var firstToken = result[0].resetpasswordtoken;
+                        expect(firstToken).to.exist;
+                        expect(firstToken).to.have.length(40);
+
+                        request.post('/api/user/recover')
+                        .send({ email: email })
+                        .end(function(err, res) {
+                            collection.find({ username: email }, function (err, result) {
+                                expect(result[0].resetpasswordtoken).to.exist;
+                                expect(result[0].resetpasswordtoken).to.not.equal(firstToken);
+                                done();
+                            });
+                        });
+                    });
+                });
+        });
+
+        it('sends an email when reseting pasword if the user exists', function(done) {
+            var text = '*********************\n' +
+                'Bienvenido a babelboo\n' +
+                '***********#username#**********' +
+                'http://www.babelboo.com/resetpassword/#token#';
+            var html = '<html>#username#<br/><a href="http://www.babelboo.com/resetpassword?token=#token#">Click here</a> to reset your password.</html>';
+
+            text = text.replace('#username#', nickname);
+            html = html.replace('#username#', nickname);
+
+            request.post('/api/user/recover')
+                .send({ email: email })
+                .end(function(err, res) {
+                    collection.find({ username: email }, function (err, result) {
+                        var token = result[0].resetpasswordtoken;
+                        text = text.replace('#token#', token);
+                        html = html.replace('#token#', token);
+
+                        var expectedMailOptions = {
+                            from: 'Babelboo <contact@babelboo.com>',
+                            to: email,
+                            subject: 'Bienvenido a babelboo',
+                            text: text,
+                            html: html
+                        };
+
+                        expect(createTransportSpy.called).to.be.true;
+                        expect(sendMailSpy.calledWith(expectedMailOptions)).to.be.true;
+                        done();
+                    });
+                });
+        });
+
+        it('doesn\'t send an email if the user doesn\'t exist', function(done) {
+            request.post('/api/user/recover')
+                .send({ email: 'thisemaildoes@not.exist' })
+                .end(function(err, res) {
+                    expect(createTransportSpy.called).to.be.false;
+                    expect(sendMailSpy.called).to.be.false;
+                    done();
+                });
+        });
+
+        it('sets the correct expiration date for the token in the database', function(done) {
+            var TOKEN_VALIDITY = 1; // days
+            var startTime = nDaysAgo(-TOKEN_VALIDITY);
+
+            request.post('/api/user/recover')
+                .send({ email: email })
+                .end(function(err, res) {
+                    collection.find({ username: email }, function (err, result) {
+                        var endTime = nDaysAgo(-TOKEN_VALIDITY);
+                        expect(result[0].resetpasswordexpires).to.be.within(startTime, endTime);
+                        done();
+                    });
+                });
+        });
+    });
+
+    describe('API /api/user/reset', function() {
+        var USERNAME = 'auser';
+        var PASSWORD = 'apassword'
+        var TOKEN = 'ie8ai8ua87iaui78au';
+
+        before(function() {
+            process.env.NODE_ENV = 'development';
+        });
+
+        beforeEach(function(done) {
+            collection.insert({
+                username: USERNAME,
+                password: PASSWORD,
+                resetpasswordtoken: TOKEN,
+                resetpasswordexpires: nDaysAgo(-1)
+            }, done);
+        });
+
+        it('resets password when token is valid', function(done) {
+            var password = '7iaie79ia9iai9e9iei';
+
+            request
+                .post('/api/user/reset')
+                .send({ token: TOKEN, password: password})
+                .end(function(err, res) {
+                    collection.find({username: USERNAME}, function(err, res) {
+                        expect(res[0].password).to.equal(password);
+                        done();
+                    })
+                });
+        });
+
+        it('returns success code when password and token are valid', function() {
+            var password = '7iaie79ia9iai9e9iei';
+
+            return request
+                .post('/api/user/reset')
+                .send({ token: TOKEN, password: password})
+                .expect(200);
+        });
+
+        it('fails when token not specified', function() {
+            var password = '7iaie79ia9iai9e9iei';
+
+            return request
+                .post('/api/user/reset')
+                .send({ password: password})
+                .expect(400);
+        });
+
+        it('fails when password not specified', function(done) {
+            request
+                .post('/api/user/reset')
+                .send({ token: TOKEN })
+                .expect(400)
+                .end(function(err, res) {
+                    if(err) throw err;
+                    collection.find({username: USERNAME}, function(err, res) {
+                        expect(res[0].password).to.equal(PASSWORD);
+                        done();
+                    })
+                });
+        });
+
+        it('fails when password is empty', function(done) {
+            request
+                .post('/api/user/reset')
+                .send({ token: TOKEN, password: ''})
+                .expect(400)
+                .end(function(err, res) {
+                    if(err) throw err;
+                    collection.find({username: USERNAME}, function(err, res) {
+                        expect(res[0].password).to.equal(PASSWORD);
+                        done();
+                    })
+                });
+        });
+
+        it('fails when token is not in the db', function() {
+            var password = '7iaie79ia9iai9e9iei';
+
+            return request
+                .post('/api/user/reset')
+                .send({ token: 'ha0l9dl9ed908efu78le8l7', password: password})
+                .expect(401);
+        });
+
+        it('fails when using token twice', function(done) {
+            var password = '7iaie79ia9iai9e9iei';
+
+            request
+                .post('/api/user/reset')
+                .send({ token: TOKEN, password: password})
+                .end(function(err, res) {
+                    request
+                        .post('/api/user/reset')
+                        .send({ token: TOKEN, password: 'd1274fy1'})
+                        .expect(401)
+                        .end(function(err, res) {
+                            if(err) throw err;
+                            collection.find({username: USERNAME}, function(err, res) {
+                                expect(res[0].password).to.equal(password);
+                                done();
+                            });
+                        });
+                });
+        });
+
+        it('fails when token has expired', function(done) {
+            collection.update({ username: USERNAME }, {$set: {resetpasswordexpires: nDaysAgo(1)}}, function () {
+                request
+                    .post('/api/user/reset')
+                    .send({ token: TOKEN, password: 'newpassword'})
+                    .expect(401)
+                    .end(function(err, res) {
+                        if(err) throw err;
+                        collection.find({username: USERNAME}, function(err, res) {
+                            expect(res[0].password).to.equal(PASSWORD);
+                            done();
+                        })
+                    });
+            });
+        });
+
+        it('logs user in automatically after changing password', function(done) {
+            var password = '7iaie79ia9iai9e9iei';
+
+            request
+                .post('/api/user/reset')
+                .send({ token: TOKEN, password: password})
+                .end(function(err, res) {
+                    var setCookie = res.headers['set-cookie'];
+                    request
+                        .get('/loggedin')
+                        .set('Cookie', setCookie)
+                        .end(function(err, res) {
+                            expect(JSON.parse(res.text).username).to.equal(USERNAME);
+                            done();
+                        });
+                });
+        });
+
+
+        after(function() {
+            process.env.NODE_ENV = 'test';
+        });
+    });
+
     afterEach(function(done) {
         collection.drop(function () {
             done();
@@ -397,4 +660,16 @@ describe('API /api/user', function() {
     });
 });
 
+function nDaysAgo(nDays) {
+    var date = new Date();
+    clearTime(date);
+    date.setDate(date.getDate() - nDays);
+    return date;
+}
 
+function clearTime(date) {
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+}
