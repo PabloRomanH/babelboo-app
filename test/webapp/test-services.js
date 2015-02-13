@@ -551,45 +551,54 @@ describe('services', function() {
     });
 
     describe('profile', function() {
-        var profileService;
-        var $httpBackend;
-        var USERNAME = 'auser';
-        var EMAIL = 'auser@test.com';
-        var PASSWORD = 'apassword';
-        var HASHED_PASSWORD = hash(PASSWORD);
+        var nickname = 'newnickname';
+        var email = 'new@email.com';
+        var newpassword = 'newpassword';
+        var password = 'oldpassword';
 
         beforeEach(inject(function(_profile_, _$httpBackend_) {
             profileService = _profile_;
             $httpBackend = _$httpBackend_;
         }));
 
-        describe('new password', function() {
-            it('calls api with appropriate values', function() {
-                $httpBackend
-                    .expectPOST('/api/user/update', {
-                        nickname: USERNAME,
-                        username: EMAIL,
-                        password: HASHED_PASSWORD})
-                    .respond(201);
+        it('calls api with given value', function() {
+            $httpBackend.expectPOST('/api/user/update',
+                {
+                    username: email,
+                    nickname: nickname,
+                    password: hash(password),
+                    newpassword: hash(newpassword)
+                }).respond(200, {});
 
-                profileService(USERNAME, EMAIL, PASSWORD);
+            profileService(nickname, email, password, newpassword);
 
-                $httpBackend.flush();
-            });
+            $httpBackend.flush();
         });
 
-        describe('NO new password', function() {
-            it('calls api with appropriate values', function() {
-                $httpBackend
-                    .expectPOST('/api/user/update', {
-                        nickname: USERNAME,
-                        username: EMAIL})
-                    .respond(201);
+        it('success when api call succeeds', function() {
+            $httpBackend.whenPOST('/api/user/update').respond(200, {});
 
-                profileService(USERNAME, EMAIL);
-
-                $httpBackend.flush();
+            var callback = sinon.spy(function(success) {
+                expect(success).to.be.true;
             });
+
+            profileService(nickname, email, password, newpassword, callback);
+
+            $httpBackend.flush();
+            expect(callback.called).to.be.true;
+        });
+
+        it('failure when api call fails', function() {
+            $httpBackend.whenPOST('/api/user/update').respond(401, {});
+
+            var callback = sinon.spy(function(success) {
+                expect(success).to.be.false;
+            });
+
+            profileService(nickname, email, password, newpassword, callback);
+
+            $httpBackend.flush();
+            expect(callback.called).to.be.true;
         });
     });
 

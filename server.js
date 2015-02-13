@@ -70,10 +70,13 @@ passport.use(new LocalStrategy(
         findByUserName( username, function(err, user) {
             if (err) { return done(err); }
             if (!user) {
+                console.log('incorrect user');
                 return done(null, false, { message: 'Incorrect username. Try again.' });
             }
 
             if (user.password != password) {
+                console.log('incorrect password');
+                console.log(user.password + ' != ' + password);
                 return done(null, false, { message: 'Incorrect password. Try again.' });
             }
 

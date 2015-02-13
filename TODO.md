@@ -33,6 +33,7 @@ send email
 - Playlists not always ordered by newest
 
 # For future releases:
+- Check that /api/user only returns necessary fields (NOT PASSWORD!)
 - When selecting a level in playlists view show popular playlists of that level
 - Playlists infinite scrolling.
 - Social

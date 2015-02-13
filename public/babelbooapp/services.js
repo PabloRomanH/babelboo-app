@@ -188,7 +188,6 @@
     app.factory('login', function($http) {
         return function(username, password, callback) {
             var hashedPassword = hash(password);
-
             $http.post('/login/', { username: username, password: hashedPassword })
                 .success(function(data, status) {
                     callback(true);
@@ -229,17 +228,18 @@
     });
 
     app.factory('profile', function($http) {
-        return function(username, email, password){
+        return function(username, email, password, newpassword, callback){
             var postOpts = {
+                username: email,
                 nickname: username,
-                username: email
+                password: hash(password),
+                newpassword: hash(newpassword)
             };
 
-            if (typeof password !== 'undefined') {
-                postOpts.password = hash(password);
-            }
-
-            $http.post('/api/user/update', postOpts);
+            $http
+                .post('/api/user/update', postOpts)
+                .success(function() {callback && callback(true)})
+                .error(function() {callback && callback(false)});
         };
     })
 

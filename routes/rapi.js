@@ -84,23 +84,27 @@ router.post('/user/update', function(req, res) {
 
     var newUsername = req.body.username;
     var newNickname = req.body.nickname;
-    var newPassword = req.body.password;
+    var password = req.body.password;
+    var newPassword = req.body.newpassword;
 
-    var query = {
-        username: username
-    };
-
-    var setop = {
-        username: newUsername,
-        nickname: newNickname
-    }
-
-    if (typeof newPassword !== 'undefined') {
-        setop.password = newPassword;
+    if (req.user.password != password) {
+        res.status(401);
+        res.end();
+        return;
     }
 
     var collection = req.db.get('usercollection');
-    collection.update(query, {$set: setop});
+
+    var setopts = {
+        username: newUsername,
+        nickname: newNickname
+    };
+
+    if (typeof newPassword !== 'undefined') {
+        setopts.password = newPassword;
+    }
+
+    collection.update({username: req.user.username}, {$set: setopts});
 
     res.status(201);
     res.json();

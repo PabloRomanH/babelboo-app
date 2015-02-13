@@ -1,111 +1,92 @@
 describe('Profile controller', function() {
     beforeEach(module('profile'));
     var ctrl;
-    var loginService;
-    var loginSuccess;
+    var scope;
     var profileService;
-    var USERNAME = 'auser';
+    var NICKNAME = 'auser';
     var EMAIL = 'asuer@test.com';
     var OLD_PASS = 'anoldpass';
-    var NEW_USERNAME = 'anewuser';
+    var NEW_NICKNAME = 'anewuser';
     var NEW_EMAIL = 'anewuser@test.com';
     var NEW_PASS = 'anewpass';
 
-    beforeEach(inject(function($controller) {
+    beforeEach(inject(function($controller, $rootScope) {
         loginSuccess = true;
+        scope = $rootScope.$new();
 
-        profileService = sinon.spy();
-
-        loginService = function (username, password, callback) {
-            callback(loginSuccess);
-        };
+        profileService = sinon.spy(function(nickname, email, password, newPass, callback) {
+            callback(password == OLD_PASS);
+        });
 
         var userService = {
             fillUser: function (callback) {
-                callback({username: EMAIL, nickname: USERNAME});
+                callback({username: EMAIL, nickname: NICKNAME});
             }
         };
 
         ctrl = $controller('ProfileController', {
-            login: loginService,
             profile: profileService,
-            user: userService
+            user: userService,
+            $scope: scope
         })
     }));
 
-    it('do not show errors on load', function() {
-        expect(ctrl.showWrongPassword).to.be.false;
-        expect(ctrl.showPasswordMismatch).to.be.false;
-    });
-
     describe('fill user', function(){
         it('loads user name', function() {
-            expect(ctrl.username).to.equal(USERNAME);
+            expect(scope.nickname).to.equal(NICKNAME);
         });
 
         it('loads user email', function() {
-            expect(ctrl.email).to.equal(EMAIL);
-        });
-
-    });
-
-    describe('default values', function() {
-        it('no changes in username', function () {
-            ctrl.update(undefined, NEW_EMAIL);
-            expect(profileService.calledWithExactly(USERNAME, NEW_EMAIL)).to.be.true;
-        });
-
-        it('no changes in email', function () {
-            ctrl.update(NEW_USERNAME, undefined);
-            expect(profileService.calledWithExactly(NEW_USERNAME, EMAIL)).to.be.true;
+            expect(scope.email).to.equal(EMAIL);
         });
     });
 
-    describe('NO new password', function () {
-        it('does not check the old password', function() {
-            loginSuccess = false;
-            ctrl.update(NEW_USERNAME, NEW_EMAIL);
-            expect(profileService.called).to.be.true;
+    describe('user inputs new values', function() {
+        beforeEach(function() {
+            scope.nickname = NEW_NICKNAME;
+            scope.email = NEW_EMAIL;
+            scope.password = OLD_PASS;
+            scope.newpassword = NEW_PASS;
         });
 
-
-        it('calls service with appropriate fields', function () {
-            ctrl.update(NEW_USERNAME, NEW_EMAIL);
-            expect(profileService.calledWithExactly(NEW_USERNAME, NEW_EMAIL)).to.be.true;
-        });
-    });
-
-    describe('new password', function () {
-        it('calls service with appropriate fields', function () {
-            ctrl.update(NEW_USERNAME, NEW_EMAIL, NEW_PASS, NEW_PASS, OLD_PASS);
-            expect(profileService.calledWithExactly(NEW_USERNAME, NEW_EMAIL, NEW_PASS)).to.be.true;
+        it('do not show errors on load', function() {
+            expect(ctrl.showWrongPassword).to.be.false;
         });
 
-        it('calls the service if the password matches', function () {
-            ctrl.update(NEW_USERNAME, NEW_EMAIL, NEW_PASS, NEW_PASS, OLD_PASS);
-            expect(profileService.called).to.be.true;
+        it('do not show success message on load', function() {
+            expect(ctrl.showSuccess).to.be.false;
         });
 
-        it('does not call the service if the CURRENT password does not match', function() {
-            loginSuccess = false;
-            ctrl.update(NEW_USERNAME, NEW_EMAIL, NEW_PASS, NEW_PASS, 'abadoldpass');
-            expect(profileService.called).to.be.false;
+        it('show success message', function() {
+           ctrl.update();
+           expect(ctrl.showSuccess).to.be.true;
         });
 
-        it('shows error message if CURRENT password does not match', function() {
-            loginSuccess = false;
-            ctrl.update(NEW_USERNAME, NEW_EMAIL, NEW_PASS, NEW_PASS, 'abadoldpass');
+        it('shows error if current password NOT ok', function() {
+            scope.password = 'notcurrentpassword';
+            ctrl.update();
             expect(ctrl.showWrongPassword).to.be.true;
         });
 
-        it('checks that the new password is confirmed', function () {
-            ctrl.update(USERNAME, EMAIL, NEW_PASS, 'someotherpass', OLD_PASS);
-            expect(profileService.called).to.be.false;
+        it('bad password, good password hides error message', function() {
+            scope.password = 'notcurrentpassword';
+            ctrl.update();
+            scope.password = OLD_PASS;
+            ctrl.update();
+            expect(ctrl.showWrongPassword).to.be.false;
+            expect(ctrl.showSuccess).to.be.true;
         });
 
-        it('shows error message if new password is not confirmed', function() {
-            ctrl.update(USERNAME, EMAIL, NEW_PASS, 'someotherpass', OLD_PASS);
-            expect(ctrl.showPasswordMismatch).to.be.true;
+        it('NO new password calls service with appropriate fields', function () {
+            scope.newpassword = undefined;
+            ctrl.update();
+            expect(profileService.calledWith(NEW_NICKNAME, NEW_EMAIL, OLD_PASS, undefined)).to.be.true;
+        });
+
+        it('New password calls service with appropriate fields', function () {
+            ctrl.update();
+            expect(profileService.calledWith(NEW_NICKNAME, NEW_EMAIL, OLD_PASS, NEW_PASS)).to.be.true;
         });
     });
+
 });
