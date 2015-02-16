@@ -122,6 +122,9 @@
                     loggedin: checkLoggedin
                 }
             }).
+            when('/upload', {
+                templateUrl: '/form.html',
+            }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html',
                 resolve: {
