@@ -466,11 +466,12 @@ describe('API /api/user public part', function() {
                         var token = result[0].resetpasswordtoken;
                         text = text.replace('#token#', token);
                         html = html.replace('#token#', token);
+                        html = html.replace('#token#', token);
 
                         var expectedMailOptions = {
                             from: 'Babelboo <contact@babelboo.com>',
                             to: email,
-                            subject: 'Bienvenido a babelboo',
+                            subject: 'Reset your babelboo password',
                             text: text,
                             html: html
                         };

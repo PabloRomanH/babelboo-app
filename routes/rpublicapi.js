@@ -291,7 +291,8 @@ router.post('/user/recover', function(req, res) {
                 html = html.replace('#username#', result[0].nickname);
                 text = text.replace('#token#', token);
                 html = html.replace('#token#', token);
-                var subject = 'Bienvenido a babelboo';
+                html = html.replace('#token#', token);
+                var subject = 'Reset your babelboo password';
                 sendEmail(req.body.email, subject, text, html);
             }
 

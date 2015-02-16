@@ -155,7 +155,7 @@ var auth = function(req, res, next) {
 }
 
 var restrictedAuth = function(req, res, next) {
-    if (req.isAuthenticated() && (req.user.username == 'sepha' || req.user.username == 'toni' || req.user.username == 'fran')) {
+    if (req.isAuthenticated() && (req.user.nickname == 'sepha' || req.user.nickname == 'tonipenya' || req.user.nickname == 'fran')) {
         next();
     } else {
         res.status(401).end();

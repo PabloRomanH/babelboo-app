@@ -9,28 +9,26 @@ Release cycle:
 
 Deploy:
 write email
-update sepha/toni/fran passwords with hashes
+add sepha/toni/fran emails
 git stuff
     git fetch
     git merge origin/master
+run script to send reset password emails
 restart node
     forever restartall
 manual testing
 send email
 
 # Next release:
-- Registration
-    - Password recovery.
-- Password for existing users.
-    - Node.js script to create random passwords and send emails
 - User area.
-    - View to change nickname, password or avatar.
+    - View to change avatar.
 - User avatar in navbar and ranking.
-
+- Design of new views.
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
 - Playlists not always ordered by newest
+- Check new email and nickname don't exist in the database after changing
 
 # For future releases:
 - Check that /api/user only returns necessary fields (NOT PASSWORD!)
