@@ -447,12 +447,15 @@ describe('API /api/user public part', function() {
         });
 
         it('sends an email when reseting pasword if the user exists', function(done) {
-            var text = '*********************\n' +
-                'Bienvenido a babelboo\n' +
-                '***********#username#**********' +
-                'http://www.babelboo.com/resetpassword/#token#';
-            var html = '<html>#username#<br/><a href="http://www.babelboo.com/resetpassword?token=#token#">Click here</a> to reset your password.</html>';
-
+            var text = 'Hi #username#,\n' +
+                    '\n' +
+                    'Click on the link below to reset your password.\n' +
+                    '\n' +
+                    'http://www.babelboo.com/resetpassword?token=#token#\n';
+            var html = '<html><body><p>Hi #username#.</p>' +
+                        '<p>Click on the link below to reset your password.</p>' +
+                        '<p><a href="http://www.babelboo.com/resetpassword?token=#token#">http://www.babelboo.com/resetpassword?token=#token#</a></p>' +
+                        '</body></html>';
             text = text.replace('#username#', nickname);
             html = html.replace('#username#', nickname);
 

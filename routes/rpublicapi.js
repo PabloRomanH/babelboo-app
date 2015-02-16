@@ -277,11 +277,15 @@ router.post('/user/recover', function(req, res) {
     collection.find({username: req.body.email}, function(err, result) {
         collection.update({username: req.body.email}, {$set: {resetpasswordtoken: token, resetpasswordexpires: expireDate}}, function(err, updated) {
             if (updated > 0) {
-                var text = '*********************\n' +
-                    'Bienvenido a babelboo\n' +
-                    '***********#username#**********' +
-                    'http://www.babelboo.com/resetpassword/#token#';
-                var html = '<html>#username#<br/><a href="http://www.babelboo.com/resetpassword?token=#token#">Click here</a> to reset your password.</html>';
+                var text = 'Hi #username#,\n' +
+                        '\n' +
+                        'Click on the link below to reset your password.\n' +
+                        '\n' +
+                        'http://www.babelboo.com/resetpassword?token=#token#\n';
+                var html = '<html><body><p>Hi #username#.</p>' +
+                            '<p>Click on the link below to reset your password.</p>' +
+                            '<p><a href="http://www.babelboo.com/resetpassword?token=#token#">http://www.babelboo.com/resetpassword?token=#token#</a></p>' +
+                            '</body></html>';
 
                 text = text.replace('#username#', result[0].nickname);
                 html = html.replace('#username#', result[0].nickname);
