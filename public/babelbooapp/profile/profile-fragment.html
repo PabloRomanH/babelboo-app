@@ -1,10 +1,14 @@
 <div class="container" ng-controller="ProfileController as profileCtrl">
   <div class="cine clearfix form-group" ng-hide="betaCtrl.submitted">
-    <div>
-      <i class="fa fa-user fa-5x"></i>
-    </div>
 
     <div>
+      <div>
+        <i class="fa fa-user fa-5x" ng-hide="profileCtrl.avatar"></i>
+        <img ng-src="{{profileCtrl.avatar}}" alt="{{profileCtrl.nickname}}" ng-show="profileCtrl.avatar"/>
+      </div>
+
+      <input type="file" nv-file-select uploader="profileCtrl.uploader" />
+
       <form ng-submit="(submitted=true) && profileCtrl.update()"
             name="profileForm">
         <div>

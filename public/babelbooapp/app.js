@@ -3,7 +3,7 @@
         'ngRoute', 'navbar', 'betaregistration', 'recover', 'resetpassword',
         'services', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists',
         'ranking', 'plot', 'profile', 'managePlaylists', 'angulartics',
-        'angulartics.google.analytics']);
+        'angulartics.google.analytics', 'angularFileUpload' ]);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise
         var deferred = $q.defer();

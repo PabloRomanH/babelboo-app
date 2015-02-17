@@ -10,9 +10,11 @@ Release cycle:
 Deploy:
 write email
 add sepha/toni/fran emails
+apt-get install graphicsmagick
 git stuff
     git fetch
     git merge origin/master
+npm install
 run script to send reset password emails
 restart node
     forever restartall
@@ -24,10 +26,10 @@ send email
     - View to change avatar.
 - User avatar in navbar and ranking.
 - Design of new views.
+- Navbar responds to angularjs update event
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
-- Playlists not always ordered by newest
 - Check new email and nickname don't exist in the database after changing
 
 # For future releases:
