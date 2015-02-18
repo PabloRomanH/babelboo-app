@@ -2,7 +2,6 @@
     var app = angular.module('profile', []);
 
     app.controller('ProfileController', function($scope, $rootScope, profile, user, FileUploader) {
-        console.log('profile');
         var controller = this;
         controller.showWrongPassword = false;
         controller.showSuccess = false;

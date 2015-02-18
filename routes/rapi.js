@@ -310,7 +310,7 @@ router.get('/ranking/:period', function(req, res) {
     }
 
     var collection = req.db.get('usercollection');
-    var fields = {username: 1, nickname: 1, medalhistory: 1, _id: 0};
+    var fields = {username: 1, nickname: 1, medalhistory: 1, avatar: 1, _id: 0};
     collection.find({}, {fields: fields}, function(err, result) {
             var ranking = result.map(processMedalHistory);
             ranking.sort(medalCompare);
@@ -325,6 +325,7 @@ router.get('/ranking/:period', function(req, res) {
         var entry  = {
             username: element.username,
             nickname: element.nickname,
+            avatar: element.avatar,
             golds: medals.golds,
             silvers: medals.silvers,
             bronzes: medals.bronzes
