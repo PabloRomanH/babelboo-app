@@ -26,7 +26,8 @@ send email
     - View to change avatar.
 - User avatar in navbar and ranking.
 - Design of new views.
-- Navbar responds to angularjs update event
+- Navbar responds to angularjs update event.
+- node crashes when reloading profile while uploading a file.
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
