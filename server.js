@@ -135,6 +135,11 @@ app.use(passport.session());
 
 app.use(function(req,res,next){
     req.db = app.db;
+    if (process.env.NODE_ENV === 'test') {
+        req.storage = __dirname + '/test/tmp';
+    } else {
+        req.storage = __dirname + '/public';
+    }
     next();
 });
 

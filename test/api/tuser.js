@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var supertest = require('supertest-as-promised');
 var SHA1 = require('crypto-js/sha1');
 var mockery = require('mockery');
+var fs = require('fs');
+var gm = require('gm');
 
 var createTransportSpy = sinon.spy(function () {
         return {
@@ -28,11 +30,33 @@ var mailchimpFactoryMock = sinon.spy(function(apiKey) {
     return mailchimpAPIMock;
 });
 
+var tmpfilepath;
+
+var multiparty = require('multiparty');
+
+var oldOn = multiparty.Form.prototype.on;
+
+multiparty.Form.prototype.on = function(action, callback) {
+    if(action == 'file') {
+        oldOn.call(this, action, callback2);
+    } else {
+        oldOn.call(this, action, callback);
+    }
+
+    function callback2(name, file) {
+        tmpfilepath = file.path;
+        callback(name, file);
+    }
+};
+
 mockery.registerMock('mailchimp-api', {
     Mailchimp: mailchimpFactoryMock
 });
 
 mockery.registerMock('nodemailer', nodemailerMock);
+
+mockery.registerMock('multiparty', multiparty);
+
 mockery.enable({ useCleanCache: true, warnOnUnregistered: false });
 
 // var request = supertest('http://localhost:' + port);
@@ -669,6 +693,7 @@ describe('API /api/user private part', function() {
 
     var db = app.db;
     var userdb = db.get('usercollection');
+    var logindb = db.get('testlogin');
 
     var USERNAME = 'auser@test.com';
     var NICKNAME = 'auser';
@@ -681,8 +706,7 @@ describe('API /api/user private part', function() {
     });
 
     beforeEach(function(done) {
-        var logindb = db.get('testlogin');
-        logindb.insert({username: USERNAME, password: HASHED_PASSWORD},
+        logindb.insert({username: USERNAME, nickname: NICKNAME, password: HASHED_PASSWORD},
             function () {
                 app.onSessionConnected(function() {
                     request.post('/login')
@@ -773,6 +797,197 @@ describe('API /api/user private part', function() {
                         done();
                     });
                 });
+        });
+    });
+
+    describe('update avatar', function() {
+        var SMALL_WIDTH = 60;
+        var SMALL_HEIGHT = 60;
+        var LARGE_WIDTH = 500;
+        var LARGE_HEIGHT = 500;
+        var userId;
+
+        beforeEach(function (done) {
+            logindb.find({nickname: NICKNAME}, function (err, res) {
+                userId = res[0]._id;
+                done();
+            });
+        });
+
+        beforeEach(function (done) {
+            request
+                .post('/api/user/avatar')
+                .set('Cookie', setCookie)
+                .attach('avatar', __dirname + '/res/avatar.png')
+                .end(function (err, res) {
+                    if (err) throw err;
+                    done();
+                });
+        });
+
+        describe('low res', function() {
+            it('path', function(done) {
+                fs.exists(smallPath(userId), function (exists) {
+                    expect(exists).to.be.true;
+                    done();
+                });
+            });
+
+            it('resolution', function(done) {
+                gm(smallPath(userId))
+                    .size(function (err, size) {
+                        expect(size.width).to.be.within(SMALL_WIDTH - 1, SMALL_WIDTH + 1);
+                        expect(size.height).to.be.within(SMALL_HEIGHT - 1, SMALL_HEIGHT + 1);
+                        done();
+                    });
+            });
+
+            it('content', function(done) {
+                var options = { tolerance: 0 };
+
+                gm.compare(smallPath(userId), __dirname + '/res/small-avatar.jpeg', options,
+                    function (err, isEqual) {
+                        expect(isEqual).to.be.true;
+                        done();
+                    });
+            });
+
+            it('updates path in db', function(done) {
+                userdb.find({nickname: NICKNAME}, function(err, response) {
+                    expect(response[0].avatar.small).to.equal('/avatars/' + userId + '-small.jpeg');
+                    done();
+                });
+            });
+
+            it('overwrites previous image', function(done) {
+                request
+                    .post('/api/user/avatar')
+                    .set('Cookie', setCookie)
+                    .attach('avatar', __dirname + '/res/avatar2.png')
+                    .end(function (err, res) {
+                        if (err) throw err;
+                        var options = { tolerance: 0 };
+
+                        gm.compare(smallPath(userId), __dirname + '/res/small-avatar2.jpeg', options,
+                            function (err, isEqual) {
+                                expect(isEqual).to.be.true;
+                                done();
+                            });
+                    });
+            });
+
+            function smallPath(string) {
+                return __dirname + '/../tmp/avatars/' + string + '-small.jpeg';
+            }
+        });
+
+// gm convert -size 60x60 avatar.png -thumbnail 60x60^ -gravity center -extent 60x60 +profile "*" small-avatar.jpeg
+// gm convert -size 500x500 avatar.png -thumbnail 500x500\^ -gravity center -extent 500x500 +profile "*" large-avatar.jpeg
+
+        describe('high res', function() {
+            it('path', function(done) {
+                fs.exists(largePath(userId), function (exists) {
+                    expect(exists).to.be.true;
+                    done();
+                });
+            });
+
+            it('resolution', function(done) {
+                gm(largePath(userId))
+                    .size(function (err, size) {
+                        expect(size.width).to.be.within(LARGE_WIDTH - 1, LARGE_WIDTH + 1);
+                        expect(size.height).to.be.within(LARGE_HEIGHT - 1, LARGE_HEIGHT + 1);
+                        done();
+                    });
+            });
+
+            it('content', function(done) {
+                var options = { tolerance: 0 };
+
+                gm.compare(largePath(userId), __dirname + '/res/large-avatar.jpeg', options,
+                    function (err, isEqual) {
+                        expect(isEqual).to.be.true;
+                        done();
+                    });
+            });
+
+            it('updates path in db', function(done) {
+                userdb.find({nickname: NICKNAME}, function(err, response) {
+                    expect(response[0].avatar.large).to.equal('/avatars/' + userId + '-large.jpeg');
+                    done();
+                });
+            });
+
+            it('overwrites previous image', function(done) {
+                request
+                    .post('/api/user/avatar')
+                    .set('Cookie', setCookie)
+                    .attach('avatar', __dirname + '/res/avatar2.png')
+                    .end(function (err, res) {
+                        if (err) throw err;
+                        var options = { tolerance: 0 };
+
+                        gm.compare(largePath(userId), __dirname + '/res/large-avatar2.jpeg', options,
+                            function (err, isEqual) {
+                                expect(isEqual).to.be.true;
+                                done();
+                            });
+                    });
+            });
+
+            function largePath(string) {
+                return __dirname + '/../tmp/avatars/' + string + '-large.jpeg';
+            }
+        });
+
+        describe('on success', function() {
+            it('deletes temp image', function(done) {
+                fs.exists(tmpfilepath, function (exists) {
+                    expect(exists).to.be.false;
+                    done();
+                });
+            });
+
+            it('returns 200 when done', function() {
+                return request
+                    .post('/api/user/avatar')
+                    .set('Cookie', setCookie)
+                    .attach('avatar', __dirname + '/res/avatar2.png')
+                    .expect(200);
+            });
+        });
+
+        describe('failing if not an image', function() {
+            it('deletes temp file', function(done) {
+                request
+                    .post('/api/user/avatar')
+                    .set('Cookie', setCookie)
+                    .attach('avatar', __dirname + '/res/notanimage.txt')
+                    .end(function (err, res) {
+                        fs.exists(tmpfilepath, function (exists) {
+                            expect(exists).to.be.false;
+                            done();
+                        });
+                    });
+            });
+
+            it('returns failure code', function() {
+                return request
+                    .post('/api/user/avatar')
+                    .set('Cookie', setCookie)
+                    .attach('avatar', __dirname + '/res/notanimage.txt')
+                    .expect(400);
+            });
+        });
+
+        afterEach(function () {
+            fs.readdir(__dirname + '/../tmp/avatars/', function(err, files) {
+                for(var i = 0; i < files.length; i++) {
+                    if(files[i] != '.gitignore') {
+                        fs.unlinkSync(__dirname + '/../tmp/avatars/' + files[i]);
+                    }
+                }
+            });
         });
     });
 
