@@ -13,8 +13,6 @@ describe('Profile controller', function() {
     var NEW_PASS = 'anewpass';
 
     var UploaderMock = sinon.spy(function() {});
-    // UploaderMock.prototype.onSuccessItem = function(item, response, status, headers) {};
-    // UploaderMock.prototype.onAfterAddingFile = function(item, response, status, headers) {};
     UploaderMock.prototype.uploadAll = sinon.spy();
 
     before(function() {
@@ -24,7 +22,7 @@ describe('Profile controller', function() {
     beforeEach(inject(function($controller, $rootScope) {
         loginSuccess = true;
         rootscope = $rootScope;
-        rootscope.$broadcast = sinon.spy(rootscope.$broadcast);
+        rootscope.$emit = sinon.spy(rootscope.$emit);
         scope = $rootScope.$new();
 
         profileService = sinon.spy(function(nickname, email, password, newPass, callback) {
@@ -159,7 +157,7 @@ describe('Profile controller', function() {
 
         it('throw event to update navbar after successful upload', function() {
             ctrl.uploader.onSuccessItem();
-            expect(rootscope.$broadcast.calledWithExactly('updateNavbarEvent')).to.be.true;
+            expect(rootscope.$emit.calledWithExactly('avatar.refresh')).to.be.true;
         });
 
         it('do not show file error on load', function() {

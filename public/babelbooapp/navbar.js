@@ -1,21 +1,33 @@
 (function() {
     var app = angular.module('navbar', []);
-    app.controller('NavbarController', function($analytics, $route, $location, $scope, user, ranking) {
+    app.controller('NavbarController', function($analytics, $route, $location, $rootScope, $scope, ranking) {
         var controller = this;
-        controller.user = {};
+        controller.nickname = '';
         controller.showLogout = false;
         controller.userLogged = false;
         controller.showRegister = false;
 
         $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
-            init('event');
+            init();
         });
 
-        init('init');
+        $rootScope.$on('avatar.refresh', function () {
+            ranking.getUserRank(updateMedalsAndRank);
+        });
+
+        $rootScope.$on('nickname.refresh', function () {
+            ranking.getUserRank(updateMedalsAndRank);
+        });
+
+        $rootScope.$on('ranking.refresh', function () {
+            ranking.getUserRank(updateMedalsAndRank);
+        });
+
+        init();
 
         controller.pointsClicked = function () {
             $analytics.eventTrack('pointsClicked', {
-                    category: 'navigation', label: controller.user._id
+                    category: 'navigation', label: controller.nickname
                 });
         };
 
@@ -29,26 +41,24 @@
             $route.reload();
         };
 
-        function init(when) {
+        function init() {
             ranking.getUserRank(updateMedalsAndRank);
             controller.showRegister = false;
 
             if (($location.path() == '/tv' || $location.path().match(/^\/play/)) && !controller.userLogged) {
                 controller.showRegister = true;
             }
-
-            user.fillUser(function (user) {
-                controller.showRegister = false;
-                controller.user = user;
-                controller.userLogged = true;
-            });
         }
 
         function updateMedalsAndRank(rank) {
+            controller.nickname = rank.nickname;
             controller.rank = rank.rank;
             controller.golds = rank.golds;
             controller.silvers = rank.silvers;
             controller.bronzes = rank.bronzes;
+            controller.avatar = rank.avatar.small + '?' + new Date().getTime();
+            controller.userLogged = true;
+            controller.showRegister = false;
         }
     });
 

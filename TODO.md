@@ -23,7 +23,10 @@ send email
 
 # Next release:
 - Design of new views.
-- Navbar responds to angularjs update event.
+- Profile launches nickname.update event.
+- Profile doesn't refresh page on change.
+- Button to access profile.
+- Tutorial.
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.

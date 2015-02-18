@@ -21,7 +21,7 @@
 
         controller.uploader.onSuccessItem = function () {
             updateUser();
-            $rootScope.$broadcast('updateNavbarEvent');
+            $rootScope.$emit('avatar.refresh');
             controller.showFileError = false;
             controller.showUploading = false;
         };
@@ -42,9 +42,7 @@
             user.fillUser(function (user) {
                 $scope.nickname = user.nickname;
                 $scope.email = user.username;
-                if (typeof user.avatar === 'undefined') {
-                    controller.avatar = undefined;
-                } else {
+                if (typeof user.avatar !== 'undefined') {
                     controller.avatar = user.avatar.large + '?' + new Date().getTime();
                 }
             });
