@@ -138,7 +138,10 @@ router.post('/user/avatar', function (req, res) {
                         });
             });
         });
+    });
 
+    form.on('error', function(err) {
+        // To prevent node from crashing when upload is interrupted.
     });
 
     form.parse(req);
