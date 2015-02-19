@@ -23,14 +23,13 @@ send email
 
 # Next release:
 - Design of new views.
-- Profile launches nickname.update event.
-- Profile doesn't refresh page on change.
+- Profile doesn't update changed avatar when setting it the first time.
 - Button to access profile.
 - Tutorial.
 
 # Bugfixes:
-- Shadow of navbar appears under cards in summary.
 - Check new email and nickname don't exist in the database after changing
+- Shadow of navbar appears under cards in summary.
 
 # For future releases:
 - Check that /api/user only returns necessary fields (NOT PASSWORD!)

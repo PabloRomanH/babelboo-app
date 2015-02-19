@@ -881,9 +881,6 @@ describe('API /api/user private part', function() {
             }
         });
 
-// gm convert -size 60x60 avatar.png -thumbnail 60x60^ -gravity center -extent 60x60 +profile "*" small-avatar.jpeg
-// gm convert -size 500x500 avatar.png -thumbnail 500x500\^ -gravity center -extent 500x500 +profile "*" large-avatar.jpeg
-
         describe('high res', function() {
             it('path', function(done) {
                 fs.exists(largePath(userId), function (exists) {

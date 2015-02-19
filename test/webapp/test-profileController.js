@@ -103,6 +103,17 @@ describe('Profile controller', function() {
             ctrl.update();
             expect(profileService.calledWith(NEW_NICKNAME, NEW_EMAIL, OLD_PASS, NEW_PASS)).to.be.true;
         });
+
+        it('nickname.refresh event when successfully changing nickname', function() {
+            ctrl.update();
+            expect(rootscope.$emit.calledWithExactly('nickname.refresh')).to.be.true;
+        });
+
+        it('nickname.refresh event not called when error changing nickname', function() {
+            scope.password = 'notcurrentpassword';
+            ctrl.update();
+            expect(rootscope.$emit.calledWithExactly('nickname.refresh')).to.be.false;
+        });
     });
 
     describe('avatar update', function() {

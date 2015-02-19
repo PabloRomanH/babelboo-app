@@ -56,7 +56,9 @@
             controller.golds = rank.golds;
             controller.silvers = rank.silvers;
             controller.bronzes = rank.bronzes;
-            controller.avatar = rank.avatar.small + '?' + new Date().getTime();
+            if (typeof rank.avatar !== 'undefined') {
+                controller.avatar = rank.avatar.small + '?' + new Date().getTime();
+            }
             controller.userLogged = true;
             controller.showRegister = false;
         }

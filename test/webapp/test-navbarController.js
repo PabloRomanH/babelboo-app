@@ -13,6 +13,8 @@ describe('navbar controller', function() {
     var userLogged = false;
     var currentRoute;
     var rootScope;
+    var rankingService;
+    var locationService;
 
     beforeEach(inject(function($rootScope, $controller) {
         currentRoute = '';
@@ -32,9 +34,9 @@ describe('navbar controller', function() {
             }
         };
 
-        var rankingService = { getUserRank: getUserRank };
+        rankingService = { getUserRank: getUserRank };
 
-        var locationService = { path: function() { return currentRoute; }};
+        locationService = { path: function() { return currentRoute; }};
 
         analytics = {
             eventTrack: sinon.spy()
@@ -131,8 +133,22 @@ describe('navbar controller', function() {
             expect(ctrl.avatar.split('?')[0]).to.equal(rankData.avatar.small);
         });
 
-        it('if user has no avatar, set it to undefined', function() {
-            throw 'Not implemented yet!!!';
+        describe('', function() {
+            beforeEach(inject(function($rootScope, $controller) {
+                rankData = { nickname: 'n1' };
+
+                ctrl = $controller('NavbarController', {
+                    $scope: scope,
+                    $rootScope: $rootScope,
+                    $analytics: analytics,
+                    ranking: rankingService,
+                    $location: locationService
+                });
+            }));
+
+            it('if user has no avatar, set it to undefined', function() {
+                expect(typeof ctrl.avatar === 'undefined').to.be.true;
+            });
         });
 
         it('update avatar on event', function(done) {

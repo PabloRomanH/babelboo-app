@@ -35,6 +35,10 @@
             profile($scope.nickname, $scope.email, $scope.password, $scope.newpassword, function(success) {
                 controller.showSuccess = success;
                 controller.showWrongPassword = !success;
+
+                if (success) {
+                    $rootScope.$emit('nickname.refresh');
+                }
             });
         };
 
