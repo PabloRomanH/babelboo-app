@@ -765,6 +765,70 @@ describe('API /api/user private part', function() {
                     });
                 });
         });
+
+        it('username conflicts with existing user in the database', function (done) {
+            var newUsername = 'existingusername@test.com';
+
+            userdb.insert({ username: newUsername }, function() {
+                request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: NICKNAME, username: newUsername, password: HASHED_PASSWORD, newpassword: undefined})
+                    .expect(403)
+                    .end(function (err) {
+                        if (err) throw err;
+                        done();
+                    });
+            });
+        });
+
+        it('nickname conflicts with existing user in the database', function(done) {
+            var newNickname = 'existingnickname';
+
+            userdb.insert({ nickname: newNickname }, function() {
+                request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: newNickname, username: USERNAME, password: HASHED_PASSWORD, newpassword: undefined})
+                    .expect(403)
+                    .end(function (err) {
+                        if (err) throw err;
+                        done();
+                    });
+            });
+        });
+
+        it('username and nickname changed and username conflicts with existing user in the database', function(done) {
+            var newUsername = 'existingusername@test.com';
+
+            userdb.insert({ username: newUsername }, function() {
+                request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: 'anothernewnickname', username: newUsername, password: HASHED_PASSWORD, newpassword: undefined})
+                    .expect(403)
+                    .end(function (err) {
+                        if (err) throw err;
+                        done();
+                    });
+            });
+        });
+
+        it('username and nickname changed and nickname conflicts with existing user in the database', function(done) {
+            var newNickname = 'existingnickname';
+
+            userdb.insert({ nickname: newNickname }, function() {
+                request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: newNickname, username: 'anothernewusername', password: HASHED_PASSWORD, newpassword: undefined})
+                    .expect(403)
+                    .end(function (err) {
+                        if (err) throw err;
+                        done();
+                    });
+            });
+        });
     });
 
     describe('current password NOT ok', function() {

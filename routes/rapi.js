@@ -95,27 +95,54 @@ router.post('/user/update', function(req, res) {
 
     var collection = req.db.get('usercollection');
 
-    var setopts = {
-        username: newUsername,
-        nickname: newNickname
-    };
+    var conflictQuery = { $or: [] };
 
-    if (typeof newPassword !== 'undefined') {
-        setopts.password = newPassword;
+    if (req.user.username != newUsername) {
+        conflictQuery.$or.push({username: newUsername});
     }
 
-    collection.update({username: req.user.username}, {$set: setopts});
+    if (req.user.nickname != newNickname) {
+        conflictQuery.$or.push({nickname: newNickname});
+    }
 
-    res.status(201);
-    res.json();
+    if (conflictQuery.$or.length > 0) {
+        collection.find(conflictQuery, function (err, result) {
+            if(result.length > 0) {
+                res.status(403);
+                res.end();
+                return;
+            }
+
+            updateUser();
+        });
+    } else {
+        updateUser();
+    }
+
+
+    function updateUser() {
+        var setopts = {
+            username: newUsername,
+            nickname: newNickname
+        };
+
+        if (typeof newPassword !== 'undefined') {
+            setopts.password = newPassword;
+        }
+
+        collection.update({username: req.user.username}, {$set: setopts}, function () {
+            res.status(201);
+            res.json();
+        });
+    }
 });
 
 router.post('/user/avatar', function (req, res) {
     var form = new multiparty.Form();
-    // expect(response[0].avatar.small).to.equal('/avatars/' + userId + '-small.jpeg');
+
     form.on('file', function(name, file) {
         gm(file.path).gravity('Center').thumb(60,60, req.storage + '/avatars/' + req.user._id + '-small.jpeg', 100, function (err) {
-            if(err) {
+            if (err) {
                 fs.unlink(file.path);
                 res.status(400);
                 res.json();

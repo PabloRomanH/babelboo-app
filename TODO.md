@@ -23,7 +23,6 @@ send email
 
 # Next release:
 - Design of new views.
-- Profile doesn't update changed avatar when setting it the first time.
 - Button to access profile.
 - Tutorial.
 
