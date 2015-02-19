@@ -233,7 +233,7 @@
                 username: email,
                 nickname: username,
                 password: hash(password),
-                newpassword: hash(newpassword)
+                newpassword: (typeof newpassword !== 'undefined')? hash(newpassword): undefined
             };
 
             $http
