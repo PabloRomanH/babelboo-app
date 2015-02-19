@@ -10,9 +10,11 @@ Release cycle:
 Deploy:
 write email
 add sepha/toni/fran emails
+apt-get install graphicsmagick
 git stuff
     git fetch
     git merge origin/master
+npm install
 run script to send reset password emails
 restart node
     forever restartall
@@ -20,27 +22,21 @@ manual testing
 send email
 
 # Next release:
-- User area.
-    - View to change avatar.
-- User avatar in navbar and ranking.
 - Design of new views.
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
-- Playlists not always ordered by newest
-- Check new email and nickname don't exist in the database after changing
 
 # For future releases:
-- Check that /api/user only returns necessary fields (NOT PASSWORD!)
-- When selecting a level in playlists view show popular playlists of that level
+- /api/user only returns necessary fields (e.g. NOT PASSWORD!) and playlistprogress when requested
+- fillUser only returns (and downloads) playlistprogress when requested.
+- When selecting a level in playlists view show popular playlists of that level.
 - Playlists infinite scrolling.
 - Social
     - Login.
     - Register.
     - Share.
 - Going to an URL (besides http://www.babelboo.com) without being logged asks for user and password, then redirects to the requested URL.
-- Remove unnecessary describes in karma tests and rename controller highest-level describes.
-- Check that videos still work in YouTube.
 - A) Questions at the beginning, answers at the end.
     - Button 'Answer now' that pauses video and shows answers.
 - B) Questions at the end.

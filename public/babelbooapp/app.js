@@ -30,7 +30,7 @@
         return service;
     });
 
-    app.controller('FeedbackController', function(user, submitFeedback){
+    app.controller('FeedbackController', function($location, user, submitFeedback){
         this.user = {};
         var controller = this;
         controller.userLogged = false;
@@ -46,7 +46,7 @@
         }
 
         controller.submit = function(feedback) {
-            submitFeedback(feedback);
+            submitFeedback('Feedback submitted from route ' + $location.path() + ' : ' + feedback);
             controller.formVisible = false;
         }
     });
