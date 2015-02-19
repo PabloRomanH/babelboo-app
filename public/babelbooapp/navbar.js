@@ -5,6 +5,7 @@
         controller.user = {};
         controller.showLogout = false;
         controller.userLogged = false;
+        controller.formVisible = false;
         controller.showRegister = false;
 
         $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
@@ -29,6 +30,16 @@
             $route.reload();
         };
 
+        controller.toggleForm = function() {
+            controller.formVisible = !controller.formVisible;
+
+            if (controller.formVisible) {
+                $analytics.eventTrack('callToAction', {
+                    category: 'conversion'
+                });
+            }
+        }
+
         function init(when) {
             ranking.getUserRank(updateMedalsAndRank);
             controller.showRegister = false;
@@ -52,21 +63,10 @@
         }
     });
 
-    app.controller('LoginController', function($analytics, $location, login){
+    app.controller('LoginController', function($location, login){
         var controller = this;
-        controller.formVisible = false;
         controller.showPassword = false;
         controller.showError = false;
-
-        this.toggleForm = function() {
-            controller.formVisible = !controller.formVisible;
-
-            if (controller.formVisible) {
-                $analytics.eventTrack('callToAction', {
-                    category: 'conversion'
-                });
-            }
-        }
 
         this.submit = function(username, password) {
             login(username, password, function(success) {

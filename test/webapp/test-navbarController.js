@@ -71,6 +71,18 @@ describe('navbar controller', function() {
             expect(ctrl.userLogged).to.be.false;
         });
 
+        it('analytics event generated when showing the login form', function() {
+            ctrl.toggleForm();
+            expect(analytics.eventTrack.calledWithExactly('callToAction', {category: 'conversion'})).to.be.true;
+        });
+
+        it('analytics event not generated when HIDING the login form', function() {
+            ctrl.toggleForm();
+            analytics.eventTrack.reset();
+            ctrl.toggleForm();
+            expect(analytics.eventTrack.called).to.be.false;
+        });
+
         describe('register link behaviour', function() {
             it('shown if in bootv', function(){
                 currentRoute = '/tv';
