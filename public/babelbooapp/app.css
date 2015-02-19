@@ -5,6 +5,10 @@ body {
     padding-top: 60px;
 }
 
+h3 {
+    font-size: 24px !important;
+}
+
 .primary-bg {
     background-color: #00618C;
 }
@@ -23,18 +27,25 @@ body {
     margin-right: 15px;
 }
 
+#login-button a {
+    margin-right: 10px;
+}
+
 #login-bubble {
-    padding: 10px;
-    margin-right: 15px;
+    padding: 10px 10px 0px 10px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
+    display: block;
+    background-color: white;
+    margin-right: 20px;
     margin-top: -5px;
+    position: fixed;
+    right: 20px;
+    z-index: 999;
 }
 
 #login-bubble button {
     width: 100%;
-}
-
-#login-bubble {
-    display: block;
 }
 
 #login-bubble div {
@@ -55,12 +66,21 @@ background-size: cover;
 
 .landing h1 {
     margin-bottom: 40px;
+    font-size: 36px;
+    line-height: 1em;
+    margin-top: 20px;
 }
 
 .landing h2 {
     font-size: 56px;
     color: #00618C;
     margin-bottom: 25px;
+}
+
+.value h3, .team h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    line-height: 1.1em;
 }
 
 .value h3 {
@@ -217,9 +237,25 @@ nav .fa-user {
     font-size: 28px;
 }
 
-nav i.fa-user {
-    float: left;
-    margin-right: 15px;
+ranking .fa-user {
+    margin-left: -1px;
+}
+
+nav .avatar, ranking .avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+nav .avatar {
+    margin-right: 5px;
+}
+
+img.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 5px;
 }
 
 nav li > a:hover {
@@ -332,7 +368,9 @@ li.tag-selected {
     color: #333;
     text-align: left;
     padding-left: 18px;
+    margin-top: 20px;
     margin-bottom: 0px;
+    line-height: 1em;
 }
 
 .playlist {
@@ -912,8 +950,21 @@ li.tag-selected {
 }
 
 /*--------- RANKING ---------*/
-.ranking {
+.ranking.content {
     text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ranking-btns {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ranking-btns .btn-flat {
+    width: 32%;
+    padding: 0px;
 }
 
 .ranking table {
@@ -967,13 +1018,9 @@ li.tag-selected {
     padding: 10px 20px;
 }
 
-.progress-card.ranking table {
-    margin: 20px 20px 0px 20px;
-}
-
 .progress-card.ranking td {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .progress-card .chart-container {
@@ -984,7 +1031,6 @@ li.tag-selected {
 
 .progress-card {
     background-color:#fff;
-    /*max-width: 680px;*/
     margin: 0px auto 10px auto;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #848484;
@@ -1021,3 +1067,47 @@ li.tag-selected {
 .score {
     margin:15px;
 }
+
+
+/*--------- MATERIAL --------*/
+.btn-flat:hover, .btn:hover, .btn-large:hover, .btn-flat:focus, .btn:focus, .btn-large:focus {
+    text-decoration: none;
+    color: #fff;
+}
+
+label {
+    font-weight: normal;
+}
+
+.input-field label {
+    left: 0px;
+}
+
+/* label color */
+.input-field label {
+    /*color: #000;*/
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #039be5;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #039be5;
+    box-shadow: 0 1px 0 0 #039be5;
+}
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid #039be5;
+    box-shadow: 0 1px 0 0 #039be5;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #039be5;
+    box-shadow: 0 1px 0 0 #039be5;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #000;
+}
+/*--------- /MATERIAL --------*/

@@ -1,4 +1,4 @@
-<nav class="navbar-fixed-top primary-bg" ng-controller="NavbarController as navbarCtrl">
+<nav class="navbar-fixed-top primary-bg">
   <ul class="pull-left">
     <li>
       <a href="#" ng-click="navbarCtrl.goToPlaylists()">
@@ -33,23 +33,31 @@
     </li>
   </ul>
 
-  <div id="login-button" ng-controller="LoginController as loginCtrl" ng-hide="navbarCtrl.userLogged">
-    <a href="/register" class="pull-right btn btn-default" type="button" ng-show="navbarCtrl.showRegister">
+  <div id="login-button" class="login-register-container" ng-hide="navbarCtrl.userLogged">
+    <a href="/register" class="pull-right waves-effect waves-light btn-flat grey-text text-lighten-5 blue lightnen-3" type="button" ng-show="navbarCtrl.showRegister">
       Register
     </a>
-    <button class="pull-right btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" ng-click="loginCtrl.toggleForm()">
+
+    <a class="pull-right waves-effect waves-light btn-flat grey-text text-lighten-5 blue lightnen-3" type="button" ng-click="navbarCtrl.toggleForm()">
       Login
-    </button>
-    <div class="dropdown-menu pull-right" id="login-bubble" role="menu" aria-labelledby="dropdownMenu1" ng-show="loginCtrl.formVisible">
-      <form ng-submit="loginCtrl.submit(username, password)">
-        <div><label>Email: </label></div>
-        <div><input type="text" name="username" ng-model="username"/></div>
-        <div><input type="password" name="password" ng-model="password"/></div>
-        <div class="text-danger" ng-show="loginCtrl.showError">Usuario o contraseña no son válidos.</div>
-        <div><a href="/recover" ng-click="loginCtrl.toggleForm()">He olvidado la contraseña</a></div>
-        <div><button class="btn btn-success" type="submit">Login</button></div>
-      </form>
-    </div>
+    </a>
   </div>
 </nav>
+
+<div class="pull-right" id="login-bubble" ng-controller="LoginController as loginCtrl" ng-show="navbarCtrl.formVisible && !navbarCtrl.userLogged">
+  <form ng-submit="loginCtrl.submit(username, password)">
+    <div class="input-field">
+      <input id="username" type="text" name="username" ng-model="username"/>
+      <label for="username">Username</label>
+    </div>
+    <div class="input-field">
+      <input id="password" type="password" name="password" ng-model="password"/>
+      <label for="password">Password</label>
+    </div>
+
+    <div class="text-danger" ng-show="loginCtrl.showError">Usuario o contraseña no son válidos.</div>
+    <div><a href="/recover" ng-click="loginCtrl.toggleForm()">He olvidado la contraseña</a></div>
+    <div><button class="pull-right waves-effect waves-light btn-flat grey-text text-lighten-5 green" type="submit">Login</button></div>
+  </form>
+</div>
 <div class="navbar-shadow"></div>

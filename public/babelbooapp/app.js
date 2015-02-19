@@ -122,6 +122,9 @@
                     loggedin: checkLoggedin
                 }
             }).
+            when('/tutorial', {
+                templateUrl: '/babelbooapp/tutorial/tutorial-fragment.html',
+            }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html',
                 resolve: {
