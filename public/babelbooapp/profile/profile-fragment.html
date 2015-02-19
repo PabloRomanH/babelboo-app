@@ -7,33 +7,33 @@
     <div>
       <form ng-submit="(submitted=true) && profileCtrl.update()"
             name="profileForm">
-        <div>
-          <label>Username</label>
-          <input type="text" ng-model="nickname"  ng-maxlength="15" ng-pattern="/^[^@]+$/" >
+        <div class="input-field">
+          <label for="username">Username</label>
+          <input id="username" type="text" ng-model="nickname"  ng-maxlength="15" ng-pattern="/^[^@]+$/" >
         </div>
         <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.maxlength">El nombre de usuario es demasiado largo.</div>
         <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.pattern">El nombre de usuario no puede contener @.</div>
 
-        <div>
-          <label>Email</label>
-          <input type="email" ng-model="email"  ng-maxlength="60" >
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input id="email" type="email" ng-model="email"  ng-maxlength="60" >
         </div>
         <div class="text-danger" ng-show="submitted && registrationForm.email.$error.maxlength">El email es demasiado largo.</div>
 
-        <div>
-          <label>New password</label>
-          <input type="password" placeholder="new password" ng-model="newpassword">
+        <div class="input-field">
+          <label for="newpass">New password</label>
+          <input id="newpass" type="password"ng-model="newpassword">
         </div>
 
-        <div>
-          <label>Current password</label>
-          <input type="password" placeholder="current password" ng-model="password">
+        <div class="input-field">
+          <label for="pass">Current password</label>
+          <input id="pass" type="password" ng-model="password">
         </div>
         <div class="text-danger" ng-show="profileCtrl.showWrongPassword">
           Las contraseña introducida es erronea.
         </div>
 
-        <button type="submit" class="btn btn-default">Save changes</button>
+        <button type="submit" class="waves-effect waves-light btn-flat grey-text text-lighten-5 green">Save changes</button>
         <div class="text-success" ng-show="profileCtrl.showSuccess">
           Datos modificados correctamente.
         </div>

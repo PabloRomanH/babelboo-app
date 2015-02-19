@@ -10,6 +10,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo')(session);
 
+var verifyYoutubeVideos = require('./helpers/verify-youtube-videos');
+
 var app = express();
 var dbpath;
 
@@ -20,6 +22,14 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 app.db = require('monk')(dbpath);
+
+if(process.env.NODE_ENV === 'production') {
+    verifyYoutubeVideos.process(app.db);
+
+    var millisecondsInADay = 1000*60*60*24;
+
+    setInterval(verifyYoutubeVideos.process, millisecondsInADay, app.db); // check once a day for missing Youtube videos
+}
 
 function findByUserName(username, callback) {
     var collection;

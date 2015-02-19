@@ -4,18 +4,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="content-language" content="es"/>
     <meta name="title" content="babelboo"/>
-    <meta name="viewport" content="initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>babelboo</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/angular-chart.css">
+    <link rel="stylesheet" href="/css/materialize.min.css">
     <link rel="stylesheet" href="/babelbooapp/app.css">
     <script src="/lib/angular.js"></script>
     <script src="/lib/angular-route.js"></script>
     <script src="/lib/angulartics.min.js"></script>
     <script src="/lib/angulartics-ga.min.js"></script>
     <script src="/lib/sha1.js"></script>
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/lib/materialize.min.js"></script>
     <script src="/babelbooapp/navbar.js"></script>
     <script src="/babelbooapp/betaregistration/beta.js"></script>
     <script src="/babelbooapp/landing/landing.js"></script>
@@ -47,7 +50,7 @@
     </script>
   </head>
   <body>
-    <navbar></navbar>
+    <navbar ng-controller="NavbarController as navbarCtrl"></navbar>
     <div ng-controller="FeedbackController as feedbackCtrl">
       <div class="feedback-btn" ng-show="feedbackCtrl.userLogged" ng-click="feedbackCtrl.toggleForm()">
         <i class="fa fa-comments"></i>Give us your opinion
