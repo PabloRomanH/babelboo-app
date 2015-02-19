@@ -1,0 +1,37 @@
+<div class="cine tutorial" ng-class="{'cover': step == 0 || step == 5}" ng-init="step = 0">
+  <i class="fa fa-angle-right btn-next" ng-click="step = step + 1" ng-show="step > 0 && step < 5"></i>
+  <i class="fa fa-angle-left btn-prev" ng-click="step = step - 1" ng-show="step > 0"></i>
+  <a href="/" ng-show="step > 0 && step < 5">skip</a>
+  <i class="fa fa-circle" ng-show="step > 0 && step < 5"></i>
+  <i class="fa" ng-class="{'fa-circle': step >= 2, 'fa-circle-thin': step < 2}" ng-show="step > 0 && step < 5"></i>
+  <i class="fa" ng-class="{'fa-circle': step >= 3, 'fa-circle-thin': step < 3}" ng-show="step > 0 && step < 5"></i>
+  <i class="fa" ng-class="{'fa-circle': step >= 4, 'fa-circle-thin': step < 4}" ng-show="step > 0 && step < 5"></i>
+
+  <div class="step0" ng-show="step == 0">
+    <h1>Welcome to Babelboo</h1>
+    <h2>a tutorial to learn engilsh with videos</h2>
+    <a href="#" ng-click="step = step + 1">Start tutorial</a>
+    <a href="/">skip</a>
+  </div>
+
+  <div class="step1" ng-show="step == 1">
+    filters
+  </div>
+
+  <div class="step2" ng-show="step == 2">
+    a PL
+  </div>
+
+  <div class="step3" ng-show="step == 3">
+    PL has videos
+  </div>
+
+  <div class="step4" ng-show="step == 4">
+    1 PL 1 Q
+  </div>
+
+  <div class="step5" ng-show="step == 5">
+    back cover
+    <a href="/">Done</a>
+  </div>
+</div>

@@ -1051,6 +1051,67 @@ li.tag-selected {
 }
 /*--------- /PROGRESS ---------*/
 
+/*--------- TUTORIAL ---------*/
+.tutorial {
+    padding: 0px;
+    height: 500px;
+    position: relative;
+    overflow: visible;
+    text-align: center;
+}
+
+.tutorial .btn-next, .tutorial .btn-prev {
+    position: absolute;
+    font-size: 2em;
+    width: 1em;
+    top: 50%;
+    margin-top: -0.5em;
+    text-align: center;
+    font-weight: bold;
+    padding: 0px;
+    background-color: rgba(0, 97, 140, 0.51);
+    color: #fff;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+.tutorial .btn-next:hover, .tutorial .btn-prev:hover {
+    background-color: rgba(0, 97, 140, 0.8);
+}
+
+.tutorial .btn-next {
+    right: -0.5em;
+}
+
+.tutorial .btn-prev {
+    left: -0.5em;
+}
+
+
+.tutorial .step0, .tutorial .step1, .tutorial .step2, .tutorial .step3,
+.tutorial .step4, .tutorial .step5 {
+    height: 100%;
+    width: 100%;
+}
+
+.tutorial .step0 {
+    padding-top: 50px;
+}
+
+.step0 h1 {
+    font-size: 40px;
+}
+
+.step0 h2 {
+    margin-top: 10px;
+}
+
+.cover {
+    background-color: #00618C;
+    color: #fff;
+}
+/*--------- /TUTORIAL ---------*/
+
 
 /*---------    OTHERS --------*/
 .value {
