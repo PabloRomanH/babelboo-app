@@ -47,7 +47,6 @@ send email
     - Remove boring part at the end of videos.
 - Ranking (competitive social component).
     - Avatars automatically generated.
-- Feedback form save the route where the user is a.t.m. of submitting.
 - Change medal indices and values to ALWAYS GOLD = 0, SILVER = 1, BRONZE = 1
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
