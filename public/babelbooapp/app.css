@@ -228,6 +228,10 @@ nav .avatar, ranking .avatar {
     background-color: #fff;
 }
 
+nav .avatar {
+    margin-right: 5px;
+}
+
 img.avatar {
     width: 35px;
     height: 35px;

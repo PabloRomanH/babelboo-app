@@ -32,8 +32,9 @@ send email
 - Shadow of navbar appears under cards in summary.
 
 # For future releases:
-- Check that /api/user only returns necessary fields (NOT PASSWORD!)
-- When selecting a level in playlists view show popular playlists of that level
+- /api/user only returns necessary fields (e.g. NOT PASSWORD!) and playlistprogress when requested
+- fillUser only returns (and downloads) playlistprogress when requested.
+- When selecting a level in playlists view show popular playlists of that level.
 - Playlists infinite scrolling.
 - Social
     - Login.

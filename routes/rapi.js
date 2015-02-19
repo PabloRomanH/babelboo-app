@@ -76,8 +76,6 @@ router.get('/tag', function(req, res) {
 });
 
 router.get('/user', function(req, res) {
-    var collection = req.db.get('usercollection');
-
     res.json(req.user);
 });
 
