@@ -62,7 +62,7 @@ describe("controllers", function() {
                 user: user,
                 playlists: playlists,
                 $scope: scope,
-                $analytics: analytics,
+                $analytics: analytics
             });
         }));
 

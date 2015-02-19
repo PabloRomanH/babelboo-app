@@ -28,8 +28,8 @@ function findByUserName(username, callback) {
     else {
         collection = app.db.get('usercollection');
     }
-    
-    collection.find({username: username},{},function (err, result) {
+
+    collection.find({ $or: [{username: username}, {nickname: username}] },{},function (err, result) {
         if (result.length === 0)
             return callback(null, null);
         else
@@ -44,7 +44,7 @@ function findById(id, callback) {
     else {
         collection = app.db.get('usercollection');
     }
-    
+
     collection.findById(id, function(err, user){
         if (user != null) {
             callback(null, user);
@@ -70,13 +70,16 @@ passport.use(new LocalStrategy(
         findByUserName( username, function(err, user) {
             if (err) { return done(err); }
             if (!user) {
+                console.log('incorrect user');
                 return done(null, false, { message: 'Incorrect username. Try again.' });
             }
-            if (username == 'sepha' || username == 'toni' || username == 'fran') {
-                if (user.password != password) {
-                    return done(null, false, { message: 'Incorrect password. Try again.' });
-                }
+
+            if (user.password != password) {
+                console.log('incorrect password');
+                console.log(user.password + ' != ' + password);
+                return done(null, false, { message: 'Incorrect password. Try again.' });
             }
+
             return done(null, user);
         });
     }
@@ -149,11 +152,10 @@ var auth = function(req, res, next) {
     } else {
         next();
     }
-
 }
 
 var restrictedAuth = function(req, res, next) {
-    if (req.isAuthenticated() && (req.user.username == 'sepha' || req.user.username == 'toni' || req.user.username == 'fran')) {
+    if (req.isAuthenticated() && (req.user.nickname == 'sepha' || req.user.nickname == 'tonipenya' || req.user.nickname == 'fran')) {
         next();
     } else {
         res.status(401).end();

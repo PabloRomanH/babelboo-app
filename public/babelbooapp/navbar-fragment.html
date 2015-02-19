@@ -32,19 +32,24 @@
       </a>
     </li>
   </ul>
+
   <div id="login-button" ng-controller="LoginController as loginCtrl" ng-hide="navbarCtrl.userLogged">
-      <button class="pull-right btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" ng-click="loginCtrl.toggleForm()">
+    <a href="/register" class="pull-right btn btn-default" type="button" ng-show="navbarCtrl.showRegister">
+      Register
+    </a>
+    <button class="pull-right btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" ng-click="loginCtrl.toggleForm()">
       Login
-      </button>
-      <div class="dropdown-menu pull-right" id="login-bubble" role="menu" aria-labelledby="dropdownMenu1" ng-show="loginCtrl.formVisible">
-        <form action="/login" method="post" ng-submit="loginCtrl.submit($event)">
-          <div><label>Email: </label></div>
-          <div><input type="text" name="username" ng-model="loginCtrl.username"/></div>
-          <div><input type="hidden" name="password" value="boo" ng-if="!loginCtrl.showPassword" /></div>
-          <div><input type="password" name="password" ng-if="loginCtrl.showPassword" /></div>
-          <div><button class="btn-success" type="submit">Login</button></div>
-        </form>
-      </div>
+    </button>
+    <div class="dropdown-menu pull-right" id="login-bubble" role="menu" aria-labelledby="dropdownMenu1" ng-show="loginCtrl.formVisible">
+      <form ng-submit="loginCtrl.submit(username, password)">
+        <div><label>Email: </label></div>
+        <div><input type="text" name="username" ng-model="username"/></div>
+        <div><input type="password" name="password" ng-model="password"/></div>
+        <div class="text-danger" ng-show="loginCtrl.showError">Usuario o contraseña no son válidos.</div>
+        <div><a href="/recover" ng-click="loginCtrl.toggleForm()">He olvidado la contraseña</a></div>
+        <div><button class="btn btn-success" type="submit">Login</button></div>
+      </form>
     </div>
+  </div>
 </nav>
 <div class="navbar-shadow"></div>

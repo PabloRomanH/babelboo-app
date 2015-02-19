@@ -1,8 +1,9 @@
 (function() {
     var app = angular.module('babelbooapp', [
-        'ngRoute', 'navbar', 'betaregistration', 'services', 'landing', 'video',
-        'tv', 'player', 'playlist', 'playlists', 'ranking', 'plot',
-        'managePlaylists', 'angulartics', 'angulartics.google.analytics']);
+        'ngRoute', 'navbar', 'betaregistration', 'recover', 'resetpassword',
+        'services', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists',
+        'ranking', 'plot', 'profile', 'managePlaylists', 'angulartics',
+        'angulartics.google.analytics']);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise
         var deferred = $q.defer();
@@ -105,6 +106,18 @@
             }).
             when('/progress', {
                 templateUrl: '/babelbooapp/progress/progress-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
+            }).
+            when('/recover', {
+                templateUrl: '/babelbooapp/recover/recover-fragment.html',
+            }).
+            when('/resetpassword', {
+                templateUrl: '/babelbooapp/resetpassword/resetpassword-fragment.html',
+            }).
+            when('/profile', {
+                templateUrl: '/babelbooapp/profile/profile-fragment.html',
                 resolve: {
                     loggedin: checkLoggedin
                 }

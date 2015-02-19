@@ -46,12 +46,12 @@
     </div>
   </div>
   <a href="#" class="button-player" ng-click="playCtrl.ready && playCtrl.playNext()" ng-show="!playCtrl.answered && playCtrl.answeredindex == -1 && !playCtrl.correct[playCtrl.videos[playCtrl.idx].id]" ng-class="{'button-player-disabled': !playCtrl.ready}">
-    Skip
+    Skip Video
   </a>
   <a href="#" class="button-player" ng-click="playCtrl.ready && playCtrl.answer()" ng-show="!playCtrl.answered && playCtrl.answeredindex != -1" ng-class="{'button-player-disabled': !playCtrl.ready}">
-    Check
+    Check Answer
   </a>
   <a href="#" class="button-player" ng-click="playCtrl.ready && playCtrl.playNext()" ng-show="playCtrl.answered || playCtrl.correct[playCtrl.videos[playCtrl.idx].id]" ng-class="{'button-player-disabled': !playCtrl.ready}">
-    Next
+    Next Video
   </a>
 </div>

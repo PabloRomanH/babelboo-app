@@ -5,17 +5,13 @@
         controller.user = {};
         controller.showLogout = false;
         controller.userLogged = false;
+        controller.showRegister = false;
 
         $scope.$on('$routeChangeSuccess', function($currentRoute, $previousRoute) {
-            ranking.getUserRank(updateMedalsAndRank);
+            init('event');
         });
 
-        user.fillUser(function (user) {
-            controller.user = user;
-            controller.userLogged = true;
-        });
-
-        ranking.getUserRank(updateMedalsAndRank);
+        init('init');
 
         controller.pointsClicked = function () {
             $analytics.eventTrack('pointsClicked', {
@@ -33,6 +29,21 @@
             $route.reload();
         };
 
+        function init(when) {
+            ranking.getUserRank(updateMedalsAndRank);
+            controller.showRegister = false;
+
+            if (($location.path() == '/tv' || $location.path().match(/^\/play/)) && !controller.userLogged) {
+                controller.showRegister = true;
+            }
+
+            user.fillUser(function (user) {
+                controller.showRegister = false;
+                controller.user = user;
+                controller.userLogged = true;
+            });
+        }
+
         function updateMedalsAndRank(rank) {
             controller.rank = rank.rank;
             controller.golds = rank.golds;
@@ -41,23 +52,30 @@
         }
     });
 
-    app.controller('LoginController', function($analytics, $http){
+    app.controller('LoginController', function($analytics, $location, login){
         var controller = this;
         controller.formVisible = false;
         controller.showPassword = false;
+        controller.showError = false;
 
         this.toggleForm = function() {
             controller.formVisible = !controller.formVisible;
-            $analytics.eventTrack('callToAction', {
-                category: 'conversion'
-            });
+
+            if (controller.formVisible) {
+                $analytics.eventTrack('callToAction', {
+                    category: 'conversion'
+                });
+            }
         }
 
-        this.submit = function($event) {
-            if (!controller.showPassword && (this.username == 'sepha' || this.username == 'toni' || this.username == 'fran')) {
-                controller.showPassword = true;
-                $event.preventDefault()
-            }
+        this.submit = function(username, password) {
+            login(username, password, function(success) {
+                if(success) {
+                    $location.path('/');
+                } else {
+                    controller.showError = true;
+                }
+            });
         }
     });
 })();

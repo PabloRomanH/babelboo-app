@@ -6,51 +6,33 @@ Release cycle:
 - Decision meeting
 - Repeat
 
+
 Deploy:
 write email
-git stuff.
+add sepha/toni/fran emails
+git stuff
     git fetch
     git merge origin/master
+run script to send reset password emails
 restart node
     forever restartall
-run script to update tags
-run script to update nicknames.
-run script fill-medalhistory
-copy new playlists.
-edit and save playlists with start or end time (to update duration in playlist object).
-remove users' playlist_points
 manual testing
-    delete sepha and toni's playlistpoints and medalhistory
 send email
 
 # Next release:
-- in the new peppa pig playlist videos start from a weird position.
-- generate nickname for new user created from the API
-- Registration
-    - Link in landing to register.
-    - Form with nickname, email, password.
-    - Send mail confirmation.
-    - Password recovery.
-    - Registration at the end of guest player.
-    - Registration at the end of guest booTV.
-    - Registration logs user in.
-- Remove autologin URL.
-- Password hashing.
-- Login with nickname or email (username).
 - User area.
-    - View to change nickname, password or avatar.
+    - View to change avatar.
 - User avatar in navbar and ranking.
-
-# Design work:
-- Formulario de registro en la landing con nombre de usuario, email y password.
-- Pagina de "area de usuario" con avatar y la opcion de cambiar avatar, nombre de usuario y password (con casilla que vuelve a pedir la password actual).
-- Formulario de login en la landing (rediseñar con link para recuperar password).
--
+- Design of new views.
 
 # Bugfixes:
 - Shadow of navbar appears under cards in summary.
+- Playlists not always ordered by newest
+- Check new email and nickname don't exist in the database after changing
 
 # For future releases:
+- Check that /api/user only returns necessary fields (NOT PASSWORD!)
+- When selecting a level in playlists view show popular playlists of that level
 - Playlists infinite scrolling.
 - Social
     - Login.
@@ -81,6 +63,7 @@ send email
 -
 
 # Silly things to do when bored
+Change design of buttons.
 
 
 # Development/deployment

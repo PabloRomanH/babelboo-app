@@ -67,20 +67,15 @@
             return $http.get(query);
         }
 
-        service.getPopular = function (numResults) {
-            var query = '/api/playlist?popular=true&num_results=' + numResults;
+        service.getPopular = function (numResults, level) {
+            var query = '/api/playlist/popular?num_results=' + numResults;
+
+            if (typeof level !== 'undefined') {
+                query += '&level=' + level;
+            }
+
             return $http.get(query);
         }
-
-        return service;
-    });
-
-    app.factory('ranking', function($http) {
-        var service = {};
-
-        service.getRanking = function(period) {
-            return $http.get('/api/ranking/' + period);
-        };
 
         return service;
     });
@@ -190,4 +185,65 @@
         return function() { return new Date(); };
     });
 
+    app.factory('login', function($http) {
+        return function(username, password, callback) {
+            var hashedPassword = hash(password);
+            $http.post('/login/', { username: username, password: hashedPassword })
+                .success(function(data, status) {
+                    callback(true);
+                })
+                .error(function(data, status) {
+                    callback(false);
+                });
+        };
+    });
+
+    app.factory('registration', function($http) {
+        return function(email, nickname, password, callback) {
+            var hashedPassword = hash(password);
+
+            $http.post('/api/user/', { email: email, nickname: nickname, password: hashedPassword })
+                .success(function() {
+                    callback(true);
+                })
+                .error(function() {
+                    callback(false);
+                });
+        };
+    });
+
+    app.factory('recover', function($http) {
+        return function(email) {
+            $http.post('/api/user/recover', { email: email});
+        };
+    });
+
+    app.factory('resetpassword', function($http) {
+        return function(token, password, callback) {
+            $http
+                .post('/api/user/reset', { token: token, password: hash(password) })
+                .success(function() {callback(true)})
+                .error(function() {callback(false)});
+        };
+    });
+
+    app.factory('profile', function($http) {
+        return function(username, email, password, newpassword, callback){
+            var postOpts = {
+                username: email,
+                nickname: username,
+                password: hash(password),
+                newpassword: hash(newpassword)
+            };
+
+            $http
+                .post('/api/user/update', postOpts)
+                .success(function() {callback && callback(true)})
+                .error(function() {callback && callback(false)});
+        };
+    })
+
+    function hash(string) {
+        return CryptoJS.SHA1(string).toString(CryptoJS.enc.Hex);
+    }
 })();

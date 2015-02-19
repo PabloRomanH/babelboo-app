@@ -23,10 +23,6 @@ router.get('/playlist', function(req, res) {
             query.tags = { $in: tags };
             runQuery(query);
         });
-    } else if (req.query.popular) {
-        collection.find({visitcount: { $exists: true }}, {sort: {visitcount: -1}, limit: req.query.num_results}, function (err, result) {
-            res.json( result );
-        });
     } else if (req.query.all == 'true') {
         runQueryAll(query);
     } else {
@@ -81,6 +77,37 @@ router.get('/user', function(req, res) {
     var collection = req.db.get('usercollection');
 
     res.json(req.user);
+});
+
+router.post('/user/update', function(req, res) {
+    var username = req.user.username;
+
+    var newUsername = req.body.username;
+    var newNickname = req.body.nickname;
+    var password = req.body.password;
+    var newPassword = req.body.newpassword;
+
+    if (req.user.password != password) {
+        res.status(401);
+        res.end();
+        return;
+    }
+
+    var collection = req.db.get('usercollection');
+
+    var setopts = {
+        username: newUsername,
+        nickname: newNickname
+    };
+
+    if (typeof newPassword !== 'undefined') {
+        setopts.password = newPassword;
+    }
+
+    collection.update({username: req.user.username}, {$set: setopts});
+
+    res.status(201);
+    res.json();
 });
 
 router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
