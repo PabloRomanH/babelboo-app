@@ -6,7 +6,7 @@ var youtube = google.youtube('v3');
 
 var API_KEY = 'AIzaSyB53eOcfiDxRuIr-kakVIl1vIzBa9rQHD8';
 
-var message = [];
+var message;
 
 function processPlaylist(element, done) {
 	var entries = element.entries;
@@ -43,6 +43,13 @@ function process(db, allDone) {
 	});
 
 	function emailMessage() {
+		if(message.length == 0) {
+			if (typeof allDone == 'function') {
+				allDone();
+			}
+			return;
+		}
+
 		var transporterOptions = {
 			service: 'Gmail',
 			auth: {
@@ -59,8 +66,6 @@ function process(db, allDone) {
 			subject: '[mayhem] Missing video report',
 			text: message.join('\n')
 		};
-		console.log('sending email with text:');
-		console.log(message.join('\n'));
 
 		transporter.sendMail(mailOptions);
 
