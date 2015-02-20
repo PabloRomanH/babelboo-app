@@ -1141,6 +1141,7 @@ li.tag-selected {
 .step5 h1 {
     font-size: 80px;
     padding-top: 100px;
+    margin-top: 0px;
 }
 
 .step5 .end-btn {
