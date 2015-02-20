@@ -8,8 +8,8 @@
       <form ng-submit="(submitted=true) && profileCtrl.update()"
             name="profileForm">
         <div class="input-field">
-          <label for="username">Username</label>
-          <input id="username" type="text" ng-model="nickname"  ng-maxlength="15" ng-pattern="/^[^@]+$/" >
+          <label for="nickname">Username</label>
+          <input id="nickname" type="text" ng-model="nickname"  ng-maxlength="15" ng-pattern="/^[^@]+$/" >
         </div>
         <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.maxlength">El nombre de usuario es demasiado largo.</div>
         <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.pattern">El nombre de usuario no puede contener @.</div>

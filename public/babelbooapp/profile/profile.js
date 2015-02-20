@@ -9,6 +9,13 @@
         user.fillUser(function (user) {
             $scope.nickname = user.nickname;
             $scope.email = user.username;
+
+            setTimeout(function () {
+                $("#email").focus();
+            }, 0);
+            setTimeout(function () {
+                $("#nickname").focus();
+            }, 0);
         });
 
         controller.update = function() {
