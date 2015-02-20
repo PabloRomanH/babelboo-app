@@ -575,6 +575,20 @@ describe('services', function() {
             $httpBackend.flush();
         });
 
+        it('doesn\'t send new password field when password not defined', function () {
+            $httpBackend.expectPOST('/api/user/update',
+                {
+                    username: email,
+                    nickname: nickname,
+                    password: hash(password),
+                    newpassword: undefined
+                }).respond(200, {});
+
+            profileService(nickname, email, password, undefined);
+
+            $httpBackend.flush();
+        });
+
         it('success when api call succeeds', function() {
             $httpBackend.whenPOST('/api/user/update').respond(200, {});
 

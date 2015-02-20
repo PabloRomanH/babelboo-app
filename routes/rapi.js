@@ -1,5 +1,7 @@
-
 var express = require('express');
+var gm = require('gm');
+var multiparty = require('multiparty');
+var fs = require('fs');
 
 var router = express.Router();
 
@@ -74,8 +76,6 @@ router.get('/tag', function(req, res) {
 });
 
 router.get('/user', function(req, res) {
-    var collection = req.db.get('usercollection');
-
     res.json(req.user);
 });
 
@@ -95,19 +95,81 @@ router.post('/user/update', function(req, res) {
 
     var collection = req.db.get('usercollection');
 
-    var setopts = {
-        username: newUsername,
-        nickname: newNickname
-    };
+    var conflictQuery = { $or: [] };
 
-    if (typeof newPassword !== 'undefined') {
-        setopts.password = newPassword;
+    if (req.user.username != newUsername) {
+        conflictQuery.$or.push({username: newUsername});
     }
 
-    collection.update({username: req.user.username}, {$set: setopts});
+    if (req.user.nickname != newNickname) {
+        conflictQuery.$or.push({nickname: newNickname});
+    }
 
-    res.status(201);
-    res.json();
+    if (conflictQuery.$or.length > 0) {
+        collection.find(conflictQuery, function (err, result) {
+            if(result.length > 0) {
+                res.status(403);
+                res.end();
+                return;
+            }
+
+            updateUser();
+        });
+    } else {
+        updateUser();
+    }
+
+
+    function updateUser() {
+        var setopts = {
+            username: newUsername,
+            nickname: newNickname
+        };
+
+        if (typeof newPassword !== 'undefined') {
+            setopts.password = newPassword;
+        }
+
+        collection.update({username: req.user.username}, {$set: setopts}, function () {
+            res.status(201);
+            res.json();
+        });
+    }
+});
+
+router.post('/user/avatar', function (req, res) {
+    var form = new multiparty.Form();
+
+    form.on('file', function(name, file) {
+        gm(file.path).gravity('Center').thumb(60,60, req.storage + '/avatars/' + req.user._id + '-small.jpeg', 100, function (err) {
+            if (err) {
+                fs.unlink(file.path);
+                res.status(400);
+                res.json();
+                return;
+            }
+
+            gm(file.path).gravity('Center').thumb(500,500, req.storage + '/avatars/' + req.user._id + '-large.jpeg', 100,
+                function () {
+                    var collection = req.db.get('usercollection');
+                    collection.update({username: req.user.username},
+                        {$set: {
+                            'avatar.small': '/avatars/' + req.user._id + '-small.jpeg',
+                            'avatar.large': '/avatars/' + req.user._id + '-large.jpeg'
+                        }}, function () {
+                            fs.unlink(file.path);
+                            res.status(200);
+                            res.json();
+                        });
+            });
+        });
+    });
+
+    form.on('error', function(err) {
+        // To prevent node from crashing when upload is interrupted.
+    });
+
+    form.parse(req);
 });
 
 router.post('/user/:username/correctanswer/:playlist_id', function(req, res) {
@@ -273,7 +335,7 @@ router.get('/ranking/:period', function(req, res) {
     }
 
     var collection = req.db.get('usercollection');
-    var fields = {username: 1, nickname: 1, medalhistory: 1, _id: 0};
+    var fields = {username: 1, nickname: 1, medalhistory: 1, avatar: 1, _id: 0};
     collection.find({}, {fields: fields}, function(err, result) {
             var ranking = result.map(processMedalHistory);
             ranking.sort(medalCompare);
@@ -288,6 +350,7 @@ router.get('/ranking/:period', function(req, res) {
         var entry  = {
             username: element.username,
             nickname: element.nickname,
+            avatar: element.avatar,
             golds: medals.golds,
             silvers: medals.silvers,
             bronzes: medals.bronzes

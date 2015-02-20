@@ -232,9 +232,10 @@ ul {
     padding: 0;
 }
 
-nav .fa-user {
-    line-height: 50px;
-    font-size: 28px;
+nav .fa-user, ranking .fa-user {
+    color: #00618C;
+    font-size: 34px;
+    margin-top: 5px;
 }
 
 ranking .fa-user {

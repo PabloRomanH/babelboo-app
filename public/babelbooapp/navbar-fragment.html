@@ -16,8 +16,11 @@
   <ul class="pull-right">
     <li ng-show="navbarCtrl.userLogged">
       <a href="#" ng-click="navbarCtrl.showLogout = !navbarCtrl.showLogout">
-        <i class="fa fa-user"></i>
-        {{ navbarCtrl.user.nickname }}
+          <span class="fa-stack fa-lg avatar" ng-hide="navbarCtrl.avatar">
+            <i class="fa fa-user fa-stack-1x"></i>
+          </span>
+          <img class="avatar" ng-src="{{navbarCtrl.avatar}}" alt="{{navbarCtrl.nickname}}" ng-show="navbarCtrl.avatar"/>
+        {{ navbarCtrl.nickname }}
       </a>
       <div class="user-dropdown" ng-show="navbarCtrl.showLogout">
         <a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>

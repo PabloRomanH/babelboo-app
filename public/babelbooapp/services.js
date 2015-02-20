@@ -6,14 +6,10 @@
         service.data = 0;
 
         service.fillUser = function(callback) {
-            if (!service.data) {
-                $http.get('/api/user').success(function(data) {
-                    service.data = data;
-                    callback(service.data);
-                });
-            } else {
+            $http.get('/api/user').success(function(data) {
+                service.data = data;
                 callback(service.data);
-            }
+            });
         }
 
         service.correctAnswer = function (playlistId, videoId, ratio) {
@@ -233,7 +229,7 @@
                 username: email,
                 nickname: username,
                 password: hash(password),
-                newpassword: hash(newpassword)
+                newpassword: (typeof newpassword !== 'undefined')? hash(newpassword): undefined
             };
 
             $http
