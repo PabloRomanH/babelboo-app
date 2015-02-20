@@ -1,17 +1,19 @@
 <div class="cine tutorial" ng-class="{'cover': step == 0 || step == 5}" ng-init="step = 0">
   <i class="fa fa-angle-right btn-next" ng-click="step = step + 1" ng-show="step > 0 && step < 5"></i>
-  <i class="fa fa-angle-left btn-prev" ng-click="step = step - 1" ng-show="step > 0"></i>
-  <a href="/" ng-show="step > 0 && step < 5">skip</a>
-  <i class="fa fa-circle" ng-show="step > 0 && step < 5"></i>
-  <i class="fa" ng-class="{'fa-circle': step >= 2, 'fa-circle-thin': step < 2}" ng-show="step > 0 && step < 5"></i>
-  <i class="fa" ng-class="{'fa-circle': step >= 3, 'fa-circle-thin': step < 3}" ng-show="step > 0 && step < 5"></i>
-  <i class="fa" ng-class="{'fa-circle': step >= 4, 'fa-circle-thin': step < 4}" ng-show="step > 0 && step < 5"></i>
+  <i class="fa fa-angle-left btn-prev" ng-click="step = step - 1" ng-show="step > 0" ng-class="{'light': step == 5}"></i>
+  <div><a href="/" class="btn-flat grey-text next" ng-show="step > 0 && step < 5">skip</a></div>
+  <div class="steps">
+    <i class="fa fa-circle" ng-show="step > 0 && step < 5"></i>
+    <i class="fa" ng-class="{'fa-circle': step >= 2, 'fa-circle-o': step < 2}" ng-show="step > 0 && step < 5"></i>
+    <i class="fa" ng-class="{'fa-circle': step >= 3, 'fa-circle-o': step < 3}" ng-show="step > 0 && step < 5"></i>
+    <i class="fa" ng-class="{'fa-circle': step >= 4, 'fa-circle-o': step < 4}" ng-show="step > 0 && step < 5"></i>
+  </div>
 
   <div class="step0" ng-show="step == 0">
     <h1>Welcome to Babelboo</h1>
     <h2>a tutorial to learn engilsh with videos</h2>
-    <a href="#" ng-click="step = step + 1">Start tutorial</a>
-    <a href="/">skip</a>
+    <div><a href="#" class="btn-large waves-effect waves-dark grey lighten-5 light-blue-text text-darken-4" ng-click="step = step + 1">Start tutorial</a></div>
+    <div><a href="/" class="btn-flat grey-text text-lighten-2">skip</a></div>
   </div>
 
   <div class="step1" ng-show="step == 1">
@@ -31,7 +33,9 @@
   </div>
 
   <div class="step5" ng-show="step == 5">
-    back cover
-    <a href="/">Done</a>
+    <h1>Have fun!</h1>
+    <div class="end-btn">
+      <a href="/" class="btn-large waves-effect waves-dark grey lighten-5 light-blue-text text-darken-4">Let's go!</a>
+    </div>
   </div>
 </div>

@@ -1079,12 +1079,39 @@ li.tag-selected {
     background-color: rgba(0, 97, 140, 0.8);
 }
 
+.tutorial .light.btn-next:hover, .tutorial .light.btn-prev:hover {
+    background-color: rgba(179, 212, 226, 0.8);
+}
+
+.tutorial .light.btn-next, .tutorial .light.btn-prev {
+    background-color: rgba(155, 196, 213, 0.7);
+}
+
+
 .tutorial .btn-next {
     right: -0.5em;
 }
 
 .tutorial .btn-prev {
     left: -0.5em;
+}
+
+.tutorial .next {
+    right: -8px;
+    position: absolute;
+    top: 5px;
+}
+
+.tutorial .steps {
+    position: absolute;
+    bottom: 0px;
+    margin-bottom: 10px;
+    color: #00618C;
+}
+
+.tutorial .steps i {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 
@@ -1099,11 +1126,25 @@ li.tag-selected {
 }
 
 .step0 h1 {
-    font-size: 40px;
+    font-size: 50px;
+    line-height: 1em;
+    margin-bottom: 20px;
 }
 
 .step0 h2 {
+    font-size: 26px;
+    line-height: 1em;
     margin-top: 10px;
+    margin-bottom: 100px;
+}
+
+.step5 h1 {
+    font-size: 80px;
+    padding-top: 100px;
+}
+
+.step5 .end-btn {
+    margin-top: 140px;
 }
 
 .cover {
