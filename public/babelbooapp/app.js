@@ -124,6 +124,9 @@
             }).
             when('/tutorial', {
                 templateUrl: '/babelbooapp/tutorial/tutorial-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html',

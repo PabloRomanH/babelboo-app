@@ -235,7 +235,7 @@ ul {
 nav .fa-user, ranking .fa-user {
     color: #00618C;
     font-size: 34px;
-    margin-top: 5px;
+    margin-top: 7px;
 }
 
 ranking .fa-user {
@@ -352,7 +352,7 @@ li.tag-selected {
     text-align:center;
 }
 
-.tag-container {
+.tag-container {˝
     max-width: 972px;
     margin-left: auto;
     margin-right: auto;
@@ -362,7 +362,7 @@ li.tag-selected {
     max-width: 972px;
     margin-left: auto;
     margin-right: auto;
-    text-align: left;
+    text-align: center;
 }
 
 .playlists-block h3 {
@@ -612,10 +612,14 @@ li.tag-selected {
     display: inline-block;
 }
 
+.answer label {
+    margin: 0px;
+    color: #333;
+}
+
 .answer li {
-    margin: 0 0 3px 0;
     border-radius: 15px;
-    padding: 2px 8px 4px 8px;
+    padding: 2px 8px 2px 8px;
 }
 
 .answer li:hover {
@@ -623,12 +627,16 @@ li.tag-selected {
 }
 
 .selected-answer {
-    color: #fff;
     background-color: #54ACD2;
 }
 
 .selected-answer:hover {
     background-color: #449CC2 !important;
+}
+
+.selected-answer label::after, .selected-answer label::before {
+    border: 2px solid #fff !important;
+    background-color: #fff !important;
 }
 
 .answer .radio {
@@ -696,8 +704,9 @@ li.tag-selected {
     text-decoration: none;
 }
 
-.cine-right, .cine-wrong, .cine-right a, .cine-wrong a {
-    color: #fff;
+.cine-right, .cine-wrong, .selected-answer,
+.cine-right label, .cine-wrong label, .selected-answer label {
+    color: #fff !important;
 }
 
 .cine-right {
@@ -709,8 +718,11 @@ li.tag-selected {
 }
 
 .cine-wrong .fa-times, .cine-right .fa-check {
+    color: #fff;
     margin-left: -20px;
     font-size: 18px;
+    margin-left: -31px;
+    padding-right: 12px;
 }
 
 .cine-right .fa-check {
@@ -785,6 +797,12 @@ li.tag-selected {
     margin-right: 15px;
     margin-top: 6px;
 }
+
+.label-hide::before, .label-hide::after {
+    display: none;
+}
+
+
 
 .total-time {
     font-weight: bold;
@@ -985,6 +1003,7 @@ li.tag-selected {
 
 .ranking td {
     padding: 5px;
+    border-radius: 0px;
 }
 
 .ranking .me {
