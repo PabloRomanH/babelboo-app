@@ -23,10 +23,10 @@ send email
 
 # Next release:
 - Design of new views.
-- Jump to /tutorial after registration
 - Button to access profile.
 
 # Bugfixes:
+- Register button.
 - Shadow of navbar appears under cards in summary.
 
 # For future releases:

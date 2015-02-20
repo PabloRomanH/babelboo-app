@@ -9,7 +9,7 @@
             registration(email, nickname, password, function(success) {
                 if(success) {
                     login(nickname, password, function() {
-                        $location.path('/');
+                        $location.path('/tutorial');
                     });
                 } else {
                     controller.showError = true;
