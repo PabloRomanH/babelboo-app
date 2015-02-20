@@ -1,4 +1,4 @@
-(function() {
+disc(function() {
     var app = angular.module('profile', []);
 
     app.controller('ProfileController', function($scope, $rootScope, profile, user, FileUploader) {
@@ -48,13 +48,6 @@
                 if (typeof user.avatar !== 'undefined') {
                     controller.avatar = user.avatar.large + '?' + new Date().getTime();
                 }
-
-                setTimeout(function () {
-                    $("#email").focus();
-                }, 0);
-                setTimeout(function () {
-                    $("#nickname").focus();
-                }, 0);
             });
         }
 
