@@ -28,6 +28,7 @@ send email
 # Bugfixes:
 - Register button.
 - Shadow of navbar appears under cards in summary.
+- Avoid registering in mailchimp in development mode
 
 # For future releases:
 - /api/user only returns necessary fields (e.g. NOT PASSWORD!) and playlistprogress when requested

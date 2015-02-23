@@ -1,19 +1,21 @@
 <div class="container" ng-controller="RecoverController as recoverCtrl">
-  <div class="cine clearfix form-group" ng-hide="recoverCtrl.submitted">
+  <div class="cine clearfix form-group center-align recover" ng-hide="recoverCtrl.submitted">
+    <img src="/img/boo-blue.png"/>
     <h3>Introduce tu email para restablecer tu contraseña.</h3>
     <form ng-submit="recoverCtrl.recover(email)">
       <div class="input-field">
         <input id="email" type="email" class="validate" ng-model="email" required>
         <label for="email">Email</label>
       </div>
-        <button type="submit" class="btn-flat waves-effect waves-light grey-text text-lighten-5 green">Restablecer contraseña</button>
+        <button type="submit" class="btn-flat waves-effect waves-light light-blue darken-4 grey-text text-lighten-5">Restablecer contraseña</button>
     </form>
   </div>
 
-  <div class="cine clearfix form-group" ng-show="recoverCtrl.submitted">
+  <div class="cine clearfix form-group recover" ng-show="recoverCtrl.submitted">
+      <img src="/img/boo-blue.png"/>
     <div>
-    <h3>Te llegará un email en breves momentos con instrucciones para restablecer tu contraseña.</h3>
-    <a href="/" class="btn-flat waves-effect waves-light grey-text text-lighten-5 green">Volver</a>
+    <p class="light-blue-text text-darken-4">Te llegará un email en breves momentos con instrucciones para restablecer tu contraseña.</p>
+    <a href="/" class="btn-flat waves-effect waves-light light-blue darken-4 grey-text text-lighten-5">Volver</a>
     </div>
   </div>
 </div>

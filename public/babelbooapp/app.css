@@ -40,7 +40,7 @@ h3 {
     margin-right: 20px;
     margin-top: -5px;
     position: fixed;
-    right: 20px;
+    right: 5px;
     z-index: 999;
 }
 
@@ -154,13 +154,14 @@ background-size: cover;
     background-color: #00618C;
     border-radius: 2px;
     box-shadow: 1px -1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
-    padding: 5px 10px 5px 10px;
+    padding: 5px 10px 10px 10px;
     position: fixed;
-    bottom: -3px;
-    /*left: -71px;*/
-    right: 40px;
+    top: 50%;
+    left: -70px;
     z-index: 999;
     cursor: pointer;
+    transform: rotate(90deg);
+    margin-top: -17px;
 }
 
 .feedback-btn i {
@@ -174,8 +175,9 @@ background-size: cover;
     z-index: 999;
     border-radius: 2px;
     box-shadow: 1px 1px 6px #848484, 0px 0px 20px rgba(132, 132, 132, 0.6);
-    bottom: 40px;
-    right: 40px;
+    top: 50%;
+    left: 40px;
+    margin-top: -155px;
 }
 
 .feedback-form h3 {
@@ -232,7 +234,7 @@ ul {
     padding: 0;
 }
 
-nav .fa-user, ranking .fa-user {
+nav span > .fa-user, ranking .fa-user {
     color: #00618C;
     font-size: 34px;
     margin-top: 7px;
@@ -1036,6 +1038,8 @@ li.tag-selected {
     font-size: 22px;
     background-color: #00618C;
     padding: 10px 20px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .progress-card.ranking td {
@@ -1075,6 +1079,8 @@ li.tag-selected {
 .tutorial {
     padding: 0px;
     height: 500px;
+    width: 800px;
+    max-width: none;
     position: relative;
     overflow: visible;
     text-align: center;
@@ -1129,6 +1135,14 @@ li.tag-selected {
     color: #00618C;
 }
 
+.tutorial .steps .past {
+    color: #00618C;
+}
+
+.tutorial .steps .future {
+    color: #ccc;
+}
+
 .tutorial .steps i {
     padding-left: 5px;
     padding-right: 5px;
@@ -1143,6 +1157,10 @@ li.tag-selected {
 
 .tutorial .step0 {
     padding-top: 50px;
+    background-image: url('/img/tutorial/boo0.png');
+    background-repeat: no-repeat;
+    background-position-x: 600px;
+    background-position-y: 200px;
 }
 
 .step0 h1 {
@@ -1156,6 +1174,43 @@ li.tag-selected {
     line-height: 1em;
     margin-top: 10px;
     margin-bottom: 100px;
+}
+
+.step1 {
+    background-image: url('/img/tutorial/1.png');
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    background-position-y: 35px;
+}
+
+.step2 {
+    background-image: url('/img/tutorial/2.png');
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    background-position-y: 43px;
+}
+
+.step3 {
+    background-image: url('/img/tutorial/3.png');
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    background-position-y: 75px;
+    background-size: 95%;
+}
+
+.step4 {
+    background-image: url('/img/tutorial/4.png');
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    background-position-y: 30px;
+}
+
+.tutorial .step5 {
+    padding-top: 50px;
+    background-image: url('/img/tutorial/boo5.png');
+    background-repeat: no-repeat;
+    background-position-x: 600px;
+    background-position-y: 200px;
 }
 
 .step5 h1 {
@@ -1173,6 +1228,71 @@ li.tag-selected {
     color: #fff;
 }
 /*--------- /TUTORIAL ---------*/
+
+
+/*--------- PROFILE --------*/
+.profile-card .row {
+    width: 650px;
+    padding: 20px;
+}
+
+/*.profile-card > * {
+    width: auto;
+}
+
+.profile-avatar, .profile-form {
+    display: inline-block;
+    padding: 20px;
+}*/
+
+.profile-avatar {
+    position: relative;
+    height: 230px;
+}
+
+.profile-avatar i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -35px;
+    margin-left: -35px;
+    /*display: float;
+    vertical-align: middle;
+    margin-right: auto;
+    margin-left: auto;*/
+}
+
+/*--------- /PROFILE --------*/
+
+
+/*--------- REGISTRATION --------*/
+.registration, .recover {
+    padding: 20px 20px 10px 20px;
+}
+
+.registration, .recover, .reset {
+    text-align: center;
+}
+
+.registration h3, .recover h3 {
+    text-transform: uppercase;
+}
+
+.registration img, .recover img, .reset img {
+    width: 200px;
+    opacity: 0.5;
+}
+
+.registration button, .recover button {
+    margin-top: 20px;
+}
+
+.recover p, .reset p {
+    font-size: 2em;
+}
+
+
+/*--------- /REGISTRATION --------*/
 
 
 /*---------    OTHERS --------*/
@@ -1198,12 +1318,41 @@ li.tag-selected {
     color: #fff;
 }
 
-label {
-    font-weight: normal;
+.profile-card input {
+    margin-bottom: 5px !important;
+    height: 2rem !important;
+
 }
 
-.input-field label {
+.profile-card label {
+    font-weight: normal;
+    margin-bottom: 0px;
+}
+
+.profile-card .input-field label {
     left: 0px;
+    top: 0.6rem;
+}
+
+.file-field input.file-path {
+    margin-left: auto;
+}
+
+.file-field .btn {
+    position: static;
+}
+
+.widthzero {
+    width: 0px !important;
+}
+
+.change-password {
+    margin-top: 2.1rem;
+}
+
+.save-button {
+    display: block;
+    margin: 17px auto 0 auto;
 }
 
 /* label color */
@@ -1211,26 +1360,35 @@ label {
     /*color: #000;*/
 }
 /* label focus color */
-.input-field input[type=text]:focus + label {
-    color: #039be5;
+.input-field input:focus + label {
+    color: #039be5 !important;
 }
 /* label underline focus color */
-.input-field input[type=text]:focus {
-    border-bottom: 1px solid #039be5;
-    box-shadow: 0 1px 0 0 #039be5;
+.input-field input:focus {
+    border-bottom: 1px solid #039be5 !important;
+    box-shadow: 0 1px 0 0 #039be5 !important;
+}
+/* label underline focus color */
+input:focus {
+    border-bottom: 1px solid #039be5 !important;
+    box-shadow: 0 1px 0 0 #039be5 !important;
 }
 /* valid color */
-.input-field input[type=text].valid {
-    border-bottom: 1px solid #039be5;
-    box-shadow: 0 1px 0 0 #039be5;
+.input-field input.valid {
+    border-bottom: 1px solid #039be5 !important;
+    box-shadow: 0 1px 0 0 #039be5 !important;
 }
 /* invalid color */
-.input-field input[type=text].invalid {
-    border-bottom: 1px solid #039be5;
-    box-shadow: 0 1px 0 0 #039be5;
+.input-field input.invalid {
+    border-bottom: 1px solid #039be5 !important;
+    box-shadow: 0 1px 0 0 #039be5 !important;
 }
 /* icon prefix focus color */
 .input-field .prefix.active {
     color: #000;
 }
 /*--------- /MATERIAL --------*/
+
+.no-hand:hover {
+    cursor: default;
+}

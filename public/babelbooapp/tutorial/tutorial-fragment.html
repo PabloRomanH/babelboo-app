@@ -4,9 +4,9 @@
   <div><a href="/" class="btn-flat grey-text next" ng-show="step > 0 && step < 5">skip</a></div>
   <div class="steps">
     <i class="fa fa-circle" ng-show="step > 0 && step < 5"></i>
-    <i class="fa" ng-class="{'fa-circle': step >= 2, 'fa-circle-o': step < 2}" ng-show="step > 0 && step < 5"></i>
-    <i class="fa" ng-class="{'fa-circle': step >= 3, 'fa-circle-o': step < 3}" ng-show="step > 0 && step < 5"></i>
-    <i class="fa" ng-class="{'fa-circle': step >= 4, 'fa-circle-o': step < 4}" ng-show="step > 0 && step < 5"></i>
+    <i class="fa fa-circle" ng-class="{'past': step >= 1, 'future': step < 2}" ng-show="step > 0 && step < 5"></i>
+    <i class="fa fa-circle" ng-class="{'past': step >= 2, 'future': step < 3}" ng-show="step > 0 && step < 5"></i>
+    <i class="fa fa-circle" ng-class="{'past': step >= 3, 'future': step < 4}" ng-show="step > 0 && step < 5"></i>
   </div>
 
   <div class="step0" ng-show="step == 0">
@@ -17,19 +17,15 @@
   </div>
 
   <div class="step1" ng-show="step == 1">
-    filters
   </div>
 
   <div class="step2" ng-show="step == 2">
-    a PL
   </div>
 
   <div class="step3" ng-show="step == 3">
-    PL has videos
   </div>
 
   <div class="step4" ng-show="step == 4">
-    1 PL 1 Q
   </div>
 
   <div class="step5" ng-show="step == 5">
