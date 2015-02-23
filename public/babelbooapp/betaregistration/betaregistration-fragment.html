@@ -1,21 +1,28 @@
 <div class="container" ng-controller="BetaregistrationController as betaCtrl">
-  <div class="cine clearfix form-group" ng-hide="betaCtrl.submitted">
-    <p><h3>Parece que te han gustado nuestros vídeos. Déjanos tu e-mail y te avisaremos cuando estemos listos para darte acceso completo a la web.</h3></p>
+  <div class="cine clearfix form-group registration" ng-hide="betaCtrl.submitted">
+    <img src="/img/boo-blue.png"/>
+    <p><h3>Crear cuenta</h3></p>
     <form ng-submit="(submitted=true) && registrationForm.$valid && betaCtrl.register(email, nickname, password)" name="registrationForm">
-        <label for="nickname">Nickname</label>
-        <input type="text" class="form-control" id="nickname" placeholder="Nombre de usuario" name="nickname" ng-model="nickname" ng-maxlength="15" ng-pattern="/^[^@]+$/" required>
-        <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.maxlength">El nombre de usuario es demasiado largo.</div>
-        <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.pattern">El nombre de usuario no puede contener @.</div>
+        <div class="input-field">
+            <input type="text" class="form-control" id="nickname" name="nickname" ng-model="nickname" ng-maxlength="15" ng-pattern="/^[^@]+$/" required>
+            <label for="nickname">Nickname</label>
+            <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.maxlength">El nombre de usuario es demasiado largo.</div>
+            <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.pattern">El nombre de usuario no puede contener @.</div>
+        </div>
 
-        <label for="mail">E-mail</label>
-        <input type="email" class="form-control" id="mail" placeholder="Dejanos tu e-mail" name="email" ng-model="email" ng-maxlength="60" required>
-        <div class="text-danger" ng-show="submitted && registrationForm.email.$error.maxlength">El email es demasiado largo.</div>
+        <div class="input-field">
+            <input type="email" class="form-control" id="mail" name="email" ng-model="email" ng-maxlength="60" required>
+            <label for="mail">E-mail</label>
+            <div class="text-danger" ng-show="submitted && registrationForm.email.$error.maxlength">El email es demasiado largo.</div>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Contraseña" ng-model="password" required>
+        <div class="input-field">
+            <input type="password" class="form-control" id="password" ng-model="password" required>
+            <label for="password">Password</label>
+        </div>
 
         <div class="text-danger" ng-show="submitted && betaCtrl.showError">El usuario o email ya existe.</div>
-        <button type="submit" class="pull-right waves-effect waves-light btn-flat grey-text text-lighten-5 green">Registrarse</button>
+        <button type="submit" class="waves-effect waves-light btn-flat light-blue darken-4 grey-text text-lighten-5">Registrarse</button>
     </form>
     <p></p>
   </div>

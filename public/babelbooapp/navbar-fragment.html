@@ -15,6 +15,14 @@
   </ul>
   <ul class="pull-right">
     <li ng-show="navbarCtrl.userLogged">
+      <a href="/progress" class="medals" ng-click="navbarCtrl.pointsClicked()">
+        <i class="fa fa-trophy"></i> {{navbarCtrl.rank}}
+        <i class="fa fa-circle medal-gold"></i> {{ navbarCtrl.golds }}
+        <i class="fa fa-circle medal-silver"></i> {{ navbarCtrl.silvers }}
+        <i class="fa fa-circle medal-bronze"></i> {{ navbarCtrl.bronzes }}
+      </a>
+    </li>
+    <li ng-show="navbarCtrl.userLogged">
       <a href="#" ng-click="navbarCtrl.showLogout = !navbarCtrl.showLogout">
           <span class="fa-stack fa-lg avatar" ng-hide="navbarCtrl.avatar">
             <i class="fa fa-user fa-stack-1x"></i>
@@ -23,16 +31,9 @@
         {{ navbarCtrl.nickname }}
       </a>
       <div class="user-dropdown" ng-show="navbarCtrl.showLogout">
+        <a href="/profile"><i class="fa fa-user"></i>&nbsp;Profile</a>
         <a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
       </div>
-    </li>
-    <li ng-show="navbarCtrl.userLogged">
-      <a href="/progress" class="medals" ng-click="navbarCtrl.pointsClicked()">
-        <i class="fa fa-trophy"></i> {{navbarCtrl.rank}}
-        <i class="fa fa-circle medal-gold"></i> {{ navbarCtrl.golds }}
-        <i class="fa fa-circle medal-silver"></i> {{ navbarCtrl.silvers }}
-        <i class="fa fa-circle medal-bronze"></i> {{ navbarCtrl.bronzes }}
-      </a>
     </li>
   </ul>
 
