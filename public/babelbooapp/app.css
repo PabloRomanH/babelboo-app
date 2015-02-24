@@ -617,6 +617,7 @@ li.tag-selected {
 .answer label {
     margin: 0px;
     color: #333;
+    font-weight: normal;
 }
 
 .answer li {
