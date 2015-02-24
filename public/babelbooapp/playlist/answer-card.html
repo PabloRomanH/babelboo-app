@@ -1,6 +1,8 @@
 <div class="answer radio">
-  <span>
-    <input type="radio" name="correctanswer" ng-model="video.correctanswer" ng-value="$index">
-  </span>
-  <input type="text" id="answertext" class="form-control" placeholder="Answer" ng-model="answer.text"><a class="removeanswer" ng-click="searchCtrl.rmanswer(video, $index)" ng-show="$index > 2">-</a>
+  <input type="radio" id="{{video.id+$index}}" name="correctanswer" ng-model="video.correctanswer" ng-value="$index"/>
+  <label ng-class="{'label-hide': playCtrl.answered && $index == playCtrl.answeredindex}" for="{{video.id+$index}}">
+    <input type="text" id="answertext" class="form-control" placeholder="Answer" ng-model="answer.text">
+  </label>
+
+  <a class="removeanswer" ng-click="searchCtrl.rmanswer(video, $index)" ng-show="$index > 2">-</a>
 </div>
