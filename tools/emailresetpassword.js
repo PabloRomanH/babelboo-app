@@ -16,7 +16,7 @@ function sendRecoverEmail(email) {
     var request = require('request');
 
     request.post(
-        'http://babelboo.com/api/user/recover',
+        'http://localhost:3000/api/user/recover',
         { json: {email: email} },
         function (error, response, body) {
             if (error || response.statusCode != 200) {
