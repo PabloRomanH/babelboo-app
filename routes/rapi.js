@@ -141,6 +141,13 @@ router.post('/user/avatar', function (req, res) {
     var form = new multiparty.Form();
 
     form.on('file', function(name, file) {
+        if (!/(jpeg|jpg|gif|png)$/.test(file.path)) {
+            fs.unlink(file.path);
+            res.status(400);
+            res.json();
+            return;
+        }
+
         gm(file.path).gravity('Center').thumb(60,60, req.storage + '/avatars/' + req.user._id + '-small.jpeg', 100, function (err) {
             if (err) {
                 fs.unlink(file.path);

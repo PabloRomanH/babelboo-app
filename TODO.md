@@ -15,20 +15,19 @@ git stuff
     git fetch
     git merge origin/master
 npm install
-run script to send reset password emails
 restart node
     forever restartall
 manual testing
+run script to send reset password emails
 send email
 
 # Next release:
-- Design of new views.
-- Button to access profile.
+
 
 # Bugfixes:
-- Register button.
 - Shadow of navbar appears under cards in summary.
-- Avoid registering in mailchimp in development mode
+- Avoid registering in mailchimp in development mode.
+- Test the upload of a file with an image extension that gm can't convert (not in local nor in mayhem).
 
 # For future releases:
 - /api/user only returns necessary fields (e.g. NOT PASSWORD!) and playlistprogress when requested
