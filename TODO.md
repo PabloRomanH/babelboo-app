@@ -17,8 +17,11 @@ git stuff
 npm install
 restart node
     forever restartall
+npm test
 manual testing
+change text on password emails
 run script to send reset password emails
+change back text on password emails
 send email
 
 # Next release:

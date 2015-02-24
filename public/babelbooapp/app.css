@@ -1007,6 +1007,7 @@ li.tag-selected {
 .ranking td {
     padding: 5px;
     border-radius: 0px;
+    max-width: 10em;
 }
 
 .ranking .me {
