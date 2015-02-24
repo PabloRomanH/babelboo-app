@@ -150,14 +150,16 @@ router.post('/user/avatar', function (req, res) {
             }
 
             gm(file.path).gravity('Center').thumb(500,500, req.storage + '/avatars/' + req.user._id + '-large.jpeg', 100,
-                function () {
+                function (err) {
                     var collection = req.db.get('usercollection');
                     collection.update({username: req.user.username},
                         {$set: {
                             'avatar.small': '/avatars/' + req.user._id + '-small.jpeg',
                             'avatar.large': '/avatars/' + req.user._id + '-large.jpeg'
                         }}, function () {
-                            fs.unlink(file.path);
+                            fs.unlink(file.path, function (err) {
+                                // To prevent node from crashing when upload is interrupted.
+                            });
                             res.status(200);
                             res.json();
                         });
