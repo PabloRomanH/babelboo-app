@@ -1,17 +1,21 @@
 <div class="navbar-fixed">
   <nav>
      <div class="nav-wrapper primary-bg">
+       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" ng-click="showSideNavbar = true"></i></a>
 
-       <ul id="nav-mobile" class="hide-on-med-and-down">
+       <ul id="nav-mobile" class="navbar-boo">
          <li>
-           <a href="#" class="navbar-boo" ng-click="navbarCtrl.goToPlaylists()">
+           <a href="#" ng-click="navbarCtrl.goToPlaylists()">
              <img src="/img/boo-white.png"/>
              <img src="/img/name-header.png"/>
            </a>
          </li>
+       </ul>
+       <ul id="nav-mobile" class="hide-on-med-and-down">
          <li ng-show="navbarCtrl.userLogged"><a href="#" ng-click="navbarCtrl.goToPlaylists()">Playlists</a></li>
          <li ng-show="navbarCtrl.userLogged"><a href="#" ng-click="navbarCtrl.goToBooTV()">Boo TV</a></li>
        </ul>
+
 
        <ul id="nav-mobile" class="right hide-on-med-and-down" ng-show="navbarCtrl.userLogged">
          <li>
@@ -23,11 +27,11 @@
            </a>
          </li>
          <li>
-           <a href="#" ng-click="navbarCtrl.showLogout = !navbarCtrl.showLogout">
-               <span class="fa-stack fa-lg avatar" ng-hide="navbarCtrl.avatar">
+           <a href="#" class="valign-wrapper" ng-click="navbarCtrl.showLogout = !navbarCtrl.showLogout">
+               <span class="fa-stack fa-lg avatar valign" ng-hide="navbarCtrl.avatar">
                  <i class="fa fa-user fa-stack-1x"></i>
                </span>
-               <img class="avatar" ng-src="{{navbarCtrl.avatar}}" alt="{{navbarCtrl.nickname}}" ng-show="navbarCtrl.avatar"/>
+               <img class="avatar valign" ng-src="{{navbarCtrl.avatar}}" alt="{{navbarCtrl.nickname}}" ng-show="navbarCtrl.avatar"/>
              {{ navbarCtrl.nickname }}
            </a>
          </li>
@@ -46,6 +50,27 @@
        </ul>
      </div>
    </nav>
+
+   <ul class="side-nav" id="mobile-demo" ng-show="showSideNavbar" ng-click="showSideNavbar=false">
+     <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
+     <li>
+       <a href="/profile">
+           <span class="fa-stack fa-lg avatar" ng-hide="navbarCtrl.avatar">
+             <i class="fa fa-user fa-stack-1x"></i>
+           </span>
+           <img class="avatar" ng-src="{{navbarCtrl.avatar}}" alt="{{navbarCtrl.nickname}}" ng-show="navbarCtrl.avatar"/>
+         {{ navbarCtrl.nickname }}
+       </a>
+     </li>
+     <li ng-show="navbarCtrl.userLogged"><a href="#" ng-click="navbarCtrl.goToPlaylists()">Playlists</a></li>
+     <li ng-show="navbarCtrl.userLogged"><a href="#" ng-click="navbarCtrl.goToBooTV()">Boo TV</a></li>
+     <li>
+       <a href="/progress" class="medals" ng-click="navbarCtrl.pointsClicked()">
+         Progress
+       </a>
+     </li>
+     <li class="collection-item"><a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a></li>
+   </ul>
 
    <div class="pull-right user-dropdown" ng-show="navbarCtrl.showLogout">
      <ul class="collection">
