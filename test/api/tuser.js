@@ -383,11 +383,15 @@ describe('API /api/user public part', function() {
                             {
                                 name: "Babelboo updates",
                                 groups: ["New release"]
+                            },
+                            {
+                                name: "Registration type",
+                                groups: ["users"]
                             }
                         ],
                         mc_language: 'es_ES'
                     },
-                    double_optin: true
+                    double_optin: false
                 };
 
                 request.post('/api/user')

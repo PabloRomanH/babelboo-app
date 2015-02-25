@@ -243,6 +243,10 @@ function registerOnMailchimp(email) {
                 {
                     name: "Babelboo updates",
                     groups: ["New release"]
+                },
+                {
+                    name: "Registration type",
+                    groups: ["users"]
                 }
             ],
             mc_language: 'es_ES'
