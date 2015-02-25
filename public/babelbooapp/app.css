@@ -2,7 +2,13 @@ body {
     margin: 0px;
     color:#333;
     background-color: #DFDFDF;
-    padding-top: 60px;
+    /*padding-top: 60px;*/
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
 }
 
 h3 {
@@ -33,14 +39,16 @@ h3 {
 
 #login-bubble {
     padding: 10px 10px 0px 10px;
+}
+
+#login-bubble, .user-dropdown {
     border-radius: 2px;
     box-shadow: 1px 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
+    right: 5px;
+    top: 55px;
     display: block;
     background-color: white;
-    margin-right: 20px;
-    margin-top: -5px;
     position: fixed;
-    right: 5px;
     z-index: 999;
 }
 
@@ -62,6 +70,7 @@ background-size: cover;
     margin-left: auto;
     margin-right: auto;
     padding: 30px;
+    text-align: center;
 }
 
 .landing h1 {
@@ -69,18 +78,21 @@ background-size: cover;
     font-size: 36px;
     line-height: 1em;
     margin-top: 20px;
+    text-align: center;
 }
 
 .landing h2 {
     font-size: 56px;
     color: #00618C;
     margin-bottom: 25px;
+    text-align: center;
 }
 
 .value h3, .team h3 {
     margin-top: 20px;
     margin-bottom: 10px;
     line-height: 1.1em;
+    /*text-align: center;*/
 }
 
 .value h3 {
@@ -106,6 +118,7 @@ background-size: cover;
 .landing .team {
     background-color: #ffffff;
     padding: 40px;
+    text-align: center;
 }
 
 .footer {
@@ -113,6 +126,7 @@ background-size: cover;
     color: #ffffff;
     height: 80px;
     padding: 5px;
+    text-align: center;
 }
 
 .footer .row {
@@ -123,12 +137,6 @@ background-size: cover;
     color: #ffffff;
     padding-left: 5px;
     padding-right: 5px;
-}
-
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
 }
 
 .cuadrado {
@@ -201,6 +209,14 @@ background-size: cover;
 
 /*----------   HEADER   ----------*/
 nav {
+    overflow: hidden;
+}
+
+nav .navbar-boo img, nav .avatar {
+    vertical-align: middle;
+}
+
+/*nav {
     height: 50px;
 }
 
@@ -222,6 +238,10 @@ nav ul li {
     margin-top: -10px;
     box-shadow: 0px -4px 5px 5px #555;
     z-index: -1;
+}*/
+
+nav .btn-flat, nav .btn {
+    overflow: initial;
 }
 
 .medals i {
@@ -237,7 +257,10 @@ ul {
 nav span > .fa-user, ranking .fa-user {
     color: #00618C;
     font-size: 34px;
-    margin-top: 7px;
+}
+
+nav .fa-user {
+    margin-top: -5px;
 }
 
 ranking .fa-user {
@@ -261,18 +284,29 @@ img.avatar {
     margin-right: 5px;
 }
 
-nav li > a:hover {
+/*nav li > a:hover {
     color: #fff;
     text-decoration: none;
     background-color:#004e70;
-}
+}*/
 
-nav li > a:focus {
+/*nav li > a:focus {
     color: #fff;
     text-decoration: none;
-}
+}*/
 
 .user-dropdown {
+    font-size: 15px;
+    padding: 0px;
+    width: 125px;
+}
+
+.user-dropdown .collection {
+    margin: 0px;
+    border: none;
+}
+
+/*.user-dropdown {
     position: absolute;
     z-index: 1000;
     min-width: 100%;
@@ -297,16 +331,17 @@ nav li > a:focus {
     color: #00618C;
     text-decoration: none;
     padding: 0;
-}
+}*/
 
 
 /*---------   SEARCHER   ---------*/
 .searcher {
     width:100%;
-    margin: -10px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/
+    /*margin: -10px 0 0 0;/*Chapuza para colocarlo por debajo y que se quede fijo el header*/*/
     padding: 2px;
     background-color: #54ACD2;
     box-shadow: 0px -4px 5px 5px #555;
+    padding-top: 10px;
 }
 
 .search-tag{
@@ -314,7 +349,7 @@ nav li > a:focus {
 }
 
 .lvl {
-    margin: 10px 0 0 0;
+    margin: 0px;
 }
 
 .lvl li{
@@ -329,11 +364,12 @@ li.lvl-selected{
     background-color:#B8312F;
 }
 
-.lvl li, .search-tag li{
+.lvl li, .search-tag li {
     padding:5px;
     margin:0 0 10px 5px;
     color:#fff;
-    border-radius: 3px;
+    display: inline-block;
+    border-radius: 2px;
     cursor: pointer;
 }
 
@@ -365,6 +401,7 @@ li.tag-selected {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    margin-top: 10px;
 }
 
 .playlists-block h3 {
@@ -451,6 +488,10 @@ li.tag-selected {
     clear:left;
 }
 
+.playlist-icons ul {
+    margin-top: 0px;
+}
+
 .tag-awesome{
     font-size:12px;
     color:#666666;
@@ -461,6 +502,9 @@ li.tag-selected {
 .tag-box{
     color: #777;
     font-size:12px;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .not-found {
@@ -517,15 +561,15 @@ li.tag-selected {
     height: 270px;
 }
 
-.summary-card .medal-gold, .medals .medal-gold {
+.summary-card .medal-gold, .medal-table .medal-gold {
     background-image: url('/img/gold.png');
 }
 
-.summary-card .medal-silver, .medals .medal-silver {
+.summary-card .medal-silver, .medal-table .medal-silver {
     background-image: url('/img/silver.png');
 }
 
-.summary-card .medal-bronze, .medals .medal-bronze {
+.summary-card .medal-bronze, .medal-table .medal-bronze {
     background-image: url('/img/bronze.png');
 }
 
@@ -566,7 +610,7 @@ li.tag-selected {
 .cine {
     background-color:#fff;
     max-width: 680px;
-    margin: 0px auto 20px auto;
+    margin: 10px auto 20px auto;
     padding-top: 20px;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
@@ -1075,6 +1119,10 @@ li.tag-selected {
 .medals {
     overflow: hidden;
 }
+
+.medals .fa-circle, .medals .fa-trophy {
+    font-size: inherit;
+}
 /*--------- /PROGRESS ---------*/
 
 /*--------- TUTORIAL ---------*/
@@ -1236,6 +1284,7 @@ li.tag-selected {
 .profile-card .row {
     width: 650px;
     padding: 20px;
+    margin-top: 10px;
 }
 
 /*.profile-card > * {
