@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var dbpath = 'localhost:27017/babelboo';
 
 var db = require('monk')(dbpath);
@@ -5,12 +7,44 @@ var request = require('request');
 
 var usercollection = db.get('usercollection');
 
+var alreadySent = [
+    'daniachun@gmail.com',
+    'yohei.tsujinaka@gmail.com',
+    'xavi.capa@gmail.com',
+    'menalahoz@gmail.com',
+    'saray.sbd89@hotmail.com',
+    'calderonlau9@gmail.com',
+    'massotcr@gmail.com',
+    'blueshark_00@hotmail.com',
+    'marc.salat.v@gmail.com',
+    'carlosambros@gmail.com',
+    'xavieru02@gmail.com',
+    'enitne@gmail.com',
+    'nelenia@hotmail.com',
+    'anaoh13@gmail.com',
+    'gallardo.dani@gmail.com'];
+
 usercollection.find({}, function(err, result) {
-    for(var i = 0; i < result.length; i++) {
-        var email = result[i].username;
-        sendRecoverEmail(email);
-    }
+    sendNext(result, 0);
 });
+
+function sendNext(result, i) {
+    if (i >= result.length) {
+        db.close();
+        return;
+    }
+
+    var email = result[i].username;
+
+    if (alreadySent.indexOf(email) != -1) {
+        console.log('---- ' + email);
+        setTimeout(sendNext.bind(null, result, i + 1), 0);
+    } else {
+        console.log(email);
+        sendRecoverEmail(email);
+        setTimeout(sendNext.bind(null, result, i + 1), 5000);
+    }
+}
 
 function sendRecoverEmail(email) {
     var request = require('request');
