@@ -367,7 +367,9 @@ describe('API /api/user public part', function() {
             it('registers user in mailchimp if success (200)', function(done) {
                 var mailchimpOpts = {
                     id: 'ae8469cddc',
-                    email: email,
+                    email: {
+                        email: email
+                    },
                     merge_vars: {
                         groupings: [
                             {

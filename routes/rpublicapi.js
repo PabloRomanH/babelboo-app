@@ -227,7 +227,9 @@ function sendEmail(to, subject, text, html) {
 function registerOnMailchimp(email) {
     var mailchimpOpts = {
         id: 'ae8469cddc',
-        email: email,
+        email: {
+            email: email
+        },
         merge_vars: {
             groupings: [
                 {
