@@ -251,7 +251,8 @@ function registerOnMailchimp(email) {
             ],
             mc_language: 'es_ES'
         },
-        double_optin: false
+        double_optin: false,
+        update_existing: true
     };
 
     mailchimp.lists.subscribe(mailchimpOpts,

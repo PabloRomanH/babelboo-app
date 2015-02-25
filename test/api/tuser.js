@@ -391,7 +391,8 @@ describe('API /api/user public part', function() {
                         ],
                         mc_language: 'es_ES'
                     },
-                    double_optin: false
+                    double_optin: false,
+                    update_existing: true
                 };
 
                 request.post('/api/user')
