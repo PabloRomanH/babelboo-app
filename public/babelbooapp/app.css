@@ -1375,8 +1375,28 @@ input:focus {
     left: 0px !important;
 }
 
+ul.side-nav a {
+    padding: 0 20px;
+    display: inline-block;
+    line-height: 50px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+}
+
 ul.side-nav li {
-    padding: 15px 15px;
+    padding: 0 0;
+}
+
+.button-collapse {
+    margin-left: 10px;
+}
+
+.side-nav-shade {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
 }
 /*--------- /MATERIAL --------*/
 

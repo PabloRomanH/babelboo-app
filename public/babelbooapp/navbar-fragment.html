@@ -51,8 +51,9 @@
      </div>
    </nav>
 
+   <div class="side-nav-shade" ng-click="showSideNavbar=false" ng-show="showSideNavbar"></div>
    <ul class="side-nav" id="mobile-demo" ng-show="showSideNavbar" ng-click="showSideNavbar=false">
-     <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
+     <li><a href="#"><i class="fa fa-arrow-left"></i>&nbsp;</a></li>
      <li>
        <a href="/profile">
            <span class="fa-stack fa-lg avatar" ng-hide="navbarCtrl.avatar">
@@ -65,7 +66,7 @@
      <li ng-show="navbarCtrl.userLogged"><a href="#" ng-click="navbarCtrl.goToPlaylists()">Playlists</a></li>
      <li ng-show="navbarCtrl.userLogged"><a href="#" ng-click="navbarCtrl.goToBooTV()">Boo TV</a></li>
      <li>
-       <a href="/progress" class="medals" ng-click="navbarCtrl.pointsClicked()">
+       <a href="/progress" ng-click="navbarCtrl.pointsClicked()">
          Progress
        </a>
      </li>
