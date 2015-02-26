@@ -20,7 +20,7 @@
     <i title="bronze medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio > 0 && playlistsCtrl.userData.playlistprogress[playlist._id].ratio <= 0.5" class="medal medal-bronze pull-right"></i>
     <i title="silver medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio > 0.5 && playlistsCtrl.userData.playlistprogress[playlist._id].ratio < 1" class="medal medal-silver pull-right"></i>
     <i title="gold medal" ng-show="playlistsCtrl.userData.playlistprogress[playlist._id].ratio == 1" class="medal medal-gold pull-right"></i>
-    <ul class="list-unstyled list-inline">
+    <ul>
       <li class="tag-box"><i class="fa fa-tag"></i></li
       ><li class="tag-box" ng-repeat="tag in playlist.tags">
         {{ tag }}

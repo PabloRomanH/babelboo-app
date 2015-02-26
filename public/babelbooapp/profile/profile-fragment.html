@@ -7,8 +7,8 @@
     <div class="row valign-wrapper">
       <div class="col s5 valign">
         <div class="profile-avatar">
-          <img class="circle img-responsive" ng-src="/img/default-avatar.jpeg" alt="{{profileCtrl.nickname}}" ng-hide="profileCtrl.avatar || profileCtrl.showUploading"/>
-          <img class="circle img-responsive" ng-src="{{profileCtrl.avatar}}" alt="{{profileCtrl.nickname}}" ng-show="profileCtrl.avatar && !profileCtrl.showUploading"/>
+          <img class="circle responsive-img" ng-src="/img/default-avatar.jpeg" alt="{{profileCtrl.nickname}}" ng-hide="profileCtrl.avatar || profileCtrl.showUploading"/>
+          <img class="circle responsive-img" ng-src="{{profileCtrl.avatar}}" alt="{{profileCtrl.nickname}}" ng-show="profileCtrl.avatar && !profileCtrl.showUploading"/>
           <i class="fa fa-spinner fa-pulse fa-5x" ng-show="profileCtrl.showUploading"></i>
         </div>
         <div class="text-danger" ng-show="profileCtrl.showFileError">

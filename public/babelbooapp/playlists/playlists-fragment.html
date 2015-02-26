@@ -2,7 +2,7 @@
   <div class="searcher row">
     <div class="tag-container">
       <div class="row row-centered">
-        <ul class="list-unstyled list-inline lvl">
+        <ul class="lvl">
           <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 1}" ng-click="playlistsCtrl.setLevel(1)">{{ playlistsCtrl.levelNames[1] }}</li>
           <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 2}" ng-click="playlistsCtrl.setLevel(2)">{{ playlistsCtrl.levelNames[2] }}</li>
           <li ng-class="{'lvl-selected': playlistsCtrl.selectedLevel == 3}" ng-click="playlistsCtrl.setLevel(3)">{{ playlistsCtrl.levelNames[3] }}</li>
@@ -28,5 +28,3 @@
     <h3 class="not-found" ng-show="playlistsCtrl != null && playlistsCtrl.playlists.length==0">No playlists found</h3>
   </div>
 </div>
-
-<!--<div>Icons made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>-->
