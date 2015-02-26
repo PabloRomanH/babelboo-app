@@ -279,6 +279,16 @@ img.avatar {
     border: none;
 }
 
+/*--------- SOCIAL SHARE ---------*/
+
+.btn-floating.twitter {
+    background-color: #55ACEE;
+}
+
+.btn-floating.facebook {
+    background-color: #3a5795;
+}
+
 
 /*---------   SEARCHER   ---------*/
 .searcher {
