@@ -7,7 +7,7 @@ var db = connection.getDB("babelboo");
 var lastweek = new Date();
 var lastmonth = new Date();
 lastweek.setDate(lastweek.getDate() - 7);
-lastmonth.setDate(lastmonth.getMonth() - 1);
+lastmonth.setMonth(lastmonth.getMonth() - 1);
 
 var cursor = db.usercollection.find({lastvisit: {$lt: lastweek, $gt: lastmonth}});
 

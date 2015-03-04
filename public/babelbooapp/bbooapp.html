@@ -19,6 +19,7 @@
     <script src="/lib/materialize.min.js"></script>
     <script src="/lib/angular-file-upload.min.js"></script>
     <script src="/babelbooapp/navbar.js"></script>
+    <script src="/babelbooapp/share.js"></script>
     <script src="/babelbooapp/betaregistration/beta.js"></script>
     <script src="/babelbooapp/playlist/playlist.js"></script>
     <script src="/babelbooapp/video/video.js"></script>
@@ -71,6 +72,16 @@
         <li><a class="btn-floating red"><i class="fa fa-large fa-envelope"></i></a></li>
         <li><a class="btn-floating facebook"><i class="fa fa-large fa-facebook"></i></a></li>
         <li><a class="btn-floating twitter"><i class="fa fa-large fa-twitter"></i></a></li>
+      </ul>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;" ng-controller="ShareController as shareCtrl">
+      <a class="btn-floating btn-large red">
+        <i class="fa fa-large fa-share-alt"></i>
+      </a>
+      <ul>
+        <li><a class="btn-floating red" ng-click="shareCtrl.email()"><i class="fa fa-large fa-envelope"></i></a></li>
+        <li><a class="btn-floating twitter" ng-click="shareCtrl.twitter()"><i class="fa fa-large fa-twitter"></i></a></li>
+        <li><a class="btn-floating facebook" ng-click="shareCtrl.facebook()"><i class="fa fa-large fa-facebook"></i></a></li>
       </ul>
     </div>
   </body>
