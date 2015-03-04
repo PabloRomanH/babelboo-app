@@ -556,7 +556,6 @@ li.tag-selected {
     background-color:#fff;
     max-width: 680px;
     margin: 10px auto 20px auto;
-    padding-top: 20px;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #848484, 0px 0px 20px rgba(132, 132, 132, 0.3);
     vertical-align: top;
@@ -580,11 +579,21 @@ li.tag-selected {
     color:#777;
 }
 
+player-card .cine {
+    padding-top: 0px;
+}
+
+player-card .title-cine p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .question-txt{
     font-size:22px;
     font-weight: bold;
     padding-top: 10px;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .player-container {
@@ -601,6 +610,11 @@ li.tag-selected {
     margin-top: 0px;
     width: 100%;
     display: inline-block;
+}
+
+.answer ul {
+    margin: 0px;
+    margin-bottom: 5px;
 }
 
 .answer label {
