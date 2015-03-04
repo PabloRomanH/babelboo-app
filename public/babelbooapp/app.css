@@ -220,7 +220,7 @@ nav .navbar-boo img, nav {
     }
 
     nav .navbar-boo li {
-        width: 90%;
+        float: left;
     }
 }
 
