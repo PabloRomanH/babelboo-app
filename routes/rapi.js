@@ -76,7 +76,13 @@ router.get('/tag', function(req, res) {
 });
 
 router.get('/user', function(req, res) {
-    res.json(req.user);
+    var user = {
+        username: req.user.username,
+        nickname: req.user.nickname,
+        playlistprogress: req.user.playlistprogress
+    };
+    
+    res.json(user);
 });
 
 router.post('/user/update', function(req, res) {
