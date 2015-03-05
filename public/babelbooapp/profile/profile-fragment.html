@@ -1,44 +1,70 @@
-<div class="container" ng-controller="ProfileController as profileCtrl">
-  <div class="cine clearfix form-group" ng-hide="betaCtrl.submitted">
-    <div>
-      <i class="fa fa-user fa-5x"></i>
+<div class="myContainer" ng-controller="ProfileController as profileCtrl">
+  <div class="progress-card profile-card" ng-hide="betaCtrl.submitted">
+    <div class="blue-title">
+      User profile
     </div>
 
-    <div>
-      <form ng-submit="(submitted=true) && profileCtrl.update()"
-            name="profileForm">
-        <div class="input-field">
-          <label for="username">Username</label>
-          <input id="username" type="text" ng-model="nickname"  ng-maxlength="15" ng-pattern="/^[^@]+$/" >
+    <div class="row valign-wrapper">
+      <div class="col s5 valign">
+        <div class="profile-avatar">
+          <img class="circle responsive-img" ng-src="/img/default-avatar.jpeg" alt="{{profileCtrl.nickname}}" ng-hide="profileCtrl.avatar || profileCtrl.showUploading"/>
+          <img class="circle responsive-img" ng-src="{{profileCtrl.avatar}}" alt="{{profileCtrl.nickname}}" ng-show="profileCtrl.avatar && !profileCtrl.showUploading"/>
+          <i class="fa fa-spinner fa-pulse fa-5x" ng-show="profileCtrl.showUploading"></i>
         </div>
-        <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.maxlength">El nombre de usuario es demasiado largo.</div>
-        <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.pattern">El nombre de usuario no puede contener @.</div>
+        <div class="text-danger" ng-show="profileCtrl.showFileError">
+          Wrong file format. Please use a .png or .jpeg file.
+      </div>
 
-        <div class="input-field">
-          <label for="email">Email</label>
-          <input id="email" type="email" ng-model="email"  ng-maxlength="60" >
-        </div>
-        <div class="text-danger" ng-show="submitted && registrationForm.email.$error.maxlength">El email es demasiado largo.</div>
-
-        <div class="input-field">
-          <label for="newpass">New password</label>
-          <input id="newpass" type="password"ng-model="newpassword">
+        <div class="file-field input-field center-align">
+          <input class="file-path validate widthzero" type="text"/>
+          <div class="btn-flat grey grey-text" ng-class="{'lighten-2 text-lighten-4 no-hand': profileCtrl.showUploading, 'lighten-1 text-lighten-5': !profileCtrl.showUploading}" ng-disabled="profileCtrl.showUploading">
+            <span>Change photo</span>
+            <input type="file" nv-file-select uploader="profileCtrl.uploader" ng-disabled="profileCtrl.showUploading"/>
+          </div>
         </div>
 
-        <div class="input-field">
-          <label for="pass">Current password</label>
-          <input id="pass" type="password" ng-model="password">
-        </div>
-        <div class="text-danger" ng-show="profileCtrl.showWrongPassword">
-          Las contraseña introducida es erronea.
-        </div>
 
-        <button type="submit" class="waves-effect waves-light btn-flat grey-text text-lighten-5 green">Save changes</button>
-        <div class="text-success" ng-show="profileCtrl.showSuccess">
-          Datos modificados correctamente.
-        </div>
-      </form>
+      </div>
+
+      <div class="profile-form col s7">
+        <form ng-submit="(submitted=true) && profileCtrl.update()"
+        name="profileForm">
+          <div>
+            <label for="username">Username</label>
+            <input id="username" type="text" ng-model="nickname"  ng-maxlength="15" ng-pattern="/^[^@]+$/" >
+          </div>
+          <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.maxlength">El nombre de usuario es demasiado largo.</div>
+          <div class="text-danger" ng-show="submitted && registrationForm.nickname.$error.pattern">El nombre de usuario no puede contener @.</div>
+
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" ng-model="email"  ng-maxlength="60" >
+          </div>
+          <div class="text-danger" ng-show="submitted && registrationForm.email.$error.maxlength">El email es demasiado largo.</div>
+
+          <div class="change-password" ng-hide="showChangePassword" ng-click="showChangePassword = true">
+            Change password <i class="fa fa-pencil"></i>
+          </div>
+
+          <div class="input-field" ng-show="showChangePassword">
+            <input id="newpass" type="password"ng-model="newpassword">
+            <label for="newpass">New password</label>
+          </div>
+
+          <div class="input-field">
+            <input id="pass" type="password" ng-model="password">
+            <label for="pass">Current password</label>
+          </div>
+          <div class="text-danger" ng-show="profileCtrl.showWrongPassword">
+            Wrong password.
+          </div>
+
+          <button type="submit" class="save-button waves-effect waves-light btn-flat light-blue darken-4 grey-text text-lighten-5">Save changes</button>
+          <div class="text-success" ng-show="profileCtrl.showSuccess">
+            Successfuly updated.
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-
 </div>

@@ -9,40 +9,41 @@ Release cycle:
 
 Deploy:
 write email
-add sepha/toni/fran emails
-apt-get install graphicsmagick
 git stuff
     git fetch
     git merge origin/master
 npm install
-run script to send reset password emails
+npm test
 restart node
     forever restartall
 manual testing
 send email
 
 # Next release:
-- Design of new views.
+- Social share buttons.
+
+- Friendly URLs
 
 # Bugfixes:
-- Shadow of navbar appears under cards in summary.
+- /login can be accessed even when logged in
+- fix ShareController to use new playlists service interface
+- Test the upload of a file with an image extension that gm can't convert (not in local nor in mayhem).
 
 # For future releases:
-- /api/user only returns necessary fields (e.g. NOT PASSWORD!) and playlistprogress when requested
+- Facebook page meta tags
+- /api/user only returns playlistprogress when requested
 - fillUser only returns (and downloads) playlistprogress when requested.
 - When selecting a level in playlists view show popular playlists of that level.
+- Popular playlists don't stay always the same.
 - Playlists infinite scrolling.
 - Social
     - Login.
     - Register.
-    - Share.
 - Going to an URL (besides http://www.babelboo.com) without being logged asks for user and password, then redirects to the requested URL.
 - A) Questions at the beginning, answers at the end.
     - Button 'Answer now' that pauses video and shows answers.
 - B) Questions at the end.
     - Remove boring part at the end of videos.
-- Ranking (competitive social component).
-    - Avatars automatically generated.
 - Change medal indices and values to ALWAYS GOLD = 0, SILVER = 1, BRONZE = 1
 - Sign up for category updates.
 - Video not playing automatically to allow you to read the questions.
@@ -53,12 +54,13 @@ send email
 - Make playlists for specific people.
 - Smarter related playlists.
 - Visual difficulty levels.
-- Cut current playlists.
 - Keep level after finishing playlist.
--
+
 
 # Silly things to do when bored
-Change design of buttons.
+- Refactor CSS
+    - Materialize more stuff
+- Create tests
 
 
 # Development/deployment

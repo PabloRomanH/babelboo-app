@@ -12,47 +12,43 @@ describe('navbar controller', function() {
     var rankData;
     var userLogged = false;
     var currentRoute;
+    var rootScope;
+    var rankingService;
+    var locationService;
 
     beforeEach(inject(function($rootScope, $controller) {
         currentRoute = '';
 
-        var userData = {
-            username: 'guest',
-            _id: 3,
-            playlistprogress : {
-                1: {ratio: 0},
-                2: {ratio: 0.9},
-                3: {ratio: 1},
-                4: {ratio: 0.1},
-                5: {ratio: 0.3},
-                6: {ratio: 0.7},
-                7: {ratio: 0.8}
-            }
+        rankData = {
+            nickname: 'n1',
+            avatar: {small: 'asmallavatar', large: 'alargeavatar'},
+            rank: 42,
+            golds: 3,
+            silvers: 13,
+            bronzes: 51
         };
 
-        rankData = { username: 'u1', nickname: 'n1', rank: 42, golds: 3, silvers: 13, bronzes: 51 };
-        var fillUser = function(callback) {
-            if (userLogged) {
-                callback(userData);
-            }
-        }
-        var locationService = { path: function() { return currentRoute; }};
-        var userService = { fillUser: fillUser, data: userData, correctAnswer: sinon.spy() };
         var getUserRank = function(callback) {
             if (userLogged) {
                 callback(rankData);
             }
         };
-        var rankingService = { getUserRank: getUserRank };
+
+        rankingService = { getUserRank: getUserRank };
+
+        locationService = { path: function() { return currentRoute; }};
 
         analytics = {
             eventTrack: sinon.spy()
         };
+
         scope = $rootScope.$new();
+        rootScope = $rootScope;
+
         ctrl = $controller('NavbarController', {
             $scope: scope,
+            $rootScope: $rootScope,
             $analytics: analytics,
-            user: userService,
             ranking: rankingService,
             $location: locationService
         });
@@ -137,7 +133,7 @@ describe('navbar controller', function() {
             expect(analytics.eventTrack.called).to.be.true;
             expect(analytics.eventTrack.calledWithExactly('pointsClicked',{
                 category: 'navigation',
-                label: 3
+                label: rankData.nickname
             })).to.be.true;
         });
 
@@ -145,6 +141,69 @@ describe('navbar controller', function() {
             expect(ctrl.showLogout).to.be.false;
         });
 
+        it('set avatar at the beginning', function() {
+            expect(ctrl.avatar.split('?')[0]).to.equal(rankData.avatar.small);
+        });
+
+        describe('', function() {
+            beforeEach(inject(function($rootScope, $controller) {
+                rankData = { nickname: 'n1' };
+
+                ctrl = $controller('NavbarController', {
+                    $scope: scope,
+                    $rootScope: $rootScope,
+                    $analytics: analytics,
+                    ranking: rankingService,
+                    $location: locationService
+                });
+            }));
+
+            it('if user has no avatar, set it to undefined', function() {
+                expect(typeof ctrl.avatar === 'undefined').to.be.true;
+            });
+        });
+
+        it('update avatar on event', function(done) {
+            var oldAvatar = ctrl.avatar;
+
+            setTimeout(function () {
+                rootScope.$emit('avatar.refresh');
+                expect(ctrl.avatar.split('?')[0]).to.equal(rankData.avatar.small);
+                expect(ctrl.avatar).to.not.equal(oldAvatar);
+                done();
+            }, 2);
+        });
+
+        it('update nickname on event', function() {
+            rankData = {
+                nickname: 'anothernickname',
+                avatar: {small: 'asmallavatar', large: 'alargeavatar'},
+                rank: 42,
+                golds: 3,
+                silvers: 13,
+                bronzes: 51
+            };
+
+            rootScope.$emit('nickname.refresh');
+            expect(ctrl.nickname).to.equal(rankData.nickname);
+        });
+
+        it('update ranking on event', function() {
+            rankData = {
+                nickname: 'n1',
+                avatar: {small: 'asmallavatar', large: 'alargeavatar'},
+                rank: 1337,
+                golds: 101,
+                silvers: 8080,
+                bronzes: 1234
+            };
+
+            rootScope.$emit('ranking.refresh');
+            expect(ctrl.rank).to.equal(rankData.rank);
+            expect(ctrl.golds).to.equal(rankData.golds);
+            expect(ctrl.silvers).to.equal(rankData.silvers);
+            expect(ctrl.bronzes).to.equal(rankData.bronzes);
+        });
 
         describe('register link behaviour', function() {
             it('not shown in playlists', function(){
@@ -199,14 +258,10 @@ describe('navbar controller', function() {
             it('detects user is logged', function() {
                 expect(ctrl.userLogged).to.be.true;
             });
+
             it('loads user name', function() {
-                expect(ctrl.user.username).to.equal("guest");
+                expect(ctrl.nickname).to.equal(rankData.nickname);
             });
-
-            it('loads user id', function() {
-                expect(ctrl.user._id).to.equal(3);
-            });
-
         });
     });
 });

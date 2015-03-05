@@ -45,7 +45,7 @@ describe('PlotController', function() {
         [5395,5396,5456,5462],
         [5380,5381,5386,5392]
     ];
-    
+
     var expectedWeekData = [[5596, 5604, 5604, 5606, 5606, 5610, 5612],
                             [5447, 5455, 5455, 5457, 5457, 5461, 5462],
                             [5391, 5391, 5391, 5391, 5391, 5391, 5392]];
@@ -67,31 +67,31 @@ describe('PlotController', function() {
     });
 
     it('week labels', function() {
-        nowDate = new Date('2015-01-30');
+        setNowDate(2015, 1, 30);
         ctrl.setPeriod('week');
         expect(ctrl.labels).to.deep.equal(['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Today']);
 
-        nowDate = new Date('2015-01-31');
+        setNowDate(2015, 1, 31);
         ctrl.setPeriod('week');
         expect(ctrl.labels).to.deep.equal(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Today']);
 
-        nowDate = new Date('2015-02-01');
+        setNowDate(2015, 2, 1);
         ctrl.setPeriod('week');
         expect(ctrl.labels).to.deep.equal(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Today']);
 
-        nowDate = new Date('2015-02-02');
+        setNowDate(2015, 2, 2);
         ctrl.setPeriod('week');
         expect(ctrl.labels).to.deep.equal(['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Today']);
 
-        nowDate = new Date('2015-02-03');
+        setNowDate(2015, 2, 3);
         ctrl.setPeriod('week');
         expect(ctrl.labels).to.deep.equal(['Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Today']);
 
-        nowDate = new Date('2015-02-04');
+        setNowDate(2015, 2, 4);
         ctrl.setPeriod('week');
         expect(ctrl.labels).to.deep.equal(['Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Today']);
 
-        nowDate = new Date('2015-02-05');
+        setNowDate(2015, 2, 5);
         ctrl.setPeriod('week');
         expect(ctrl.labels).to.deep.equal(['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Today']);
     });
@@ -99,5 +99,13 @@ describe('PlotController', function() {
     it('month labels', function() {
         ctrl.setPeriod('month');
         expect(ctrl.labels).to.deep.equal(['3 weeks ago', '2 weeks ago', 'last week', 'this week']);
-    })
+    });
+
+    function setNowDate(year, month, day) {
+        var d = new Date();
+        d.setYear(year);
+        d.setMonth(month-1);
+        d.setDate(day);
+        nowDate = d;
+    }
 });

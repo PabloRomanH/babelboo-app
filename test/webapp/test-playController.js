@@ -55,7 +55,7 @@ describe("controllers", function() {
                         }
                     }
                 }
-                
+
             };
 
             ctrl = $controller('PlayController', {

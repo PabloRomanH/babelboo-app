@@ -47,10 +47,10 @@ describe('Beta registration controller', function() {
             expect(loginService.calledWith(NICKNAME, PASSWORD)).to.be.true;
         });
 
-        it('redirects to playlists after registration', function() {
+        it('redirects to tutorial after registration', function() {
             ctrl.register(EMAIL, NICKNAME, PASSWORD);
 
-            expect(locationService.path.calledWithExactly('/')).to.be.true;
+            expect(locationService.path.calledWithExactly('/tutorial')).to.be.true;
         });
     });
 

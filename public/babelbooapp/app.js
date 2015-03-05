@@ -1,9 +1,9 @@
 (function() {
     var app = angular.module('babelbooapp', [
         'ngRoute', 'navbar', 'betaregistration', 'recover', 'resetpassword',
-        'services', 'landing', 'video', 'tv', 'player', 'playlist', 'playlists',
+        'services', 'video', 'tv', 'player', 'playlist', 'playlists',
         'ranking', 'plot', 'profile', 'managePlaylists', 'angulartics',
-        'angulartics.google.analytics']);
+        'angulartics.google.analytics', 'angularFileUpload' ]);
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ // Initialize a new promise
         var deferred = $q.defer();
@@ -124,6 +124,9 @@
             }).
             when('/tutorial', {
                 templateUrl: '/babelbooapp/tutorial/tutorial-fragment.html',
+                resolve: {
+                    loggedin: checkLoggedin
+                }
             }).
             otherwise({
                 templateUrl: '/babelbooapp/error-fragment.html',

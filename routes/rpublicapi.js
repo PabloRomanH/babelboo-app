@@ -227,7 +227,9 @@ function sendEmail(to, subject, text, html) {
 function registerOnMailchimp(email) {
     var mailchimpOpts = {
         id: 'ae8469cddc',
-        email: email,
+        email: {
+            email: email
+        },
         merge_vars: {
             groupings: [
                 {
@@ -241,11 +243,16 @@ function registerOnMailchimp(email) {
                 {
                     name: "Babelboo updates",
                     groups: ["New release"]
+                },
+                {
+                    name: "Registration type",
+                    groups: ["users"]
                 }
             ],
             mc_language: 'es_ES'
         },
-        double_optin: true
+        double_optin: false,
+        update_existing: true
     };
 
     mailchimp.lists.subscribe(mailchimpOpts,

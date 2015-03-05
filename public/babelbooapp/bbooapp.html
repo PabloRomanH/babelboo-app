@@ -6,8 +6,6 @@
     <meta name="title" content="babelboo"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>babelboo</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/angular-chart.css">
     <link rel="stylesheet" href="/css/materialize.min.css">
@@ -19,9 +17,9 @@
     <script src="/lib/sha1.js"></script>
     <script src="/lib/jquery.min.js"></script>
     <script src="/lib/materialize.min.js"></script>
+    <script src="/lib/angular-file-upload.min.js"></script>
     <script src="/babelbooapp/navbar.js"></script>
     <script src="/babelbooapp/betaregistration/beta.js"></script>
-    <script src="/babelbooapp/landing/landing.js"></script>
     <script src="/babelbooapp/playlist/playlist.js"></script>
     <script src="/babelbooapp/video/video.js"></script>
     <script src="/babelbooapp/editPlaylists/playlists.js"></script>
@@ -60,7 +58,7 @@
         <form ng-submit="feedbackCtrl.submit(feedback)">
           <h3>What's on your mind?</h3>
           <textarea class="form-control" rows="7" placeholder="Send us any comments or opinions on babelboo." ng-model="feedback"></textarea>
-          <button class="btn btn-default" type="submit">Send</button>
+          <button class="btn light-blue darken-4" type="submit">Send</button>
         </form>
       </div>
     </div>

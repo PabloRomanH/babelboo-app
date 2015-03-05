@@ -44,9 +44,8 @@
             videos.getByLevel(level).success(function (data) {
                 controller.videos = shuffle(data);
                 controller.videoId = controller.videos[controller.idx].videoId;
+                $analytics.eventTrack('played', { category: 'tv', label: controller.videos[controller.idx].id });
             });
-
-            $analytics.eventTrack('played', { category: 'tv', label: controller.videos[controller.idx].id });
         }
 
         controller.playPrevious = function () {

@@ -1,0 +1,37 @@
+<div class="cine tutorial" ng-class="{'cover': step == 0 || step == 5}" ng-init="step = 0">
+  <i class="fa fa-angle-right btn-next" ng-click="step = step + 1" ng-show="step > 0 && step < 5"></i>
+  <i class="fa fa-angle-left btn-prev" ng-click="step = step - 1" ng-show="step > 0" ng-class="{'light': step == 5}"></i>
+  <div><a href="/" class="btn-flat grey-text next" ng-show="step > 0 && step < 5">skip</a></div>
+  <div class="steps">
+    <i class="fa fa-circle" ng-show="step > 0 && step < 5"></i>
+    <i class="fa fa-circle" ng-class="{'past': step >= 1, 'future': step < 2}" ng-show="step > 0 && step < 5"></i>
+    <i class="fa fa-circle" ng-class="{'past': step >= 2, 'future': step < 3}" ng-show="step > 0 && step < 5"></i>
+    <i class="fa fa-circle" ng-class="{'past': step >= 3, 'future': step < 4}" ng-show="step > 0 && step < 5"></i>
+  </div>
+
+  <div class="step0" ng-show="step == 0">
+    <h1>Welcome to Babelboo</h1>
+    <h2>a tutorial to learn English with videos</h2>
+    <div><a href="#" class="btn-large waves-effect waves-dark grey lighten-5 light-blue-text text-darken-4" ng-click="step = step + 1">Start tutorial</a></div>
+    <div><a href="/" class="btn-flat grey-text text-lighten-2">skip</a></div>
+  </div>
+
+  <div class="step1" ng-show="step == 1">
+  </div>
+
+  <div class="step2" ng-show="step == 2">
+  </div>
+
+  <div class="step3" ng-show="step == 3">
+  </div>
+
+  <div class="step4" ng-show="step == 4">
+  </div>
+
+  <div class="step5" ng-show="step == 5">
+    <h1>Have fun!</h1>
+    <div class="end-btn">
+      <a href="/" class="btn-large waves-effect waves-dark grey lighten-5 light-blue-text text-darken-4">Let's go!</a>
+    </div>
+  </div>
+</div>

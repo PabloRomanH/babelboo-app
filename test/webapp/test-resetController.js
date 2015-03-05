@@ -41,11 +41,16 @@ describe('password recovery controller', function() {
         expect(ctrl.show).to.equal('success');
     });
 
-    it('shows failure message if the password can\'t be changed', function() {
+    it('hides new password form if the password can\'t be changed', function() {
         success = false;
         ctrl.setNewPassword(NEW_PASSWORD);
 
-        expect(ctrl.show).to.equal('failure');
+        expect(ctrl.show).to.not.equal('form');
     });
 
+    it('hides new password form if password is changed successfully', function() {
+        ctrl.setNewPassword(NEW_PASSWORD);
+
+        expect(ctrl.show).to.not.equal('form');
+    });
 });
