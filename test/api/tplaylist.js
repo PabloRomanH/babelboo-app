@@ -11,9 +11,11 @@ var app = require('../../server');
 
 var request = supertest(app);
 
-describe.only('API /api/playlist public part', function(done) {
+describe('API /api/playlist public part', function(done) {
     var db;
     var playlistsdb;
+        db = app.db;
+        playlistsdb = db.get('playlists');
 
     before(function() {
         db = app.db;
@@ -27,44 +29,28 @@ describe.only('API /api/playlist public part', function(done) {
     });
 
     describe('testing /playlist/:id-or-slug', function() {
-        var playlist = {_id: '396b3374783839356f786378', slug: 'a-slug'};
+        var playlistId = '396b3374783839356f786378';
+        var slug = 'a-slug';
 
         it('should return a playlist by Id', function(done) {
-            playlistsdb.insert(playlist, function() {
-                playlistsdb.find({},{},function (err, res) {
-                    console.log('In db:');
-                    for(var i = 0; i < res.length; i++) {
-                        console.log(res[i]);
-                    }
-
-                    request.get('/api/playlist/' + playlist._id)
-                        .expect(200)
-                        .end(function(req, res) {
-                            console.log('expected', playlist);
-                            console.log('got', res.body);
-                            expect(res.body).to.equal(playlist);
-                            done();
-                        });
-                })
+            playlistsdb.insert({_id: playlistId, slug: slug}, function() {
+                request.get('/api/playlist/' + playlistId)
+                    .expect(200)
+                    .end(function(req, res) {
+                        expect(res.body).to.deep.equal({_id: playlistId, slug: slug});
+                        done();
+                    });
             });
         });
 
         it('should return a playlist by slug', function(done) {
-            playlistsdb.insert(playlist, function() {
-                playlistsdb.find({},{},function (err, res) {
-                    console.log('In db:');
-                    for(var i = 0; i < res.length; i++) {
-                        console.log(res[i]);
-                    }
-                request.get('/api/playlist/' + playlist.slug)
+            playlistsdb.insert({_id: playlistId, slug: slug}, function() {
+                request.get('/api/playlist/' + slug)
                     .expect(200)
                     .end(function(req, res) {
-                            console.log('expected', playlist);
-                            console.log('got', res.body);
-                        expect(res.body).to.equal(playlist);
+                        expect(res.body).to.deep.equal({_id: playlistId, slug: slug});
                         done();
                     });
-                });
             });
         });
 

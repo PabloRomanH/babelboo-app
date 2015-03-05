@@ -45,24 +45,9 @@ router.get('/playlist/:id_or_slug', function(req, res) {
     var idOrSlug = req.params.id_or_slug;
 
     try {
-        // collection.find({_id: idOrSlug},{},function (err, result) {
-        // var query = {$or: [{_id: idOrSlug}, {slug: idOrSlug}]};
-        // var query = { $or: [{_id: idOrSlug}, {slug: idOrSlug}] }
-        // console.log('query', query);
-        // collection.find(query,{},function (err, result) {
-        //     if (result.length < 1) {
-        //         res.status(404);
-        //         res.json({ error: { message: 'Not found', code: 404 }});
-        //     } else {
-        //         res.json( result[0] );
-        //     }
-        // });
-
-        collection.find({_id: idOrSlug}, {}, function (err, result) {
-            var foundById = result.length < 1;
-
+        collection.find({slug: idOrSlug}, {}, function (err, result) {
             if (result.length < 1) {
-                collection.find({slug: idOrSlug}, {}, function (err, result) {
+                collection.find({_id: idOrSlug}, {}, function (err, result) {
                     if (result.length < 1) {
                         res.status(404);
                         res.json({ error: { message: 'Not found', code: 404 }});
@@ -74,8 +59,8 @@ router.get('/playlist/:id_or_slug', function(req, res) {
                 res.json( result[0] );
             }
         });
-
     } catch (err) {
+        console.log(err);
         res.status(500);
         res.json({ error: { message: 'Internal server error', code: 500 }});
         return;
