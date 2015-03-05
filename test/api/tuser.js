@@ -728,49 +728,60 @@ describe('API /api/user private part', function() {
         });
     });
 
-    describe('current password ok', function() {
-        it('all fields are updated (including password))', function(done) {
-            var newUsername = 'anotheruser@test.com';
-            var newNickname = 'anotheruser';
-            var newPassword = 'i68a8ia8aa0aai7';
 
-            request
-                .post('/api/user/update')
-                .set('Cookie', setCookie)
-                .send({nickname: newNickname, username: newUsername, password: HASHED_PASSWORD, newpassword: newPassword})
-                .expect(201)
-                .end(function (err, res) {
-                    if (err) throw err;
-                    userdb.find({username: newUsername}, function(err, result) {
-                        expect(result.length).to.be.above(0);
-                        expect(result[0].username).to.equal(newUsername);
-                        expect(result[0].nickname).to.equal(newNickname);
-                        expect(result[0].password).to.equal(newPassword);
+    describe('retrieve user data', function () {
+        var user;
 
+        beforeEach(function (done) {
+            var logindb = db.get('testlogin');
+
+            var set = {
+                daysvisited: 13,
+                lastvisit: new Date(),
+                medalhistory: [1,2,3],
+                nickname: NICKNAME,
+                playlistprogress: {a: 1, b: 2, c: 3}
+            }
+
+            logindb.update({username: USERNAME}, {$set: set}, function () {
+                return request
+                    .get('/api/user')
+                    .set('Cookie', setCookie)
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) throw err;
+                        user = JSON.parse(res.text);
                         done();
                     });
-                });
+            });
         });
 
-        it('NO new password, username and nickname are updated (not the password)', function(done) {
-            var newUsername = 'anotheruser@test.com';
-            var newNickname = 'anotheruser';
+        it('returns username field', function() {
+            expect(user.username).to.exist;
+        });
 
-            request
-                .post('/api/user/update')
-                .set('Cookie', setCookie)
-                .send({nickname: newNickname, username: newUsername, password: HASHED_PASSWORD, newpassword: undefined})
-                .expect(201)
-                .end(function (err, res) {
-                    if (err) throw err;
-                    userdb.find({username: newUsername}, function(err, result) {
-                        expect(result[0].username).to.equal(newUsername);
-                        expect(result[0].nickname).to.equal(newNickname);
-                        expect(result[0].password).to.equal(HASHED_PASSWORD);
+        it('returns nickname field', function() {
+            expect(user.nickname).to.exist;
+        });
 
-                        done();
-                    });
-                });
+        it('does not return password field', function() {
+            expect(user.password).to.not.exist;
+        });
+
+        it('does not return daysvisited field', function() {
+            expect(user.daysvisited).to.not.exist;
+        });
+
+        it('does not return lastvisit field', function() {
+            expect(user.lastvisit).to.not.exist;
+        });
+
+        it('does not return medalhistory field', function() {
+            expect(user.medalhistory).to.not.exist;
+        });
+
+        it('returns playlistprogress field', function() {
+            expect(user.playlistprogress).to.exist;
         });
 
         it('username conflicts with existing user in the database', function (done) {
@@ -838,36 +849,91 @@ describe('API /api/user private part', function() {
         });
     });
 
-    describe('current password NOT ok', function() {
-        it('returns error', function() {
-            var newUsername = 'anotheruser@test.com';
-            var newNickname = 'anotheruser';
+    describe('update user profile', function() {
+        var userdb = db.get('usercollection');
 
-            return request
-                .post('/api/user/update')
-                .set('Cookie', setCookie)
-                .send({nickname: newNickname, username: newUsername, password: 'notgoodhashedpassword', newpassword: undefined})
-                .expect(401);
+        beforeEach(function(done) {
+            userdb.drop(function() {
+                userdb.insert({username: USERNAME, nickname: NICKNAME, password: HASHED_PASSWORD}, done);
+            });
         });
 
-        it('does not change db', function(done) {
-            var newUsername = 'anotheruser@test.com';
-            var newNickname = 'anotheruser';
+        describe('current password ok', function() {
+            it('all fields are updated (including password))', function(done) {
+                var newUsername = 'anotheruser@test.com';
+                var newNickname = 'anotheruser';
+                var newPassword = 'i68a8ia8aa0aai7';
 
-            request
-                .post('/api/user/update')
-                .set('Cookie', setCookie)
-                .send({nickname: newNickname, username: newUsername, password: 'notgoodhashedpassword', newpassword: undefined})
-                .end(function (err, res) {
-                    if (err) throw err;
-                    userdb.find({username: USERNAME}, function(err, result) {
-                        expect(result[0].username).to.equal(USERNAME);
-                        expect(result[0].nickname).to.equal(NICKNAME);
-                        expect(result[0].password).to.equal(HASHED_PASSWORD);
+                request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: newNickname, username: newUsername, password: HASHED_PASSWORD, newpassword: newPassword})
+                    .expect(201)
+                    .end(function (err, res) {
+                        if (err) throw err;
+                        userdb.find({username: newUsername}, function(err, result) {
+                            expect(result.length).to.be.above(0);
+                            expect(result[0].username).to.equal(newUsername);
+                            expect(result[0].nickname).to.equal(newNickname);
+                            expect(result[0].password).to.equal(newPassword);
 
-                        done();
+                            done();
+                        });
                     });
-                });
+            });
+
+            it('NO new password, username and nickname are updated (not the password)', function(done) {
+                var newUsername = 'anotheruser@test.com';
+                var newNickname = 'anotheruser';
+
+                request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: newNickname, username: newUsername, password: HASHED_PASSWORD, newpassword: undefined})
+                    .expect(201)
+                    .end(function (err, res) {
+                        if (err) throw err;
+                        userdb.find({username: newUsername}, function(err, result) {
+                            expect(result[0].username).to.equal(newUsername);
+                            expect(result[0].nickname).to.equal(newNickname);
+                            expect(result[0].password).to.equal(HASHED_PASSWORD);
+
+                            done();
+                        });
+                    });
+            });
+        });
+
+        describe('current password NOT ok', function() {
+            it('returns error', function() {
+                var newUsername = 'anotheruser@test.com';
+                var newNickname = 'anotheruser';
+
+                return request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: newNickname, username: newUsername, password: 'notgoodhashedpassword', newpassword: undefined})
+                    .expect(401);
+            });
+
+            it('does not change db', function(done) {
+                var newUsername = 'anotheruser@test.com';
+                var newNickname = 'anotheruser';
+
+                request
+                    .post('/api/user/update')
+                    .set('Cookie', setCookie)
+                    .send({nickname: newNickname, username: newUsername, password: 'notgoodhashedpassword', newpassword: undefined})
+                    .end(function (err, res) {
+                        if (err) throw err;
+                        userdb.find({username: USERNAME}, function(err, result) {
+                            expect(result[0].username).to.equal(USERNAME);
+                            expect(result[0].nickname).to.equal(NICKNAME);
+                            expect(result[0].password).to.equal(HASHED_PASSWORD);
+                            done();
+                        });
+                    });
+            });
         });
     });
 
@@ -1058,7 +1124,6 @@ describe('API /api/user private part', function() {
             });
         });
     });
-
 });
 
 function nDaysAgo(nDays) {
