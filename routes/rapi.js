@@ -76,13 +76,12 @@ router.get('/tag', function(req, res) {
 });
 
 router.get('/user', function(req, res) {
-    var collection = req.db.get('usercollection');
-
     var user = {
         username: req.user.username,
         nickname: req.user.nickname,
         playlistprogress: req.user.playlistprogress
     };
+    
     res.json(user);
 });
 
