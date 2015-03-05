@@ -16,14 +16,15 @@
             var path = $location.path();
             if (/\/play\//.test(path)) {
                 var match = path.match(/\/play\/(.*)/);
-                playlists.playById(match[1]).success(function(data){
-                    $window.open('https://twitter.com/intent/tweet?text=Cool playlist in Babelboo: ' + data.title + '&url=http://www.babelboo.com' + path, '_blank');
+                playlists.playById(match[1]).success(function(data) {
+                    var message = 'Me ha gustado este playlist en @babelboo : ' + data.title;
+                    $window.open('https://twitter.com/intent/tweet?text=' + message + '&url=http://www.babelboo.com' + path, '_blank');
                 });
             } else if (path == '/tv') {
-                var message = 'Learn English without worries with Boo TV';
+                var message = 'Aprende inglés sin preocupaciones con Boo TV @babelboo';
                 $window.open('https://twitter.com/intent/tweet?text=' + message + '&url=http://www.babelboo.com' + path, '_blank');
             } else {
-                var generalMessage = 'Have fun, learn English with Babelboo';
+                var generalMessage = 'Aprende inglés mirando videos con @babelboo. Have fun, learn English.';
                 var generalUrl = 'http://www.babelboo.com';
 
                 $window.open('https://twitter.com/intent/tweet?text=' + generalMessage + '&url=' + generalUrl, '_blank');
@@ -35,14 +36,14 @@
             if (/\/play\//.test(path)) {
                 var match = path.match(/\/play\/(.*)/);
                 playlists.playById(match[1]).success(function(data){
-                    var url = "mailto:?subject=" + escape("Check out this playlist") + "&body=" + escape('Hey, check out this playlist in Babelboo:\n\n' + data.title + ': ' + 'http://www.babelboo.com' + path);
+                    var url = "mailto:?subject=" + escape("mirate estos videos en inglés") + "&body=" + escape('He encontrado un playlist muy bueno en Babelboo. Miratelo.\n\n' + data.title + ': ' + 'http://www.babelboo.com' + path);
                     $window.open(url, '_blank');
                 });
             } else if (path == '/tv') {
-                var url = "mailto:?subject=" + escape("Check out Boo TV") + "&body=" + escape('Check Boo TV. It\'s a great way to improve your English without worries.\n\nhttp://www.babelboo.com/tv');
+                var url = "mailto:?subject=" + escape("nueva web para aprender inglés") + "&body=" + escape('Mirate Boo TV. Es una manera genial de mejorar el inglés sin preocuparte.\n\nhttp://www.babelboo.com/tv');
                 $window.open(url, '_blank');
             } else {
-                var url = "mailto:?subject=" + escape("Check out Babelboo") + "&body=" + escape('Check Babelboo, a great way to improve your English.\n\nhttp://www.babelboo.com');
+                var url = "mailto:?subject=" + escape("nueva web para aprender inglés") + "&body=" + escape('He descubierto Babelboo. Es una manera genial de mejorar tu inglés.\n\nDale al enlace para entrar:\n\nhttp://www.babelboo.com');
 
                 $window.open(url, '_blank');
             }
