@@ -46,12 +46,14 @@
         var service = {};
 
         /**
-         * This retrieves the videos of a playlist to play and notifies the API
+         * Retrieves the videos of a playlist to play and notifies the API
          * to increase the play count.
          */
-        service.playById = function(playlistId) {
-            $http.post('/api/playlist/' + playlistId + '/increasevisitcount');
-            return $http.get('/api/playlist/' + playlistId);
+        service.getPlaylist = function(idOrSlug, callback) {
+            $http.get('/api/playlist/' + idOrSlug).success(function (data) {
+                $http.post('/api/playlist/' + data._id + '/increasevisitcount');
+                callback(data);
+            });
         };
 
         service.getRelated = function(playlistId) {

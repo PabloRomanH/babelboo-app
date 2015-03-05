@@ -1,4 +1,4 @@
-describe("controllers", function() {
+describe("play controller", function() {
     beforeEach(module('player'));
     beforeEach(module('babelbooapp'));
 
@@ -19,60 +19,60 @@ describe("controllers", function() {
     }
     var user = { fillUser: fillUser, data: userData, correctAnswer: sinon.spy() };
 
-    describe("play controller", function() {
-        var ctrl;
-        var scope;
-        var analytics;
-        var routeParams;
-        var playlists;
-        var playlist = {
-            "_id": "54808ae31249b9630cbedcf4",
-            "entries": [
-                {
-                    "id": "xkiYn8LFFQY",
-                    "correctanswer": 2
-                },
-                {
-                    "id": "wI5gVEzrc_Q",
-                    "correctanswer": 1
-                }
-            ],
+    var ctrl;
+    var scope;
+    var analytics;
+    var routeParams;
+    var playlists;
+    var playlist = {
+        "_id": "123A",
+        "entries": [
+            {
+                "id": "xkiYn8LFFQY",
+                "correctanswer": 2
+            },
+            {
+                "id": "wI5gVEzrc_Q",
+                "correctanswer": 1
+            }
+        ],
+    };
+
+    beforeEach(inject(function($controller, $rootScope) {
+        scope = $rootScope.$new();
+        analytics = {
+            eventTrack: sinon.spy()
         };
 
-        beforeEach(inject(function($controller, $rootScope) {
-            scope = $rootScope.$new();
-            analytics = {
-                eventTrack: sinon.spy()
-            };
-            routeParams = {
-                playlistId: "123A"
-            };
-            playlists = {
-                playById: function (playlistId) {
-                    return {
-                        success: function (callback) {
-                            callback(playlist);
-                        }
-                    }
-                }
+        routeParams = {
+            playlistId: "123A"
+        };
 
-            };
+        playlists = {
+            getPlaylist: function (playlistIdOrSlug, callback) {
+                callback(playlist);
+            }
+        };
 
-            ctrl = $controller('PlayController', {
-                user: user,
-                playlists: playlists,
-                $scope: scope,
-                $analytics: analytics
-            });
-        }));
-
-        afterEach (function() {
-            analytics.eventTrack.reset();
-            user.correctAnswer.reset();
+        ctrl = $controller('PlayController', {
+            user: user,
+            playlists: playlists,
+            $scope: scope,
+            $analytics: analytics
         });
+    }));
 
-        it('loads playlist', function() {
-            expect(ctrl.playlist).to.equal(playlist);
-        });
+
+    it('loads playlist', function() {
+        expect(ctrl.playlist).to.equal(playlist);
+    });
+
+    it('sets playlistId', function() {
+        expect(ctrl.playlistId).to.equal(playlist._id);
+    });
+
+    afterEach (function() {
+        analytics.eventTrack.reset();
+        user.correctAnswer.reset();
     });
 });
