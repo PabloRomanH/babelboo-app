@@ -19,11 +19,8 @@ describe('share buttons controller', function() {
         };
 
         playlistsService = {
-            playById: function () {
-                return { success: function (callback) {
-                        callback({ title: playlistTitle });
-                    }
-                };
+            getPlaylist: function (id, callback) {
+                callback({ title: playlistTitle });
             }
         };
 
@@ -35,21 +32,21 @@ describe('share buttons controller', function() {
     }));
 
     it('opens the facebook share address with the correct playlist url', function() {
-        path = '/play/shau9sr8g.sru8fr8asrgr';
+        path = '/play/playlist-title';
         ctrl.facebook();
         expect(windowService.open.calledWithExactly('https://www.facebook.com/sharer/sharer.php?u=http://www.babelboo.com' + path, '_blank')).to.be.true;
     });
 
     it('opens the twitter share address with the correct playlist url and name', function() {
-        path = '/play/shau9sr8g.sru8fr8asrgr';
+        path = '/play/playlist-title';
         ctrl.twitter();
         var message = 'Me ha gustado este playlist en @babelboo : ' + playlistTitle;
         expect(windowService.open.calledWithExactly('https://twitter.com/intent/tweet?text=' + message + '&url=http://www.babelboo.com' + path, '_blank')).to.be.true;
     });
 
     it('opens a new email with the correct playlist url and name', function() {
-        var path = '/play/shau9sr8g.sru8fr8asrgr';
-        var url = "mailto:?subject=" + escape("mirate estos videos en inglés") + "&body=" + escape('He encontrado un playlist muy bueno en Babelboo. Miratelo.\n\n' + playlistTitle + ': ' + 'http://www.babelboo.com' + path);
+        path = '/play/playlist-title';
+        var url = "mailto:?subject=" + "Mírate estos videos en inglés" + "&body=" + 'He encontrado un playlist muy bueno en Babelboo. Míratelo.' + escape('\n\n') + playlistTitle + ': ' + 'http://www.babelboo.com' + path;
         ctrl.email();
         expect(windowService.open.calledWithExactly(url, '_blank')).to.be.true;
     });
@@ -63,7 +60,7 @@ describe('share buttons controller', function() {
 
     it('opens a new email with the boo tv url and message', function() {
         var path = '/tv';
-        var url = "mailto:?subject=" + escape("nueva web para aprender inglés") + "&body=" + escape('Mirate Boo TV. Es una manera genial de mejorar el inglés sin preocuparte.\n\nhttp://www.babelboo.com/tv');
+        var url = "mailto:?subject=" + 'Nueva web para aprender inglés' + "&body=" + 'Mírate Boo TV. Es una manera genial de mejorar el inglés sin preocuparte.' + escape('\n\n') + 'http://www.babelboo.com/tv';
         ctrl.email();
         expect(windowService.open.calledWithExactly(url, '_blank')).to.be.true;
     });
@@ -90,7 +87,7 @@ describe('share buttons controller', function() {
     });
 
     it('opens a new email with the landing page url and message', function() {
-        var url = "mailto:?subject=" + escape("nueva web para aprender inglés") + "&body=" + escape('He descubierto Babelboo. Es una manera genial de mejorar tu inglés.\n\nDale al enlace para entrar:\n\nhttp://www.babelboo.com');
+        var url = "mailto:?subject=" + "Nueva web para aprender inglés" + "&body=" + 'He descubierto Babelboo. Es una manera genial de mejorar tu inglés.' + escape('\n\n') + 'Dale al enlace para entrar:' + escape('\n\n') + 'http://www.babelboo.com';
         ctrl.email();
         expect(windowService.open.calledWithExactly(url, '_blank')).to.be.true;
 
