@@ -713,18 +713,20 @@ describe('API /api/user private part', function() {
     });
 
     beforeEach(function(done) {
-        logindb.insert({username: USERNAME, nickname: NICKNAME, password: HASHED_PASSWORD},
-            function () {
-                app.onSessionConnected(function() {
-                    request.post('/login')
-                        .send({ username: USERNAME, password: HASHED_PASSWORD })
-                        .end(function(err, res){
-                            setCookie = res.headers['set-cookie'];
-                            if (err) throw err;
-                            done();
-                        });
-                }
-            );
+        logindb.drop(function() {
+            logindb.insert({username: USERNAME, nickname: NICKNAME, password: HASHED_PASSWORD},
+                function () {
+                    app.onSessionConnected(function() {
+                        request.post('/login')
+                            .send({ username: USERNAME, password: HASHED_PASSWORD })
+                            .end(function(err, res){
+                                setCookie = res.headers['set-cookie'];
+                                if (err) throw err;
+                                done();
+                            });
+                    }
+                );
+            });
         });
     });
 

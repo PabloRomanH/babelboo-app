@@ -20,9 +20,9 @@ manual testing
 send email
 
 # Next release:
-- Social share buttons.
-
 - Friendly URLs
+- Make popular playlists change over time
+
 
 # Bugfixes:
 - /login can be accessed even when logged in
