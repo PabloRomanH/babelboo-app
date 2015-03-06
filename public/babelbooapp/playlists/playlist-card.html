@@ -6,7 +6,7 @@
     <div class="th"><img ng-src="{{ playlist.entries[3] ? playlist.entries[3].thumbnail : '/img/nothumbnail.png' }}"></div>
   </div>
 
-  <a class="fa-stack fa-lg play-btn" ng-href="/play/{{ playlist._id }}">
+  <a class="fa-stack fa-lg play-btn" ng-href="/play/{{ playlist.slug }}">
     <i class="fa fa-circle fa-stack-2x play-circle"></i>
     <i class="fa fa-play fa-stack-1x"></i>
   </a>
