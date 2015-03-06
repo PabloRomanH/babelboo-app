@@ -40,19 +40,27 @@ router.get('/playlist/popular', function(req, res) {
     });
 });
 
-router.get('/playlist/:playlist_id', function(req, res) {
+router.get('/playlist/:id_or_slug', function(req, res) {
     var collection = req.db.get('playlists');
+    var idOrSlug = req.params.id_or_slug;
 
     try {
-        collection.find({_id: req.params.playlist_id},{},function (err, result) {
+        collection.find({slug: idOrSlug}, {}, function (err, result) {
             if (result.length < 1) {
-                res.status(404);
-                res.json({ error: { message: 'Not found', code: 404 }});
+                collection.find({_id: idOrSlug}, {}, function (err, result) {
+                    if (result.length < 1) {
+                        res.status(404);
+                        res.json({ error: { message: 'Not found', code: 404 }});
+                    } else {
+                        res.json( result[0] );
+                    }
+                });
             } else {
                 res.json( result[0] );
             }
         });
     } catch (err) {
+        console.log(err);
         res.status(500);
         res.json({ error: { message: 'Internal server error', code: 500 }});
         return;

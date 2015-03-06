@@ -21,9 +21,9 @@ send email
 
 # Next release:
 - Have fun, learn English in landing page
-- Social share buttons.
-
 - Friendly URLs
+- Make popular playlists change over time
+
 
 # Bugfixes:
 - /login can be accessed even when logged in

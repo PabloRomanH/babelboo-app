@@ -5,12 +5,27 @@
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
-
         controller.userLogged = false;
-
         controller.correctAnswers = 0;
         controller.ready = false;
         controller.elapsed = 0;
+        controller.ratio = 0;
+        controller.show = 'player';
+        controller.videos = [];
+        controller.relatedplaylists = [];
+        controller.levelNames = levelNames.names;
+        controller.renderTime = renderTime;
+        controller.idx = 0;
+        controller.playerVars = { autoplay: 1, controls: 0, rel: 0, cc_load_policy: 0 };
+        controller.player = null;
+
+        playlists.getPlaylist(playlistId, function (data) {
+            controller.playlist = data;
+            controller.videos = data.entries;
+            controller.playlistId = data._id;
+            resetVideo();
+            playlistRetrieved = true;
+        });
 
         user.fillUser(function (userData) {
             controller.correct = {};
@@ -26,19 +41,6 @@
             controller.userLogged = true;
         });
 
-        controller.ratio = 0;
-
-        controller.show = 'player';
-        controller.videos = [];
-        controller.relatedplaylists = [];
-
-        controller.levelNames = levelNames.names;
-        controller.renderTime = renderTime;
-
-        controller.idx = 0;
-        controller.playerVars = { autoplay: 1, controls: 0, rel: 0, cc_load_policy: 0 };
-        controller.player = null;
-
         function resetVideo () {
             if (controller.idx >= controller.videos.length) {
                 return;
@@ -50,13 +52,6 @@
             controller.playerVars.start = controller.videos[controller.idx].starttime;
             controller.playerVars.end = controller.videos[controller.idx].endtime;
         }
-
-        playlists.playById(playlistId).success(function(data) {
-            controller.playlist = data;
-            controller.videos = data.entries;
-            resetVideo();
-            playlistRetrieved = true;
-        });
 
         function playNextAnalytics () {
             var eventname;

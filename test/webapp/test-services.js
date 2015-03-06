@@ -65,14 +65,43 @@ describe('services', function() {
             playlists.getPopular(NUM_POPULAR_RESULTS, 1).success(function(data) {
                 expect(data).to.equal(popularEasy);
             });
+
             playlists.getPopular(NUM_POPULAR_RESULTS, 2).success(function(data) {
                 expect(data).to.equal(popularMedium);
             });
+
             playlists.getPopular(NUM_POPULAR_RESULTS, 3).success(function(data) {
                 expect(data).to.equal(popularHard);
             });
 
             $httpBackend.flush();
+        });
+
+        describe('getPlaylist', function() {
+            var playlist = {
+                _id: 'lcg1ifirc51fc5in',
+                slug: 'a-descriptive-slug'
+            };
+
+            it('returns requested playlist when called with id', function() {
+                $httpBackend.expectGET('/api/playlist/' + playlist._id).respond(playlist);
+                $httpBackend.expectPOST('/api/playlist/' + playlist._id + '/increasevisitcount').respond(200);
+                playlists.getPlaylist(playlist._id, function (data) {
+                    expect(data).to.deep.equal(playlist);
+                });
+
+                $httpBackend.flush();
+            });
+
+            it('returns requested playlist when called with slug', function() {
+                $httpBackend.expectGET('/api/playlist/' + playlist.slug).respond(playlist);
+                $httpBackend.expectPOST('/api/playlist/' + playlist._id + '/increasevisitcount').respond(200);
+                playlists.getPlaylist(playlist.slug, function (data) {
+                    expect(data).to.deep.equal(playlist);
+                });
+
+                $httpBackend.flush();
+            });
         });
     });
 
