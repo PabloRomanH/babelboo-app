@@ -1,7 +1,7 @@
 
 
 var express = require('express');
-
+var slug = require('slug');
 var router = express.Router();
 
 router.delete('/playlist/:playlist_id', function(req, res) {
@@ -12,39 +12,67 @@ router.delete('/playlist/:playlist_id', function(req, res) {
 });
 
 router.put('/playlist/:playlist_id', function(req, res) {
-    upsertPlaylist(req.body, req.params.playlist_id, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
-
-    res.status(200); // OK
-    res.json();
+    upsertPlaylist(req.body, req.params.playlist_id, req.db, function (err) {
+        if (err) {
+            res.status(500);
+            res.json(err);
+        } else {
+            res.status(200);
+            res.json();
+        }
+    }); // FIXME check format and return appropriate JSON in callback depending on success or failure
 });
 
 router.post('/playlist', function(req, res) {
-    upsertPlaylist(req.body, null, req.db); // FIXME check format and return appropriate JSON in callback depending on success or failure
-
-    res.status(201); // CREATED
-    res.json();
+    upsertPlaylist(req.body, null, req.db, function (err) {
+        if (err) {
+            res.status(500);
+            res.json(err);
+        } else {
+            res.status(201);
+            res.json();
+        }
+    }); // FIXME check format and return appropriate JSON in callback depending on success or failure
 });
 
-function upsertPlaylist(body, playlistId, db) {
+function upsertPlaylist(playlist, playlistId, db, callback) {
     var collection = db.get('playlists');
 
     // TODO verify format and permissions of request
     if (playlistId) {
-        collection.update({"_id": playlistId}, body,
+        collection.update({"_id": playlistId}, playlist,
             function (err, doc) {
-                if (err) throw err;
+                callback(err);
             });
     } else {
-        collection.insert(body,
-            function (err, doc) {
-                if (err) throw err;
+        insertWithIndex(1);
+
+        function insertWithIndex(index) {
+            var titleSlug = slug(playlist.title);
+
+            if (index > 1) {
+                titleSlug = titleSlug + index;
+            }
+
+            collection.find({slug: titleSlug}, function (err, result) {
+                if (result.length == 0) {
+                    playlist.slug = titleSlug;
+
+                    collection.insert(playlist,
+                        function (err, doc) {
+                            callback(err);
+                        });
+
+                } else {
+                    setTimeout(insertWithIndex.bind(null, index+1), 0);
+                }
             });
+        }
     }
 }
 
 router.post('/video', function(req, res) {
     var collection = req.db.get('videos');
-    console.log(req.body);
 
     collection.insert(req.body,
         function (err, doc) {
