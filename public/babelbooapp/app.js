@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('babelbooapp', [
-        'ngRoute', 'navbar', 'betaregistration', 'recover', 'resetpassword',
+        'ngRoute', 'navbar', 'betaregistration', 'share', 'recover', 'resetpassword',
         'services', 'video', 'tv', 'player', 'playlist', 'playlists',
         'ranking', 'plot', 'profile', 'managePlaylists', 'angulartics',
         'angulartics.google.analytics', 'angularFileUpload' ]);
