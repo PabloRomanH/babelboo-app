@@ -20,6 +20,7 @@ manual testing
 send email
 
 # Next release:
+- Have fun, learn English in landing page
 - Friendly URLs
 - Make popular playlists change over time
 

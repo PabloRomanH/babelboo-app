@@ -19,6 +19,7 @@
     <script src="/lib/materialize.min.js"></script>
     <script src="/lib/angular-file-upload.min.js"></script>
     <script src="/babelbooapp/navbar.js"></script>
+    <script src="/babelbooapp/share.js"></script>
     <script src="/babelbooapp/betaregistration/beta.js"></script>
     <script src="/babelbooapp/playlist/playlist.js"></script>
     <script src="/babelbooapp/video/video.js"></script>
@@ -63,5 +64,15 @@
       </div>
     </div>
     <div ng-view></div>
+    <div class="fixed-action-btn share-button" ng-controller="ShareController as shareCtrl">
+      <a class="btn-floating btn-large red darken-1">
+        <i class="fa fa-large fa-share-alt"></i>
+      </a>
+      <ul>
+        <li><a class="btn-floating grey darken-1" ng-click="shareCtrl.email()"><i class="fa fa-large fa-envelope-o"></i></a></li>
+        <li><a class="btn-floating twitter" ng-click="shareCtrl.twitter()"><i class="fa fa-large fa-twitter"></i></a></li>
+        <li><a class="btn-floating facebook" ng-click="shareCtrl.facebook()"><i class="fa fa-large fa-facebook"></i></a></li>
+      </ul>
+    </div>
   </body>
 </html>
