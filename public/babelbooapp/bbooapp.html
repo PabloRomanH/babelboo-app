@@ -64,22 +64,12 @@
       </div>
     </div>
     <div ng-view></div>
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large red">
+    <div class="fixed-action-btn share-button" ng-controller="ShareController as shareCtrl">
+      <a class="btn-floating btn-large red darken-1">
         <i class="fa fa-large fa-share-alt"></i>
       </a>
       <ul>
-        <li><a class="btn-floating red"><i class="fa fa-large fa-envelope"></i></a></li>
-        <li><a class="btn-floating facebook"><i class="fa fa-large fa-facebook"></i></a></li>
-        <li><a class="btn-floating twitter"><i class="fa fa-large fa-twitter"></i></a></li>
-      </ul>
-    </div>
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;" ng-controller="ShareController as shareCtrl">
-      <a class="btn-floating btn-large red">
-        <i class="fa fa-large fa-share-alt"></i>
-      </a>
-      <ul>
-        <li><a class="btn-floating red" ng-click="shareCtrl.email()"><i class="fa fa-large fa-envelope"></i></a></li>
+        <li><a class="btn-floating grey darken-1" ng-click="shareCtrl.email()"><i class="fa fa-large fa-envelope-o"></i></a></li>
         <li><a class="btn-floating twitter" ng-click="shareCtrl.twitter()"><i class="fa fa-large fa-twitter"></i></a></li>
         <li><a class="btn-floating facebook" ng-click="shareCtrl.facebook()"><i class="fa fa-large fa-facebook"></i></a></li>
       </ul>

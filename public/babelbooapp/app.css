@@ -281,6 +281,11 @@ img.avatar {
 
 /*--------- SOCIAL SHARE ---------*/
 
+.share-button {
+    bottom: 9px;
+    right: 24px;
+}
+
 .btn-floating.twitter {
     background-color: #55ACEE;
 }
