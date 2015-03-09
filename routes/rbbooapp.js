@@ -16,7 +16,7 @@ router.get('*', function(req, res) {
 
     if(req.url == '/tv') {
         variables.title = 'Boo TV';
-        variables.description = 'Aprende inglés sin preocupaciones';
+        variables.description = 'Aprende inglés sin preocupaciones.';
         variables.image = 'http://www.babelboo.com/img/bootv.png';
 
         res.render('bbooapp', variables);
@@ -28,7 +28,7 @@ router.get('*', function(req, res) {
             console.log(result);
             if(result.length > 0) {
                 variables.title = result[0].title;
-                variables.description = 'Aprende inglés viendo estos vídeos y respondiendo a las preguntas.';
+                variables.description = 'Me ha gustado este playlist en Babelboo.';
                 variables.image = result[0].entries[0].thumbnail;
             }
 
