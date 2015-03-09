@@ -5,13 +5,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('*', function(req, res) {
-    var types = ['website', 'video.other'];
-
     var variables = {
         title: 'Have fun, learn English',
         description: 'Aprende inglés viendo los vídeos que mas te gustan.',
         image: 'http://www.babelboo.com/img/boo-blue.png',
-        type: types[0]
+        type: 'website'
     };
 
     if(req.url == '/tv') {
@@ -22,14 +20,14 @@ router.get('*', function(req, res) {
         res.render('bbooapp', variables);
     } else if(/\/play\/.*/.test(req.url)) {
         var playlists = req.db.get('playlists');
-        var playlistId = req.url.match(/\/play\/(.*)/)[1];
+        var slug = req.url.match(/\/play\/(.*)/)[1];
 
-        playlists.find({ _id: playlistId }, function(err, result) {
-            console.log(result);
+        playlists.find({ slug: slug }, function(err, result) {
             if(result.length > 0) {
                 variables.title = result[0].title;
                 variables.description = 'Me ha gustado este playlist en Babelboo.';
                 variables.image = result[0].entries[0].thumbnail;
+                variables.type = 'video.other';
             }
 
             res.render('bbooapp', variables);
