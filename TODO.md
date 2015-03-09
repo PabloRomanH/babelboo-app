@@ -17,11 +17,11 @@ npm test
 restart node
     forever restartall
 manual testing
+    check that facebook picks up the meta tags correctly (image, page title and description)
 send email
 
 # Next release:
 - Have fun, learn English in landing page
-- Friendly URLs
 - Make popular playlists change over time
 
 

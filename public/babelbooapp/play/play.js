@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, user, playlists, renderTime, levelNames) {
+    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, $location, user, playlists, renderTime, levelNames) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -20,10 +20,15 @@
         controller.player = null;
 
         playlists.getPlaylist(playlistId, function (data) {
+            if (data._id == playlistId) {
+                $location.path('/play/' + data.slug);
+            }
+
             controller.playlist = data;
             controller.videos = data.entries;
             controller.playlistId = data._id;
             resetVideo();
+
             playlistRetrieved = true;
         });
 

@@ -17,23 +17,27 @@ describe("play controller", function() {
     var fillUser = function(callback) {
         callback(userData);
     }
+
     var user = { fillUser: fillUser, data: userData, correctAnswer: sinon.spy() };
 
     var ctrl;
     var scope;
     var analytics;
     var routeParams;
+    var location;
     var playlists;
+    var SLUG = 'a-slug';
     var playlist = {
-        "_id": "123A",
-        "entries": [
+        '_id': '123A',
+        slug: SLUG,
+        entries: [
             {
-                "id": "xkiYn8LFFQY",
-                "correctanswer": 2
+                id: 'xkiYn8LFFQY',
+                correctanswer: 2
             },
             {
-                "id": "wI5gVEzrc_Q",
-                "correctanswer": 1
+                id: 'wI5gVEzrc_Q',
+                correctanswer: 1
             }
         ],
     };
@@ -54,11 +58,17 @@ describe("play controller", function() {
             }
         };
 
+        location = {
+            path: sinon.spy()
+        };
+
         ctrl = $controller('PlayController', {
             user: user,
             playlists: playlists,
             $scope: scope,
-            $analytics: analytics
+            $routeParams: routeParams,
+            $analytics: analytics,
+            $location: location
         });
     }));
 
@@ -69,6 +79,10 @@ describe("play controller", function() {
 
     it('sets playlistId', function() {
         expect(ctrl.playlistId).to.equal(playlist._id);
+    });
+
+    it('sets path to point slug', function() {
+        expect(location.path.calledWithExactly('/play/' + SLUG)).to.be.true;
     });
 
     afterEach (function() {

@@ -160,7 +160,6 @@ var api = require('./routes/rapi');
 var publicapi = require('./routes/rpublicapi');
 var restrictedapi = require('./routes/rrestrictedapi');
 var defaultapi = require('./routes/rdefaultapi');
-var upload_test = require('./routes/upload_test');
 
 var auth = function(req, res, next) {
     if (!req.isAuthenticated()) {
@@ -188,9 +187,6 @@ app.get('/loggedin', function(req, res) {
 
     res.send(user);
 });
-
-app.use('/upload', upload_test);
-
 
 app.use('/api', publicapi);
 app.use('/api', auth, api);
