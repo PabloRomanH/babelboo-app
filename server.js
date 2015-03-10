@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo')(session);
 var request = require('request');
@@ -96,8 +97,8 @@ passport.use(new LocalStrategy(
     }
     ));
 
-var FACEBOOK_APP_ID = 'asnteu';
-var FACEBOOK_APP_SECRET = 'slar';
+var FACEBOOK_APP_ID = '1561550620796272';
+var FACEBOOK_APP_SECRET = '8a5f26b51c662bc64dd591a7282cb8b0';
 
 passport.use(new FacebookStrategy({
         clientID: FACEBOOK_APP_ID,
@@ -111,15 +112,15 @@ passport.use(new FacebookStrategy({
                 return done(null, user);
             } else {
                 request.post(
-                    'http://localhost/api/',
-                    { json: {email: email} },
+                    'http://localhost/api/user/' + profile.id,
+                    { json: {profile: profile, token: accessToken} },
                     function (error, response, body) {
-                        if (error || response.statusCode != 200) {
-                            console.log('Couldn\'t send recover email to: ' + email);
-                            console.log(error);
-                            console.log(response.statusCode);
+                        if (error || response.statusCode != 201) {
+                            return done(null, false);
                         } else {
-                            console.log('Sent recover email to: ' + email);
+                            console.log('logged with facebook user:');
+                            console.log(body);
+                            return done(null, body);
                         }
                     }
                 );

@@ -129,7 +129,7 @@ router.put('/user/:id', function (req, res) {
                 };
             }
 
-            usercollection.update({username: email}, {$set: set}}, function (err, results) {
+            usercollection.update({username: email}, {$set: set}, function (err, results) {
                 res.status(201);
                 res.json(results[0]);
             });
@@ -144,6 +144,9 @@ router.put('/user/:id', function (req, res) {
                     large: "https://graph.facebook.com/" + facebook.profile.id + "/picture" + "?width=500&height=500"
                 }
             };
+
+            console.log('created facebook user:');
+            console.log(facebook.profile);
 
             usercollection.insert(user, function (err, user) {
                 res.status(201);
