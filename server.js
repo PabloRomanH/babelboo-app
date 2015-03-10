@@ -9,6 +9,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo')(session);
+var request = require('request');
 
 var verifyYoutubeVideos = require('./helpers/verify-youtube-videos');
 
@@ -94,6 +95,39 @@ passport.use(new LocalStrategy(
         });
     }
     ));
+
+var FACEBOOK_APP_ID = 'asnteu';
+var FACEBOOK_APP_SECRET = 'slar';
+
+passport.use(new FacebookStrategy({
+        clientID: FACEBOOK_APP_ID,
+        clientSecret: FACEBOOK_APP_SECRET,
+        callbackURL: 'http://www.babelboo.com:' + process.env.PORT + '/login/facebook/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+        var usercollection = app.db.get('usercollection');
+        usercollection.findOne({'facebook.profile.id': profile.id}, function(err, user) {
+            if (user) {
+                return done(null, user);
+            } else {
+                request.post(
+                    'http://localhost/api/',
+                    { json: {email: email} },
+                    function (error, response, body) {
+                        if (error || response.statusCode != 200) {
+                            console.log('Couldn\'t send recover email to: ' + email);
+                            console.log(error);
+                            console.log(response.statusCode);
+                        } else {
+                            console.log('Sent recover email to: ' + email);
+                        }
+                    }
+                );
+            }
+        });
+
+    }
+));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

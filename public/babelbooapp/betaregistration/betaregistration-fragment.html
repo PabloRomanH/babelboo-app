@@ -1,5 +1,5 @@
 <div class="container" ng-controller="BetaregistrationController as betaCtrl">
-  <div class="cine clearfix form-group registration" ng-hide="betaCtrl.submitted">
+  <div class="cine clearfix form-group registration">
     <img src="/img/boo-blue.png"/>
     <p><h3>Crear cuenta</h3></p>
     <form ng-submit="(submitted=true) && registrationForm.$valid && betaCtrl.register(email, nickname, password)" name="registrationForm">
@@ -25,11 +25,8 @@
         <button type="submit" class="waves-effect waves-light btn-flat light-blue darken-4 grey-text text-lighten-5">Registrarse</button>
     </form>
     <p></p>
+
+    <a class="waves-effect waves-light btn facebook" href="/login/facebook"><i class="fa fa-facebook left"></i> Register with Facebook</a>
+
   </div>
-
-  <div class="cine clearfix form-group"  ng-show="betaCtrl.submitted">
-    <p><h2>Gracias! Nos pondremos en contacto brevemente.</h2></p>
-  </div>
-
-
 </div>

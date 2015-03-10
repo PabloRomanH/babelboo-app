@@ -105,6 +105,56 @@ router.get('/video/:level?', function(req, res) {
     }
 });
 
+router.put('/user/:id', function (req, res) {
+    var email = req.body.profile.emails[0].value;
+    console.log(req.body.profile);
+
+    var usercollection = req.db.get('usercollection');
+
+    usercollection.findOne({username: email}, function (err, user) {
+        var facebook = {
+            profile: req.body.profile,
+            token: req.body.token
+        };
+
+        if(user) { // Update user with facebook credentials
+            var set = {
+                facebook: facebook
+            };
+
+            if (!user.avatar) {
+                set.avatar = {
+                    small: "https://graph.facebook.com/" + facebook.profile.id + "/picture" + "?width=60&height=60",
+                    large: "https://graph.facebook.com/" + facebook.profile.id + "/picture" + "?width=500&height=500"
+                };
+            }
+
+            usercollection.update({username: email}, {$set: set}}, function (err, results) {
+                res.status(201);
+                res.json(results[0]);
+            });
+        } else { // Create user with facebook credentials
+            var user = {
+                username: email,
+                nickname: req.body.profile.displayName,
+                facebook: facebook,
+                daysvisited: 0,
+                avatar: {
+                    small: "https://graph.facebook.com/" + facebook.profile.id + "/picture" + "?width=60&height=60",
+                    large: "https://graph.facebook.com/" + facebook.profile.id + "/picture" + "?width=500&height=500"
+                }
+            };
+
+            usercollection.insert(user, function (err, user) {
+                res.status(201);
+                res.json(user);
+            });
+        }
+    });
+
+    req.params.id
+})
+
 router.post('/user/', function(req, res) {
     var collection = req.db.get('usercollection');
 

@@ -286,11 +286,11 @@ img.avatar {
     right: 24px;
 }
 
-.btn-floating.twitter {
+.btn-floating.twitter, .btn.twitter {
     background-color: #55ACEE;
 }
 
-.btn-floating.facebook {
+.btn-floating.facebook, .btn.facebook {
     background-color: #3a5795;
 }
 
