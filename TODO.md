@@ -20,6 +20,10 @@ manual testing
     check that facebook picks up the meta tags correctly (image, page title and description)
 send email
 
+
+BIG_BUG_TO_FIX_BEFORE_DEPLOYING_SLUGS
+- playlistid in medalhistory contains the slug instead of the id. 
+
 # Next release:
 - Have fun, learn English in landing page
 - Make popular playlists change over time
