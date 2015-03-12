@@ -26,7 +26,7 @@
 
             controller.playlist = data;
             controller.videos = data.entries;
-            controller.playlistId = data._id;
+            playlistId = data._id;
             resetVideo();
 
             playlistRetrieved = true;
