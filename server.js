@@ -111,16 +111,18 @@ passport.use(new FacebookStrategy({
             if (user) {
                 return done(null, user);
             } else {
-                request.post(
-                    'http://localhost/api/user/' + profile.id,
+                console.log('creating new facebook user:');
+                console.log(profile);
+                request.put(
+                    'http://localhost:' + process.env.PORT + '/api/user/' + profile.id,
                     { json: {profile: profile, token: accessToken} },
                     function (error, response, body) {
                         if (error || response.statusCode != 201) {
-                            return done(null, false);
+                            done(null, false);
                         } else {
                             console.log('logged with facebook user:');
                             console.log(body);
-                            return done(null, body);
+                            done(null, body);
                         }
                     }
                 );

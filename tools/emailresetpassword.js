@@ -47,8 +47,6 @@ function sendNext(result, i) {
 }
 
 function sendRecoverEmail(email) {
-    var request = require('request');
-
     request.post(
         'http://localhost:3000/api/user/recover',
         { json: {email: email} },

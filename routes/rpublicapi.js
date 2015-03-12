@@ -106,8 +106,8 @@ router.get('/video/:level?', function(req, res) {
 });
 
 router.put('/user/:id', function (req, res) {
-    var email = req.body.profile.emails[0].value;
     console.log(req.body.profile);
+    var email = req.body.profile.emails[0].value;
 
     var usercollection = req.db.get('usercollection');
 
@@ -154,9 +154,7 @@ router.put('/user/:id', function (req, res) {
             });
         }
     });
-
-    req.params.id
-})
+});
 
 router.post('/user/', function(req, res) {
     var collection = req.db.get('usercollection');

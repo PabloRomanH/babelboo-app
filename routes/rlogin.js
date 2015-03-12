@@ -9,7 +9,7 @@ router.post('/',
         res.status(200).end();
     });
 
-router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook', { scope: [ 'email' ] }));
 
 router.get('/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
