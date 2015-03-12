@@ -68,7 +68,11 @@
             controller.silvers = rank.silvers;
             controller.bronzes = rank.bronzes;
             if (typeof rank.avatar !== 'undefined') {
-                controller.avatar = rank.avatar.small + '?' + new Date().getTime();
+                if(controller.avatar.match(/facebook/)) {
+                    controller.avatar = rank.avatar.small;
+                } else {
+                    controller.avatar = rank.avatar.small + '?' + new Date().getTime();
+                }
             }
             controller.userLogged = true;
             controller.showRegister = false;
