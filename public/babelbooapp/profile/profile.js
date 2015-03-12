@@ -46,10 +46,10 @@
                 $scope.nickname = user.nickname;
                 $scope.email = user.username;
                 if (typeof user.avatar !== 'undefined') {
-                    if(rank.avatar.small.match(/facebook/)) {
-                        controller.avatar = rank.avatar.small;
+                    if(user.avatar.large.match(/facebook/)) {
+                        controller.avatar = user.avatar.large;
                     } else {
-                        controller.avatar = rank.avatar.small + '?' + new Date().getTime();
+                        controller.avatar = user.avatar.large + '?' + new Date().getTime();
                     }
                 }
             });
