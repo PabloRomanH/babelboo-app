@@ -46,7 +46,7 @@
                 $scope.nickname = user.nickname;
                 $scope.email = user.username;
                 if (typeof user.avatar !== 'undefined') {
-                    if(controller.avatar.match(/facebook/)) {
+                    if(rank.avatar.small.match(/facebook/)) {
                         controller.avatar = rank.avatar.small;
                     } else {
                         controller.avatar = rank.avatar.small + '?' + new Date().getTime();

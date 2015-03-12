@@ -12,7 +12,7 @@ router.post('/',
 router.get('/facebook', passport.authenticate('facebook', { scope: [ 'email' ] }));
 
 router.get('/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
+  passport.authenticate('facebook', { successRedirect: '/playlists',
                                       failureRedirect: '/' }));
 
 module.exports = router;
