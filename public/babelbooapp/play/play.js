@@ -26,24 +26,24 @@
 
             controller.playlist = data;
             controller.videos = data.entries;
-            controller.playlistId = data._id;
+            playlistId = data._id;
             resetVideo();
 
             playlistRetrieved = true;
-        });
 
-        user.fillUser(function (userData) {
-            controller.correct = {};
+            user.fillUser(function (userData) {
+                controller.correct = {};
 
-            if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
-                angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
-            }
+                if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
+                    angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
+                }
 
-            for (var key in controller.correct) {
-                controller.correctAnswers++;
-            }
+                for (var key in controller.correct) {
+                    controller.correctAnswers++;
+                }
 
-            controller.userLogged = true;
+                controller.userLogged = true;
+            });
         });
 
         function resetVideo () {
