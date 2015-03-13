@@ -78,7 +78,7 @@ describe("play controller", function() {
     });
 
     it('sets playlistId', function() {
-        expect(ctrl.playlistId).to.equal(playlist._id);
+        expect(ctrl.playlist).to.deep.equal(playlist);
     });
 
     it('sets path to point slug', function() {
