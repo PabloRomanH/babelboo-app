@@ -106,7 +106,6 @@ router.get('/video/:level?', function(req, res) {
 });
 
 router.put('/user/:id', function (req, res) {
-    console.log(req.body.profile);
     var email = req.body.profile.emails[0].value;
 
     var usercollection = req.db.get('usercollection');
@@ -134,9 +133,24 @@ router.put('/user/:id', function (req, res) {
                 res.json(results[0]);
             });
         } else { // Create user with facebook credentials
+            var nickname = req.body.profile.displayName;
+            var counter = 2;
+            usercollection.find({nickname: nickname}, checkExists);
+
+            function checkExists (err, result) {
+                if(result.length == 0) {
+                    insertWithNickname(nickname);
+                } else {
+                    nickname = req.body.profile.displayName + counter;
+                    usercollection.find({nickname: nickname}, checkExists);
+                }
+            }
+        }
+
+        function insertWithNickname(nickname) {
             var user = {
                 username: email,
-                nickname: req.body.profile.displayName,
+                nickname: nickname,
                 facebook: facebook,
                 daysvisited: 0,
                 avatar: {
@@ -144,9 +158,6 @@ router.put('/user/:id', function (req, res) {
                     large: "https://graph.facebook.com/" + facebook.profile.id + "/picture" + "?width=500&height=500"
                 }
             };
-
-            console.log('created facebook user:');
-            console.log(facebook.profile);
 
             usercollection.insert(user, function (err, user) {
                 res.status(201);

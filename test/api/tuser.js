@@ -415,6 +415,130 @@ describe('API /api/user public part', function() {
         });
     });
 
+    describe.only('PUT /api/user (Facebook registration and login)', function() {
+        var db = app.db;
+        var collection = db.get('usercollection');
+        var fbobj;
+        var email;
+
+        beforeEach(function(done) {
+            collection.drop(function () {
+                done();
+            });
+
+            email = 'an@email.com';
+
+            fbobj = {
+                profile: {
+                    id : "10983709650981609",
+        			displayName : "Aname Amiddlename Asurname",
+        			name : {
+        				familyName : "Asurname",
+        				givenName : "Aname",
+        				middleName : "Amiddlename"
+        			},
+        			gender : "male",
+        			profileUrl : "https://www.facebook.com/app_scoped_user_id/10983709650981609/",
+        			emails : [
+        				{
+        				    value : email
+        				}
+        			],
+        			provider : "facebook"
+                },
+                token: '09d09de098g0eo98fud9i098'
+        	};
+        });
+
+        it('registers a new facebook user', function(done) {
+            request.put('/api/user/' + fbobj.profile.id)
+                .send(fbobj)
+                .end(function(err, res){
+                    if (err) throw err;
+                    collection.find({username: email}, function(err, result) {
+                        expect(result).to.not.be.empty;
+                        expect(result[0].nickname).to.equal(fbobj.profile.displayName);
+                        expect(result[0].facebook).to.deep.equal(fbobj);
+                        expect(result[0].daysvisited).to.equal(0);
+                        expect(result[0].avatar.small).to.equal("https://graph.facebook.com/" + fbobj.profile.id + "/picture" + "?width=60&height=60");
+                        expect(result[0].avatar.large).to.equal("https://graph.facebook.com/" + fbobj.profile.id + "/picture" + "?width=500&height=500");
+                        done();
+                    });
+                });
+        });
+
+        it('tries a different nickname when registering a facebook user with an existing nickname', function(done) {
+            request.put('/api/user/' + fbobj.profile.id)
+                .send(fbobj)
+                .end(function(err, res){
+                    if (err) throw err;
+
+                    var fbobj2 = {
+                        profile: {
+                            id : "65743289436928759",
+                			displayName : fbobj.profile.displayName,
+                			name : fbobj.profile.name,
+                			gender : "male",
+                			profileUrl : "https://www.facebook.com/app_scoped_user_id/65743289436928759/",
+                			emails : [
+                				{
+                				    value : 'adifferent@email.com'
+                				}
+                			],
+                			provider : "facebook"
+                        },
+                        token: '9786149876db9786db987pyb976b'
+                	};
+                    request.put('/api/user/' + fbobj2.profile.id)
+                        .send(fbobj2)
+                        .end(function(err, res){
+                            if (err) throw err;
+                            collection.find({'facebook.profile.id': fbobj2.profile.id}, function(err, result) {
+                                expect(result).to.not.be.empty;
+                                expect(result[0].nickname).to.not.equal(fbobj.profile.displayName);
+                                expect(result[0].facebook).to.deep.equal(fbobj2);
+                                done();
+                            });
+                        });
+                });
+        });
+
+        it('merges facebook user when logging in with a facebook profile whose email matches an existing email in the db', function(done) {
+            collection.insert({nickname: fbobj.profile.displayName, username: email}, function (err, result) {
+                var userid = result._id;
+
+                if (err) throw err;
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj)
+                    .end(function(err, res){
+                        if (err) throw err;
+                        collection.find({'facebook.profile.id': fbobj.profile.id}, function(err, result) {
+                            if (err) throw err;
+                            expect(result[0]).to.not.be.empty;
+                            expect(result[0]._id).to.deep.equal(userid);
+
+                            done();
+                        });
+                    });
+            });
+
+        });
+
+        it('sends welcome email', function() {
+            throw 'Not implemented yet!!!';
+        });
+
+        it('signs user up to mailchimp', function() {
+            throw 'Not implemented yet!!!';
+        });
+
+        afterEach(function(done) {
+            collection.drop(function () {
+                done();
+            });
+        });
+    });
+
     describe('API /api/user/recover', function() {
         var db = app.db;
         var collection = db.get('usercollection');
