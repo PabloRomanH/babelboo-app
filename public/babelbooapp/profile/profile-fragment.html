@@ -25,10 +25,18 @@
 
 
       </div>
-
       <div class="profile-form col s7">
+        <div class="center-align" ng-show="!profileCtrl.hasPassword && !profileCtrl.showRecoveryFeedback">
+          <p>Click here to set you password and edit your profile.</p>
+          <a href="" ng-click="profileCtrl.recover()">Set password</a>
+        </div>
+
+        <div class="center-align" ng-show="!profileCtrl.hasPassword && profileCtrl.showRecoveryFeedback">
+          <p>Please, check your email.</p>
+        </div>
+
         <form ng-submit="(submitted=true) && profileCtrl.update()"
-        name="profileForm">
+              name="profileForm" ng-show="profileCtrl.hasPassword">
           <div>
             <label for="username">Username</label>
             <input id="username" type="text" ng-model="nickname"  ng-maxlength="15" ng-pattern="/^[^@]+$/" >

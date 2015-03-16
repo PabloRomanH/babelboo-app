@@ -9,32 +9,40 @@ Release cycle:
 
 Deploy:
 write email
+predeploy in /home/node/social_login
+    git stuff
+        git fetch
+        git merge origin/master
+    npm install
+    npm test
+    export PORT=4000
+    export NODE_ENV=development
+    npm start
+    manual testing
+        create user with facebook
+        create password for that user
 git stuff
     git fetch
     git merge origin/master
 npm install
+tools/fillslugs.js
 npm test
 restart node
     forever restartall
 manual testing
     check that google webmaster tools picks up meta tags correctly
+    slugs
 send email
 
 
 # Next release:
-- User registered with facebook can set password (using reset email functionality).
 
 # For future releases:
-- Make popular playlists change over time
-- Facebook page meta tags
+- Make popular playlists change over time.
 - /api/user only returns playlistprogress when requested
 - fillUser only returns (and downloads) playlistprogress when requested.
 - When selecting a level in playlists view show popular playlists of that level.
-- Popular playlists don't stay always the same.
 - Playlists infinite scrolling.
-- Social
-    - Login.
-    - Register.
 - Going to an URL (besides http://www.babelboo.com) without being logged asks for user and password, then redirects to the requested URL.
 - A) Questions at the beginning, answers at the end.
     - Button 'Answer now' that pauses video and shows answers.

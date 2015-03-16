@@ -1,12 +1,14 @@
 (function() {
     var app = angular.module('profile', []);
 
-    app.controller('ProfileController', function($scope, $rootScope, profile, user, FileUploader) {
+    app.controller('ProfileController', function($scope, $rootScope, profile, user, FileUploader, recover) {
         var controller = this;
         controller.showWrongPassword = false;
         controller.showSuccess = false;
         controller.showFileError = false;
         controller.showUploading = false;
+        controller.showRecoveryFeedback = false;
+
         controller.uploader = new FileUploader({
             url: '/api/user/avatar'
         });
@@ -41,10 +43,17 @@
             });
         };
 
+        controller.recover = function() {
+            recover($scope.email);
+            controller.showRecoveryFeedback = true;
+        };
+
         function updateUser() {
             user.fillUser(function (user) {
                 $scope.nickname = user.nickname;
                 $scope.email = user.username;
+                controller.hasPassword = user.haspassword;
+
                 if (typeof user.avatar !== 'undefined') {
                     if(user.avatar.large.match(/facebook/)) {
                         controller.avatar = user.avatar.large;

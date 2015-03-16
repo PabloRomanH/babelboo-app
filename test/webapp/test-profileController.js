@@ -3,7 +3,9 @@ describe('Profile controller', function() {
     var ctrl;
     var scope;
     var rootscope;
+    var userService;
     var profileService;
+    var recoverService;
     var userData;
     var NICKNAME = 'auser';
     var EMAIL = 'asuer@test.com';
@@ -29,10 +31,13 @@ describe('Profile controller', function() {
             callback(password == OLD_PASS);
         });
 
+        recoverService = sinon.spy();
+
         userData.username = EMAIL;
         userData.nickname = NICKNAME;
+        userData.haspassword = true;
 
-        var userService = {
+        userService = {
             fillUser: function (callback) {
                 callback(userData);
             }
@@ -43,9 +48,43 @@ describe('Profile controller', function() {
             user: userService,
             $scope: scope,
             $rootScope: rootscope,
-            FileUploader: UploaderMock
+            FileUploader: UploaderMock,
+            recover: recoverService
         });
     }));
+
+    describe('password recovery for users without a password', function() {
+        beforeEach(inject(function ($controller) {
+            userData.haspassword = false;
+
+            ctrl = $controller('ProfileController', {
+                profile: profileService,
+                user: userService,
+                $scope: scope,
+                $rootScope: rootscope,
+                FileUploader: UploaderMock,
+                recover: recoverService
+            });
+        }));
+
+        it('show email recovery by default when no password', function() {
+            expect(ctrl.showRecoveryFeedback).to.be.false;
+        });
+
+        it('calls recover service with user email', function() {
+            ctrl.recover();
+            expect(recoverService.calledWithExactly(userData.username)).to.be.true;
+        });
+
+        it('gives feedback after calling email recovery', function() {
+            ctrl.recover();
+            expect(ctrl.showRecoveryFeedback).to.be.true;
+        });
+
+        it('sets hasPassword to false', inject(function($controller) {
+            expect(ctrl.hasPassword).to.be.false();
+        }));
+    });
 
     describe('fill user', function(){
         it('loads user name', function() {
@@ -54,6 +93,10 @@ describe('Profile controller', function() {
 
         it('loads user email', function() {
             expect(scope.email).to.equal(EMAIL);
+        });
+
+        it('sets hasPassword to true', function() {
+            expect(ctrl.hasPassword).to.be.true();
         });
     });
 

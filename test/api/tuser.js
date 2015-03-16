@@ -314,7 +314,7 @@ describe('API /api/user public part', function() {
         var fbobj;
         var email;
         var nickname;
- 
+
         beforeEach(function(done) {
             email = 'an@email.com';
             nickname = 'Aname Amiddlename Asurname';
@@ -1040,6 +1040,27 @@ describe('API /api/user private part', function() {
 
         it('returns playlistprogress field', function() {
             expect(user.playlistprogress).to.exist;
+        });
+
+        it('returns haspassword = true when user has password', function() {
+            expect(user.haspassword).to.be.true;
+        });
+
+        it('returns haspassword = false when user has no password', function(done) {
+            var logindb = db.get('testlogin');
+
+            logindb.update({username: USERNAME}, {$unset: {password: true}}, function () {
+                return request
+                    .get('/api/user')
+                    .set('Cookie', setCookie)
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) throw err;
+                        user = JSON.parse(res.text);
+                        expect(user.haspassword).to.be.false;
+                        done();
+                    });
+            });
         });
 
         it('username conflicts with existing user in the database', function (done) {
