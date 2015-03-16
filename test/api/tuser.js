@@ -998,7 +998,9 @@ describe('API /api/user private part', function() {
                 lastvisit: new Date(),
                 medalhistory: [1,2,3],
                 nickname: NICKNAME,
-                playlistprogress: {a: 1, b: 2, c: 3}
+                playlistprogress: {a: 1, b: 2, c: 3},
+                avatar: {small: 'a_url', large: 'a_url'}
+
             }
 
             logindb.update({username: USERNAME}, {$set: set}, function () {
@@ -1020,6 +1022,10 @@ describe('API /api/user private part', function() {
 
         it('returns nickname field', function() {
             expect(user.nickname).to.exist;
+        });
+
+        it('returns avatar field', function() {
+            expect(user.avatar).to.exist;
         });
 
         it('does not return password field', function() {
