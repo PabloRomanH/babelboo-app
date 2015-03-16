@@ -133,16 +133,24 @@ router.put('/user/:id', function (req, res) {
                 res.json(results[0]);
             });
         } else { // Create user with facebook credentials
-            var nickname = req.body.profile.displayName;
-            var counter = 2;
+            var nickname = req.body.profile.displayName.substr(0, 14);
+            var index = nickname.lastIndexOf(' ');
+            index = (index != -1)? index: 13;
+            nickname = nickname.substr(0, index);
+
+            var counter = 1;
             usercollection.find({nickname: nickname}, checkExists);
+            var lNickname = nickname;
 
             function checkExists (err, result) {
                 if(result.length == 0) {
-                    insertWithNickname(nickname);
+                    insertWithNickname(lNickname);
+                    sendRegistrationEmail(lNickname, email);
+                    registerOnMailchimp(email);
                 } else {
-                    nickname = req.body.profile.displayName + counter;
-                    usercollection.find({nickname: nickname}, checkExists);
+                    counter++;
+                    lNickname = nickname + counter;
+                    usercollection.find({nickname: lNickname}, checkExists);
                 }
             }
         }

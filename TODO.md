@@ -17,24 +17,18 @@ npm test
 restart node
     forever restartall
 manual testing
-    check that facebook picks up the meta tags correctly (image, page title and description)
+    check that google webmaster tools picks up meta tags correctly
 send email
 
 
-BIG_BUG_TO_FIX_BEFORE_DEPLOYING_SLUGS
-- playlistid in medalhistory contains the slug instead of the id. 
-
 # Next release:
-- Have fun, learn English in landing page
-- Make popular playlists change over time
-
-
-# Bugfixes:
-- /login can be accessed even when logged in
-- fix ShareController to use new playlists service interface
-- Test the upload of a file with an image extension that gm can't convert (not in local nor in mayhem).
+- Facebook login sends email and registers in mailchimp.
+- Add 'login with facebook' button to login dialog.
+- Login dialog and registration dialog design.
+- User registered with facebook can set password (using reset email functionality).
 
 # For future releases:
+- Make popular playlists change over time
 - Facebook page meta tags
 - /api/user only returns playlistprogress when requested
 - fillUser only returns (and downloads) playlistprogress when requested.

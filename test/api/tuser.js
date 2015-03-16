@@ -246,94 +246,19 @@ describe('API /api/user public part', function() {
             });
 
             it('transporter registered with correct options', function(done) {
-                var expectedTransporterOptions = {
-                    service: 'Gmail',
-                    auth: {
-                        user: 'babelboodotcom@gmail.com',
-                        pass: 'kyqgfawqokbemjdz'
-                    }
-                };
-
-                request.post('/api/user')
-                    .send({ email: email, nickname: nickname, password: hashedPassword })
-                    .end(function(err, res) {
-                        expect(createTransportSpy.called).to.be.true;
-                        expect(createTransportSpy.calledWithExactly(expectedTransporterOptions)).to.be.true;
-                        done();
-                    });
+                checkEmailTransporter(
+                    request.post('/api/user')
+                        .send({ email: email, nickname: nickname, password: hashedPassword }),
+                    done);
             });
 
             it('sends email when user correctly registered with correct options', function(done) {
-                var text =
-                    '*********************\n'
-                    +'Bienvenido a babelboo\n'
-                    +'*********************\n'
-                    +'\n'
-                    +'------------------------\n'
-                    +'Have fun, learn English!\n'
-                    +'------------------------\n'
-                    +'\n'
-                    +'Tu usuario #username# se ha creado correctamente.\n'
-                    +'Puedes hacer click en el botón de más abajo para entrar a\n'
-                    +'babelboo y empezar a ver vídeos.\n'
-                    +'Cuando entres verás diferentes playlists y puedes escoger\n'
-                    +'tema y dificultad. La idea es que puedas pasarte horas mirando\n'
-                    +'viídeos de cosas que te interesan y de tu nivel.\n'
-                    +'\n'
-                    +'Entra a babelboo ( http://www.babelboo.com )\n'
-                    +'\n'
-                    +'¿Andas muy liado? Aquí ( http://www.babelboo.com/play/54aab86ba5606f354096a9eb ) tienes\n'
-                    +'una playlist cortita que no te llevará más de cinco minutos.\n'
-                    +'\n'
-                    +'www.babelboo.com ( http://www.babelboo.com )\n'
-                    +'\n'
-                    +'babelboo.com ( http://www.babelboo.com )\n'
-                    +'\n'
-                    +'Copyright © 2015 Babelboo, All rights reserved.\n';
-
-                var html = '<html>' +
-                    '<body style="background-color: #F2F2F2; height: 100% !important; width: 100% !important;">' +
-                    '<div style="padding: 10px">' +
-                        '<div style="width: 600px; background-color: #fff; color: #606060 !important; font-family: Helvetica !important; margin: 10px auto; padding: 20px;" bgcolor="#fff">' +
-                            '<img src="http://www.babelboo.com/img/welcomeboo.png"/>' +
-                            '<h1 style="font-size: 40px; line-height: 125%; letter-spacing: -1px; margin: 0;">Bienvenido a babelboo</h1>' +
-                            '<h2 style="font-size: 18px; line-height: 125%; letter-spacing: -.5px; margin: 0;">Have fun, learn English!</h2>' +
-                            '<p style="font-size: 15px; line-height: 150%;">Tu usuario #username# se ha creado correctamente. ' +
-                            'Puedes hacer click en el botón de más abajo para entrar a babelboo y empezar a ver vídeos. ' +
-                            'Cuando entres verás diferentes playlists y puedes escoger tema y dificultad. La idea es que puedas pasarte horas mirando vídeos de cosas que te interesan y de tu nivel.' +
-                            '</p>' +
-                            '<div style="text-align: center; padding: 30px;" align="center">' +
-                                '<a href="http://www.babelboo.com" style="color: #fff !important; text-decoration: none; border-radius: 5px; font-family: Helvetica; font-weight: bold; background-color: #228b22; padding: 15px; border: 2px solid #176617;">Entra a babelboo</a>' +
-                            '</div>' +
-                            '<p style="font-size: 15px; line-height: 150%;">¿Andas muy liado? <a href="http://www.babelboo.com/play/54aab86ba5606f354096a9eb" style="color: #6DC6DD;">Aquí</a> tienes una playlist cortita que no te llevará más de cinco minutos.</p>' +
-                            '<p style="font-size: 15px; line-height: 150%;"><a href="http://www.babelboo.com" style="color: #6DC6DD;">www.babelboo.com</a></p>' +
-                            '<em style="font-size: 12px;">' +
-                                '<a href="http://www.babelboo.com" style="color: #606060 !important;">babelboo.com</a>' +
-                                '<br/>' +
-                                'Copyright © 2015 Babelboo, All rights reserved.' +
-                            '</em>' +
-                        '</div>' +
-                    '</div>' +
-                    '</body>' +
-                    '</html>';
-
-                text = text.replace('#username#', nickname);
-                html = html.replace('#username#', nickname);
-
-                var expectedMailOptions = {
-                    from: 'Babelboo <contact@babelboo.com>',
-                    to: email,
-                    subject: 'Bienvenido a babelboo',
-                    text: text,
-                    html: html
-                };
-
-                request.post('/api/user')
-                    .send({ email: email, nickname: nickname, password: hashedPassword })
-                    .end(function(err, res) {
-                        expect(sendMailSpy.calledWith(expectedMailOptions)).to.be.true;
-                        done();
-                    });
+                checkEmailContent(
+                    request.post('/api/user')
+                        .send({ email: email, nickname: nickname, password: hashedPassword }),
+                    email,
+                    nickname,
+                    done);
             });
 
             it('doesn\'t send email when user can\'t be registered', function(done) {
@@ -360,47 +285,15 @@ describe('API /api/user public part', function() {
             });
 
             it('using the right api key', function() {
-                var apiKey = 'd644f26190a45f861fd87642679135ec-us9';
-                expect(mailchimpFactoryMock.calledWithExactly(apiKey)).to.be.true;
+                testMailchimpFactory();
             });
 
             it('registers user in mailchimp if success (200)', function(done) {
-                var mailchimpOpts = {
-                    id: 'ae8469cddc',
-                    email: {
-                        email: email
-                    },
-                    merge_vars: {
-                        groupings: [
-                            {
-                                name: "Language",
-                                groups: ["Spanish"]
-                            },
-                            {
-                                name: "Reminders",
-                                groups: ["Inactivity reminder"]
-                            },
-                            {
-                                name: "Babelboo updates",
-                                groups: ["New release"]
-                            },
-                            {
-                                name: "Registration type",
-                                groups: ["users"]
-                            }
-                        ],
-                        mc_language: 'es_ES'
-                    },
-                    double_optin: false,
-                    update_existing: true
-                };
-
-                request.post('/api/user')
-                    .send({ email: email, nickname: nickname, password: hashedPassword })
-                    .end(function(err, res) {
-                        expect(mailchimpAPIMock.lists.subscribe.calledWith(mailchimpOpts)).to.be.true;
-                        done();
-                    });
+                testMailchimp(
+                    request.post('/api/user')
+                        .send({ email: email, nickname: nickname, password: hashedPassword }),
+                    email,
+                    done);
             });
 
             it('does not register user in mailchimp if error (40x)', function(done) {
@@ -415,23 +308,21 @@ describe('API /api/user public part', function() {
         });
     });
 
-    describe.only('PUT /api/user (Facebook registration and login)', function() {
+    describe('PUT /api/user (Facebook registration and login)', function() {
         var db = app.db;
         var collection = db.get('usercollection');
         var fbobj;
         var email;
-
+        var nickname;
+ 
         beforeEach(function(done) {
-            collection.drop(function () {
-                done();
-            });
-
             email = 'an@email.com';
+            nickname = 'Aname Amiddlename Asurname';
 
             fbobj = {
                 profile: {
                     id : "10983709650981609",
-        			displayName : "Aname Amiddlename Asurname",
+        			displayName : nickname,
         			name : {
         				familyName : "Asurname",
         				givenName : "Aname",
@@ -448,6 +339,15 @@ describe('API /api/user public part', function() {
                 },
                 token: '09d09de098g0eo98fud9i098'
         	};
+
+            createTransportSpy.reset();
+            sendMailSpy.reset();
+
+            mailchimpAPIMock.lists.subscribe.reset();
+
+            collection.drop(function () {
+                done();
+            });
         });
 
         it('registers a new facebook user', function(done) {
@@ -457,7 +357,7 @@ describe('API /api/user public part', function() {
                     if (err) throw err;
                     collection.find({username: email}, function(err, result) {
                         expect(result).to.not.be.empty;
-                        expect(result[0].nickname).to.equal(fbobj.profile.displayName);
+                        expect(result[0].nickname).to.equal('Aname');
                         expect(result[0].facebook).to.deep.equal(fbobj);
                         expect(result[0].daysvisited).to.equal(0);
                         expect(result[0].avatar.small).to.equal("https://graph.facebook.com/" + fbobj.profile.id + "/picture" + "?width=60&height=60");
@@ -467,10 +367,57 @@ describe('API /api/user public part', function() {
                 });
         });
 
+        describe('nickname length cut', function() {
+            it('cuts to the last space before position 13', function(done) {
+                fbobj.profile.displayName = '1234 67890 234';
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj)
+                    .end(function(err, res){
+                        if (err) throw err;
+                        collection.find({username: email}, function(err, result) {
+                            expect(result).to.not.be.empty;
+                            expect(result[0].nickname).to.equal('1234 67890');
+                            done();
+                        });
+                    });
+            });
+
+            it('cuts to 13 chars if no space', function(done) {
+                fbobj.profile.displayName = 'nicknametoolongforanickname';
+
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj)
+                    .end(function(err, res){
+                        if (err) throw err;
+                        collection.find({username: email}, function(err, result) {
+                            expect(result[0].nickname).to.equal(fbobj.profile.displayName.substr(0,13));
+
+                            done();
+                        });
+                    });
+            });
+
+            it('cuts and adds index when nickname exists in the database', function(done) {
+                collection.insert({nickname: 'Aname', username: 'another@email.com'}, function (err, result) {
+                    if (err) throw err;
+                    request.put('/api/user/' + fbobj.profile.id)
+                        .send(fbobj)
+                        .end(function(err, res){
+                            if (err) throw err;
+                            collection.find({'facebook.profile.id': fbobj.profile.id}, function(err, result) {
+                                if (err) throw err;
+                                expect(result[0].nickname).to.equal('Aname2');
+
+                                done();
+                            });
+                        });
+                });
+            });
+        });
+
         it('tries a different nickname when registering a facebook user with an existing nickname', function(done) {
-            request.put('/api/user/' + fbobj.profile.id)
-                .send(fbobj)
-                .end(function(err, res){
+            collection.insert({nickname: 'Aname', username: 'some@email.com'}, function (err, result) {
+                collection.insert({nickname: 'Aname2', username: 'someother@email.com'}, function (err, result) {
                     if (err) throw err;
 
                     var fbobj2 = {
@@ -489,6 +436,7 @@ describe('API /api/user public part', function() {
                         },
                         token: '9786149876db9786db987pyb976b'
                 	};
+
                     request.put('/api/user/' + fbobj2.profile.id)
                         .send(fbobj2)
                         .end(function(err, res){
@@ -501,6 +449,7 @@ describe('API /api/user public part', function() {
                             });
                         });
                 });
+            });
         });
 
         it('merges facebook user when logging in with a facebook profile whose email matches an existing email in the db', function(done) {
@@ -524,12 +473,65 @@ describe('API /api/user public part', function() {
 
         });
 
-        it('sends welcome email', function() {
-            throw 'Not implemented yet!!!';
+        it('transporter registered with correct options', function(done) {
+            checkEmailTransporter(
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj),
+                done);
         });
 
-        it('signs user up to mailchimp', function() {
-            throw 'Not implemented yet!!!';
+        it('sends email when user correctly registered with correct options', function(done) {
+            checkEmailContent(
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj),
+                email,
+                'Aname',
+                done);
+        });
+
+        it('does not send email when merging into existing user', function(done) {
+            collection.insert({nickname: fbobj.profile.displayName, username: email}, function (err, result) {
+                var userid = result._id;
+
+                if (err) throw err;
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj)
+                    .end(function(err, res){
+                        if (err) throw err;
+
+                        expect(createTransportSpy.called).to.be.false;
+                        expect(sendMailSpy.called).to.be.false;
+                        done();
+                    });
+            });
+        });
+
+        it('using the right api key', function() {
+            testMailchimpFactory();
+        });
+
+        it('registers user in mailchimp if success (200)', function(done) {
+            testMailchimp(
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj),
+                email,
+                done);
+        });
+
+        it('does not sign user up in mailchimp when merging into existing user', function(done) {
+            collection.insert({nickname: fbobj.profile.displayName, username: email}, function (err, result) {
+                var userid = result._id;
+
+                if (err) throw err;
+                request.put('/api/user/' + fbobj.profile.id)
+                    .send(fbobj)
+                    .end(function(err, res){
+                        if (err) throw err;
+
+                        expect(mailchimpAPIMock.lists.subscribe.called).to.be.false;
+                        done();
+                    });
+            });
         });
 
         afterEach(function(done) {
@@ -538,6 +540,136 @@ describe('API /api/user public part', function() {
             });
         });
     });
+
+    function checkEmailTransporter(promise, done) {
+        var expectedTransporterOptions = {
+            service: 'Gmail',
+            auth: {
+                user: 'babelboodotcom@gmail.com',
+                pass: 'kyqgfawqokbemjdz'
+            }
+        };
+
+        promise.end(function(err, res) {
+                expect(createTransportSpy.called).to.be.true;
+                expect(createTransportSpy.calledWithExactly(expectedTransporterOptions)).to.be.true;
+                done();
+            });
+    }
+
+    function checkEmailContent (promise, email, nickname, done) {
+        var text =
+            '*********************\n'
+            +'Bienvenido a babelboo\n'
+            +'*********************\n'
+            +'\n'
+            +'------------------------\n'
+            +'Have fun, learn English!\n'
+            +'------------------------\n'
+            +'\n'
+            +'Tu usuario #username# se ha creado correctamente.\n'
+            +'Puedes hacer click en el botón de más abajo para entrar a\n'
+            +'babelboo y empezar a ver vídeos.\n'
+            +'Cuando entres verás diferentes playlists y puedes escoger\n'
+            +'tema y dificultad. La idea es que puedas pasarte horas mirando\n'
+            +'viídeos de cosas que te interesan y de tu nivel.\n'
+            +'\n'
+            +'Entra a babelboo ( http://www.babelboo.com )\n'
+            +'\n'
+            +'¿Andas muy liado? Aquí ( http://www.babelboo.com/play/54aab86ba5606f354096a9eb ) tienes\n'
+            +'una playlist cortita que no te llevará más de cinco minutos.\n'
+            +'\n'
+            +'www.babelboo.com ( http://www.babelboo.com )\n'
+            +'\n'
+            +'babelboo.com ( http://www.babelboo.com )\n'
+            +'\n'
+            +'Copyright © 2015 Babelboo, All rights reserved.\n';
+
+        var html = '<html>' +
+            '<body style="background-color: #F2F2F2; height: 100% !important; width: 100% !important;">' +
+            '<div style="padding: 10px">' +
+                '<div style="width: 600px; background-color: #fff; color: #606060 !important; font-family: Helvetica !important; margin: 10px auto; padding: 20px;" bgcolor="#fff">' +
+                    '<img src="http://www.babelboo.com/img/welcomeboo.png"/>' +
+                    '<h1 style="font-size: 40px; line-height: 125%; letter-spacing: -1px; margin: 0;">Bienvenido a babelboo</h1>' +
+                    '<h2 style="font-size: 18px; line-height: 125%; letter-spacing: -.5px; margin: 0;">Have fun, learn English!</h2>' +
+                    '<p style="font-size: 15px; line-height: 150%;">Tu usuario #username# se ha creado correctamente. ' +
+                    'Puedes hacer click en el botón de más abajo para entrar a babelboo y empezar a ver vídeos. ' +
+                    'Cuando entres verás diferentes playlists y puedes escoger tema y dificultad. La idea es que puedas pasarte horas mirando vídeos de cosas que te interesan y de tu nivel.' +
+                    '</p>' +
+                    '<div style="text-align: center; padding: 30px;" align="center">' +
+                        '<a href="http://www.babelboo.com" style="color: #fff !important; text-decoration: none; border-radius: 5px; font-family: Helvetica; font-weight: bold; background-color: #228b22; padding: 15px; border: 2px solid #176617;">Entra a babelboo</a>' +
+                    '</div>' +
+                    '<p style="font-size: 15px; line-height: 150%;">¿Andas muy liado? <a href="http://www.babelboo.com/play/54aab86ba5606f354096a9eb" style="color: #6DC6DD;">Aquí</a> tienes una playlist cortita que no te llevará más de cinco minutos.</p>' +
+                    '<p style="font-size: 15px; line-height: 150%;"><a href="http://www.babelboo.com" style="color: #6DC6DD;">www.babelboo.com</a></p>' +
+                    '<em style="font-size: 12px;">' +
+                        '<a href="http://www.babelboo.com" style="color: #606060 !important;">babelboo.com</a>' +
+                        '<br/>' +
+                        'Copyright © 2015 Babelboo, All rights reserved.' +
+                    '</em>' +
+                '</div>' +
+            '</div>' +
+            '</body>' +
+            '</html>';
+
+        text = text.replace('#username#', nickname);
+        html = html.replace('#username#', nickname);
+
+        var expectedMailOptions = {
+            from: 'Babelboo <contact@babelboo.com>',
+            to: email,
+            subject: 'Bienvenido a babelboo',
+            text: text,
+            html: html
+        };
+
+        promise.end(function(err, res) {
+                expect(sendMailSpy.calledWith(expectedMailOptions)).to.be.true;
+                done();
+            });
+
+    }
+
+    function testMailchimpFactory() {
+        var apiKey = 'd644f26190a45f861fd87642679135ec-us9';
+        expect(mailchimpFactoryMock.calledWithExactly(apiKey)).to.be.true;
+    }
+
+    function testMailchimp (promise, email, done) {
+        var mailchimpOpts = {
+            id: 'ae8469cddc',
+            email: {
+                email: email
+            },
+            merge_vars: {
+                groupings: [
+                    {
+                        name: "Language",
+                        groups: ["Spanish"]
+                    },
+                    {
+                        name: "Reminders",
+                        groups: ["Inactivity reminder"]
+                    },
+                    {
+                        name: "Babelboo updates",
+                        groups: ["New release"]
+                    },
+                    {
+                        name: "Registration type",
+                        groups: ["users"]
+                    }
+                ],
+                mc_language: 'es_ES'
+            },
+            double_optin: false,
+            update_existing: true
+        };
+
+        promise.end(function(err, res) {
+                expect(mailchimpAPIMock.lists.subscribe.calledWith(mailchimpOpts)).to.be.true;
+                done();
+            });
+    }
 
     describe('API /api/user/recover', function() {
         var db = app.db;
