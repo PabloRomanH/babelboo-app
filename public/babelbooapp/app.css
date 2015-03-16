@@ -51,6 +51,45 @@ h3 {
     z-index: 999;
 }
 
+#login-bubble h5 {
+    text-align: center;
+    color: #9e9e9e;
+}
+
+.sino {
+    color: #9e9e9e;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sino span {
+    display: flex;
+}
+
+.sino span:before,
+.sino span:after {
+    border-top: 1px solid #9e9e9e;
+    display: block;
+    height: 1px;
+    content: " ";
+    width: 40%;
+    margin-top: 0.8em;
+}
+
+.registration .sino span:before,
+.registration .sino span:after {
+    width: 42%;
+}
+
+.sino span:after {
+   margin-left: 5px;
+}
+
+.sino span:before {
+   margin-right: 5px;
+}
+
 #login-bubble button {
     width: 100%;
 }
@@ -290,10 +329,11 @@ img.avatar {
     background-color: #55ACEE;
 }
 
-.btn-floating.facebook, .btn.facebook {
+.btn-floating.facebook, .btn-flat.facebook {
     background-color: #3a5795;
+    color: #fff;
+    margin-bottom: 0px;
 }
-
 
 /*---------   SEARCHER   ---------*/
 .searcher {
@@ -1278,7 +1318,12 @@ player-card .title-cine p {
 
 
 /*--------- REGISTRATION --------*/
-.registration, .recover {
+.registration {
+    width: 350px;
+    padding-top: 20px;
+}
+
+.recover {
     padding: 20px 20px 10px 20px;
 }
 
@@ -1297,6 +1342,10 @@ player-card .title-cine p {
 
 .registration button, .recover button {
     margin-top: 20px;
+}
+
+.registration button, .registration a {
+  width: 100%;
 }
 
 .recover p, .reset p {

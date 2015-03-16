@@ -22,9 +22,6 @@ send email
 
 
 # Next release:
-- Facebook login sends email and registers in mailchimp.
-- Add 'login with facebook' button to login dialog.
-- Login dialog and registration dialog design.
 - User registered with facebook can set password (using reset email functionality).
 
 # For future releases:

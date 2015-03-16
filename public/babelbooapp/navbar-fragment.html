@@ -83,14 +83,20 @@
 
 
    <div class="pull-right" id="login-bubble" ng-controller="LoginController as loginCtrl" ng-show="navbarCtrl.formVisible && !navbarCtrl.userLogged">
+     <div>
+       <a class="waves-effect waves-light btn-flat facebook" href="/login/facebook" target="_self"><i class="fa fa-facebook left"></i>Entrar con Facebook</a>
+     </div>
+     <div class="sino">
+       <span>o sino</span>
+     </div>
      <form ng-submit="loginCtrl.submit(username, password)">
        <div class="input-field">
          <input id="username" type="text" name="username" ng-model="username"/>
-         <label for="username">Username</label>
+         <label for="username">Usuario</label>
        </div>
        <div class="input-field">
          <input id="password" type="password" name="password" ng-model="password"/>
-         <label for="password">Password</label>
+         <label for="password">Contraseña</label>
        </div>
 
        <div class="text-danger" ng-show="loginCtrl.showError">Usuario o contraseña no son válidos.</div>
