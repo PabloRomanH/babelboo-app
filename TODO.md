@@ -6,7 +6,6 @@ Release cycle:
 - Decision meeting
 - Repeat
 
-
 Deploy:
 write email
 predeploy in /home/node/social_login
@@ -33,6 +32,8 @@ manual testing
     check that google webmaster tools picks up meta tags correctly
     slugs
 send email
+
+SITEMAP to webmaster tools
 
 
 # Next release:

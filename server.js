@@ -103,7 +103,7 @@ var FACEBOOK_APP_SECRET = '8a5f26b51c662bc64dd591a7282cb8b0';
 passport.use(new FacebookStrategy({
         clientID: FACEBOOK_APP_ID,
         clientSecret: FACEBOOK_APP_SECRET,
-        callbackURL: 'http://www.babelboo.com:' + process.env.PORT + '/login/facebook/callback'
+        callbackURL: 'http://www.babelboo.com/login/facebook/callback'
     },
     function(accessToken, refreshToken, profile, done) {
         var usercollection = app.db.get('usercollection');
