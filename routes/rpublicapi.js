@@ -129,8 +129,10 @@ router.put('/user/:id', function (req, res) {
             }
 
             usercollection.update({username: email}, {$set: set}, function (err, results) {
-                res.status(201);
-                res.json(results[0]);
+                usercollection.findOne({username: email}, function (err, user) {
+                    res.status(201);
+                    res.json(user);
+                });
             });
         } else { // Create user with facebook credentials
             var nickname = req.body.profile.displayName.substr(0, 14);
