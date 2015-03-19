@@ -81,9 +81,8 @@
             $analytics.eventTrack(eventname, { category: 'video', label: controller.videos[controller.idx].id, value: eventvalue });
         }
 
-        controller.test = function(){
-            console.log($element);
-            return $element[0].offsetWidth * 0.56;
+        controller.getPlayerHeight = function(){
+            return document.getElementById('player-container').offsetWidth * 9/16;
         }
 
         controller.playNext = function () {

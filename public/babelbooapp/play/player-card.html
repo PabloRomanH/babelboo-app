@@ -4,7 +4,7 @@
     <p class="progress-cine pull-right">{{ playCtrl.idx+1 }}/{{ playCtrl.videos.length }}</p>
   </div>
   <div>
-    <div class="player-container" style="height: {{playCtrl.test()}}px">
+    <div id="player-container" style="height: {{playCtrl.getPlayerHeight()}}px">
       <youtube-video video-id="playCtrl.videos[playCtrl.idx].id" player-width="'100%'" player-height="'100%'" player-vars="playCtrl.playerVars" player="playCtrl.player"></youtube-video>
     </div>
   </div>
