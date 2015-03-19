@@ -81,7 +81,8 @@ router.get('/user', function(req, res) {
         nickname: req.user.nickname,
         avatar: req.user.avatar,
         playlistprogress: req.user.playlistprogress,
-        haspassword: req.user.password? true: false
+        haspassword: req.user.password? true: false,
+        abtesting: req.user.abtesting
     };
 
     res.json(user);

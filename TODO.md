@@ -9,6 +9,11 @@ Release cycle:
 Deploy:
 write email
 db.playlists.update({}, {$set: {published: true}}, {multi:true})
+db.usercollection.update({}, {$set: {abtesting: {showpopular: true}}}, {multi:true})
+db.usercollection.update({nickname: 'laurahortal'}, {$set: {'abtesting.showpopular': false}})
+db.usercollection.update({nickname: 'castillomartinezcarlos'}, {$set: {'abtesting.showpopular': false}})
+db.usercollection.update({nickname: 'cristinela'}, {$set: {'abtesting.showpopular': false}})
+check that abtesting is properly set for the subjects
 git stuff
     git fetch
     git merge origin/master
@@ -22,6 +27,7 @@ send email
 # Next release:
 - SITEMAP to webmaster tools
 - Make popular playlists change over time.
+- Disable popular playlists for subjects in content experiment.
 
 # For future releases:
 - /api/user only returns playlistprogress when requested
