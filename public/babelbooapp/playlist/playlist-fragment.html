@@ -43,6 +43,11 @@
             </select>
           </div>
 
+          <p>
+            <input type="checkbox" id="published" ng-model="searchCtrl.playlist.published"/>
+            <label for="published">Published</label>
+          </p>
+
           <a id="btn-submit" class="btn btn-primary" ng-click="searchCtrl.submit()">Save</a>
         </form>
       </div>

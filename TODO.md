@@ -8,6 +8,7 @@ Release cycle:
 
 Deploy:
 write email
+db.playlists.update({}, {$set: {published: true}}, {multi:true})
 git stuff
     git fetch
     git merge origin/master
@@ -21,7 +22,6 @@ send email
 # Next release:
 - SITEMAP to webmaster tools
 - Make popular playlists change over time.
-- Create/edit playlists with 'publish' checkbox.
 
 # For future releases:
 - /api/user only returns playlistprogress when requested
