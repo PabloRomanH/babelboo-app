@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, $location, user, playlists, renderTime, levelNames) {
+    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, $location, user, playlists, renderTime, levelNames, $element) {
         var controller = this;
         var playlistId = $routeParams.playlistId;
         var playlistRetrieved = false;
@@ -79,6 +79,11 @@
             }
 
             $analytics.eventTrack(eventname, { category: 'video', label: controller.videos[controller.idx].id, value: eventvalue });
+        }
+
+        controller.test = function(){
+            console.log($element);
+            return $element[0].offsetWidth * 0.56;
         }
 
         controller.playNext = function () {

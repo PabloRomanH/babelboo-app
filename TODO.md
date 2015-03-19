@@ -8,40 +8,24 @@ Release cycle:
 
 Deploy:
 write email
-predeploy in /home/node/social_login
-    git stuff
-        git fetch
-        git merge origin/master
-    npm install
-    npm test
-    export PORT=4000
-    export NODE_ENV=development
-    npm start
-    manual testing
-        create user with facebook
-        create password for that user
 git stuff
     git fetch
     git merge origin/master
 npm install
-tools/fillslugs.js
 npm test
 restart node
     forever restartall
 manual testing
-    check that google webmaster tools picks up meta tags correctly
-    slugs
 send email
 
-SITEMAP to webmaster tools
-
-
 # Next release:
+- SITEMAP to webmaster tools
+- Make popular playlists change over time.
+- Create/edit playlists with 'publish' checkbox.
 
 # For future releases:
-- Make popular playlists change over time.
 - /api/user only returns playlistprogress when requested
-- fillUser only returns (and downloads) playlistprogress when requested.
+- user service only returns (and downloads) playlistprogress when requested.
 - When selecting a level in playlists view show popular playlists of that level.
 - Playlists infinite scrolling.
 - Going to an URL (besides http://www.babelboo.com) without being logged asks for user and password, then redirects to the requested URL.
@@ -69,9 +53,6 @@ SITEMAP to webmaster tools
 
 
 # Development/deployment
-
-- (*not necessary?) Testing node (Mocha + Chai + Sinon / Jasmine)
-    - try out frameworks
 - Testing E2E
         - Protractor + Jasmine: All desktop browsers (needs to run in Windows for IE and MacOS for Safari)
         - saucelabs.com ($$): EVERYTHING (including mobile)
@@ -81,11 +62,6 @@ SITEMAP to webmaster tools
         - Strider (es la ostia)
         - Ansible, Puppet ($$)
     - try out frameworks
-- Ide in mayhem
-    - sourcelair
-    - nitrous.io
-    - vim
-    - own installation of cloud9
 
 
 # Someday:
