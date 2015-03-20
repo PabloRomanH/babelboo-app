@@ -151,7 +151,8 @@
             controller.elapsedInterval = setInterval(function(){
                 $scope.$apply( function() {
                     if (controller.player) {
-                        controller.elapsed = controller.player.getCurrentTime();
+                        var start = controller.videos[controller.idx].starttime? controller.videos[controller.idx].starttime : 0;
+                        controller.elapsed = Math.max(0, controller.player.getCurrentTime()-start);
                     }
                 });
             }, 500); //polling frequency in miliseconds
