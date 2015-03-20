@@ -9,6 +9,7 @@ Release cycle:
 Deploy:
 write email
 db.playlists.update({}, {$set: {published: true}}, {multi:true})
+REMOVE ~node/babelboo-app/public/sitemap.xml
 git stuff
     git fetch
     git merge origin/master
@@ -20,7 +21,6 @@ manual testing
 send email
 
 # Next release:
-- SITEMAP to webmaster tools
 - Make popular playlists change over time.
 
 # For future releases:
