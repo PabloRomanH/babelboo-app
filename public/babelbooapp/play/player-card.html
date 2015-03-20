@@ -23,8 +23,6 @@
                                   )}}</span>
       </div>
     </div>
-    {{ playCtrl.elapsed
-    /((playCtrl.videos[playCtrl.idx].endtime? playCtrl.videos[playCtrl.idx].endtime : playCtrl.player.getDuration())-playCtrl.videos[playCtrl.idx].starttime)*100}}
   </div>
   <div ng-show="playCtrl.correct[playCtrl.videos[playCtrl.idx].id]" class="already-answered">
     <div><i class="fa fa-check"></i></div>
