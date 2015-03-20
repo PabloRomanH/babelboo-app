@@ -10,10 +10,15 @@
   </div>
   <div>
     <div class="player-controls">
-      <div class="video-progress" ng-click="playCtrl.seek($event)"><div class="bar" style="width: {{
+      <div class="video-progress" ng-click="playCtrl.seek($event)">
+        <div class="background">
+          <div class="bar" style="width: {{
           playCtrl.elapsed
           /((playCtrl.videos[playCtrl.idx].endtime? playCtrl.videos[playCtrl.idx].endtime : playCtrl.player.getDuration())-playCtrl.videos[playCtrl.idx].starttime)*100
-      }}%"></div></div>
+      }}%"></div>
+
+        </div>
+      </div>
       <i class="fa fa-play" ng-click="playCtrl.player.playVideo()" ng-hide="playCtrl.player.getPlayerState() == 1 || playCtrl.player.getPlayerState() == 3"></i>
       <i class="fa fa-pause" ng-click="playCtrl.player.pauseVideo()" ng-show="playCtrl.player.getPlayerState() == 1 || playCtrl.player.getPlayerState() == 3"></i>
       <div class="player-time">{{ playCtrl.renderTime(playCtrl.elapsed) }} /
