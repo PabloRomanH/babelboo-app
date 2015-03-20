@@ -14,7 +14,9 @@
         controller.videos = [];
         controller.relatedplaylists = [];
         controller.levelNames = levelNames.names;
-        controller.renderTime = renderTime;
+        controller.renderTime = function (time) {
+            return renderTime(Math.max(0, time));
+        };
         controller.idx = 0;
         controller.playerVars = { autoplay: 1, controls: 0, rel: 0, cc_load_policy: 0 };
         controller.player = null;
@@ -54,6 +56,7 @@
             controller.answeredcorrect = false;
             controller.answered = false;
             controller.answeredindex = -1;
+            controller.elapsed = 0;
             controller.playerVars.start = controller.videos[controller.idx].starttime;
             controller.playerVars.end = controller.videos[controller.idx].endtime;
         }
@@ -148,7 +151,8 @@
             controller.elapsedInterval = setInterval(function(){
                 $scope.$apply( function() {
                     if (controller.player) {
-                        controller.elapsed = controller.player.getCurrentTime();
+                        var start = controller.videos[controller.idx].starttime? controller.videos[controller.idx].starttime : 0;
+                        controller.elapsed = Math.max(0, controller.player.getCurrentTime()-start);
                     }
                 });
             }, 500); //polling frequency in miliseconds
