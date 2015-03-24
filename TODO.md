@@ -13,6 +13,7 @@ git stuff
     git merge origin/master
 npm install
 npm test
+change dates of playlists for the experiment to mix the playlists of the different subjects.
 restart node
     forever restartall
 manual testing

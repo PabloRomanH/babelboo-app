@@ -159,6 +159,8 @@
 
             if (!controller.playlist.publicationdate) {
                 controller.playlist.publicationdate = new Date();
+            } else {
+                controller.playlist.publicationdate = new Date(controller.playlist.publicationdate);
             }
 
             var totalTime = 0;
