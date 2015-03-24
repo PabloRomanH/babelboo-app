@@ -8,13 +8,12 @@ Release cycle:
 
 Deploy:
 write email
-db.playlists.update({}, {$set: {published: true}}, {multi:true})
-REMOVE ~node/babelboo-app/public/sitemap.xml
 git stuff
     git fetch
     git merge origin/master
 npm install
 npm test
+change dates of playlists for the experiment to mix the playlists of the different subjects.
 restart node
     forever restartall
 manual testing
@@ -24,6 +23,7 @@ send email
 - Make popular playlists change over time.
 
 # For future releases:
+- script that emails us when a video is missing: mark the playlist as not published.
 - /api/user only returns playlistprogress when requested
 - user service only returns (and downloads) playlistprogress when requested.
 - When selecting a level in playlists view show popular playlists of that level.

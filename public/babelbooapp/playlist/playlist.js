@@ -157,6 +157,12 @@
                 return;
             }
 
+            if (!controller.playlist.publicationdate) {
+                controller.playlist.publicationdate = new Date();
+            } else {
+                controller.playlist.publicationdate = new Date(controller.playlist.publicationdate);
+            }
+
             var totalTime = 0;
 
             for (var i = 0; i < addedVideos.length; i++) {
@@ -281,4 +287,3 @@ function handleClientLoad() {
     gapi.client.setApiKey(API_KEY);
     gapi.client.load('youtube', 'v3');
 }
-
