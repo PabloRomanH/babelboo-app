@@ -8,8 +8,6 @@ Release cycle:
 
 Deploy:
 write email
-db.playlists.update({}, {$set: {published: true}}, {multi:true})
-REMOVE ~node/babelboo-app/public/sitemap.xml
 git stuff
     git fetch
     git merge origin/master
