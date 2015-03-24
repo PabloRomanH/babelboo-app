@@ -22,6 +22,7 @@ send email
 - Make popular playlists change over time.
 
 # For future releases:
+- script that emails us when a video is missing: mark the playlist as not published.
 - /api/user only returns playlistprogress when requested
 - user service only returns (and downloads) playlistprogress when requested.
 - When selecting a level in playlists view show popular playlists of that level.
