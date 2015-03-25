@@ -11,7 +11,15 @@ router.get('/playlist', function(req, res) {
     var query = {};
 
     if (req.query.recommended) {
-        var query = { visitcount: { $exists: true } };
+        var seenIds = [];
+
+        if (req.user.medalhistory) {
+            seenIds = req.user.medalhistory.map(function (elem) {
+                return collection.id(elem.playlistid);
+            });
+        }
+
+        var query = { visitcount: { $exists: true }, _id: {$nin: seenIds} };
 
         if (req.query.level && req.query.level != -1) {
             query.level = parseInt(req.query.level);

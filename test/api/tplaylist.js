@@ -4,7 +4,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var supertest = require('supertest-as-promised');
 var slug = require('slug');
-// var request = supertest('http://localhost:' + port);
 
 process.env.NODE_ENV = 'test';
 
@@ -103,6 +102,8 @@ describe('API /api/playlist private part', function() {
     });
 
     describe('Testing /api/playlist?recommended=true', function() {
+        var URL = '/api/playlist?recommended=true&num_results=';
+
         beforeEach(function(done) {
             playlistsdb.drop(function () {
                 done();
@@ -137,9 +138,50 @@ describe('API /api/playlist private part', function() {
             testRecommended([{visitcount: 2, level: 1}, {visitcount: 0, level: 2}, {visitcount: 4, level: 2}, {visitcount: 1, level: 3}], 2, done, 2);
         });
 
+        it('doesn\'t show playlists the user has already seen', function(done) {
+            var seenId = '123456789012123456789012';
+            var seenPL = {
+                _id: seenId,
+                visitcount: 5
+            };
+
+            var unseenId = '210987654321210987654321';
+            var unseenPL = {
+                _id: unseenId,
+                visitcount: 2
+            };
+
+            playlistsdb.insert(seenPL)
+                .success( function () {
+                    return playlistsdb.insert(unseenPL);
+                })
+                .success( function(err, res) {
+                    var medalHistory = [
+                        {
+                            playlistid: seenId
+                        }
+                    ];
+
+                    return logindb.update({username: USERNAME}, {$set: {medalhistory: medalHistory}});
+                })
+                .success( function () {
+                        request.get(URL+'2')
+                            .set('Cookie', setCookie)
+                            .expect(200)
+                            .expect('Content-Type', /json/)
+                            .end(function(err, res){
+                                if (err) throw err;
+                                expect(res.body.length).to.equal(1);
+                                expect(res.body[0]._id).to.equal(unseenId);
+
+                                done();
+                            });
+                });
+        });
+
         function testRecommended(playlists, numResultsRequested, done, level) {
             var visitcounts = [];
-            var query = '/api/playlist?recommended=true&num_results=' + numResultsRequested;
+            var query = URL + numResultsRequested;
             if (typeof level !== 'undefined') {
                 query += '&level=' + level;
             }
