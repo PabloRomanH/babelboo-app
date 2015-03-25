@@ -16,6 +16,6 @@
       <span ng-repeat="tag in manageCtrl.tags"><a ng-click="manageCtrl.toggleTag(tag._id)">{{ tag._id }}</a> </span>
       <div>{{playlistsCtrl.selectedLevel}} {{playlistsCtrl.selectedTags}}</div>
     </div>
-  <manage-playlist-card ng-repeat="playlist in manageCtrl.playlists | orderBy:playlist._id" data-playlist-id="{{ playlist._id }}"></manage-playlist-card>
+  <manage-playlist-card ng-repeat="playlist in manageCtrl.playlists | orderBy:'-publicationdate'" data-playlist-id="{{ playlist._id }}"></manage-playlist-card>
   </div>
 </div>

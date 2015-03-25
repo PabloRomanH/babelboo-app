@@ -3,17 +3,17 @@
     app.controller('PlaylistsController', function($analytics, playlists, tags, renderTime, levelNames, user){
         var controller = this;
         this.playlists = null;
-        this.popular = null;
+        this.recommended = null;
         this.tags = []
         this.selectedLevel = -1;
         this.selectedTag = '';
         controller.levelNames = levelNames.names;
         controller.renderTime = renderTime;
         controller.userData = {}
-        controller.showPopular = false;
-        controller.popular = [];
+        controller.showRecommended = false;
+        controller.recommended = [];
 
-        var NUM_POPULAR_RESULTS = 4;
+        var NUM_RECOMMENDED_RESULTS = 4;
 
         user.fillUser (function (data) {
             controller.userData = data;
@@ -28,6 +28,8 @@
                     category: 'search', label: controller.levelNames[level]
                 });
             }
+
+            updateRecommended();
             getList();
         }
 
@@ -44,27 +46,34 @@
             getList();
         }
 
+        this.dismiss = function(playlistId) {
+            playlists.dismissRecommendation(playlistId, updateRecommended);
+        }
+
         tags.getTags(function(data){
             controller.tags = data;
         });
 
-        playlists.getPopular(NUM_POPULAR_RESULTS).success(function(data) {
-            controller.popular = data;
-            controller.showPopular = isPopularVisible();
-        });
+        updateRecommended();
+
+        function updateRecommended() {
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS, controller.selectedLevel).success(function(data) {
+                controller.recommended = data;
+                controller.showRecommended = isRecommendedVisible();
+            });
+        }
 
         getList();
 
-        function isPopularVisible() {
-            return (controller.popular.length > 0)
-                    && !controller.selectedTag
-                    && (controller.selectedLevel == -1);
+        function isRecommendedVisible() {
+            return controller.recommended.length > 0
+                    && !controller.selectedTag;
         }
 
         function getList() {
             playlists.getWithTagLevel(controller.selectedTag, controller.selectedLevel).success(function(data){
                 controller.playlists = data;
-                controller.showPopular = isPopularVisible();
+                controller.showRecommended = isRecommendedVisible();
             });
         }
     });

@@ -197,6 +197,7 @@ var api = require('./routes/rapi');
 var publicapi = require('./routes/rpublicapi');
 var restrictedapi = require('./routes/rrestrictedapi');
 var defaultapi = require('./routes/rdefaultapi');
+var sitemap = require('./routes/rsitemap');
 
 var auth = function(req, res, next) {
     if (!req.isAuthenticated()) {
@@ -232,6 +233,7 @@ app.use('/api', defaultapi);
 
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/', sitemap);
 app.use('/', bbooapp);
 
 // catch 404 and forward to error handler

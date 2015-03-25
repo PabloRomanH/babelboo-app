@@ -15,14 +15,14 @@
   </div>
 
   <div class="myContainer">
-    <div ng-show="playlistsCtrl.showPopular && playlistsCtrl.userData.abtesting.showpopular" class="playlists-block">
-      <h3>Popular</h3>
-      <playlist-card ng-repeat="playlist in playlistsCtrl.popular" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    <div ng-show="playlistsCtrl.showRecommended && playlistsCtrl.userData.abtesting.showrecommendations" class="playlists-block recommended">
+      <h3>Recommended for you</h3>
+      <playlist-card ng-repeat="playlist in playlistsCtrl.recommended" data-playlist-id="{{ playlist._id }}" ng-init="recommendations=true"></playlist-card>
     </div>
 
     <div class="playlists-block">
       <h3>Newest</h3>
-      <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-_id' | filter: {published: true}" data-playlist-id="{{ playlist._id }}"></playlist-card>
+      <playlist-card ng-repeat="playlist in playlistsCtrl.playlists | orderBy:'-publicationdate' | filter: {published: true}" data-playlist-id="{{ playlist._id }}"></playlist-card>
     </div>
 
     <h3 class="not-found" ng-show="playlistsCtrl != null && playlistsCtrl.playlists.length==0">No playlists found</h3>

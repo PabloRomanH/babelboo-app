@@ -9,30 +9,30 @@ Release cycle:
 Deploy:
 write email
 db.playlists.update({}, {$set: {published: true}}, {multi:true})
-db.usercollection.update({}, {$set: {abtesting: {showpopular: true}}}, {multi:true})
-db.usercollection.update({nickname: 'laurahortal'}, {$set: {'abtesting.showpopular': false}})
-db.usercollection.update({nickname: 'castillomartinezcarlos'}, {$set: {'abtesting.showpopular': false}})
-db.usercollection.update({nickname: 'cristinela'}, {$set: {'abtesting.showpopular': false}})
+db.usercollection.update({}, {$set: {abtesting: {showrecommendations: true}}}, {multi:true})
+db.usercollection.update({nickname: 'laurahortal'}, {$set: {'abtesting.showrecommendations': false}})
+db.usercollection.update({nickname: 'castillomartinezcarlos'}, {$set: {'abtesting.showrecommendations': false}})
+db.usercollection.update({nickname: 'cristinela'}, {$set: {'abtesting.showrecommendations': false}})
 check that abtesting is properly set for the subjects
 git stuff
     git fetch
     git merge origin/master
 npm install
 npm test
+change dates of playlists for the experiment to mix the playlists of the different subjects.
 restart node
     forever restartall
 manual testing
 send email
+    Don't send recommended feature email to cristinela, laura and castillocarlos.
 
 # Next release:
-- SITEMAP to webmaster tools
-- Make popular playlists change over time.
-- Disable popular playlists for subjects in content experiment.
 
 # For future releases:
+- remove passport sessions from the test database after running the tests
+- script that emails us when a video is missing: mark the playlist as not published.
 - /api/user only returns playlistprogress when requested
 - user service only returns (and downloads) playlistprogress when requested.
-- When selecting a level in playlists view show popular playlists of that level.
 - Playlists infinite scrolling.
 - Going to an URL (besides http://www.babelboo.com) without being logged asks for user and password, then redirects to the requested URL.
 - A) Questions at the beginning, answers at the end.
@@ -56,6 +56,7 @@ send email
 - Refactor CSS
     - Materialize more stuff
 - Create tests
+- In calls to the API that are a search with parameters (such as /api/ranking/period), the search parameters should be passed as part of the query, not the path. (e.g. /api/ranking?period=someperiod instead of /api/ranking/someperiod).
 
 
 # Development/deployment

@@ -385,12 +385,16 @@ li.tag-selected {
     background-color:#2969B0;
 }
 
+.playlists-block.recommended {
+    text-align: left;
+}
+
 /*---------    PLAYLIST CONTENT --------*/
 .row-centered {
     text-align:center;
 }
 
-.tag-container {˝
+.tag-container {
     max-width: 972px;
     margin-left: auto;
     margin-right: auto;
@@ -425,7 +429,9 @@ li.tag-selected {
     vertical-align: top;
     height: 320px;
     text-align: left;
+    position: relative;
 }
+
 .play-btn {
     float:right;
     margin:-24px 5px 0 0;
@@ -546,6 +552,17 @@ li.tag-selected {
 
 .playlist .medal-none {
     background-image: url('/img/none-small.png');
+}
+
+.playlist .dismiss {
+    position: absolute;
+    right: 5px;
+    color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+.playlist .dismiss:hover {
+    color: rgba(255, 255, 255, 1);
 }
 
 .summary-card {
@@ -832,14 +849,23 @@ player-card .title-cine p {
     color: #fff;
     padding-left: 22px;
     padding-right: 0px;
-    margin-top: -5px;*
+    margin-top: -5px;
+    position: relative;
 }
 
 .video-progress {
-    height: 7px;
-    background-color: #ccc;
     margin-left: -22px;
     cursor: pointer;
+    width: 100%;
+    position: absolute;
+    margin-top: -15px; /* clickable height */
+}
+
+.video-progress .background {
+    background-color: #ccc;
+    width: 100%;
+    height: 7px;
+    display: inline-block;
 }
 
 .video-progress .bar {
