@@ -15,9 +15,9 @@
   </div>
 
   <div class="myContainer">
-    <div ng-show="playlistsCtrl.showPopular" class="playlists-block">
-      <h3>Popular</h3>
-      <playlist-card ng-repeat="playlist in playlistsCtrl.popular" data-playlist-id="{{ playlist._id }}"></playlist-card>
+    <div ng-show="playlistsCtrl.showRecommended && playlistsCtrl.userData.abtesting.showrecommendations" class="playlists-block recommended">
+      <h3>Recommended for you</h3>
+      <playlist-card ng-repeat="playlist in playlistsCtrl.recommended" data-playlist-id="{{ playlist._id }}" ng-init="recommendations=true"></playlist-card>
     </div>
 
     <div class="playlists-block">

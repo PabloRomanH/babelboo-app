@@ -33,45 +33,46 @@ describe('services', function() {
     describe('playlists', function() {
         var playlists;
         var $httpBackend;
+        var URL = '/api/playlist?recommended=true&num_results=';
 
         beforeEach(inject(function(_playlists_, _$httpBackend_) {
             playlists = _playlists_;
             $httpBackend = _$httpBackend_;
         }));
 
-        var popularPlaylists = 'ntaeoduir8c7oefrucgadfoe7uyf'; // Random string to check equality
+        var recommendedPlaylists = 'ntaeoduir8c7oefrucgadfoe7uyf'; // Random string to check equality
 
-        it('popular playlists', function() {
-            var NUM_POPULAR_RESULTS = 3;
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS).respond(popularPlaylists);
+        it('recommended playlists', function() {
+            var NUM_RECOMMENDED_RESULTS = 3;
+            $httpBackend.expectGET(URL + NUM_RECOMMENDED_RESULTS).respond(recommendedPlaylists);
 
-            playlists.getPopular(NUM_POPULAR_RESULTS).success(function(data) {
-                expect(data).to.equal(popularPlaylists);
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS).success(function(data) {
+                expect(data).to.equal(recommendedPlaylists);
             });
 
             $httpBackend.flush();
         });
 
-        it('popular playlists with level', function() {
-            var NUM_POPULAR_RESULTS = 1;
-            var popularEasy = 'babsr84xsr.';
-            var popularMedium = 'alk9bsrghxs';
-            var popularHard = 'antoehxusrg';
+        it('recommended playlists with level', function() {
+            var NUM_RECOMMENDED_RESULTS = 1;
+            var recommendedEasy = 'babsr84xsr.';
+            var recommendedMedium = 'alk9bsrghxs';
+            var recommendedHard = 'antoehxusrg';
 
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS + '&level=1').respond(popularEasy);
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS + '&level=2').respond(popularMedium);
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS + '&level=3').respond(popularHard);
+            $httpBackend.expectGET(URL + NUM_RECOMMENDED_RESULTS + '&level=1').respond(recommendedEasy);
+            $httpBackend.expectGET(URL + NUM_RECOMMENDED_RESULTS + '&level=2').respond(recommendedMedium);
+            $httpBackend.expectGET(URL + NUM_RECOMMENDED_RESULTS + '&level=3').respond(recommendedHard);
 
-            playlists.getPopular(NUM_POPULAR_RESULTS, 1).success(function(data) {
-                expect(data).to.equal(popularEasy);
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS, 1).success(function(data) {
+                expect(data).to.equal(recommendedEasy);
             });
 
-            playlists.getPopular(NUM_POPULAR_RESULTS, 2).success(function(data) {
-                expect(data).to.equal(popularMedium);
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS, 2).success(function(data) {
+                expect(data).to.equal(recommendedMedium);
             });
 
-            playlists.getPopular(NUM_POPULAR_RESULTS, 3).success(function(data) {
-                expect(data).to.equal(popularHard);
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS, 3).success(function(data) {
+                expect(data).to.equal(recommendedHard);
             });
 
             $httpBackend.flush();
@@ -101,6 +102,27 @@ describe('services', function() {
                 });
 
                 $httpBackend.flush();
+            });
+        });
+
+        describe('dismissing recommendations', function() {
+            it('calls api when dismissing recommendation', function() {
+                var id = 'al90u8l98g6fls398lls';
+                playlists.dismissRecommendation(id, function() {});
+                $httpBackend.expectPOST('/api/playlist/' + id + '/dismissrecommendation').respond(200);
+
+                $httpBackend.flush();
+            });
+
+            it('calls callback when dismissing recommendation', function() {
+                var id = 'al90u8l98g6fls398lls';
+                var callback = sinon.spy();
+                playlists.dismissRecommendation(id, callback);
+                $httpBackend.expectPOST('/api/playlist/' + id + '/dismissrecommendation').respond(200);
+
+                $httpBackend.flush();
+
+                expect(callback.called).to.be.true;
             });
         });
     });
@@ -263,20 +285,21 @@ describe('services', function() {
     describe('playlists', function() {
         var playlists;
         var $httpBackend;
+        var URL = '/api/playlist?recommended=true&num_results=';
 
         beforeEach(inject(function(_playlists_, _$httpBackend_) {
             playlists = _playlists_;
             $httpBackend = _$httpBackend_;
         }));
 
-        var popularPlaylists = 'ntaeoduir8c7oefrucgadfoe7uyf'; // Random string to check equality
+        var recommendedPlaylists = 'ntaeoduir8c7oefrucgadfoe7uyf'; // Random string to check equality
 
-        it('popular playlists', function() {
-            var NUM_POPULAR_RESULTS = 3;
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS).respond(popularPlaylists);
+        it('recommended playlists', function() {
+            var NUM_RECOMMENDED_RESULTS = 3;
+            $httpBackend.expectGET(URL + NUM_RECOMMENDED_RESULTS).respond(recommendedPlaylists);
 
-            playlists.getPopular(NUM_POPULAR_RESULTS).success(function(data) {
-                expect(data).to.equal(popularPlaylists);
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS).success(function(data) {
+                expect(data).to.equal(recommendedPlaylists);
             });
 
             $httpBackend.flush();

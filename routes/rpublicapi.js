@@ -21,23 +21,8 @@ router.post('/betaregistration', function(req, res) {
             if (err) throw err;
         });
 
-
     res.status(201); // CREATED
     res.json();
-});
-
-router.get('/playlist/popular', function(req, res) {
-    var collection = req.db.get('playlists');
-
-    var query = { visitcount: { $exists: true } };
-
-    if (req.query.level && req.query.level != -1) {
-        query.level = parseInt(req.query.level);
-    }
-
-    collection.find(query, {sort: {visitcount: -1}, limit: req.query.num_results}, function (err, result) {
-        res.json( result );
-    });
 });
 
 router.get('/playlist/:id_or_slug', function(req, res) {

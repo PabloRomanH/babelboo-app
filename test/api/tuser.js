@@ -989,17 +989,19 @@ describe('API /api/user private part', function() {
 
     describe('retrieve user data', function () {
         var user;
+        var set;
 
         beforeEach(function (done) {
             var logindb = db.get('testlogin');
 
-            var set = {
+            set = {
                 daysvisited: 13,
                 lastvisit: new Date(),
                 medalhistory: [1,2,3],
                 nickname: NICKNAME,
                 playlistprogress: {a: 1, b: 2, c: 3},
-                avatar: {small: 'a_url', large: 'a_url'}
+                avatar: {small: 'a_url', large: 'a_url'},
+                abtesting: 'abtestingobject'
 
             }
 
@@ -1026,6 +1028,10 @@ describe('API /api/user private part', function() {
 
         it('returns avatar field', function() {
             expect(user.avatar).to.exist;
+        });
+
+        it('returns abtesting field', function() {
+            expect(user.abtesting).to.deep.equal(set.abtesting);
         });
 
         it('does not return password field', function() {
