@@ -2,15 +2,15 @@ describe("controllers", function() {
     beforeEach(module('playlists'));
     beforeEach(module('babelbooapp'));
 
-    var samplePopular = [];
+    var sampleRecommended = [];
 
     beforeEach(inject(function($controller, $rootScope) {
         var scope = $rootScope.$new();
         var playlistsService = {
-            getPopular: function (playlistId) {
+            getRecommended: function (playlistId) {
                 return {
                     success: function (callback) {
-                        callback(samplePopular);
+                        callback(sampleRecommended);
                     }
                 }
             },
@@ -34,8 +34,8 @@ describe("controllers", function() {
 
     }));
 
-    it('loads popular playlists', function() {
-        expect(ctrl.popular).to.equal(samplePopular);
+    it('loads recommended playlists', function() {
+        expect(ctrl.recommended).to.equal(sampleRecommended);
     });
 
 });

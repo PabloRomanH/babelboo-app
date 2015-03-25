@@ -65,8 +65,8 @@
             return $http.get(query);
         }
 
-        service.getPopular = function (numResults, level) {
-            var query = '/api/playlist?popular=true&num_results=' + numResults;
+        service.getRecommended = function (numResults, level) {
+            var query = '/api/playlist?recommended=true&num_results=' + numResults;
 
             if (typeof level !== 'undefined') {
                 query += '&level=' + level;

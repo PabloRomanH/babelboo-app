@@ -102,7 +102,7 @@ describe('API /api/playlist private part', function() {
         });
     });
 
-    describe('Testing /api/playlist/popular', function() {
+    describe('Testing /api/playlist?recommended=true', function() {
         beforeEach(function(done) {
             playlistsdb.drop(function () {
                 done();
@@ -110,36 +110,36 @@ describe('API /api/playlist private part', function() {
         });
 
         it('Happy path', function(done) {
-            testPopular([{visitcount: 2}, {visitcount: 0}, {visitcount: 4}, {visitcount: 1}], 2, done);
+            testRecommended([{visitcount: 2}, {visitcount: 0}, {visitcount: 4}, {visitcount: 1}], 2, done);
         });
 
         it('Happy path different number of results', function(done) {
-            testPopular([{visitcount: 2}, {visitcount: 0}, {visitcount: 4}, {visitcount: 1}], 3, done);
+            testRecommended([{visitcount: 2}, {visitcount: 0}, {visitcount: 4}, {visitcount: 1}], 3, done);
         });
 
         it('less playlists than requested', function(done) {
-            testPopular([{visitcount: 2}], 2, done);
+            testRecommended([{visitcount: 2}], 2, done);
         });
 
         it('playlists without visitcount', function(done) {
-            testPopular([{}, {}], 2, done);
+            testRecommended([{}, {}], 2, done);
         });
 
         it('less playlists with visitcount than requested', function(done) {
-            testPopular([{visitcount: 2}, {}], 2, done);
+            testRecommended([{visitcount: 2}, {}], 2, done);
         });
 
         it('no playlists in db', function(done) {
-            testPopular([], 2, done);
+            testRecommended([], 2, done);
         });
 
         it('returns only playlists with the same level', function(done) {
-            testPopular([{visitcount: 2, level: 1}, {visitcount: 0, level: 2}, {visitcount: 4, level: 2}, {visitcount: 1, level: 3}], 2, done, 2);
+            testRecommended([{visitcount: 2, level: 1}, {visitcount: 0, level: 2}, {visitcount: 4, level: 2}, {visitcount: 1, level: 3}], 2, done, 2);
         });
 
-        function testPopular(playlists, numResultsRequested, done, level) {
+        function testRecommended(playlists, numResultsRequested, done, level) {
             var visitcounts = [];
-            var query = '/api/playlist?popular=true&num_results=' + numResultsRequested;
+            var query = '/api/playlist?recommended=true&num_results=' + numResultsRequested;
             if (typeof level !== 'undefined') {
                 query += '&level=' + level;
             }

@@ -10,9 +10,7 @@ router.get('/playlist', function(req, res) {
 
     var query = {};
 
-    if (req.query.popular) {
-        var collection = req.db.get('playlists');
-
+    if (req.query.recommended) {
         var query = { visitcount: { $exists: true } };
 
         if (req.query.level && req.query.level != -1) {
