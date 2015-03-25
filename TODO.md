@@ -21,12 +21,6 @@ send email
     Don't send recommended feature email to cristinela, laura and castillocarlos.
 
 # Next release:
-- Crappy recommender (crappy_recommender):
-    - Show recommended that
-        - User hasn't seen.
-        - User hasn't dismissed.
-            - Make recommendations cards dismissible.
-        - Match the level selected.
 
 # For future releases:
 - remove passport sessions from the test database after running the tests

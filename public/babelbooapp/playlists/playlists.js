@@ -28,6 +28,8 @@
                     category: 'search', label: controller.levelNames[level]
                 });
             }
+
+            updateRecommended();
             getList();
         }
 
@@ -55,7 +57,7 @@
         updateRecommended();
 
         function updateRecommended() {
-            playlists.getRecommended(NUM_RECOMMENDED_RESULTS).success(function(data) {
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS, controller.selectedLevel).success(function(data) {
                 controller.recommended = data;
                 controller.showRecommended = isRecommendedVisible();
             });
@@ -64,9 +66,8 @@
         getList();
 
         function isRecommendedVisible() {
-            return (controller.recommended.length > 0)
-                    && !controller.selectedTag
-                    && (controller.selectedLevel == -1);
+            return controller.recommended.length > 0
+                    && !controller.selectedTag;
         }
 
         function getList() {
