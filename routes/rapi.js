@@ -10,6 +10,22 @@ router.get('/playlist', function(req, res) {
 
     var query = {};
 
+    if (req.query.popular) {
+        var collection = req.db.get('playlists');
+
+        var query = { visitcount: { $exists: true } };
+
+        if (req.query.level && req.query.level != -1) {
+            query.level = parseInt(req.query.level);
+        }
+
+        collection.find(query, {sort: {visitcount: -1}, limit: req.query.num_results}, function (err, result) {
+            res.json( result );
+        });
+
+        return;
+    }
+
     if (req.query.level && req.query.level != -1) {
         query.level = parseInt(req.query.level);
     }

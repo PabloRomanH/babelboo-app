@@ -43,7 +43,7 @@ describe('services', function() {
 
         it('popular playlists', function() {
             var NUM_POPULAR_RESULTS = 3;
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS).respond(popularPlaylists);
+            $httpBackend.expectGET('/api/playlist?popular=true&num_results=' + NUM_POPULAR_RESULTS).respond(popularPlaylists);
 
             playlists.getPopular(NUM_POPULAR_RESULTS).success(function(data) {
                 expect(data).to.equal(popularPlaylists);
@@ -58,9 +58,9 @@ describe('services', function() {
             var popularMedium = 'alk9bsrghxs';
             var popularHard = 'antoehxusrg';
 
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS + '&level=1').respond(popularEasy);
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS + '&level=2').respond(popularMedium);
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS + '&level=3').respond(popularHard);
+            $httpBackend.expectGET('/api/playlist?popular=true&num_results=' + NUM_POPULAR_RESULTS + '&level=1').respond(popularEasy);
+            $httpBackend.expectGET('/api/playlist?popular=true&num_results=' + NUM_POPULAR_RESULTS + '&level=2').respond(popularMedium);
+            $httpBackend.expectGET('/api/playlist?popular=true&num_results=' + NUM_POPULAR_RESULTS + '&level=3').respond(popularHard);
 
             playlists.getPopular(NUM_POPULAR_RESULTS, 1).success(function(data) {
                 expect(data).to.equal(popularEasy);
@@ -273,7 +273,7 @@ describe('services', function() {
 
         it('popular playlists', function() {
             var NUM_POPULAR_RESULTS = 3;
-            $httpBackend.expectGET('/api/playlist/popular?num_results=' + NUM_POPULAR_RESULTS).respond(popularPlaylists);
+            $httpBackend.expectGET('/api/playlist?popular=true&num_results=' + NUM_POPULAR_RESULTS).respond(popularPlaylists);
 
             playlists.getPopular(NUM_POPULAR_RESULTS).success(function(data) {
                 expect(data).to.equal(popularPlaylists);
