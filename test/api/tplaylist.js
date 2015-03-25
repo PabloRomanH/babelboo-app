@@ -179,6 +179,41 @@ describe('API /api/playlist private part', function() {
                 });
         });
 
+        it('does not show playlists the user has dismissed', function(done) {
+            var dismissedId = '123456789bbbb23456789012';
+            var dismissedPL = {
+                _id: dismissedId,
+                visitcount: 5
+            };
+
+            var anotherID = '210987654321210987654321';
+            var anotherPL = {
+                _id: anotherID,
+                visitcount: 2
+            };
+
+            playlistsdb.insert(dismissedPL)
+                .success( function () {
+                    return playlistsdb.insert(anotherPL);
+                })
+                .success( function(err, res) {
+                    return logindb.update({username: USERNAME}, {$push: {dismissedrecommendation: dismissedId}});
+                })
+                .success( function () {
+                        request.get(URL+'2')
+                            .set('Cookie', setCookie)
+                            .expect(200)
+                            .expect('Content-Type', /json/)
+                            .end(function(err, res){
+                                if (err) throw err;
+                                expect(res.body.length).to.equal(1);
+                                expect(res.body[0]._id).to.equal(anotherID);
+
+                                done();
+                            });
+                });
+        });
+
         function testRecommended(playlists, numResultsRequested, done, level) {
             var visitcounts = [];
             var query = URL + numResultsRequested;
@@ -297,5 +332,19 @@ describe('API /api/playlist private part', function() {
                 });
             });
         });
+    });
+
+    it('adds dismissed recommendation to user profile', function(done) {
+        var id = 'l98pffl9f32l97f6ls87f6l9f6ly6f5y765yf6fy756f77698s37rdf';
+        request.post('/api/playlist/' + id + '/dismissrecommendation')
+            .set('Cookie', setCookie)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) throw err;
+                userdb.findOne({username: USERNAME}, function (err, result) {
+                    expect(result.dismissedrecommendation[0]).to.equal(id);
+                    done();
+                });
+            });
     });
 });

@@ -104,6 +104,27 @@ describe('services', function() {
                 $httpBackend.flush();
             });
         });
+
+        describe('dismissing recommendations', function() {
+            it('calls api when dismissing recommendation', function() {
+                var id = 'al90u8l98g6fls398lls';
+                playlists.dismissRecommendation(id, function() {});
+                $httpBackend.expectPOST('/api/playlist/' + id + '/dismissrecommendation').respond(200);
+
+                $httpBackend.flush();
+            });
+
+            it('calls callback when dismissing recommendation', function() {
+                var id = 'al90u8l98g6fls398lls';
+                var callback = sinon.spy();
+                playlists.dismissRecommendation(id, callback);
+                $httpBackend.expectPOST('/api/playlist/' + id + '/dismissrecommendation').respond(200);
+
+                $httpBackend.flush();
+
+                expect(callback.called).to.be.true;
+            });
+        });
     });
 
     describe('ranking', function() {

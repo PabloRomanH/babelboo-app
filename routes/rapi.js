@@ -12,6 +12,7 @@ router.get('/playlist', function(req, res) {
 
     if (req.query.recommended) {
         var seenIds = [];
+        var dismissedrecommendation = [];
 
         if (req.user.medalhistory) {
             seenIds = req.user.medalhistory.map(function (elem) {
@@ -19,7 +20,13 @@ router.get('/playlist', function(req, res) {
             });
         }
 
-        var query = { visitcount: { $exists: true }, _id: {$nin: seenIds} };
+        if (req.user.dismissedrecommendation) {
+            dismissedrecommendation = req.user.dismissedrecommendation.map(function (elem) {
+                return collection.id(elem);
+            });
+        }
+
+        var query = { visitcount: { $exists: true }, $and: [ {_id: {$nin: seenIds}}, {_id: {$nin: dismissedrecommendation}}] };
 
         if (req.query.level && req.query.level != -1) {
             query.level = parseInt(req.query.level);
@@ -83,6 +90,14 @@ router.get('/playlist', function(req, res) {
             res.json();
         }
     }
+});
+
+router.post('/playlist/:id/dismissrecommendation', function (req, res) {
+    var collection = req.db.get('usercollection');
+
+    collection.update({username: req.user.username}, {$push: {dismissedrecommendation: req.params.id}}, function () {
+        res.json();
+    });
 });
 
 router.get('/tag', function(req, res) {

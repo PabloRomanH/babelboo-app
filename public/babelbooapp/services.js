@@ -58,12 +58,12 @@
 
         service.getRelated = function(playlistId) {
             return $http.get('/api/playlist?related=' + playlistId);
-        }
+        };
 
         service.getWithTagLevel = function (tag, level) {
             var query = '/api/playlist/?tags=' + tag + '&level=' + level;
             return $http.get(query);
-        }
+        };
 
         service.getRecommended = function (numResults, level) {
             var query = '/api/playlist?recommended=true&num_results=' + numResults;
@@ -73,7 +73,12 @@
             }
 
             return $http.get(query);
-        }
+        };
+
+        service.dismissRecommendation = function (playlistId, callback) {
+            $http.post('/api/playlist/' + playlistId + '/dismissrecommendation')
+                .success(callback);
+        };
 
         return service;
     });
@@ -95,7 +100,7 @@
             } else {
                 getRank(callback);
             }
-        }
+        };
 
         function getRank(callback) {
             $http.get('/api/ranking/alltime').success(function(data) {

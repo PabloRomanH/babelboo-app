@@ -44,14 +44,22 @@
             getList();
         }
 
+        this.dismiss = function(playlistId) {
+            playlists.dismissRecommendation(playlistId, updateRecommended);
+        }
+
         tags.getTags(function(data){
             controller.tags = data;
         });
 
-        playlists.getRecommended(NUM_RECOMMENDED_RESULTS).success(function(data) {
-            controller.recommended = data;
-            controller.showRecommended = isRecommendedVisible();
-        });
+        updateRecommended();
+
+        function updateRecommended() {
+            playlists.getRecommended(NUM_RECOMMENDED_RESULTS).success(function(data) {
+                controller.recommended = data;
+                controller.showRecommended = isRecommendedVisible();
+            });
+        }
 
         getList();
 
