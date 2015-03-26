@@ -70,6 +70,11 @@
          Progress
        </a>
      </li>
+     <li ng-show="navbarCtrl.userLogged">
+       <a href="" ng-click="navbarCtrl.toggleFeedbackForm()">
+         Give us your opinion
+       </a>
+     </li>
      <li class="collection-item" ng-show="navbarCtrl.userLogged"><a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a></li>
      <li ng-show="navbarCtrl.showRegister"><a href="/register">Register</a></li>
    </ul>

@@ -39,11 +39,19 @@
         return service;
     });
 
-    app.controller('FeedbackController', function($location, user, submitFeedback){
+    app.controller('FeedbackController', function($location, $scope, $rootScope, user, submitFeedback){
         this.user = {};
         var controller = this;
         controller.userLogged = false;
         controller.formVisible = false;
+
+        $scope.$on('$routeChangeSuccess', function() {
+            controller.formVisible = false;
+        });
+
+        $rootScope.$on('feedback.toggle', function () {
+            controller.toggleForm()
+        });
 
         user.fillUser(function (user) {
             controller.user = user;
