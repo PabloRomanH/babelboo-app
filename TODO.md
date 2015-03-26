@@ -27,6 +27,8 @@ send email
     Don't send recommended feature email to cristinela, laura and castillocarlos.
 
 # Next release:
+Keep track of recommendations use.
+
 
 # For future releases:
 - remove passport sessions from the test database after running the tests
