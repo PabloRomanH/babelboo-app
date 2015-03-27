@@ -4,12 +4,12 @@
         var controller = this;
         this.playlists = null;
         this.recommended = null;
-        this.tags = []
+        this.tags = [];
         this.selectedLevel = -1;
         this.selectedTag = '';
         controller.levelNames = levelNames.names;
         controller.renderTime = renderTime;
-        controller.userData = {}
+        controller.userData = {};
         controller.showRecommended = false;
         controller.recommended = [];
 
@@ -31,7 +31,7 @@
 
             updateRecommended();
             getList();
-        }
+        };
 
         this.toggleTag = function(tag) {
             if (tag == this.selectedTag) {
@@ -44,11 +44,19 @@
             }
 
             getList();
-        }
+        };
 
         this.dismiss = function(playlistId) {
             playlists.dismissRecommendation(playlistId, updateRecommended);
-        }
+        };
+
+        this.playClicked = function (isRecommendation, slug) {
+            if (isRecommendation) {
+                $analytics.eventTrack('recommendation', {category: 'startPlaylist', label: slug});
+            } else {
+                $analytics.eventTrack('newest', {category: 'startPlaylist', label: slug});
+            }
+        };
 
         tags.getTags(function(data){
             controller.tags = data;

@@ -98,25 +98,25 @@
                 return hours + ':' + minutes + ':' + seconds;
             }
             return minutes + ':' + seconds;
-        }
+        };
 
         this.add = function(video) {
             video.answers = [{text: ''},{text: ''},{text: ''}];
             addedVideos.push(angular.copy(video));
-        }
+        };
 
         this.rmvideo = function(index) {
             addedVideos.splice(index, 1);
-        }
+        };
 
         this.addanswer = function (video) {
             video.answers.push({text: ''})
-        }
+        };
 
         this.rmanswer = function (video, answeridx) {
             if (video.answers.length > 3)
                 video.answers.splice(answeridx, 1);
-        }
+        };
 
         function parseTime(timestr) {
             var re = /(?:(\d+):)?(\d+)/;
