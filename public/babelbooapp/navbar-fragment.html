@@ -1,4 +1,4 @@
-<div class="navbar-fixed">
+<div class="navbar-fixed" ng-controller="NavbarController as navbarCtrl">
   <nav class="primary-bg">
      <div class="nav-wrapper primary-bg">
        <a href="#" data-activates="mobile-demo" class="button-collapse" ng-show="navbarCtrl.userLogged"><i class="fa fa-bars" ng-click="showSideNavbar = true"></i></a>
@@ -68,6 +68,11 @@
      <li ng-show="navbarCtrl.userLogged">
        <a href="/progress" ng-click="navbarCtrl.pointsClicked()">
          Progress
+       </a>
+     </li>
+     <li ng-show="navbarCtrl.userLogged">
+       <a href="" ng-click="navbarCtrl.toggleFeedbackForm()">
+         Give us your opinion
        </a>
      </li>
      <li class="collection-item" ng-show="navbarCtrl.userLogged"><a href="/logout" target="_self"><i class="fa fa-sign-out"></i>&nbsp;Logout</a></li>
