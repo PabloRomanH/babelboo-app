@@ -900,7 +900,7 @@ player-card .title-cine p {
     cursor: pointer;
     width: 100%;
     position: absolute;
-    margin-top: -15px; /* clickable height */
+    margin-top: -14px; /* clickable height */
 }
 
 .video-progress .background {
