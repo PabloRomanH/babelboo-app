@@ -52,6 +52,11 @@
             }
         }
 
+        controller.toggleFeedbackForm = function () {
+            console.log('emiting');
+            $rootScope.$emit('feedback.toggle');
+        }
+
         function init() {
             ranking.getUserRank(updateMedalsAndRank);
             controller.showRegister = false;
