@@ -7,30 +7,23 @@ Release cycle:
 - Repeat
 
 Deploy:
+
 write email
-db.playlists.update({}, {$set: {published: true}}, {multi:true})
-db.usercollection.update({}, {$set: {abtesting: {showrecommendations: true}}}, {multi:true})
-db.usercollection.update({nickname: 'laurahortal'}, {$set: {'abtesting.showrecommendations': false}})
-db.usercollection.update({nickname: 'castillomartinezcarlos'}, {$set: {'abtesting.showrecommendations': false}})
-db.usercollection.update({nickname: 'cristinela'}, {$set: {'abtesting.showrecommendations': false}})
-check that abtesting is properly set for the subjects
 git stuff
     git fetch
     git merge origin/master
 npm install
 npm test
-change dates of playlists for the experiment to mix the playlists of the different subjects.
 restart node
     forever restartall
 manual testing
 send email
-    Don't send recommended feature email to cristinela, laura and castillocarlos.
 
 # Next release:
 
 # For future releases:
-- remove passport sessions from the test database after running the tests
 - script that emails us when a video is missing: mark the playlist as not published.
+- remove passport sessions from the test database after running the tests
 - /api/user only returns playlistprogress when requested
 - user service only returns (and downloads) playlistprogress when requested.
 - Playlists infinite scrolling.
