@@ -9,13 +9,13 @@
         var deferred = $q.defer();
 
         // Make an AJAX call to check if the user is logged in
-        $http.get('/loggedin').success(function(user){
+        $http.get('/loggedin').success(function(user) {
             if (user !== '0') { // Authenticated
                 if($location.path() == '/login') {
                     $timeout(function(){deferred.reject();}, 0);
                     $location.url('/');
                 } else {
-                    $timeout(deferred.resolve, 0);
+                    deferred.resolve(user);
                 }
             } else { // Not Authenticated
                 if($location.path() != '/login') {
@@ -27,7 +27,46 @@
                 }
             }
         });
+
+        return deferred.promise;
     };
+
+    var getUser = function($q, $http, $timeout) {
+        var deferred = $q.defer();
+
+        // Make an AJAX call to check if the user is logged in
+        $http.get('/loggedin').success(function(user) {
+            if (user !== '0') { // Authenticated
+                $timeout(function () {
+                    deferred.resolve(user);
+                }, 0);
+            } else { // Not Authenticated
+                $timeout(function () {
+                    deferred.resolve(null);
+                }, 0);
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    var getPlaylist = function ($q, $timeout, $route, $location, playlists) {
+        var playlistId = $route.current.params.playlistId;
+        var deferred = $q.defer();
+
+        playlists.getPlaylist(playlistId, function (data) {
+            if (data._id == playlistId) {
+                $timeout(function(){deferred.reject();}, 0);
+                $location.url('/play/' + data.slug);
+            } else {
+                $timeout(function () {
+                    deferred.resolve(data);
+                }, 0);
+            }
+        });
+
+        return deferred.promise;
+    }
 
     app.factory('submitFeedback', function($http) {
         var service;
@@ -110,7 +149,12 @@
                 }
             }).
             when('/play/:playlistId', {
-                templateUrl: '/babelbooapp/play/play-fragment.html'
+                templateUrl: '/babelbooapp/play/play-fragment.html',
+                controller: 'PlayController as playCtrl',
+                resolve: {
+                    userData: getUser,
+                    playlistData: getPlaylist
+                }
             }).
             when('/tv', {
                 templateUrl: '/babelbooapp/tv/tv-fragment.html'

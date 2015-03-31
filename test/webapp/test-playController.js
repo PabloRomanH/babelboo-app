@@ -23,7 +23,6 @@ describe("play controller", function() {
     var ctrl;
     var scope;
     var analytics;
-    var routeParams;
     var location;
     var playlists;
     var SLUG = 'a-slug';
@@ -48,30 +47,18 @@ describe("play controller", function() {
             eventTrack: sinon.spy()
         };
 
-        routeParams = {
-            playlistId: "123A"
-        };
-
-        playlists = {
-            getPlaylist: function (playlistIdOrSlug, callback) {
-                callback(playlist);
-            }
-        };
-
         location = {
             path: sinon.spy()
         };
 
         ctrl = $controller('PlayController', {
-            user: user,
-            playlists: playlists,
             $scope: scope,
-            $routeParams: routeParams,
             $analytics: analytics,
-            $location: location
+            $location: location,
+            userData: userData,
+            playlistData: playlist
         });
     }));
-
 
     it('loads playlist', function() {
         expect(ctrl.playlist).to.equal(playlist);
@@ -79,10 +66,6 @@ describe("play controller", function() {
 
     it('sets playlistId', function() {
         expect(ctrl.playlist).to.deep.equal(playlist);
-    });
-
-    it('sets path to point slug', function() {
-        expect(location.path.calledWithExactly('/play/' + SLUG)).to.be.true;
     });
 
     afterEach (function() {

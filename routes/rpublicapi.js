@@ -29,9 +29,9 @@ router.get('/playlist/:id_or_slug', function(req, res) {
     var collection = req.db.get('playlists');
     var idOrSlug = req.params.id_or_slug;
 
-    try {
-        collection.find({slug: idOrSlug}, {}, function (err, result) {
-            if (result.length < 1) {
+    collection.find({slug: idOrSlug}, {}, function (err, result) {
+        if (result.length < 1) {
+            try {
                 collection.find({_id: idOrSlug}, {}, function (err, result) {
                     if (result.length < 1) {
                         res.status(404);
@@ -40,16 +40,16 @@ router.get('/playlist/:id_or_slug', function(req, res) {
                         res.json( result[0] );
                     }
                 });
-            } else {
-                res.json( result[0] );
+            } catch (err) {
+                console.log(err);
+                res.status(500);
+                res.json({ error: { message: 'Internal server error', code: 500 }});
+                return;
             }
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(500);
-        res.json({ error: { message: 'Internal server error', code: 500 }});
-        return;
-    }
+        } else {
+            res.json( result[0] );
+        }
+    });
 });
 
 router.post('/playlist/:playlist_id/increasevisitcount', function(req, res) {

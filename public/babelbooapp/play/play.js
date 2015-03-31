@@ -1,10 +1,10 @@
 (function() {
     var app = angular.module('player', ['youtube-embed']);
 
-    app.controller('PlayController', function($routeParams, $analytics, $rootScope, $scope, $location, user, playlists, renderTime, levelNames) {
+    app.controller('PlayController', function($analytics, $rootScope, $scope,
+                                              $location, renderTime, levelNames,
+                                              userData, playlistData) {
         var controller = this;
-        var playlistId = $routeParams.playlistId;
-        var playlistRetrieved = false;
         controller.userLogged = false;
         controller.correctAnswers = 0;
         controller.ready = false;
@@ -21,32 +21,24 @@
         controller.playerVars = { autoplay: 1, controls: 0, rel: 0, cc_load_policy: 0 };
         controller.player = null;
 
-        playlists.getPlaylist(playlistId, function (data) {
-            if (data._id == playlistId) {
-                $location.path('/play/' + data.slug);
+        controller.correct = {};
+
+        controller.playlist = playlistData;
+        controller.videos = playlistData.entries;
+        playlistId = playlistData._id;
+        resetVideo();
+
+        if (userData) {
+            if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
+                angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
             }
 
-            controller.playlist = data;
-            controller.videos = data.entries;
-            playlistId = data._id;
-            resetVideo();
+            for (var key in controller.correct) {
+                controller.correctAnswers++;
+            }
 
-            playlistRetrieved = true;
-
-            user.fillUser(function (userData) {
-                controller.correct = {};
-
-                if (userData.playlistprogress && userData.playlistprogress[playlistId]) {
-                    angular.copy(userData.playlistprogress[playlistId].correct, controller.correct);
-                }
-
-                for (var key in controller.correct) {
-                    controller.correctAnswers++;
-                }
-
-                controller.userLogged = true;
-            });
-        });
+            controller.userLogged = true;
+        }
 
         function resetVideo () {
             if (controller.idx >= controller.videos.length) {
