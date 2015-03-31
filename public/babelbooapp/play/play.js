@@ -2,8 +2,8 @@
     var app = angular.module('player', ['youtube-embed']);
 
     app.controller('PlayController', function($analytics, $rootScope, $scope,
-                                              $location, renderTime, levelNames,
-                                              userData, playlistData) {
+                                              $location, user, renderTime, levelNames,
+                                              playlists, userData, playlistData) {
         var controller = this;
         controller.userLogged = false;
         controller.correctAnswers = 0;

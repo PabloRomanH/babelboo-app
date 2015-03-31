@@ -56,7 +56,9 @@ describe("play controller", function() {
             $analytics: analytics,
             $location: location,
             userData: userData,
-            playlistData: playlist
+            playlistData: playlist,
+            playlists: {},
+            user: sinon.spy()
         });
     }));
 
