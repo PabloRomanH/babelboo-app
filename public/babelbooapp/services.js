@@ -5,10 +5,14 @@
         var service = {};
         service.data = 0;
 
-        service.fillUser = function(callback) {
+        service.fillUser = function(successcb, errorcb) {
             $http.get('/api/user').success(function(data) {
                 service.data = data;
-                callback(service.data);
+                successcb(service.data);
+            }).error(function () {
+                if (errorcb) {
+                    errorcb();
+                }
             });
         }
 
@@ -91,24 +95,28 @@
             return $http.get('/api/ranking/' + period);
         };
 
-        service.getUserRank = function(callback) {
+        service.getUserRank = function(successcb, errorcb) {
             if (username == null) {
                 user.fillUser(function (user) {
                     username = user.username;
-                    getRank(callback);
-                });
+                    getRank(successcb, errorcb);
+                }, errorcb);
             } else {
-                getRank(callback);
+                getRank(successcb, errorcb);
             }
         };
 
-        function getRank(callback) {
+        function getRank(successcb, errorcb) {
             $http.get('/api/ranking/alltime').success(function(data) {
                 for(var i = 0; i < data.length; i++) {
                     if (data[i].username == username) {
-                        callback(data[i]);
+                        successcb(data[i]);
                         break;
                     }
+                }
+            }).error(function () {
+                if (errorcb) {
+                    errorcb();
                 }
             });
         }

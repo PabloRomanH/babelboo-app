@@ -36,7 +36,7 @@
            </a>
          </li>
        </ul>
-       <ul class="right" ng-hide="navbarCtrl.userLogged">
+       <ul class="right" ng-show="navbarCtrl.userNotLogged">
          <li>
            <a ng-click="navbarCtrl.toggleForm()">
              Login
@@ -87,7 +87,7 @@
    </div>
 
 
-   <div class="pull-right" id="login-bubble" ng-controller="LoginController as loginCtrl" ng-show="navbarCtrl.formVisible && !navbarCtrl.userLogged">
+   <div class="pull-right" id="login-bubble" ng-controller="LoginController as loginCtrl" ng-show="navbarCtrl.formVisible && navbarCtrl.userNotLogged">
      <div>
        <a class="waves-effect waves-light btn-flat facebook" href="/login/facebook" target="_self"><i class="fa fa-facebook left"></i>Entrar con Facebook</a>
      </div>

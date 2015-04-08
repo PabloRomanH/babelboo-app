@@ -1,8 +1,10 @@
 (function() {
     var app = angular.module('navbar', []);
-    app.controller('NavbarController', function($analytics, $route, $location, $rootScope, $scope, ranking) {
+    app.controller('NavbarController', function($analytics, $route, $location,
+                                                $rootScope, $scope, ranking) {
         var controller = this;
         controller.nickname = '';
+        controller.userNotLogged = false;
         controller.showLogout = false;
         controller.userLogged = false;
         controller.formVisible = false;
@@ -58,10 +60,10 @@
         }
 
         function init() {
-            ranking.getUserRank(updateMedalsAndRank);
+            ranking.getUserRank(updateMedalsAndRank, notLogged);
             controller.showRegister = false;
 
-            if (($location.path() == '/tv' || $location.path().match(/^\/play/)) && !controller.userLogged) {
+            if (($location.path() == '/tv' || $location.path().match(/^\/play\//)) && !controller.userLogged) {
                 controller.showRegister = true;
             }
         }
@@ -79,8 +81,14 @@
                     controller.avatar = rank.avatar.small + '?' + new Date().getTime();
                 }
             }
+
             controller.userLogged = true;
             controller.showRegister = false;
+            controller.userNotLogged = false;
+        }
+
+        function notLogged() {
+            controller.userNotLogged = true;
         }
     });
 
